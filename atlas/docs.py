@@ -31,6 +31,10 @@ def _maps_to(axis_indicator) -> str:
         return f"{len(signal['terms'])} terms, banded by count"
     if signal.get("type") == "path_presence":
         return f"present {signal['present']:+g}, absent {signal['absent']:+g}"
+    if signal.get("type") == "git_stats":
+        return f"git {signal['metric']}, banded by count"
+    if signal.get("type") == "github_api":
+        return f"{signal['metric']} via GitHub API, banded by count"
     return ""
 
 

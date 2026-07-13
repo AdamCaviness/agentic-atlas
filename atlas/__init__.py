@@ -9,4 +9,4 @@ The public surface is intentionally small:
     from atlas.scoring import score_axis, score_profile
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.0"  # x-release-please-version

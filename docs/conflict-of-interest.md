@@ -2,7 +2,7 @@
 
 ## The problem
 
-The author of Atlas also maintains [agentic-toolkit](https://github.com/adamavo/agentic-toolkit), which is itself a valid profiling target. A rubric that grades competitors while its author ships a competing tool invites the obvious criticism, and that criticism should be met structurally, not with a promise of good intentions.
+The author of Atlas also maintains [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit), which is itself a valid profiling target. A rubric that grades competitors while its author ships a competing tool invites the obvious criticism, and that criticism should be met structurally, not with a promise of good intentions.
 
 ## The defenses, built into the process
 

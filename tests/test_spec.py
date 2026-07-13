@@ -14,6 +14,7 @@ _EXPECTED_AXES = [
     "prototype-vs-production",
     "solo-vs-team",
     "generalist-vs-specialist",
+    "fresh-vs-mature",
     "interrogative-vs-opinionated",
     "autonomous-vs-human-in-loop",
     "spec-light-vs-spec-driven",
@@ -26,7 +27,7 @@ _EXPECTED_AXES = [
 
 def test_shipped_rubric_validates_and_parses():
     r = load_rubric(_RUBRIC, validate=True)
-    assert r.rubric_version == "1.0.0"
+    assert r.rubric_version == "1.1.0"
     assert {a.id for a in r.axes} == set(_EXPECTED_AXES)
 
 

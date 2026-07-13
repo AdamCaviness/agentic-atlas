@@ -138,7 +138,7 @@ atlas profile /path/to/some-workflow --judge manual --answers answers.yaml --for
 atlas compare bmad-method superpowers gsd
 ```
 
-The `/atlas` skill in [agentic-toolkit](https://github.com/adamavo/agentic-toolkit) wraps this engine, runs it locally on the user's machine, and prints a report without persisting anything.
+The `/atlas` skill in [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit) wraps this engine, runs it locally on the user's machine, and prints a report without persisting anything.
 
 ## Spec plus interpreter
 
@@ -151,7 +151,7 @@ Every emitted profile stamps the **rubric version**, **engine version**, **targe
 
 ## Fairness and conflict of interest
 
-The author also ships [agentic-toolkit](https://github.com/adamavo/agentic-toolkit), itself a profilable target. Credibility is defended structurally, not by promise: agentic-toolkit is profiled publicly with the same rubric and no special path, rubric changes are pull requests with written rationale and a version bump, any profiled project may contest a specific indicator via an issue, and there is no aggregate score to tilt. See `docs/conflict-of-interest.md`.
+The author also ships [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit), itself a profilable target. Credibility is defended structurally, not by promise: agentic-toolkit is profiled publicly with the same rubric and no special path, rubric changes are pull requests with written rationale and a version bump, any profiled project may contest a specific indicator via an issue, and there is no aggregate score to tilt. See `docs/conflict-of-interest.md`.
 
 ## Status
 

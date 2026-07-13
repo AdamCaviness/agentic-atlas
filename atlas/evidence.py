@@ -1,15 +1,33 @@
 """Gather evidence from a target and resolve measured indicators.
 
-Measured indicators are deterministic: the engine computes them directly from the
-repository with no model. Two signal types are supported today, ``vocabulary`` and
-``path_presence``. Adding a signal type means extending ``resolve_measured`` and the
-schema, and is a rubric-affecting change only if an existing rubric starts using it.
+Measured indicators are deterministic given their input: the engine computes them
+directly from the repository with no model. Signal types supported today:
+
+- ``vocabulary``    term density across the text corpus, banded by count.
+- ``path_presence`` glob matches to a present/absent value.
+- ``git_stats``     a fact read from the target's git history (commit count,
+  contributors, age, tags), banded to a value.
+- ``github_api``    a point-in-time fact from the GitHub host API for the origin
+  remote (stars, forks, watchers, open issues), banded to a value.
+
+``git_stats`` and ``github_api`` can fail to resolve (no git history, no origin
+remote, no network). When that happens the indicator is marked unresolved and
+counted against coverage rather than crashing the profile. ``github_api`` is
+point-in-time and not pinned by the target SHA, so the fetched value is recorded
+verbatim as evidence, which is the honesty signal for a mutable host fact.
+
+Adding a signal type means extending ``resolve_measured`` and the schema, and is a
+rubric-affecting change only if an existing rubric starts using it.
 """
 
 from __future__ import annotations
 
+import json
+import os
 import re
 import subprocess
+import urllib.error
+import urllib.request
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -69,17 +87,53 @@ class Target:
             raise NotADirectoryError(f"target is not a directory: {root}")
         return cls(root=root)
 
-    def git_sha(self) -> str | None:
+    def _run_git(self, *args: str) -> str | None:
         try:
             out = subprocess.run(
-                ["git", "-C", str(self.root), "rev-parse", "HEAD"],
+                ["git", "-C", str(self.root), *args],
                 capture_output=True,
                 text=True,
                 timeout=10,
             )
-            return out.stdout.strip() or None if out.returncode == 0 else None
         except (OSError, subprocess.SubprocessError):
             return None
+        return out.stdout.strip() if out.returncode == 0 else None
+
+    def git_sha(self) -> str | None:
+        return self._run_git("rev-parse", "HEAD") or None
+
+    def git_metric(self, metric: str) -> int | float | None:
+        """Return a deterministic git-history metric, or None if unavailable.
+
+        ``age_days`` spans the first commit to HEAD (git log lists newest first),
+        so it is a function of the checked-out history, not of wall-clock now.
+        """
+        if metric == "commit_count":
+            out = self._run_git("rev-list", "--count", "HEAD")
+            return int(out) if out and out.isdigit() else None
+        if metric == "contributor_count":
+            out = self._run_git("log", "--format=%ae")
+            if not out:
+                return None
+            return len({line.strip() for line in out.splitlines() if line.strip()})
+        if metric == "tag_count":
+            out = self._run_git("tag", "--list")
+            if out is None:
+                return None
+            return len([line for line in out.splitlines() if line.strip()])
+        if metric == "age_days":
+            out = self._run_git("log", "--format=%ct")
+            if not out:
+                return None
+            stamps = [int(x) for x in out.splitlines() if x.strip().isdigit()]
+            if not stamps:
+                return None
+            return (stamps[0] - stamps[-1]) / 86400.0
+        return None
+
+    def github_slug(self) -> tuple[str, str] | None:
+        url = self._run_git("remote", "get-url", "origin")
+        return _parse_github_slug(url) if url else None
 
     def _files(self) -> list[Path]:
         files: list[Path] = []
@@ -115,7 +169,29 @@ def resolve_measured(indicator: Indicator, target: Target) -> IndicatorResult:
         return _resolve_vocabulary(indicator, target, signal)
     if stype == "path_presence":
         return _resolve_path_presence(indicator, target, signal)
+    if stype == "git_stats":
+        return _resolve_git_stats(indicator, target, signal)
+    if stype == "github_api":
+        return _resolve_github_api(indicator, target, signal)
     raise ValueError(f"unknown measured signal type {stype!r} for indicator {indicator.id}")
+
+
+def _unresolved_measured(indicator: Indicator, reason: str) -> IndicatorResult:
+    """A measured indicator the engine could not compute (missing git/network).
+
+    Marked unresolved so it is excluded from scoring and counted against coverage,
+    exactly like an unanswered classified indicator.
+    """
+    return IndicatorResult(
+        indicator_id=indicator.id,
+        kind=IndicatorKind.MEASURED,
+        weight=indicator.weight,
+        value=None,
+        resolved=False,
+        answer=None,
+        evidence=reason,
+        source="engine",
+    )
 
 
 def _resolve_vocabulary(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
@@ -159,5 +235,92 @@ def _resolve_path_presence(indicator: Indicator, target: Target, signal: dict) -
         resolved=True,
         answer="present" if present else "absent",
         evidence=evidence,
+        source="engine",
+    )
+
+
+def _resolve_git_stats(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
+    metric = signal["metric"]
+    raw = target.git_metric(metric)
+    if raw is None:
+        return _unresolved_measured(
+            indicator, f"git metric {metric!r} unavailable (target has no git history)"
+        )
+    value = _band_value(raw, signal["bands"])
+    answer = f"{raw:.1f}" if isinstance(raw, float) else str(raw)
+    return IndicatorResult(
+        indicator_id=indicator.id,
+        kind=IndicatorKind.MEASURED,
+        weight=indicator.weight,
+        value=value,
+        resolved=True,
+        answer=answer,
+        evidence=f"git {metric} = {answer}",
+        source="engine",
+    )
+
+
+_GITHUB_METRIC_KEYS = {
+    "stars": "stargazers_count",
+    "forks": "forks_count",
+    "watchers": "subscribers_count",
+    "open_issues": "open_issues_count",
+}
+
+
+def _parse_github_slug(url: str) -> tuple[str, str] | None:
+    """Extract (owner, repo) from an https or ssh GitHub remote URL, or None."""
+    m = re.search(r"github\.com[:/]+([^/]+)/([^/]+?)(?:\.git)?/?$", url.strip())
+    return (m.group(1), m.group(2)) if m else None
+
+
+@lru_cache(maxsize=64)
+def _fetch_github_repo(owner: str, repo: str) -> dict | None:
+    """Fetch the repo object from the GitHub API, or None on any failure.
+
+    Uses ``GITHUB_TOKEN``/``GH_TOKEN`` if present (higher rate limit). Returns None
+    on missing network, non-200, timeout, or malformed JSON so callers degrade to
+    an unresolved indicator rather than raising.
+    """
+    request = urllib.request.Request(
+        f"https://api.github.com/repos/{owner}/{repo}",
+        headers={
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "agentic-workflow-atlas",
+        },
+    )
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if token:
+        request.add_header("Authorization", f"Bearer {token}")
+    try:
+        with urllib.request.urlopen(request, timeout=10) as resp:
+            if resp.status != 200:
+                return None
+            return json.loads(resp.read().decode("utf-8"))
+    except (urllib.error.URLError, OSError, ValueError, TimeoutError):
+        return None
+
+
+def _resolve_github_api(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
+    slug = target.github_slug()
+    if slug is None:
+        return _unresolved_measured(indicator, "no GitHub origin remote on target")
+    data = _fetch_github_repo(*slug)
+    if data is None:
+        return _unresolved_measured(indicator, "GitHub API unavailable (no network or rate limited)")
+    key = _GITHUB_METRIC_KEYS[signal["metric"]]
+    raw = data.get(key)
+    if not isinstance(raw, (int, float)):
+        return _unresolved_measured(indicator, f"GitHub API response missing {key!r}")
+    value = _band_value(raw, signal["bands"])
+    owner, repo = slug
+    return IndicatorResult(
+        indicator_id=indicator.id,
+        kind=IndicatorKind.MEASURED,
+        weight=indicator.weight,
+        value=value,
+        resolved=True,
+        answer=str(raw),
+        evidence=f"{signal['metric']} = {raw} for {owner}/{repo} via GitHub API",
         source="engine",
     )

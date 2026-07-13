@@ -86,7 +86,10 @@ standard software semver. See `docs/versioning.md`.
 - Deterministic weighted-scoring core (`atlas/scoring.py`), pure arithmetic.
 - Evidence collectors (`atlas/evidence.py`): `vocabulary` and `path_presence`,
   with a recursive glob matcher (fnmatch does not handle `**`; this was a real
-  bug that mis-scored path-presence axes).
+  bug that mis-scored path-presence axes). Plus `git_stats` (commit count,
+  contributor count, age in days, tag count) and `github_api` (stars, forks,
+  watchers, open issues) which resolve to unresolved (counted against coverage)
+  when there is no git history, no origin remote, or no network.
 - Judges (`atlas/judge.py`): `NoneJudge` (measured-only), `ManualJudge` (answers
   file), `AnthropicJudge` (built but untested end to end).
 - Orchestration (`atlas/profiler.py`), reports text/markdown/JSON (`atlas/report.py`).
@@ -94,7 +97,10 @@ standard software semver. See `docs/versioning.md`.
 - CLI (`atlas/cli.py`): `validate`, `docs`, `profile`.
 - Makefile: `setup test lint fmt check validate docs docs-check profile
   self-profile clean`. `make check` = lint + docs-check + test.
-- 19 tests passing.
+- release-please wired for the engine version (`release-type: python`, config +
+  manifest at repo root, workflow in `.github/workflows/`). Conventional commits
+  drive the bump; the workflow auto-merges the release PR (matches agentic-toolkit).
+- 31 tests passing.
 
 Verify with: `cd ~/_opensource/agentic-workflow-atlas && make check`
 
@@ -103,19 +109,20 @@ Note on measured-only profiles: they saturate toward the poles at low coverage
 reported coverage percentage is the honesty signal; full positions need the
 classified indicators answered.
 
-## The v1 axis set (12, curated)
+## The v1 axis set (13, curated)
 
-Grouped for a readable radar:
+Grouped for a readable radar (rubric is at 1.1.0):
 
 - Context: greenfield-vs-brownfield, small-scope-vs-large-scope,
-  prototype-vs-production, solo-vs-team, generalist-vs-specialist
+  prototype-vs-production, solo-vs-team, generalist-vs-specialist,
+  fresh-vs-mature (added in 1.1.0, uses `git_stats` + `github_api`)
 - Style: interrogative-vs-opinionated, autonomous-vs-human-in-loop
 - Process: spec-light-vs-spec-driven, test-optional-vs-test-first
 - Architecture: single-agent-vs-multi-agent, prescriptive-vs-composable
 - Footprint: lightweight-vs-heavyweight
 
-Deferred/backlog (with reasons in `rubric/v1/CHANGELOG.md`): fresh-vs-mature
-(needs collectors), model-agnostic-vs-model-specific, permissive-vs-guardrailed,
+Deferred/backlog (with reasons in `rubric/v1/CHANGELOG.md`):
+model-agnostic-vs-model-specific, permissive-vs-guardrailed,
 stateless-vs-stateful, conversational-vs-command-driven,
 single-pass-vs-review-looped, bare-vs-integration-heavy, informal-vs-ceremonial,
 magic-vs-mechanical, fast-start-vs-high-setup, and the audience axes. Dropped:
@@ -126,10 +133,12 @@ before v1 is treated as stable.
 
 ## Next steps (priority order)
 
-1. **Add evidence collectors for deterministic facts.** A `git_stats` collector
-   (repo age, commit count, contributors, tag/release cadence) and a `github_api`
-   collector (stars, forks). Extend `axis.schema.json` with the new signal types,
-   add tests, then author the **fresh-vs-mature** axis directory to use them.
+1. **[DONE, rubric 1.1.0]** `git_stats` + `github_api` collectors and the
+   **fresh-vs-mature** axis. Schema extended with both signal types (a shared
+   `bands` def), evidence collectors added, 12 new tests (git via a temp repo,
+   GitHub via a mocked fetch), axis authored with 5 measured + 1 classified
+   indicators so it scores meaningfully measured-only. Smoke-tested live against
+   agentic-toolkit (stars fetched, all git metrics resolved).
 2. **Wire the classified judge end to end.** `AnthropicJudge` exists but is
    untested. Add a small integration path and a `--judge anthropic` smoke test
    (guard network/key). Use low temperature and record the model id.
@@ -139,12 +148,21 @@ before v1 is treated as stable.
    runs locally, and prints a non-persisted report. Same single code path.
 5. **Publish the self-eval.** Once the axis set stabilizes, generate the public
    profile of agentic-toolkit into `profiles/` with no special treatment.
+6. **Build a corpus and study axis correlation, then personas and viz.** Profile
+   10 to 15 real workflows, compute the correlation matrix, and use it to drive
+   axis merges, adjacency ordering, and grounded personas. The correlation study
+   is the prerequisite that makes the persona-fit feature and any 3D map honest.
+   Full design in `specs/personas-correlation-ordering.md`.
+
+Related design notes: `specs/personas-correlation-ordering.md` (personas as a
+layer above the rubric, axis correlation as a measured hypothesis, output
+ordering, and the 2D/3D visualization plan).
 
 ## Open decisions to raise with the user
 
-- **GitHub org/owner.** README and schema `$id` links currently guess `adamavo`.
-  Confirm and fix if wrong.
-- **release-please** for the engine version, matching agentic-toolkit's setup.
+- **[RESOLVED]** GitHub org/owner is `adamcaviness`. README, COI doc, and both
+  schema `$id` links updated from the `adamavo` placeholder.
+- **[RESOLVED]** release-please is set up for the engine version.
 - When authoring new axes, watch correlation with existing ones; the risk is
   dilution, not coverage. Prefer merging over adding a near-duplicate.
 
