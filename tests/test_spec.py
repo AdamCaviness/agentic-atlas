@@ -8,23 +8,31 @@ from atlas.spec import load_rubric
 _RUBRIC = Path(__file__).resolve().parent.parent / "rubric" / "v1"
 
 
+_EXPECTED_AXES = [
+    "greenfield-vs-brownfield",
+    "small-scope-vs-large-scope",
+    "prototype-vs-production",
+    "solo-vs-team",
+    "generalist-vs-specialist",
+    "interrogative-vs-opinionated",
+    "autonomous-vs-human-in-loop",
+    "spec-light-vs-spec-driven",
+    "test-optional-vs-test-first",
+    "single-agent-vs-multi-agent",
+    "prescriptive-vs-composable",
+    "lightweight-vs-heavyweight",
+]
+
+
 def test_shipped_rubric_validates_and_parses():
     r = load_rubric(_RUBRIC, validate=True)
     assert r.rubric_version == "1.0.0"
-    assert {a.id for a in r.axes} == {
-        "greenfield-vs-brownfield",
-        "interrogative-vs-opinionated",
-        "autonomous-vs-human-in-loop",
-    }
+    assert {a.id for a in r.axes} == set(_EXPECTED_AXES)
 
 
 def test_manifest_order_is_preserved():
     r = load_rubric(_RUBRIC)
-    assert [a.id for a in r.axes] == [
-        "greenfield-vs-brownfield",
-        "interrogative-vs-opinionated",
-        "autonomous-vs-human-in-loop",
-    ]
+    assert [a.id for a in r.axes] == _EXPECTED_AXES
 
 
 def test_classified_indicators_have_answers():

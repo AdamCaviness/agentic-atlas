@@ -8,12 +8,47 @@ schema, and is a rubric-affecting change only if an existing rubric starts using
 
 from __future__ import annotations
 
+import re
 import subprocess
 from dataclasses import dataclass
-from fnmatch import fnmatch
+from functools import lru_cache
 from pathlib import Path
 
 from .models import Indicator, IndicatorKind, IndicatorResult
+
+
+@lru_cache(maxsize=256)
+def _glob_regex(pattern: str) -> re.Pattern:
+    """Compile a glob to regex with recursive ``**`` support.
+
+    fnmatch treats ``**`` as ``*`` and does not cross directories usefully, so a
+    pattern like ``**/skills/**`` fails to match a top-level ``skills/`` directory.
+    This translation makes ``**`` match any number of path segments, ``*`` match
+    within a segment, and ``?`` match one non-separator character.
+    """
+    out, i, n = "", 0, len(pattern)
+    while i < n:
+        c = pattern[i]
+        i += 1
+        if c == "*":
+            if i < n and pattern[i] == "*":
+                i += 1
+                if i < n and pattern[i] == "/":
+                    i += 1
+                    out += "(?:.*/)?"
+                else:
+                    out += ".*"
+            else:
+                out += "[^/]*"
+        elif c == "?":
+            out += "[^/]"
+        else:
+            out += re.escape(c)
+    return re.compile(f"^{out}$", re.DOTALL)
+
+
+def _matches(path: str, pattern: str) -> bool:
+    return _glob_regex(pattern).match(path) is not None
 
 # File extensions that make up a workflow's readable surface.
 _TEXT_SUFFIXES = {".md", ".markdown", ".txt", ".yaml", ".yml", ".json", ".toml"}
@@ -110,7 +145,7 @@ def _band_value(count: int, bands: list[dict]) -> float:
 
 def _resolve_path_presence(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
     paths = target.relative_paths()
-    matched = [p for p in paths if any(fnmatch(p, g) for g in signal["globs"])]
+    matched = [p for p in paths if any(_matches(p, g) for g in signal["globs"])]
     present = bool(matched)
     value = float(signal["present"]) if present else float(signal["absent"])
     evidence = (

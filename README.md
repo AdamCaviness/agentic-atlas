@@ -64,18 +64,18 @@ Every axis is a complex measurement built from several indicators. The example i
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
 | **Greenfield ↔ Brownfield** **[v1.0.0]** | Excels from an idea vs excels inside an existing codebase | spec-from-idea first step, codebase-ingestion steps, brownfield vocabulary, small-diff default |
-| **Small-scope ↔ Large-scope** | One task vs the whole delivery lifecycle | phases covered (idea to release), single-command vs multi-stage, role coverage |
-| **Prototype ↔ Production** | Fast throwaway output vs production hardening | testing and review emphasis, CI/deploy awareness, "vibe" vs "production" language |
-| **Solo ↔ Team** | Single developer vs multi-contributor and team-safe | claim/assignment safety, shared state, review handoffs, role personas |
-| **Generalist ↔ Specialist** | Any domain vs software delivery specifically | domain-agnostic framing vs code-specific tooling and vocabulary |
+| **Small-scope ↔ Large-scope** **[v1.0.0]** | One task vs the whole delivery lifecycle | phases covered (idea to release), single-command vs multi-stage, role coverage |
+| **Prototype ↔ Production** **[v1.0.0]** | Fast throwaway output vs production hardening | testing and review emphasis, CI/deploy awareness, "vibe" vs "production" language |
+| **Solo ↔ Team** **[v1.0.0]** | Single developer vs multi-contributor and team-safe | claim/assignment safety, shared state, review handoffs, role personas |
+| **Generalist ↔ Specialist** **[v1.0.0]** | Any domain vs software delivery specifically | domain-agnostic framing vs code-specific tooling and vocabulary |
 | **Fresh ↔ Mature** | New, fast-moving, cutting-edge vs established, stable, battle-tested | repository age, commit count, contributor count, release cadence, stars and forks, breaking-change frequency, test and docs completeness |
 
 ### C. Process and methodology (how it works)
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Spec-light ↔ Spec-driven** | Jumps to code vs plans and specs first | mandatory PRD/plan step, spec artifacts, plan-before-code enforcement |
-| **Test-optional ↔ Test-first** | Testing incidental vs TDD enforced | red-green-refactor language, test-first gates, coverage expectations |
+| **Spec-light ↔ Spec-driven** **[v1.0.0]** | Jumps to code vs plans and specs first | mandatory PRD/plan step, spec artifacts, plan-before-code enforcement |
+| **Test-optional ↔ Test-first** **[v1.0.0]** | Testing incidental vs TDD enforced | red-green-refactor language, test-first gates, coverage expectations |
 | **Informal ↔ Ceremonial** | Minimal ritual vs roles, phases, and agile ceremony | named roles/personas, phase gates, ceremony vocabulary |
 | **Single-pass ↔ Review-looped** | One shot vs built-in critique and iteration | self-review/critic steps, iteration loops, verification stages |
 | **Implementation-first ↔ Planning-first** | Starts building vs invests up front in planning | ordering of first actions, depth of planning artifacts |
@@ -84,8 +84,8 @@ Every axis is a complex measurement built from several indicators. The example i
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Single-agent ↔ Multi-agent** | One conversation vs specialized subagents or personas | subagent usage, persona definitions, orchestration layer |
-| **Prescriptive ↔ Composable** | Fixed pipeline vs pick-and-choose parts | modular skill count, optional vs required steps, dependency between steps |
+| **Single-agent ↔ Multi-agent** **[v1.0.0]** | One conversation vs specialized subagents or personas | subagent usage, persona definitions, orchestration layer |
+| **Prescriptive ↔ Composable** **[v1.0.0]** | Fixed pipeline vs pick-and-choose parts | modular skill count, optional vs required steps, dependency between steps |
 | **Stateless ↔ Stateful** | No memory vs persistent project state and memory | memory files, cross-session state, project-state backing store |
 | **Monolithic-context ↔ Context-partitioned** | One long session vs fresh-context phases | fresh-context spawning, per-phase context isolation, context-rot mitigation |
 | **Bare ↔ Integration-heavy** | Few dependencies vs many MCP servers, hooks, and tools | MCP/hook/integration count, external tool requirements |
@@ -94,7 +94,7 @@ Every axis is a complex measurement built from several indicators. The example i
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Lightweight ↔ Heavyweight** | Small footprint and little ceremony vs large and elaborate | file count, install steps, config surface, concepts to learn |
+| **Lightweight ↔ Heavyweight** **[v1.0.0]** | Small footprint and little ceremony vs large and elaborate | file count, install steps, config surface, concepts to learn |
 | **Context-frugal ↔ Context-hungry** | Token disciplined vs consumes large context | fresh-context patterns, prompt sizes, token-saving mechanisms |
 | **Model-agnostic ↔ Model-specific** | Portable across agents vs tied to one host | multi-host support, Claude-only features, portability claims |
 | **Fast-start ↔ High-setup** | Useful immediately vs significant setup before value | steps to first useful run, prerequisites, configuration required |
