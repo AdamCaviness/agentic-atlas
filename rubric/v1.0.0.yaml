@@ -1,0 +1,118 @@
+rubric_version: 1.0.0
+title: Agentic Workflow Atlas Rubric
+description: >
+  First-cut rubric. Three axes are fully specced. Sign conventions and weights
+  are a proposal and should be reviewed before this version is treated as stable.
+  Any change that can move a score requires a MAJOR bump. See docs/versioning.md.
+
+axes:
+  - id: greenfield_vs_brownfield
+    title: Greenfield vs Brownfield
+    scale: 10
+    poles:
+      negative: greenfield
+      positive: brownfield
+    description: >
+      Where the workflow is strongest. Negative means it excels starting from an
+      idea with no existing product. Positive means it excels working inside an
+      existing codebase.
+    indicators:
+      - id: gb1
+        question: "Is the first mandatory step generating a spec or PRD from an idea, assuming no product exists yet?"
+        kind: classified
+        weight: 3
+        answers: { "yes": -1.0, partial: -0.5, "no": 0.0 }
+      - id: gb2
+        question: "Does it ship explicit steps or agents for ingesting and mapping an existing codebase?"
+        kind: classified
+        weight: 3
+        answers: { "yes": 1.0, partial: 0.5, "no": -0.5 }
+      - id: gb3
+        question: "Density of brownfield vocabulary across docs and commands."
+        kind: measured
+        weight: 2
+        signal:
+          type: vocabulary
+          terms: ["legacy", "migration", "migrate", "refactor", "existing codebase", "brownfield"]
+          bands:
+            - { max_count: 0, value: -1.0 }
+            - { max_count: 5, value: 0.3 }
+            - { max_count: null, value: 1.0 }
+      - id: gb4
+        question: "Is the default unit of work whole-project generation or a targeted small diff?"
+        kind: classified
+        weight: 2
+        answers: { whole_project: -1.0, mixed: 0.0, small_diff: 1.0 }
+      - id: gb5
+        question: "Does onboarding assume a brand new repo, or point at an existing one?"
+        kind: measured
+        weight: 1
+        signal:
+          type: path_presence
+          globs: ["**/brownfield*", "**/*existing*", "**/*legacy*"]
+          present: 1.0
+          absent: -1.0
+
+  - id: interrogative_vs_opinionated
+    title: Interrogative vs Opinionated
+    scale: 10
+    poles:
+      negative: interrogative
+      positive: opinionated
+    description: >
+      How the workflow reaches decisions. Negative means it elicits, asks questions,
+      and defers to the user. Positive means it prescribes a strong default path.
+    indicators:
+      - id: io1
+        question: "Does it run a questioning or brainstorming phase before writing code?"
+        kind: classified
+        weight: 3
+        answers: { "yes": -1.0, partial: -0.5, "no": 0.5 }
+      - id: io2
+        question: "Does it enforce a fixed prescribed pipeline the user is expected to follow?"
+        kind: classified
+        weight: 3
+        answers: { strict: 1.0, guided: 0.3, loose: -0.5 }
+      - id: io3
+        question: "Density of directive vocabulary (must, always, never, required, enforce) in instructions."
+        kind: measured
+        weight: 2
+        signal:
+          type: vocabulary
+          terms: ["must", "always", "never", "required", "enforce", "mandatory"]
+          bands:
+            - { max_count: 3, value: -1.0 }
+            - { max_count: 15, value: 0.3 }
+            - { max_count: null, value: 1.0 }
+
+  - id: autonomous_vs_human_in_loop
+    title: Autonomous vs Human-in-loop
+    scale: 10
+    poles:
+      negative: human_in_loop
+      positive: autonomous
+    description: >
+      How much the workflow runs unattended. Negative means frequent checkpoints and
+      approvals. Positive means autopilot, running end to end with little intervention.
+    indicators:
+      - id: ah1
+        question: "Does it advertise an autonomous or autopilot end-to-end mode?"
+        kind: classified
+        weight: 3
+        answers: { "yes": 1.0, partial: 0.3, "no": -1.0 }
+      - id: ah2
+        question: "Does it require explicit user approval between phases by default?"
+        kind: classified
+        weight: 3
+        answers: { every_phase: -1.0, some_phases: 0.0, none: 1.0 }
+      - id: ah3
+        question: "Density of checkpoint vocabulary (approve, confirm, review, wait, checkpoint)."
+        kind: measured
+        weight: 2
+        signal:
+          type: vocabulary
+          terms: ["approve", "confirm", "review", "checkpoint", "wait for", "your approval"]
+          bands:
+            - { max_count: 2, value: 1.0 }
+            - { max_count: 10, value: 0.0 }
+            - { max_count: null, value: -1.0 }
