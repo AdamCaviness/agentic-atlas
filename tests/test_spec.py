@@ -5,17 +5,26 @@ from pathlib import Path
 from atlas.models import IndicatorKind
 from atlas.spec import load_rubric
 
-_RUBRIC = Path(__file__).resolve().parent.parent / "rubric" / "v1.0.0.yaml"
+_RUBRIC = Path(__file__).resolve().parent.parent / "rubric" / "v1"
 
 
 def test_shipped_rubric_validates_and_parses():
     r = load_rubric(_RUBRIC, validate=True)
     assert r.rubric_version == "1.0.0"
     assert {a.id for a in r.axes} == {
-        "greenfield_vs_brownfield",
-        "interrogative_vs_opinionated",
-        "autonomous_vs_human_in_loop",
+        "greenfield-vs-brownfield",
+        "interrogative-vs-opinionated",
+        "autonomous-vs-human-in-loop",
     }
+
+
+def test_manifest_order_is_preserved():
+    r = load_rubric(_RUBRIC)
+    assert [a.id for a in r.axes] == [
+        "greenfield-vs-brownfield",
+        "interrogative-vs-opinionated",
+        "autonomous-vs-human-in-loop",
+    ]
 
 
 def test_classified_indicators_have_answers():

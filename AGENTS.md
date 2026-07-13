@@ -26,12 +26,22 @@ A profile only compares to another profile computed with the same rubric MAJOR v
 ## Layout
 
 ```
-rubric/        Versioned rubric specs + JSON schema + changelog
-atlas/         Python engine (spec loader, scoring, evidence, judge, profiler, report, cli)
+rubric/v1/                   One directory per MAJOR version
+  rubric.yaml                Manifest: version, title, ordered axis ids
+  rubric.schema.json         Schema for the manifest
+  axis.schema.json           Schema for a single axis file
+  axes/<id>/axis.yaml        Source of truth for one axis (poles, indicators, weights)
+  axes/<id>/README.md        Human rationale + a generated scoring block
+  CHANGELOG.md
+atlas/         Python engine (spec, scoring, evidence, judge, profiler, report, docs, cli)
 docs/          Design, axis authoring method, versioning policy, COI policy
 tests/         Tests, with the deterministic scoring core covered first
 profiles/      Curated public profiles (generated JSON), including self-eval
 ```
+
+Each axis README's scoring block is generated from its `axis.yaml` by `atlas docs`
+(`make docs`). Never hand-edit the block between the generated markers, edit the
+`axis.yaml` and regenerate. `make docs-check` (part of `make check`) fails on drift.
 
 ## Conventions
 

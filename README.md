@@ -122,8 +122,11 @@ make profile TARGET=/path/to/workflow JUDGE=manual ANSWERS=answers.yaml FORMAT=m
 The `atlas` CLI is available directly inside the venv:
 
 ```bash
-# Validate a rubric file against the schema
-atlas validate rubric/v1.0.0.yaml
+# Validate a rubric against the schema
+atlas validate rubric/v1
+
+# Regenerate the axis README scoring blocks from axis.yaml
+atlas docs rubric/v1
 
 # Profile a target using only measured indicators (fully deterministic, no model)
 atlas profile /path/to/some-workflow --judge none
@@ -152,7 +155,7 @@ The author also ships [agentic-toolkit](https://github.com/adamavo/agentic-toolk
 
 ## Status
 
-Early scaffold. The deterministic core (spec loading, validation, scoring), a working evidence collector (vocabulary and path-presence signals), manual and measured-only judging, and text/markdown/JSON reports are implemented and tested. In active development: the full curated axis set, git and host-API evidence collectors (for Fresh↔Mature and similar), the classification judge wired to a model, and the `compare` overlay. See `docs/` and the handoff notes.
+Early scaffold. Implemented and tested: the per-axis rubric layout with manifest and schema validation, the deterministic weighted-scoring core, a working evidence collector (vocabulary and path-presence signals), manual and measured-only judging, text/markdown/JSON reports, and the `atlas docs` generator that keeps each axis README's scoring block in sync with its `axis.yaml` (enforced by `make docs-check`). In active development: the full curated axis set, git and host-API evidence collectors (for Fresh↔Mature and similar), the classification judge wired to a model, and the `compare` overlay. See `docs/` and the handoff notes.
 
 ## License
 

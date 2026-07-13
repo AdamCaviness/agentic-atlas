@@ -1,0 +1,12 @@
+rubric_version: 1.0.0
+title: Agentic Workflow Atlas Rubric
+description: >
+  First-cut rubric. Three axes are fully specced. Sign conventions and weights
+  are a proposal and should be reviewed before this version is treated as stable.
+  Any change that can move a score requires a MAJOR bump. See docs/versioning.md.
+
+# Active axes, in display order. Each id maps to axes/<id>/axis.yaml.
+axes:
+  - greenfield-vs-brownfield
+  - interrogative-vs-opinionated
+  - autonomous-vs-human-in-loop

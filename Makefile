@@ -11,13 +11,13 @@ RUFF   := $(VENV)/bin/ruff
 ATLAS  := $(VENV)/bin/atlas
 
 # Overridable on the command line, e.g. make profile TARGET=/path JUDGE=manual
-RUBRIC  ?= rubric/v1.0.0.yaml
+RUBRIC  ?= rubric/v1
 TARGET  ?=
 JUDGE   ?= none
 ANSWERS ?=
 FORMAT  ?= text
 
-.PHONY: help setup install test check lint fmt format validate profile self-profile clean
+.PHONY: help setup install test check lint fmt format validate docs docs-check profile self-profile clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -46,10 +46,16 @@ fmt: setup ## Format the code with ruff
 
 format: fmt ## Alias for fmt
 
-check: lint test ## Lint then test (the CI gate)
+check: lint docs-check test ## Lint, check docs sync, then test (the CI gate)
 
 validate: setup ## Validate the rubric against the schema (RUBRIC=...)
 	$(ATLAS) validate $(RUBRIC)
+
+docs: setup ## Regenerate axis README scoring blocks from axis.yaml
+	$(ATLAS) docs $(RUBRIC)
+
+docs-check: setup ## Fail if any axis README scoring block is stale
+	$(ATLAS) docs $(RUBRIC) --check
 
 profile: setup ## Profile a target: make profile TARGET=/path [JUDGE=manual ANSWERS=a.yaml FORMAT=md]
 	@test -n "$(TARGET)" || { \

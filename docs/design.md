@@ -18,7 +18,9 @@ The repository holds two independently versioned things.
 
 ### The rubric (data)
 
-`rubric/vX.Y.Z.yaml` defines axes, their poles, and the indicators and weights that compute each axis. `rubric/schema.json` validates any rubric file. The rubric carries all scoring policy, the engine embeds none.
+A rubric is a directory, one per MAJOR version (`rubric/v1`). It holds a `rubric.yaml` manifest (version, title, ordered axis ids), a schema for the manifest and for a single axis, and one directory per axis under `axes/<id>/` containing an `axis.yaml` (the source of truth for that axis: poles, indicators, weights) and a `README.md` whose scoring block is generated from the `axis.yaml` by `atlas docs`. The rubric carries all scoring policy, the engine embeds none.
+
+This per-axis layout makes each axis a self-contained, contestable unit: a dispute over an indicator is a change to one directory, and the generated README block cannot drift from the weights the engine actually uses.
 
 ### The engine (code)
 

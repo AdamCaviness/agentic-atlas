@@ -14,18 +14,31 @@ from pathlib import Path
 
 import yaml
 
+from . import docs
 from .evidence import Target
 from .judge import ManualJudge, NoneJudge
 from .profiler import profile_target
 from .report import render_markdown, render_text
 from .spec import load_rubric
 
-_DEFAULT_RUBRIC = Path(__file__).resolve().parent.parent / "rubric" / "v1.0.0.yaml"
+_DEFAULT_RUBRIC = Path(__file__).resolve().parent.parent / "rubric" / "v1"
 
 
 def _cmd_validate(args: argparse.Namespace) -> int:
     load_rubric(args.rubric, validate=True)
     print(f"ok: {args.rubric} is a valid rubric")
+    return 0
+
+
+def _cmd_docs(args: argparse.Namespace) -> int:
+    changed = docs.sync(args.rubric, check=args.check)
+    if args.check:
+        if changed:
+            print("stale axis READMEs (run `make docs`): " + ", ".join(changed))
+            return 1
+        print("ok: all axis READMEs are in sync")
+        return 0
+    print(f"updated: {', '.join(changed) if changed else 'none'}")
     return 0
 
 
@@ -61,9 +74,14 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="atlas", description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
 
-    v = sub.add_parser("validate", help="validate a rubric file against the schema")
+    v = sub.add_parser("validate", help="validate a rubric against the schema")
     v.add_argument("rubric", nargs="?", default=str(_DEFAULT_RUBRIC))
     v.set_defaults(func=_cmd_validate)
+
+    d = sub.add_parser("docs", help="regenerate axis README scoring blocks from axis.yaml")
+    d.add_argument("rubric", nargs="?", default=str(_DEFAULT_RUBRIC))
+    d.add_argument("--check", action="store_true", help="report drift instead of writing")
+    d.set_defaults(func=_cmd_docs)
 
     pr = sub.add_parser("profile", help="profile a target directory")
     pr.add_argument("target", help="path to the target workflow/framework directory")

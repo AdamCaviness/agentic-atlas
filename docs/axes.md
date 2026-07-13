@@ -28,7 +28,7 @@ Sign convention: negative pole = greenfield, positive pole = brownfield. A metho
 | gb4 | Default unit of work: whole-project generation vs small diff    | classified | 2      | whole -1.0, mixed 0.0, small_diff +1.0 |
 | gb5 | Onboarding assumes a new repo vs pointing at an existing one    | measured   | 1      | new_repo -1.0, either 0.0, existing +1.0 |
 
-The full machine-readable form of this axis is in `rubric/v1.0.0.yaml`.
+The full machine-readable form of this axis is in `rubric/v1/axes/greenfield-vs-brownfield/axis.yaml`, and its generated scoring block is in the sibling `README.md`.
 
 ## The axis catalog
 

@@ -1,63 +1,38 @@
-"""Load and validate a rubric file into typed dataclasses."""
+"""Load and validate a rubric into typed dataclasses.
+
+A rubric is a directory (one per MAJOR version, e.g. ``rubric/v1``) containing:
+
+    rubric.yaml            manifest: rubric_version, title, ordered axis ids
+    rubric.schema.json     schema for the manifest
+    axis.schema.json       schema for a single axis file
+    axes/<id>/axis.yaml    one axis per directory (source of truth for scoring)
+
+``load_rubric`` accepts either the directory or the ``rubric.yaml`` path.
+"""
 
 from __future__ import annotations
 
 import json
-from functools import lru_cache
 from pathlib import Path
 
 import yaml
 
 from .models import Axis, Indicator, IndicatorKind, Poles, Rubric
 
-_SCHEMA_PATH = Path(__file__).resolve().parent.parent / "rubric" / "schema.json"
+
+def _resolve_dir(path: str | Path) -> Path:
+    p = Path(path).expanduser().resolve()
+    if p.is_file():
+        return p.parent
+    if (p / "rubric.yaml").is_file():
+        return p
+    raise FileNotFoundError(f"no rubric.yaml found at or in {p}")
 
 
-@lru_cache(maxsize=1)
-def _schema() -> dict:
-    return json.loads(_SCHEMA_PATH.read_text())
-
-
-def validate_raw(raw: dict) -> None:
-    """Validate a parsed rubric dict against rubric/schema.json.
-
-    Raises jsonschema.ValidationError on the first problem.
-    """
+def _validate(instance: dict, schema_path: Path) -> None:
     import jsonschema  # imported lazily so models/scoring stay dependency-light
 
-    jsonschema.validate(instance=raw, schema=_schema())
-
-
-def parse(raw: dict) -> Rubric:
-    axes: list[Axis] = []
-    for a in raw["axes"]:
-        indicators = tuple(
-            Indicator(
-                id=i["id"],
-                question=i["question"],
-                kind=IndicatorKind(i["kind"]),
-                weight=float(i["weight"]),
-                answers=_parse_answers(i),
-                signal=i.get("signal"),
-            )
-            for i in a["indicators"]
-        )
-        axes.append(
-            Axis(
-                id=a["id"],
-                title=a["title"],
-                poles=Poles(negative=a["poles"]["negative"], positive=a["poles"]["positive"]),
-                indicators=indicators,
-                scale=float(a.get("scale", 10.0)),
-                description=a.get("description", ""),
-            )
-        )
-    return Rubric(
-        rubric_version=raw["rubric_version"],
-        title=raw["title"],
-        axes=tuple(axes),
-        description=raw.get("description", ""),
-    )
+    jsonschema.validate(instance=instance, schema=json.loads(schema_path.read_text()))
 
 
 def _parse_answers(indicator: dict) -> dict[str, float]:
@@ -74,8 +49,58 @@ def _parse_answers(indicator: dict) -> dict[str, float]:
     return answers
 
 
-def load_rubric(path: str | Path, *, validate: bool = True) -> Rubric:
-    raw = yaml.safe_load(Path(path).read_text())
+def parse_axis(raw: dict) -> Axis:
+    indicators = tuple(
+        Indicator(
+            id=i["id"],
+            question=i["question"],
+            kind=IndicatorKind(i["kind"]),
+            weight=float(i["weight"]),
+            answers=_parse_answers(i),
+            signal=i.get("signal"),
+        )
+        for i in raw["indicators"]
+    )
+    return Axis(
+        id=raw["id"],
+        title=raw["title"],
+        poles=Poles(negative=raw["poles"]["negative"], positive=raw["poles"]["positive"]),
+        indicators=indicators,
+        scale=float(raw.get("scale", 10.0)),
+        description=raw.get("description", ""),
+    )
+
+
+def load_axis(path: str | Path, *, validate: bool = True, schema_dir: Path | None = None) -> Axis:
+    path = Path(path)
+    raw = yaml.safe_load(path.read_text())
     if validate:
-        validate_raw(raw)
-    return parse(raw)
+        schema_dir = schema_dir or path.parent.parent.parent
+        _validate(raw, schema_dir / "axis.schema.json")
+    return parse_axis(raw)
+
+
+def load_rubric(path: str | Path, *, validate: bool = True) -> Rubric:
+    rubric_dir = _resolve_dir(path)
+    manifest = yaml.safe_load((rubric_dir / "rubric.yaml").read_text())
+    if validate:
+        _validate(manifest, rubric_dir / "rubric.schema.json")
+
+    axes: list[Axis] = []
+    for axis_id in manifest["axes"]:
+        axis_path = rubric_dir / "axes" / axis_id / "axis.yaml"
+        if not axis_path.is_file():
+            raise FileNotFoundError(f"manifest lists {axis_id!r} but {axis_path} is missing")
+        axis = load_axis(axis_path, validate=validate, schema_dir=rubric_dir)
+        if axis.id != axis_id:
+            raise ValueError(
+                f"axis id {axis.id!r} does not match its directory {axis_id!r}"
+            )
+        axes.append(axis)
+
+    return Rubric(
+        rubric_version=manifest["rubric_version"],
+        title=manifest["title"],
+        axes=tuple(axes),
+        description=manifest.get("description", ""),
+    )
