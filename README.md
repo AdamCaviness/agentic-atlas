@@ -108,6 +108,19 @@ Every axis is a complex measurement built from several indicators. The example i
 
 ## Usage
 
+Everything runs through the Makefile. Run `make` to list targets.
+
+```bash
+make setup                 # create the venv and install the package with dev deps
+make test                  # run the suite
+make check                 # lint then test (the CI gate)
+make validate              # validate the rubric against the schema
+make self-profile          # smoke test: profile agentic-toolkit, measured-only
+make profile TARGET=/path/to/workflow JUDGE=manual ANSWERS=answers.yaml FORMAT=md
+```
+
+The `atlas` CLI is available directly inside the venv:
+
 ```bash
 # Validate a rubric file against the schema
 atlas validate rubric/v1.0.0.yaml
