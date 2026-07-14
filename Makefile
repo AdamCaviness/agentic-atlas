@@ -17,7 +17,7 @@ JUDGE   ?= none
 ANSWERS ?=
 FORMAT  ?= text
 
-.PHONY: help setup install test check lint fmt format validate docs docs-check profile self-profile clean
+.PHONY: help setup install test check lint fmt format validate docs docs-check profile clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -63,9 +63,6 @@ profile: setup ## Profile a target: make profile TARGET=/path [JUDGE=manual ANSW
 		exit 2; }
 	$(ATLAS) profile "$(TARGET)" --rubric "$(RUBRIC)" --judge "$(JUDGE)" \
 		$(if $(ANSWERS),--answers "$(ANSWERS)",) --format "$(FORMAT)"
-
-self-profile: setup ## Profile agentic-toolkit as a quick smoke test (measured-only)
-	$(ATLAS) profile ~/_opensource/agentic-toolkit --rubric $(RUBRIC) --judge none --format text
 
 clean: ## Remove the venv, caches, and build artifacts
 	rm -rf $(VENV) .pytest_cache .ruff_cache build dist *.egg-info

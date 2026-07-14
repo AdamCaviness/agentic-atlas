@@ -96,7 +96,7 @@ standard software semver. See `docs/versioning.md`.
 - Docs generator (`agentic_atlas/docs.py`) + `agentic-atlas docs [--check]`.
 - CLI (`agentic_atlas/cli.py`): `validate`, `docs`, `profile`.
 - Makefile: `setup test lint fmt check validate docs docs-check profile
-  self-profile clean`. `make check` = lint + docs-check + test.
+  clean`. `make check` = lint + docs-check + test.
 - release-please wired for the engine version (`release-type: python`, config +
   manifest at repo root, workflow in `.github/workflows/`). Conventional commits
   drive the bump; the workflow auto-merges the release PR (matches agentic-toolkit).

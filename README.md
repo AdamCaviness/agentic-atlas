@@ -61,7 +61,6 @@ Everything runs through the Makefile. Run `make` to list targets.
 make setup                 # create the venv and install with dev deps
 make check                 # lint then test (the CI gate)
 make validate              # validate the rubric against the schema
-make self-profile          # smoke test: profile agentic-toolkit, measured-only
 make profile TARGET=/path/to/approach JUDGE=manual ANSWERS=answers.yaml FORMAT=md
 ```
 
