@@ -32,9 +32,9 @@ The full machine-readable form of this axis is in `rubric/v1/axes/greenfield-vs-
 
 ## The axis catalog
 
-The full working catalog of candidate axes lives in `README.md`, grouped by the decision each helps a reader make. Twelve axes ship in `v1.0.0` (marked in the catalog), the rest are backlog. Keep the README catalog and `rubric/v1/axes/*/axis.yaml` as the two sources of truth, this file covers method, not the list.
+The full working catalog of candidate axes lives in `README.md`, grouped by the decision each helps a reader make. Thirteen axes ship in the `v1` rubric (marked in the catalog), the rest are backlog. Keep the README catalog and `rubric/v1/axes/*/axis.yaml` as the two sources of truth, this file covers method, not the list.
 
-Some backlog axes need evidence collectors the engine does not have yet. Fresh↔Mature, for example, needs git statistics (age, commit count) and host API facts (stars, forks, release cadence). Adding a collector is an engine change, and it only affects scores once a rubric actually uses it.
+Some axes need evidence collectors beyond the defaults. Fresh↔Mature, for example, uses the `git_stats` (age, commit count) and `github_api` (stars) collectors that were added for it. Adding a collector is an engine change, and it only affects scores once a rubric actually uses it.
 
 ## Authoring checklist
 
