@@ -19,7 +19,7 @@ Then you overlay the two or three you're weighing on the axes you care about and
 
 Comparing these tools usually comes down to whose opinion you trust. Agentic Atlas computes the comparison from evidence instead.
 
-- **Not a leaderboard.** There is no ranking and no aggregate score. Collapsing independent axes into one number is meaningless, and a single winner is the wrong question anyway: you want the tool that fits your project and the way you work, not a universal "best."
+- It is **not a leaderboard**, with no ranking and no aggregate score. Collapsing independent axes into one number is meaningless, and picking a single winner is the wrong question anyway: you want the tool that fits your project and the way you work, not a universal "best."
 - Instead it **locates** each tool on signed, bipolar axes. `0.0` is neutral balance, the sign says which pole the tool leans toward, and the magnitude says how strongly. A tool at `-7.8` on Greenfield↔Brownfield is not "worse" than one at `+2.0`, it is positioned differently, and you choose by context.
 - Each axis position is a **deterministic function of many small, named, evidence-backed indicators**. Every indicator is cited to the target repository. Disagreement therefore routes to a specific line of a specific YAML file and is settled by a pull request with a version bump, not by argument.
 - The rubric is deliberately **opinionated**, versioned under semver, and open to challenge. When you disagree with where a tool landed, you can trace the position to the exact indicators behind it and open a pull request to change them.
