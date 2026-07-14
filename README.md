@@ -8,7 +8,7 @@ Profilable targets include [Superpowers](https://github.com/obra/superpowers), [
 
 **To let a person decide, as easily as possible, which approach best suits their project and their way of working.**
 
-There is no single "best" agentic development approach, there is only a best fit. A method that is superb for greenfield product generation can be poor inside a large legacy codebase. A rigorous, ceremony-heavy pipeline that a team loves can be miserable for a solo developer shipping a prototype. Agentic Atlas exists so you can answer two questions and get a direct recommendation:
+There is no single "best" agentic development approach, there is only a best fit. A method that is superb for greenfield project generation can be poor inside a large brownfield project. A rigorous, ceremony-heavy pipeline that a team loves can be miserable for a solo developer shipping a prototype. Agentic Atlas exists so you can answer two questions and get a direct recommendation:
 
 1. **What is my project like?** (greenfield or brownfield, small or large, prototype or production, solo or team)
 2. **How do I like to work?** (interrogative or opinionated, autonomous or hands-on, lightweight or thorough)
