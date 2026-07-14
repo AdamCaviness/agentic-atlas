@@ -2,13 +2,13 @@
 
 ## Thesis
 
-Comparisons of agentic development approaches are currently subjective blog posts. Agentic Atlas replaces the subjective take with a **transparent, versioned function**. It profiles a tool by locating it on signed bipolar axes, and each axis position is computed from many small, named, evidence-backed indicators.
+Comparisons of agentic workflows are usually opinion. Agentic Atlas makes the comparison a transparent, versioned computation: it profiles a tool by locating it on signed bipolar axes, and each position is computed from many small, named, evidence-backed indicators.
 
-It is not perfect and does not claim objective truth. It claims something better than a vibe: a spec anyone can inspect, contest at the level of a single indicator, and improve through a versioned pull request.
+It does not claim objective truth. It claims something you can inspect and argue with: a spec you can contest at the level of a single indicator and change with a versioned pull request.
 
 ## Not a ranking
 
-Agentic Atlas produces a **profile**, a vector of signed axis positions, not a score. There is no aggregate number and no leaderboard. The output supports a fit decision ("this tool leans hard greenfield and opinionated, which matches my project") rather than a verdict ("this tool is best").
+Agentic Atlas produces a **profile**, a vector of signed axis positions, not a score. There is no aggregate number and no leaderboard. The output helps you decide fit ("this leans hard greenfield and opinionated, which matches my project"), not pick a winner.
 
 Overlaying two or three profiles on the same axes is the primary intended use.
 
@@ -35,9 +35,9 @@ target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
 
 ## The two indicator kinds
 
-The tension in the project is "subjective axis, deterministic result." It resolves by decomposing each axis into indicators of two kinds.
+The hard part is getting a deterministic result out of a subjective axis. It resolves by decomposing each axis into indicators of two kinds.
 
-- **`measured`** indicators are computed by the engine directly from the repository, with no model. Current signal types: `vocabulary` (term density across docs and commands, bucketed into bands) and `path_presence` (glob matches to a yes/no value). These are fully deterministic.
+- **`measured`** indicators are computed by the engine directly from the repository, with no model. Current signal types: `vocabulary` (term density across docs and commands, bucketed into bands), `path_presence` (glob matches to a value), `git_stats` (repository facts like age and commit count), and `github_api` (host facts like stars). These are deterministic given their input.
 - **`classified`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model or a human picks the answer, and the engine records the answer **plus a cited quote** as evidence. The answer set is bounded and anchored so independent resolvers converge.
 
 The scoring step treats both kinds identically: each resolved indicator yields a value in `[-1, 1]` and a weight. The axis score is:
@@ -50,11 +50,11 @@ clamped to `[-scale, +scale]` and rounded. Indicators that cannot be resolved (f
 
 ## Where judgment lives, and how it is constrained
 
-Judgment does not vanish, it moves. It is no longer "score this axis from -10 to 10." It is "answer indicator gb1 with yes, partial, or no, and cite the line that proves it." Constraints that keep this reproducible:
+The judgment call is narrower than "score this axis from -10 to 10." It becomes "answer indicator gb1 with yes, partial, or no, and cite the line that proves it." Constraints that keep this reproducible:
 
 - Bounded answer sets with anchored definitions in the rubric.
 - A required evidence citation per classified answer.
-- Low or zero temperature when a model resolves classified indicators.
+- A forced single-tool call, so a model's answer is constrained to the allowed set.
 - The model id is stamped on the profile, so a resolution is attributable.
 
 ## Reproducibility
