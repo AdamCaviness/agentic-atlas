@@ -2,7 +2,7 @@
 
 An open, versioned rubric for profiling agentic workflows.
 
-Profilable targets include [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [Superpowers](https://github.com/obra/superpowers), [GSD](https://github.com/jnuyens/gsd-plugin), [LFG](https://mcpmarket.com/tools/skills/lfg-autonomous-engineering-workflow), and any comparable framework, method, or skill collection.
+Profilable targets include [Superpowers](https://github.com/obra/superpowers), [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [GSD](https://github.com/jnuyens/gsd-plugin), [LFG](https://mcpmarket.com/tools/skills/lfg-autonomous-engineering-workflow), and any comparable framework, method, or skill collection.
 
 ## Purpose
 
