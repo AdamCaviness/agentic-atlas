@@ -32,7 +32,7 @@ Every axis is a signed spectrum between two named poles, with a symmetric scale 
 
 An axis is never scored directly. It is decomposed into indicators, each a narrow question with a bounded answer that maps to a value in `[-1, 1]` signed toward one pole. Indicators come in two kinds:
 
-- **`measured`**: computed deterministically by the engine from the repository (vocabulary density, file presence, command inventory, git statistics, host API facts like stars and release cadence). Same input, same output, no model.
+- **`measured`**: computed deterministically by the engine from the repository (vocabulary density, file presence, git statistics, and host facts like stars). Same input, same output, no model.
 - **`classified`**: requires reading and selecting from a small, defined answer set. A model or a human picks the answer and the engine records the answer **plus a cited quote**, so it stays auditable.
 
 The axis score is then pure arithmetic:
@@ -45,16 +45,14 @@ computed over resolved indicators, clamped to `[-scale, +scale]`. Unresolved ind
 
 ## The axis catalog
 
-This is the working catalog of candidate axes, grouped by the decision each one helps a reader make. Sign conventions are shown as `negative ↔ positive`. Axes marked **[v1.0.0]** ship in the first rubric, the rest are the backlog. The final shipped set will be curated, not every axis below survives, because heavily correlated axes dilute a profile rather than sharpen it.
-
-Every axis is a complex measurement built from several indicators. The example indicators listed are illustrative, the authoritative definitions live in `rubric/`.
+The working catalog of candidate axes, grouped by the decision each helps a reader make (sign shown as `negative ↔ positive`). Axes marked **[v1]** ship today; the rest are backlog, because heavily correlated axes dilute a profile rather than sharpen it. Example indicators are illustrative; the authoritative definitions live in `rubric/`.
 
 ### A. Interaction and control style (how you drive it)
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Interrogative ↔ Opinionated** **[v1.0.0]** | Elicits and asks vs prescribes a strong default path | brainstorming phase present, directive vocabulary density, fixed pipeline enforced |
-| **Human-in-loop ↔ Autonomous** **[v1.0.0]** | Frequent checkpoints vs unattended autopilot | approval-between-phases, autopilot mode advertised, checkpoint vocabulary density |
+| **Interrogative ↔ Opinionated** **[v1]** | Elicits and asks vs prescribes a strong default path | brainstorming phase present, directive vocabulary density, fixed pipeline enforced |
+| **Human-in-loop ↔ Autonomous** **[v1]** | Frequent checkpoints vs unattended autopilot | approval-between-phases, autopilot mode advertised, checkpoint vocabulary density |
 | **Conversational ↔ Command-driven** | Free chat vs slash commands and structured invocation | command/skill count, ratio of prose docs to command specs |
 | **Permissive ↔ Guardrailed** | Runs freely vs guards destructive actions | confirmation gates on destructive ops, safety language, dry-run defaults |
 | **Magic ↔ Mechanical** | Hides steps for low cognitive load vs exposes every step for control and auditability | visibility of intermediate artifacts, explicit phase logs, hidden automation |
@@ -63,19 +61,19 @@ Every axis is a complex measurement built from several indicators. The example i
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Greenfield ↔ Brownfield** **[v1.0.0]** | Excels from an idea vs excels inside an existing codebase | spec-from-idea first step, codebase-ingestion steps, brownfield vocabulary, small-diff default |
-| **Small-scope ↔ Large-scope** **[v1.0.0]** | One task vs the whole delivery lifecycle | phases covered (idea to release), single-command vs multi-stage, role coverage |
-| **Prototype ↔ Production** **[v1.0.0]** | Fast throwaway output vs production hardening | testing and review emphasis, CI/deploy awareness, "vibe" vs "production" language |
-| **Solo ↔ Team** **[v1.0.0]** | Single developer vs multi-contributor and team-safe | claim/assignment safety, shared state, review handoffs, role personas |
-| **Generalist ↔ Specialist** **[v1.0.0]** | Any domain vs software delivery specifically | domain-agnostic framing vs code-specific tooling and vocabulary |
-| **Fresh ↔ Mature** | New, fast-moving, cutting-edge vs established, stable, battle-tested | repository age, commit count, contributor count, release cadence, stars and forks, breaking-change frequency, test and docs completeness |
+| **Greenfield ↔ Brownfield** **[v1]** | Excels from an idea vs excels inside an existing codebase | spec-from-idea first step, codebase-ingestion steps, brownfield vocabulary, small-diff default |
+| **Small-scope ↔ Large-scope** **[v1]** | One task vs the whole delivery lifecycle | phases covered (idea to release), single-command vs multi-stage, role coverage |
+| **Prototype ↔ Production** **[v1]** | Fast throwaway output vs production hardening | testing and review emphasis, CI/deploy awareness, "vibe" vs "production" language |
+| **Solo ↔ Team** **[v1]** | Single developer vs multi-contributor and team-safe | claim/assignment safety, shared state, review handoffs, role personas |
+| **Generalist ↔ Specialist** **[v1]** | Any domain vs software delivery specifically | domain-agnostic framing vs code-specific tooling and vocabulary |
+| **Fresh ↔ Mature** **[v1]** | New, fast-moving, cutting-edge vs established, stable, battle-tested | repository age, commit count, contributor count, release-tag cadence, stars |
 
 ### C. Process and methodology (how it works)
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Spec-light ↔ Spec-driven** **[v1.0.0]** | Jumps to code vs plans and specs first | mandatory PRD/plan step, spec artifacts, plan-before-code enforcement |
-| **Test-optional ↔ Test-first** **[v1.0.0]** | Testing incidental vs TDD enforced | red-green-refactor language, test-first gates, coverage expectations |
+| **Spec-light ↔ Spec-driven** **[v1]** | Jumps to code vs plans and specs first | mandatory PRD/plan step, spec artifacts, plan-before-code enforcement |
+| **Test-optional ↔ Test-first** **[v1]** | Testing incidental vs TDD enforced | red-green-refactor language, test-first gates, coverage expectations |
 | **Informal ↔ Ceremonial** | Minimal ritual vs roles, phases, and agile ceremony | named roles/personas, phase gates, ceremony vocabulary |
 | **Single-pass ↔ Review-looped** | One shot vs built-in critique and iteration | self-review/critic steps, iteration loops, verification stages |
 | **Implementation-first ↔ Planning-first** | Starts building vs invests up front in planning | ordering of first actions, depth of planning artifacts |
@@ -84,8 +82,8 @@ Every axis is a complex measurement built from several indicators. The example i
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Single-agent ↔ Multi-agent** **[v1.0.0]** | One conversation vs specialized subagents or personas | subagent usage, persona definitions, orchestration layer |
-| **Prescriptive ↔ Composable** **[v1.0.0]** | Fixed pipeline vs pick-and-choose parts | modular skill count, optional vs required steps, dependency between steps |
+| **Single-agent ↔ Multi-agent** **[v1]** | One conversation vs specialized subagents or personas | subagent usage, persona definitions, orchestration layer |
+| **Prescriptive ↔ Composable** **[v1]** | Fixed pipeline vs pick-and-choose parts | modular skill count, optional vs required steps, dependency between steps |
 | **Stateless ↔ Stateful** | No memory vs persistent project state and memory | memory files, cross-session state, project-state backing store |
 | **Monolithic-context ↔ Context-partitioned** | One long session vs fresh-context phases | fresh-context spawning, per-phase context isolation, context-rot mitigation |
 | **Bare ↔ Integration-heavy** | Few dependencies vs many MCP servers, hooks, and tools | MCP/hook/integration count, external tool requirements |
@@ -94,7 +92,7 @@ Every axis is a complex measurement built from several indicators. The example i
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Lightweight ↔ Heavyweight** **[v1.0.0]** | Small footprint and little ceremony vs large and elaborate | file count, install steps, config surface, concepts to learn |
+| **Lightweight ↔ Heavyweight** **[v1]** | Small footprint and little ceremony vs large and elaborate | file count, install steps, config surface, concepts to learn |
 | **Context-frugal ↔ Context-hungry** | Token disciplined vs consumes large context | fresh-context patterns, prompt sizes, token-saving mechanisms |
 | **Model-agnostic ↔ Model-specific** | Portable across agents vs tied to one host | multi-host support, Claude-only features, portability claims |
 | **Fast-start ↔ High-setup** | Useful immediately vs significant setup before value | steps to first useful run, prerequisites, configuration required |
@@ -155,7 +153,7 @@ The maintainer also maintains [agentic-toolkit](https://github.com/adamcaviness/
 
 ## Status
 
-Early scaffold. Implemented and tested: the per-axis rubric layout with manifest and schema validation, the deterministic weighted-scoring core, a working evidence collector (vocabulary and path-presence signals), manual and measured-only judging, text/markdown/JSON reports, and the `agentic-atlas docs` generator that keeps each axis README's scoring block in sync with its `axis.yaml` (enforced by `make docs-check`). In active development: the full curated axis set, git and host-API evidence collectors (for Fresh↔Mature and similar), the classification judge wired to a model, and the `compare` overlay. See `docs/` and the handoff notes.
+Early scaffold, actively developed. Working today: the per-axis rubric with manifest and schema validation, the deterministic scoring core, evidence collectors (vocabulary, path-presence, git stats, and GitHub API), measured-only and manual judging, text/markdown/JSON reports, and the `agentic-atlas docs` generator kept in sync by `make docs-check`. Next: the model-backed classification judge, the `compare` overlay, and a broader corpus of public profiles. See `docs/` and `specs/handoff.md`.
 
 ## License
 
