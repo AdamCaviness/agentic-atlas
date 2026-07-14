@@ -13,11 +13,11 @@ There is no single "best" agentic development approach, there is only a best fit
 1. **What is my project like?** (greenfield or brownfield, small or large, prototype or production, solo or team)
 2. **How do I like to work?** (interrogative or opinionated, autonomous or hands-on, lightweight or thorough)
 
-Then you overlay two or three candidate approaches on the axes that matter to you and read the fit off the chart, instead of reading a dozen blog posts that each say "here is my take."
+Then you overlay the two or three you're weighing on the axes you care about and read the fit off the chart.
 
 ## Core thesis
 
-Every comparison of these tools today is a subjective take. Agentic Atlas replaces the take with a **function**.
+Comparing these tools usually comes down to whose opinion you trust. Agentic Atlas computes the comparison from evidence instead.
 
 - It does **not** rank tools and produces **no aggregate score**. Collapsing independent axes into one number is meaningless, and a leaderboard invites exactly the fight ("who are you to grade me") that the project wants to avoid.
 - Instead it **locates** each tool on signed, bipolar axes. `0.0` is neutral balance, the sign says which pole the tool leans toward, and the magnitude says how strongly. A tool at `-7.8` on Greenfield↔Brownfield is not "worse" than one at `+2.0`, it is positioned differently, and you choose by context.
