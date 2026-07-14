@@ -2,7 +2,7 @@
 
 ## Why this axis exists
 
-This axis separates workflows that optimize for speed and disposability from those that optimize for shippable, maintainable code. It matters because a production-hardening workflow wastes effort on a throwaway spike, and a prototype workflow leaves gaps in production work. Negative (`prototype`) means fast, throwaway output, positive (`production`) means CI, security, and hardening. `pp1` weighs hardening emphasis most, `pp2` captures tolerance for throwaway code, and the measured `pp3` corroborates with production vocabulary.
+This axis separates approaches that optimize for speed and disposability from those that optimize for shippable, maintainable code. It matters because a production-hardening approach wastes effort on a throwaway spike, and a prototype approach leaves gaps in production work. Negative (`prototype`) means fast, throwaway output, positive (`production`) means CI, security, and hardening. `pp1` weighs hardening emphasis most, `pp2` captures tolerance for throwaway code, and the measured `pp3` corroborates with production vocabulary.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Prototype vs Production)

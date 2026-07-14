@@ -2,9 +2,9 @@
 
 ## Why this axis exists
 
-This axis captures how a workflow reaches decisions, which is largely a matter of taste and team culture rather than quality. Some developers want a tool that interrogates them, drawing out requirements through questions before writing anything. Others want a tool that already has a strong opinion and just drives. Neither is better, they suit different people and moments.
+This axis captures how an approach reaches decisions, which is largely a matter of taste and team culture rather than quality. Some developers want a tool that interrogates them, drawing out requirements through questions before writing anything. Others want a tool that already has a strong opinion and just drives. Neither is better, they suit different people and moments.
 
-Negative (`interrogative`) means the workflow elicits and defers to the user. Positive (`opinionated`) means it prescribes a strong default path. `io1` detects an explicit questioning or brainstorming phase, `io2` detects an enforced pipeline, and the measured `io3` reads directive vocabulary density as corroboration.
+Negative (`interrogative`) means the approach elicits and defers to the user. Positive (`opinionated`) means it prescribes a strong default path. `io1` detects an explicit questioning or brainstorming phase, `io2` detects an enforced pipeline, and the measured `io3` reads directive vocabulary density as corroboration.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Interrogative vs Opinionated)

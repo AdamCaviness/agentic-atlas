@@ -5,7 +5,7 @@ poles:
   negative: test_optional
   positive: test_first
 description: >
-  How central testing is to the workflow. Negative means testing is incidental or
+  How central testing is to the approach. Negative means testing is incidental or
   left to the user. Positive means test-first discipline (TDD) is enforced.
 indicators:
   - id: tf1

@@ -5,7 +5,7 @@ poles:
   negative: single_agent
   positive: multi_agent
 description: >
-  How the workflow is structured internally. Negative means one conversation or
+  How the approach is structured internally. Negative means one conversation or
   agent. Positive means many specialized subagents or personas working together.
 indicators:
   - id: ma1

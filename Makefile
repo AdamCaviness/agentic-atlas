@@ -1,4 +1,4 @@
-# Agentic Workflow Atlas
+# Agentic Atlas
 # Run `make` or `make help` to list targets.
 
 .DEFAULT_GOAL := help
@@ -8,7 +8,7 @@ PY     := $(VENV)/bin/python
 PIP    := $(VENV)/bin/pip
 PYTEST := $(VENV)/bin/pytest
 RUFF   := $(VENV)/bin/ruff
-ATLAS  := $(VENV)/bin/atlas
+ATLAS  := $(VENV)/bin/agentic-atlas
 
 # Overridable on the command line, e.g. make profile TARGET=/path JUDGE=manual
 RUBRIC  ?= rubric/v1
@@ -59,7 +59,7 @@ docs-check: setup ## Fail if any axis README scoring block is stale
 
 profile: setup ## Profile a target: make profile TARGET=/path [JUDGE=manual ANSWERS=a.yaml FORMAT=md]
 	@test -n "$(TARGET)" || { \
-		echo "usage: make profile TARGET=/path/to/workflow [JUDGE=none|manual ANSWERS=file FORMAT=text|md|json]"; \
+		echo "usage: make profile TARGET=/path/to/approach [JUDGE=none|manual ANSWERS=file FORMAT=text|md|json]"; \
 		exit 2; }
 	$(ATLAS) profile "$(TARGET)" --rubric "$(RUBRIC)" --judge "$(JUDGE)" \
 		$(if $(ANSWERS),--answers "$(ANSWERS)",) --format "$(FORMAT)"

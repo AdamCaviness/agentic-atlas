@@ -2,7 +2,7 @@
 
 ## Why this axis exists
 
-Some workflows claim any domain (BMAD markets business and wellness uses), while most specialize in software. This matters if your work is not code, or if you specifically want software-aware machinery. Negative (`generalist`) means domain-agnostic, positive (`specialist`) means software delivery specifically. `gs1` weighs the framing most, `gs2` checks for explicit broad claims, and the measured `gs3` corroborates with software vocabulary density.
+Some approaches claim any domain (BMAD markets business and wellness uses), while most specialize in software. This matters if your work is not code, or if you specifically want software-aware machinery. Negative (`generalist`) means domain-agnostic, positive (`specialist`) means software delivery specifically. `gs1` weighs the framing most, `gs2` checks for explicit broad claims, and the measured `gs3` corroborates with software vocabulary density.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Generalist vs Specialist)

@@ -1,23 +1,23 @@
-# Agentic Workflow Atlas
+# Agentic Atlas
 
-An open, versioned rubric for profiling agentic development workflows, frameworks, methods, and skill systems for Claude Code and similar coding agents.
+An open, versioned rubric for profiling agentic development approaches, frameworks, methods, and skill systems for Claude Code and similar coding agents.
 
-Profilable targets include [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [Superpowers](https://github.com/obra/superpowers), [GSD](https://github.com/jnuyens/gsd-plugin), [LFG](https://mcpmarket.com/tools/skills/lfg-autonomous-engineering-workflow), and any comparable workflow, framework, or skill collection.
+Profilable targets include [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [Superpowers](https://github.com/obra/superpowers), [GSD](https://github.com/jnuyens/gsd-plugin), [LFG](https://mcpmarket.com/tools/skills/lfg-autonomous-engineering-workflow), and any comparable framework, method, or skill collection.
 
 ## Purpose
 
-**To let a person decide, as easily as possible, which workflow best suits their project and their way of working.**
+**To let a person decide, as easily as possible, which approach best suits their project and their way of working.**
 
-There is no "best" agentic workflow, there is only a best fit. A method that is superb for greenfield product generation can be poor inside a large legacy codebase. A rigorous, ceremony-heavy pipeline that a team loves can be miserable for a solo developer shipping a prototype. Atlas exists so you can answer two questions and get a direct recommendation:
+There is no single "best" agentic development approach, there is only a best fit. A method that is superb for greenfield product generation can be poor inside a large legacy codebase. A rigorous, ceremony-heavy pipeline that a team loves can be miserable for a solo developer shipping a prototype. Agentic Atlas exists so you can answer two questions and get a direct recommendation:
 
 1. **What is my project like?** (greenfield or brownfield, small or large, prototype or production, solo or team)
 2. **How do I like to work?** (interrogative or opinionated, autonomous or hands-on, lightweight or thorough)
 
-Then you overlay two or three candidate workflows on the axes that matter to you and read the fit off the chart, instead of reading a dozen blog posts that each say "here is my take."
+Then you overlay two or three candidate approaches on the axes that matter to you and read the fit off the chart, instead of reading a dozen blog posts that each say "here is my take."
 
 ## Core thesis
 
-Every comparison of these tools today is a subjective take. Atlas replaces the take with a **function**.
+Every comparison of these tools today is a subjective take. Agentic Atlas replaces the take with a **function**.
 
 - It does **not** rank tools and produces **no aggregate score**. Collapsing independent axes into one number is meaningless, and a leaderboard invites exactly the fight ("who are you to grade me") that the project wants to avoid.
 - Instead it **locates** each tool on signed, bipolar axes. `0.0` is neutral balance, the sign says which pole the tool leans toward, and the magnitude says how strongly. A tool at `-7.8` on Greenfield↔Brownfield is not "worse" than one at `+2.0`, it is positioned differently, and you choose by context.
@@ -116,46 +116,46 @@ make test                  # run the suite
 make check                 # lint then test (the CI gate)
 make validate              # validate the rubric against the schema
 make self-profile          # smoke test: profile agentic-toolkit, measured-only
-make profile TARGET=/path/to/workflow JUDGE=manual ANSWERS=answers.yaml FORMAT=md
+make profile TARGET=/path/to/approach JUDGE=manual ANSWERS=answers.yaml FORMAT=md
 ```
 
-The `atlas` CLI is available directly inside the venv:
+The `agentic-atlas` CLI is available directly inside the venv:
 
 ```bash
 # Validate a rubric against the schema
-atlas validate rubric/v1
+agentic-atlas validate rubric/v1
 
 # Regenerate the axis README scoring blocks from axis.yaml
-atlas docs rubric/v1
+agentic-atlas docs rubric/v1
 
 # Profile a target using only measured indicators (fully deterministic, no model)
-atlas profile /path/to/some-workflow --judge none
+agentic-atlas profile /path/to/some-approach --judge none
 
 # Profile with classified indicators resolved from a prepared answers file
-atlas profile /path/to/some-workflow --judge manual --answers answers.yaml --format md
+agentic-atlas profile /path/to/some-approach --judge manual --answers answers.yaml --format md
 
 # (planned) Overlay several tools on the same axes
-atlas compare bmad-method superpowers gsd
+agentic-atlas compare bmad-method superpowers gsd
 ```
 
-The `/atlas` skill in [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit) wraps this engine, runs it locally on the user's machine, and prints a report without persisting anything.
+The `/agentic-atlas` skill in [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit) wraps this engine, runs it locally on the user's machine, and prints a report without persisting anything.
 
 ## Spec plus interpreter
 
 The repository holds two independently versioned things:
 
 1. **The rubric** (`rubric/`) is versioned data: axis definitions, poles, indicators, and weights. It evolves under its own semver, independent of the engine. See `docs/versioning.md`.
-2. **The engine** (`atlas/`) is the Python code that reads a rubric, gathers evidence, resolves indicators, scores axes with the fixed formula, and renders a profile.
+2. **The engine** (`agentic_atlas/`) is the Python code that reads a rubric, gathers evidence, resolves indicators, scores axes with the fixed formula, and renders a profile.
 
 Every emitted profile stamps the **rubric version**, **engine version**, **target commit SHA**, and, for classified indicators, the **model id**, so any profile is reproducible and arguable.
 
-## Fairness and conflict of interest
+## Fairness
 
-The author also ships [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit), itself a profilable target. Credibility is defended structurally, not by promise: agentic-toolkit is profiled publicly with the same rubric and no special path, rubric changes are pull requests with written rationale and a version bump, any profiled project may contest a specific indicator via an issue, and there is no aggregate score to tilt. See `docs/conflict-of-interest.md`.
+The maintainer also maintains [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit), which is itself a profilable target. It is profiled with the same rubric and engine as any other target, with no special treatment.
 
 ## Status
 
-Early scaffold. Implemented and tested: the per-axis rubric layout with manifest and schema validation, the deterministic weighted-scoring core, a working evidence collector (vocabulary and path-presence signals), manual and measured-only judging, text/markdown/JSON reports, and the `atlas docs` generator that keeps each axis README's scoring block in sync with its `axis.yaml` (enforced by `make docs-check`). In active development: the full curated axis set, git and host-API evidence collectors (for Fresh↔Mature and similar), the classification judge wired to a model, and the `compare` overlay. See `docs/` and the handoff notes.
+Early scaffold. Implemented and tested: the per-axis rubric layout with manifest and schema validation, the deterministic weighted-scoring core, a working evidence collector (vocabulary and path-presence signals), manual and measured-only judging, text/markdown/JSON reports, and the `agentic-atlas docs` generator that keeps each axis README's scoring block in sync with its `axis.yaml` (enforced by `make docs-check`). In active development: the full curated axis set, git and host-API evidence collectors (for Fresh↔Mature and similar), the classification judge wired to a model, and the `compare` overlay. See `docs/` and the handoff notes.
 
 ## License
 

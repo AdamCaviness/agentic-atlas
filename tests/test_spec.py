@@ -2,8 +2,8 @@
 
 from pathlib import Path
 
-from atlas.models import IndicatorKind
-from atlas.spec import load_rubric
+from agentic_atlas.models import IndicatorKind
+from agentic_atlas.spec import load_rubric
 
 _RUBRIC = Path(__file__).resolve().parent.parent / "rubric" / "v1"
 

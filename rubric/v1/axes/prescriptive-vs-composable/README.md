@@ -2,7 +2,7 @@
 
 ## Why this axis exists
 
-Whether a workflow is a fixed pipeline or a toolbox of parts determines how much it bends to your process. Prescriptive gives a proven path with less freedom, composable lets you pick and reorder. Negative (`prescriptive`) means fixed pipeline, positive (`composable`) means modular parts. `pc1` weighs the overall shape, `pc2` whether steps are mandatory and ordered, and the measured `pc3` detects many independent skill or module files. This is distinct from interrogative-vs-opinionated: composability is about modularity, not directiveness.
+Whether an approach is a fixed pipeline or a toolbox of parts determines how much it bends to your process. Prescriptive gives a proven path with less freedom, composable lets you pick and reorder. Negative (`prescriptive`) means fixed pipeline, positive (`composable`) means modular parts. `pc1` weighs the overall shape, `pc2` whether steps are mandatory and ordered, and the measured `pc3` detects many independent skill or module files. This is distinct from interrogative-vs-opinionated: composability is about modularity, not directiveness.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Prescriptive vs Composable)

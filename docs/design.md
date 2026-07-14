@@ -2,13 +2,13 @@
 
 ## Thesis
 
-Comparisons of agentic workflows are currently subjective blog posts. Atlas replaces the subjective take with a **transparent, versioned function**. It profiles a tool by locating it on signed bipolar axes, and each axis position is computed from many small, named, evidence-backed indicators.
+Comparisons of agentic development approaches are currently subjective blog posts. Agentic Atlas replaces the subjective take with a **transparent, versioned function**. It profiles a tool by locating it on signed bipolar axes, and each axis position is computed from many small, named, evidence-backed indicators.
 
-Atlas is not perfect and does not claim objective truth. It claims something better than a vibe: a spec anyone can inspect, contest at the level of a single indicator, and improve through a versioned pull request.
+It is not perfect and does not claim objective truth. It claims something better than a vibe: a spec anyone can inspect, contest at the level of a single indicator, and improve through a versioned pull request.
 
 ## Not a ranking
 
-Atlas produces a **profile**, a vector of signed axis positions, not a score. There is no aggregate number and no leaderboard. The output supports a fit decision ("this tool leans hard greenfield and opinionated, which matches my project") rather than a verdict ("this tool is best").
+Agentic Atlas produces a **profile**, a vector of signed axis positions, not a score. There is no aggregate number and no leaderboard. The output supports a fit decision ("this tool leans hard greenfield and opinionated, which matches my project") rather than a verdict ("this tool is best").
 
 Overlaying two or three profiles on the same axes is the primary intended use.
 
@@ -18,13 +18,13 @@ The repository holds two independently versioned things.
 
 ### The rubric (data)
 
-A rubric is a directory, one per MAJOR version (`rubric/v1`). It holds a `rubric.yaml` manifest (version, title, ordered axis ids), a schema for the manifest and for a single axis, and one directory per axis under `axes/<id>/` containing an `axis.yaml` (the source of truth for that axis: poles, indicators, weights) and a `README.md` whose scoring block is generated from the `axis.yaml` by `atlas docs`. The rubric carries all scoring policy, the engine embeds none.
+A rubric is a directory, one per MAJOR version (`rubric/v1`). It holds a `rubric.yaml` manifest (version, title, ordered axis ids), a schema for the manifest and for a single axis, and one directory per axis under `axes/<id>/` containing an `axis.yaml` (the source of truth for that axis: poles, indicators, weights) and a `README.md` whose scoring block is generated from the `axis.yaml` by `agentic-atlas docs`. The rubric carries all scoring policy, the engine embeds none.
 
 This per-axis layout makes each axis a self-contained, contestable unit: a dispute over an indicator is a change to one directory, and the generated README block cannot drift from the weights the engine actually uses.
 
 ### The engine (code)
 
-`atlas/` reads a rubric, gathers evidence from a target, resolves each indicator to a value, computes axis scores with a fixed formula, and renders a profile. Pipeline:
+`agentic_atlas/` reads a rubric, gathers evidence from a target, resolves each indicator to a value, computes axis scores with a fixed formula, and renders a profile. Pipeline:
 
 ```
 target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
@@ -59,8 +59,8 @@ Judgment does not vanish, it moves. It is no longer "score this axis from -10 to
 
 ## Reproducibility
 
-Every profile stamps rubric version, engine version, target commit SHA, and model id. A local run by the `/atlas` skill and a curated public profile in `profiles/` use the exact same engine, the skill simply does not persist output. There is no second code path.
+Every profile stamps rubric version, engine version, target commit SHA, and model id. A local run by the `/agentic-atlas` skill and a curated public profile in `profiles/` use the exact same engine, the skill simply does not persist output. There is no second code path.
 
 ## Fairness
 
-See `docs/conflict-of-interest.md`. The short version: self-evaluate publicly, version every rubric change with rationale, and let profiled projects contest individual indicators.
+The maintainer also maintains agentic-toolkit, itself a profilable target, which is profiled with the same rubric and engine as any other, with no special treatment.

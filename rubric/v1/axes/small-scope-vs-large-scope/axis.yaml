@@ -5,7 +5,7 @@ poles:
   negative: small_scope
   positive: large_scope
 description: >
-  How much of the delivery lifecycle the workflow covers. Negative means a single
+  How much of the delivery lifecycle the approach covers. Negative means a single
   focused task. Positive means the whole lifecycle from idea to release.
 indicators:
   - id: sl1

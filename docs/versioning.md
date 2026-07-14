@@ -16,7 +16,7 @@ Every rubric change records an entry in `rubric/CHANGELOG.md` and a rationale in
 
 ## Engine version
 
-Standard software semver on the `atlas` Python package, declared in `pyproject.toml`. MAJOR for breaking CLI or API changes, MINOR for features, PATCH for fixes. The engine version is independent of the rubric version, a new engine must still correctly interpret older rubric files within the schema's supported range.
+Standard software semver on the `agentic_atlas` Python package, declared in `pyproject.toml`. MAJOR for breaking CLI or API changes, MINOR for features, PATCH for fixes. The engine version is independent of the rubric version, a new engine must still correctly interpret older rubric files within the schema's supported range.
 
 ## What a profile stamps
 

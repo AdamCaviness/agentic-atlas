@@ -1,19 +1,19 @@
-# Agentic Workflow Atlas: continuation spec
+# Agentic Atlas: continuation spec
 
-This is a self-contained handoff for continuing work on Agentic Workflow Atlas
-(`~/_opensource/agentic-workflow-atlas`). Read it fully before making changes,
+This is a self-contained handoff for continuing work on Agentic Atlas
+(`~/_opensource/agentic-atlas`). Read it fully before making changes,
 then read `AGENTS.md`, `README.md`, and `docs/` for detail. It captures the
 rationale behind decisions so you do not re-litigate them, the current state,
 and the prioritized next steps.
 
 ## What this project is
 
-An open, versioned rubric that **profiles** agentic development workflows,
+An open, versioned rubric that **profiles** agentic development approaches,
 frameworks, methods, and skill systems (BMAD-METHOD, Superpowers, GSD, LFG, and
 similar) by **locating** each on signed bipolar axes. It is for Claude Code and
 comparable coding agents.
 
-**Purpose:** to let a person decide, as easily as possible, which workflow best
+**Purpose:** to let a person decide, as easily as possible, which approach best
 suits their project and their way of working. The output supports a fit decision
 ("this leans hard greenfield and opinionated, which matches my project"), never
 a verdict ("this is best").
@@ -59,7 +59,7 @@ a verdict ("this is best").
   (for classified), so any profile is reproducible and arguable.
 - **Per-axis directory layout, with a generated README block.** Each axis is a
   self-contained, contestable unit. `axis.yaml` is the source of truth; the
-  README's scoring block is generated from it by `atlas docs` and a drift check
+  README's scoring block is generated from it by `agentic-atlas docs` and a drift check
   (`make docs-check`) fails CI if they diverge, so the human doc can never
   misstate the real weights. One directory per MAJOR version because only a MAJOR
   bump breaks cross-version comparability.
@@ -83,18 +83,18 @@ standard software semver. See `docs/versioning.md`.
 
 - Per-axis rubric layout under `rubric/v1/` with a `rubric.yaml` manifest,
   `rubric.schema.json` + `axis.schema.json`, and `axes/<id>/{axis.yaml,README.md}`.
-- Deterministic weighted-scoring core (`atlas/scoring.py`), pure arithmetic.
-- Evidence collectors (`atlas/evidence.py`): `vocabulary` and `path_presence`,
+- Deterministic weighted-scoring core (`agentic_atlas/scoring.py`), pure arithmetic.
+- Evidence collectors (`agentic_atlas/evidence.py`): `vocabulary` and `path_presence`,
   with a recursive glob matcher (fnmatch does not handle `**`; this was a real
   bug that mis-scored path-presence axes). Plus `git_stats` (commit count,
   contributor count, age in days, tag count) and `github_api` (stars, forks,
   watchers, open issues) which resolve to unresolved (counted against coverage)
   when there is no git history, no origin remote, or no network.
-- Judges (`atlas/judge.py`): `NoneJudge` (measured-only), `ManualJudge` (answers
+- Judges (`agentic_atlas/judge.py`): `NoneJudge` (measured-only), `ManualJudge` (answers
   file), `AnthropicJudge` (built but untested end to end).
-- Orchestration (`atlas/profiler.py`), reports text/markdown/JSON (`atlas/report.py`).
-- Docs generator (`atlas/docs.py`) + `atlas docs [--check]`.
-- CLI (`atlas/cli.py`): `validate`, `docs`, `profile`.
+- Orchestration (`agentic_atlas/profiler.py`), reports text/markdown/JSON (`agentic_atlas/report.py`).
+- Docs generator (`agentic_atlas/docs.py`) + `agentic-atlas docs [--check]`.
+- CLI (`agentic_atlas/cli.py`): `validate`, `docs`, `profile`.
 - Makefile: `setup test lint fmt check validate docs docs-check profile
   self-profile clean`. `make check` = lint + docs-check + test.
 - release-please wired for the engine version (`release-type: python`, config +
@@ -102,7 +102,7 @@ standard software semver. See `docs/versioning.md`.
   drive the bump; the workflow auto-merges the release PR (matches agentic-toolkit).
 - 31 tests passing.
 
-Verify with: `cd ~/_opensource/agentic-workflow-atlas && make check`
+Verify with: `cd ~/_opensource/agentic-atlas && make check`
 
 Note on measured-only profiles: they saturate toward the poles at low coverage
 (only 1-2 measured indicators resolve per axis). This is correct, not a bug. The
@@ -142,14 +142,14 @@ before v1 is treated as stable.
 2. **Wire the classified judge end to end.** `AnthropicJudge` exists but is
    untested. Add a small integration path and a `--judge anthropic` smoke test
    (guard network/key). Use low temperature and record the model id.
-3. **Add `atlas compare`.** Overlay 2-3 profiles on the same axes (text radar or
+3. **Add `agentic-atlas compare`.** Overlay 2-3 profiles on the same axes (text radar or
    markdown table), the primary intended use of the tool.
-4. **Build the `/atlas` skill in agentic-toolkit.** It shells out to this engine,
+4. **Build the `/agentic-atlas` skill in agentic-toolkit.** It shells out to this engine,
    runs locally, and prints a non-persisted report. Same single code path.
 5. **Publish the self-eval.** Once the axis set stabilizes, generate the public
    profile of agentic-toolkit into `profiles/` with no special treatment.
 6. **Build a corpus and study axis correlation, then personas and viz.** Profile
-   10 to 15 real workflows, compute the correlation matrix, and use it to drive
+   10 to 15 real approaches, compute the correlation matrix, and use it to drive
    axis merges, adjacency ordering, and grounded personas. The correlation study
    is the prerequisite that makes the persona-fit feature and any 3D map honest.
    Full design in `specs/personas-correlation-ordering.md`.
@@ -160,9 +160,15 @@ ordering, and the 2D/3D visualization plan).
 
 ## Open decisions to raise with the user
 
-- **[RESOLVED]** GitHub org/owner is `adamcaviness`. README, COI doc, and both
+- **[RESOLVED]** GitHub org/owner is `adamcaviness`. README, docs, and both
   schema `$id` links updated from the `adamavo` placeholder.
 - **[RESOLVED]** release-please is set up for the engine version.
+- **[RESOLVED]** The project name is **Agentic Atlas** (repo
+  `agentic-atlas`). A prior session nicknamed it "Atlas" in prose, which
+  was a mistake and has been corrected. The conflict-of-interest material was
+  overwrought and was collapsed to a single honest sentence (the maintainer also
+  maintains agentic-toolkit, profiled with no special treatment); the standalone
+  `docs/conflict-of-interest.md` was removed.
 - When authoring new axes, watch correlation with existing ones; the risk is
   dilution, not coverage. Prefer merging over adding a near-duplicate.
 

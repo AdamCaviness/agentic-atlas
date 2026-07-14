@@ -5,7 +5,7 @@ poles:
   negative: fresh
   positive: mature
 description: >
-  How settled the workflow is as a project. Negative means new, fast-moving, and
+  How settled the approach is as a project. Negative means new, fast-moving, and
   cutting-edge, with the churn and thin track record that implies. Positive means
   established, stable, and battle-tested, with the inertia that implies. Neither
   pole is better: fresh often means the newest ideas, mature often means fewer

@@ -5,7 +5,7 @@ poles:
   negative: greenfield
   positive: brownfield
 description: >
-  Where the workflow is strongest. Negative means it excels starting from an
+  Where the approach is strongest. Negative means it excels starting from an
   idea with no existing product. Positive means it excels working inside an
   existing codebase.
 indicators:

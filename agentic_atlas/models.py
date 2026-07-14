@@ -1,7 +1,7 @@
 """Dataclasses for rubrics and profiles.
 
 These are plain data holders. All scoring policy lives in the rubric file and is
-applied by ``atlas.scoring``. No behaviour that could move a score belongs here.
+applied by ``agentic_atlas.scoring``. No behaviour that could move a score belongs here.
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ class Indicator:
     weight: float
     # For classified indicators: answer key -> value in [-1, 1].
     answers: dict[str, float] = field(default_factory=dict)
-    # For measured indicators: raw signal spec, interpreted by atlas.evidence.
+    # For measured indicators: raw signal spec, interpreted by agentic_atlas.evidence.
     signal: dict | None = None
 
 

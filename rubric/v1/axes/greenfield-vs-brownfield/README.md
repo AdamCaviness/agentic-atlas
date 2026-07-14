@@ -2,9 +2,9 @@
 
 ## Why this axis exists
 
-The single biggest predictor of whether a workflow will help or frustrate is whether your work is greenfield or brownfield. Greenfield methods front-load spec and product generation and assume they own the whole tree. Brownfield methods assume a large existing codebase they must read, respect, and change surgically. A tool tuned for one is often actively painful for the other, so this axis is usually the first one a reader should consult.
+The single biggest predictor of whether an approach will help or frustrate is whether your work is greenfield or brownfield. Greenfield methods front-load spec and product generation and assume they own the whole tree. Brownfield methods assume a large existing codebase they must read, respect, and change surgically. A tool tuned for one is often actively painful for the other, so this axis is usually the first one a reader should consult.
 
-Negative (`greenfield`) means the workflow shines starting from an idea with no product yet. Positive (`brownfield`) means it shines inside an existing codebase. The two heaviest indicators (`gb1`, `gb2`) capture the defining behaviors: does it insist on generating a spec from scratch, and does it ship real machinery for ingesting existing code. The measured indicators (`gb3`, `gb5`) corroborate with vocabulary and structure so the position does not rest entirely on judgment.
+Negative (`greenfield`) means the approach shines starting from an idea with no product yet. Positive (`brownfield`) means it shines inside an existing codebase. The two heaviest indicators (`gb1`, `gb2`) capture the defining behaviors: does it insist on generating a spec from scratch, and does it ship real machinery for ingesting existing code. The measured indicators (`gb3`, `gb5`) corroborate with vocabulary and structure so the position does not rest entirely on judgment.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Greenfield vs Brownfield)

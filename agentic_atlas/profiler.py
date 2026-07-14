@@ -1,6 +1,6 @@
 """Orchestrate a full profile: evidence, then judgment, then scoring.
 
-This is the single code path. The /atlas skill and any curated public profile both
+This is the single code path. The /agentic-atlas skill and any curated public profile both
 run through here, they differ only in whether they persist the result.
 """
 

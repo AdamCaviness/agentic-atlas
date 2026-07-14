@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from atlas import docs
+from agentic_atlas import docs
 
 _RUBRIC = Path(__file__).resolve().parent.parent / "rubric" / "v1"
 

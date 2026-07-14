@@ -5,9 +5,9 @@ import subprocess
 
 import pytest
 
-from atlas import evidence
-from atlas.evidence import Target, _matches, _parse_github_slug, resolve_measured
-from atlas.models import Indicator, IndicatorKind
+from agentic_atlas import evidence
+from agentic_atlas.evidence import Target, _matches, _parse_github_slug, resolve_measured
+from agentic_atlas.models import Indicator, IndicatorKind
 
 
 @pytest.mark.parametrize(

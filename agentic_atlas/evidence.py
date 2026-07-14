@@ -68,7 +68,7 @@ def _glob_regex(pattern: str) -> re.Pattern:
 def _matches(path: str, pattern: str) -> bool:
     return _glob_regex(pattern).match(path) is not None
 
-# File extensions that make up a workflow's readable surface.
+# File extensions that make up an approach's readable surface.
 _TEXT_SUFFIXES = {".md", ".markdown", ".txt", ".yaml", ".yml", ".json", ".toml"}
 _MAX_FILE_BYTES = 512_000
 _IGNORE_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
@@ -286,7 +286,7 @@ def _fetch_github_repo(owner: str, repo: str) -> dict | None:
         f"https://api.github.com/repos/{owner}/{repo}",
         headers={
             "Accept": "application/vnd.github+json",
-            "User-Agent": "agentic-workflow-atlas",
+            "User-Agent": "agentic-atlas",
         },
     )
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")

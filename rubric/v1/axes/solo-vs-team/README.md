@@ -2,7 +2,7 @@
 
 ## Why this axis exists
 
-Whether a workflow assumes one developer or many changes its coordination overhead entirely. A solo developer does not want claiming, assignment, and handoff ceremony, and a team is hampered without it. Negative (`solo`) means built for one, positive (`team`) means multi-contributor and team-safe. `st1` weighs collaboration safety most, `st2` captures handoffs between people, and the measured `st3` corroborates with team vocabulary.
+Whether an approach assumes one developer or many changes its coordination overhead entirely. A solo developer does not want claiming, assignment, and handoff ceremony, and a team is hampered without it. Negative (`solo`) means built for one, positive (`team`) means multi-contributor and team-safe. `st1` weighs collaboration safety most, `st2` captures handoffs between people, and the measured `st3` corroborates with team vocabulary.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Solo vs Team)

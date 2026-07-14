@@ -1,7 +1,7 @@
 """Tests for the deterministic scoring core."""
 
-from atlas.models import Axis, Indicator, IndicatorKind, IndicatorResult, Poles
-from atlas.scoring import score_axis
+from agentic_atlas.models import Axis, Indicator, IndicatorKind, IndicatorResult, Poles
+from agentic_atlas.scoring import score_axis
 
 
 def _axis(scale=10.0):

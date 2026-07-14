@@ -5,7 +5,7 @@ poles:
   negative: human_in_loop
   positive: autonomous
 description: >
-  How much the workflow runs unattended. Negative means frequent checkpoints and
+  How much the approach runs unattended. Negative means frequent checkpoints and
   approvals. Positive means autopilot, running end to end with little intervention.
 indicators:
   - id: ah1

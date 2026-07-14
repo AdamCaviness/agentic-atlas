@@ -5,7 +5,7 @@ poles:
   negative: solo
   positive: team
 description: >
-  Who the workflow is built for. Negative means a single developer working alone.
+  Who the approach is built for. Negative means a single developer working alone.
   Positive means multiple contributors, with team-safe collaboration and handoffs.
 indicators:
   - id: st1

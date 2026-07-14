@@ -5,7 +5,7 @@ poles:
   negative: interrogative
   positive: opinionated
 description: >
-  How the workflow reaches decisions. Negative means it elicits, asks questions,
+  How the approach reaches decisions. Negative means it elicits, asks questions,
   and defers to the user. Positive means it prescribes a strong default path.
 indicators:
   - id: io1

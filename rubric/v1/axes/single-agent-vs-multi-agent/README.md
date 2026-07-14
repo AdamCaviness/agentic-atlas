@@ -2,7 +2,7 @@
 
 ## Why this axis exists
 
-Internal structure, one conversation versus many specialized subagents or personas, affects context hygiene, cost, and how the workflow reasons. Neither is better: multi-agent can decompose big problems but adds orchestration overhead. Negative (`single_agent`) means one agent, positive (`multi_agent`) means orchestrated specialists. `ma1` weighs orchestration most, and the two measured indicators (`ma2` vocabulary, `ma3` agent-definition files) give the axis real signal even before classification.
+Internal structure, one conversation versus many specialized subagents or personas, affects context hygiene, cost, and how the approach reasons. Neither is better: multi-agent can decompose big problems but adds orchestration overhead. Negative (`single_agent`) means one agent, positive (`multi_agent`) means orchestrated specialists. `ma1` weighs orchestration most, and the two measured indicators (`ma2` vocabulary, `ma3` agent-definition files) give the axis real signal even before classification.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Single-agent vs Multi-agent)

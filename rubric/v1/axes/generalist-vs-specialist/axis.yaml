@@ -5,7 +5,7 @@ poles:
   negative: generalist
   positive: specialist
 description: >
-  How domain-focused the workflow is. Negative means it targets any domain, from
+  How domain-focused the approach is. Negative means it targets any domain, from
   writing to business to wellness. Positive means it specializes in software delivery.
 indicators:
   - id: gs1

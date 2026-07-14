@@ -116,7 +116,7 @@ class AnthropicJudge:
             },
         }
         prompt = (
-            f"Question about an agentic workflow: {indicator.question}\n\n"
+            f"Question about an agentic development approach: {indicator.question}\n\n"
             f"Choose exactly one answer from: {options}.\n"
             f"Base the answer only on the target material below and quote the evidence.\n\n"
             f"--- TARGET MATERIAL ---\n{corpus}"

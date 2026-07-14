@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/adamcaviness/agentic-workflow-atlas/rubric/v1/rubric.schema.json",
-  "title": "Agentic Workflow Atlas Rubric Manifest",
+  "$id": "https://github.com/adamcaviness/agentic-atlas/rubric/v1/rubric.schema.json",
+  "title": "Agentic Atlas Rubric Manifest",
   "type": "object",
   "required": ["rubric_version", "title", "axes"],
   "additionalProperties": false,

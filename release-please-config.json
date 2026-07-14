@@ -4,7 +4,7 @@
   "include-component-in-tag": false,
   "packages": {
     ".": {
-      "package-name": "agentic-workflow-atlas",
+      "package-name": "agentic-atlas",
       "changelog-path": "CHANGELOG.md",
       "changelog-sections": [
         { "type": "feat", "section": "Features" },
@@ -19,7 +19,7 @@
         { "type": "test", "section": "Tests", "hidden": true }
       ],
       "extra-files": [
-        { "type": "generic", "path": "atlas/__init__.py" }
+        { "type": "generic", "path": "agentic_atlas/__init__.py" }
       ]
     }
   }

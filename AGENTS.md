@@ -1,15 +1,15 @@
-# Agent instructions: Agentic Workflow Atlas
+# Agent instructions: Agentic Atlas
 
 This file is the canonical guidance for AI agents (Claude Code and others) working in this repository. `CLAUDE.md` is a symlink to this file.
 
 ## What this project is
 
-Atlas profiles agentic development workflows and frameworks by locating each on signed, bipolar axes. It is **not** a ranking tool and there is **no aggregate score**. Read `README.md` and `docs/design.md` before making architectural changes.
+Agentic Atlas profiles agentic development approaches and frameworks by locating each on signed, bipolar axes. It is **not** a ranking tool and there is **no aggregate score**. Read `README.md` and `docs/design.md` before making architectural changes.
 
 ## Core invariants (do not violate without a versioned rubric change)
 
 1. **No aggregate score.** Never sum, average, or otherwise collapse axes into a single number. Axes are independent positions, and averaging signed positions is meaningless.
-2. **The rubric is data, the engine is code.** Scoring logic that belongs to the rubric (weights, indicator definitions, formulas) lives in `rubric/*.yaml`, never hardcoded in `atlas/`. The engine interprets the rubric, it does not embed a specific rubric.
+2. **The rubric is data, the engine is code.** Scoring logic that belongs to the rubric (weights, indicator definitions, formulas) lives in `rubric/*.yaml`, never hardcoded in `agentic_atlas/`. The engine interprets the rubric, it does not embed a specific rubric.
 3. **The axis score is a deterministic function of indicators.** The engine's `scoring.py` is pure arithmetic. Given the same indicator values it must always return the same axis score.
 4. **Every profile is reproducible.** Stamp rubric version, engine version, target commit SHA, and (for classified indicators) the model id, on every emitted profile.
 5. **`measured` vs `classified` stays separated.** `measured` indicators are computed by the engine with no model. `classified` indicators require reading and a bounded answer plus a cited quote. Never let a classified indicator masquerade as measured.
@@ -33,13 +33,13 @@ rubric/v1/                   One directory per MAJOR version
   axes/<id>/axis.yaml        Source of truth for one axis (poles, indicators, weights)
   axes/<id>/README.md        Human rationale + a generated scoring block
   CHANGELOG.md
-atlas/         Python engine (spec, scoring, evidence, judge, profiler, report, docs, cli)
-docs/          Design, axis authoring method, versioning policy, COI policy
+agentic_atlas/ Python engine (spec, scoring, evidence, judge, profiler, report, docs, cli)
+docs/          Design, axis authoring method, versioning policy
 tests/         Tests, with the deterministic scoring core covered first
 profiles/      Curated public profiles (generated JSON), including self-eval
 ```
 
-Each axis README's scoring block is generated from its `axis.yaml` by `atlas docs`
+Each axis README's scoring block is generated from its `axis.yaml` by `agentic-atlas docs`
 (`make docs`). Never hand-edit the block between the generated markers, edit the
 `axis.yaml` and regenerate. `make docs-check` (part of `make check`) fails on drift.
 

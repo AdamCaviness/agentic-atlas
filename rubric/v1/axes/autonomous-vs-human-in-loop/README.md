@@ -2,7 +2,7 @@
 
 ## Why this axis exists
 
-How much a workflow runs unattended determines how you spend your attention. An autonomous autopilot is a gift when you trust the task and want to step away, and a liability when you need to steer closely or the blast radius is large. Frequent checkpoints are the reverse. This axis helps a reader match a tool to how much oversight the work demands.
+How much an approach runs unattended determines how you spend your attention. An autonomous autopilot is a gift when you trust the task and want to step away, and a liability when you need to steer closely or the blast radius is large. Frequent checkpoints are the reverse. This axis helps a reader match a tool to how much oversight the work demands.
 
 Negative (`human_in_loop`) means frequent approvals and checkpoints. Positive (`autonomous`) means end-to-end autopilot with little intervention. `ah1` detects an advertised autopilot mode, `ah2` detects mandatory approvals between phases, and the measured `ah3` reads checkpoint vocabulary as corroboration.
 

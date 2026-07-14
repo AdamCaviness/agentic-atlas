@@ -1,8 +1,8 @@
-"""Command line interface for the Atlas engine.
+"""Command line interface for the Agentic Atlas engine.
 
-    atlas validate <rubric.yaml>
-    atlas profile <target> [--rubric FILE] [--judge none|manual] [--answers FILE]
-                           [--format text|md|json]
+    agentic-atlas validate <rubric.yaml>
+    agentic-atlas profile <target> [--rubric FILE] [--judge none|manual] [--answers FILE]
+                                   [--format text|md|json]
 """
 
 from __future__ import annotations
@@ -71,7 +71,7 @@ def _cmd_profile(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="atlas", description=__doc__)
+    p = argparse.ArgumentParser(prog="agentic-atlas", description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
 
     v = sub.add_parser("validate", help="validate a rubric against the schema")
@@ -84,7 +84,7 @@ def build_parser() -> argparse.ArgumentParser:
     d.set_defaults(func=_cmd_docs)
 
     pr = sub.add_parser("profile", help="profile a target directory")
-    pr.add_argument("target", help="path to the target workflow/framework directory")
+    pr.add_argument("target", help="path to the target approach/framework directory")
     pr.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
     pr.add_argument("--judge", choices=["none", "manual"], default="none")
     pr.add_argument("--answers", help="YAML file of prepared answers for manual judging")

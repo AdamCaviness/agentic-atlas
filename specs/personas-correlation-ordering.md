@@ -10,7 +10,7 @@ data, so it is not lost or re-litigated. See `specs/handoff.md` for project stat
 Do our axes relate, such that a development persona (vibe coding, TDD, spec-driven,
 and so on) wants qualities within specific ranges across axes? If so, that
 relationship could inform how axes are ordered in output (text, 2D, 3D) and could
-power a "which workflow fits me" feature.
+power a "which approach fits me" feature.
 
 Short answer: yes, personas map to coherent regions and axes visibly co-move, but
 the correlations must be **measured** across a real corpus before we bake them in,
@@ -129,6 +129,6 @@ make the 3D instinct pay off. See the 2D-first, 3D-signature-toggle plan in
 Do not build viz or personas from intuition. The unlock is a real corpus of
 profiles, because it converts every downstream decision (merges, ordering,
 personas, 3D) from guesswork into measurement. Concretely: get `--judge anthropic`
-working end to end, profile 10 to 15 real workflows into `profiles/`, and compute
+working end to end, profile 10 to 15 real approaches into `profiles/`, and compute
 the correlation matrix. That single artifact answers "how related are the axes"
 with data, and everything here becomes actionable.
