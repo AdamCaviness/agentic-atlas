@@ -84,9 +84,12 @@ class ManualJudge:
 class AnthropicJudge:
     """Ask a Claude model to pick a bounded answer and cite evidence.
 
-    Requires the ``anthropic`` extra and an API key in the environment. Uses a
-    forced tool call so the answer is constrained to the indicator's answer set,
-    and low temperature for reproducibility. The model id is stamped as the source.
+    Requires the ``anthropic`` extra and an API key in the environment. A forced
+    tool call constrains the answer to the indicator's answer set, and that forced
+    single-tool choice is what makes the classification deterministic. Sampling
+    parameters (``temperature``/``top_p``/``top_k``) are deliberately omitted
+    because current models reject them with an HTTP 400. The model id is stamped
+    as the source.
     """
 
     def __init__(self, model: str = "claude-opus-4-8", max_evidence_chars: int = 40_000):
@@ -124,7 +127,6 @@ class AnthropicJudge:
         msg = client.messages.create(
             model=self.model,
             max_tokens=1024,
-            temperature=0,
             tools=[tool],
             tool_choice={"type": "tool", "name": "record_answer"},
             messages=[{"role": "user", "content": prompt}],

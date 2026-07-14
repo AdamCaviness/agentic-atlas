@@ -1,8 +1,8 @@
 """Command line interface for the Agentic Atlas engine.
 
     agentic-atlas validate <rubric.yaml>
-    agentic-atlas profile <target> [--rubric FILE] [--judge none|manual] [--answers FILE]
-                                   [--format text|md|json]
+    agentic-atlas profile <target> [--rubric FILE] [--judge none|manual|anthropic]
+                                   [--answers FILE] [--model ID] [--format text|md|json]
 """
 
 from __future__ import annotations
@@ -51,8 +51,13 @@ def _build_judge(args: argparse.Namespace):
             raise SystemExit(2)
         data = yaml.safe_load(Path(args.answers).read_text()) or {}
         return ManualJudge(data.get("answers", data))
-    # "anthropic" is available but kept out of the default CLI path so a plain run
-    # never makes network calls. Import it explicitly when wiring the skill.
+    if args.judge == "anthropic":
+        # Imported here, not at module top, so a default run never imports the
+        # optional ``anthropic`` package and never makes network calls. The
+        # anthropic judge is strictly opt-in via ``--judge anthropic``.
+        from .judge import AnthropicJudge
+
+        return AnthropicJudge(model=args.model)
     raise SystemExit(f"unsupported judge: {args.judge}")
 
 
@@ -86,8 +91,13 @@ def build_parser() -> argparse.ArgumentParser:
     pr = sub.add_parser("profile", help="profile a target directory")
     pr.add_argument("target", help="path to the target approach/framework directory")
     pr.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
-    pr.add_argument("--judge", choices=["none", "manual"], default="none")
+    pr.add_argument("--judge", choices=["none", "manual", "anthropic"], default="none")
     pr.add_argument("--answers", help="YAML file of prepared answers for manual judging")
+    pr.add_argument(
+        "--model",
+        default="claude-opus-4-8",
+        help="Claude model id for --judge anthropic (ignored by other judges)",
+    )
     pr.add_argument("--format", choices=["text", "md", "json"], default="text")
     pr.set_defaults(func=_cmd_profile)
 

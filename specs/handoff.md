@@ -139,9 +139,15 @@ before v1 is treated as stable.
    GitHub via a mocked fetch), axis authored with 5 measured + 1 classified
    indicators so it scores meaningfully measured-only. Smoke-tested live against
    agentic-toolkit (stars fetched, all git metrics resolved).
-2. **Wire the classified judge end to end.** `AnthropicJudge` exists but is
-   untested. Add a small integration path and a `--judge anthropic` smoke test
-   (guard network/key). Use low temperature and record the model id.
+2. **[DONE]** Wired `AnthropicJudge` end to end: `--judge anthropic` + `--model`
+   (default `claude-opus-4-8`) in the CLI, lazy import so a default run never
+   touches the `anthropic` package or network. Fixed a latent 400 bug (the judge
+   sent `temperature=0`, which current models reject; sampling params removed,
+   determinism now rests on the forced single-tool choice). Tests in
+   `tests/test_judge.py`: an offline mock (fake `anthropic` in `sys.modules`), a
+   regression guard that no sampling params are sent, and a live smoke test
+   double-gated behind the `anthropic` extra and `ATLAS_ANTHROPIC_SMOKE=1` so it
+   never runs in `make check`.
 3. **Add `agentic-atlas compare`.** Overlay 2-3 profiles on the same axes (text radar or
    markdown table), the primary intended use of the tool.
 4. **Build the `/agentic-atlas` skill in agentic-toolkit.** It shells out to this engine,
