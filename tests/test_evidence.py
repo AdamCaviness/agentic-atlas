@@ -6,26 +6,72 @@ import subprocess
 import pytest
 
 from agentic_atlas import evidence
-from agentic_atlas.evidence import Target, _matches, _parse_github_slug, resolve_measured
+from agentic_atlas.evidence import (
+    Target,
+    _count_terms,
+    _matches,
+    _parse_github_slug,
+    resolve_measured,
+)
 from agentic_atlas.models import Indicator, IndicatorKind
 
 
 @pytest.mark.parametrize(
     "path,pattern,expected",
     [
-        ("skills/foo.md", "**/skills/**", True),      # top-level dir, no parent segment
+        ("skills/foo.md", "**/skills/**", True),  # top-level dir, no parent segment
         ("a/b/skills/foo.md", "**/skills/**", True),  # nested
         ("skills/foo.md", "skills/**", True),
         ("src/agent.md", "**/*agent*.md", True),
         ("agents/pm/agent.md", "**/agents/**", True),
         ("readme.md", "**/skills/**", False),
-        ("skillset/foo.md", "**/skills/**", False),   # must be a real path segment
-        ("BROWNFIELD.md", "**/brownfield*", False),   # case-sensitive by design
+        ("skillset/foo.md", "**/skills/**", False),  # must be a real path segment
+        ("BROWNFIELD.md", "**/brownfield*", False),  # case-sensitive by design
         ("brownfield-guide.md", "**/brownfield*", True),
     ],
 )
 def test_matches(path, pattern, expected):
     assert _matches(path, pattern) is expected
+
+
+def test_count_terms_matches_whole_tokens_only():
+    # Short terms must not match inside unrelated words: "ci" is a substring of
+    # special/decision, "api" of capital, but neither should count there.
+    corpus = "a special decision about capital efficiency, and we run ci with the api"
+    assert _count_terms(corpus, ["ci"]) == 1
+    assert _count_terms(corpus, ["api"]) == 1
+
+
+def test_count_terms_handles_multiword_and_hyphenated_terms():
+    assert _count_terms("we do test-first with a pull request", ["test-first", "pull request"]) == 2
+    # a longer word that merely contains the phrase does not count
+    assert _count_terms("subtest-first pull requests here", ["test-first", "pull request"]) == 0
+
+
+def test_count_terms_is_whole_token_not_stem():
+    # Deliberate, documented limitation: matching is whole-token, so inflected forms
+    # must be listed explicitly in the rubric rather than relying on a stem.
+    assert _count_terms("the deployment was deployed", ["deploy"]) == 0
+    assert _count_terms("the deployment was deployed", ["deployment", "deployed"]) == 2
+
+
+def test_files_walked_in_deterministic_order(tmp_path):
+    for name in ["z.md", "a.md", "m/b.md"]:
+        p = tmp_path / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("x")
+    paths = Target.from_path(tmp_path).relative_paths()
+    assert paths == ["a.md", "m/b.md", "z.md"]
+
+
+def test_ignore_junk_files(tmp_path):
+    (tmp_path / "README.md").write_text("real content")
+    (tmp_path / ".DS_Store").write_bytes(b"\x00junk")
+    (tmp_path / "sub").mkdir()
+    (tmp_path / "sub" / ".DS_Store").write_bytes(b"\x00junk")
+    paths = Target.from_path(tmp_path).relative_paths()
+    assert "README.md" in paths
+    assert not any(p.endswith(".DS_Store") for p in paths)
 
 
 def _git(root, *args, when=None):
@@ -75,8 +121,11 @@ def _git_stats_indicator(metric, bands):
 
 
 def test_git_stats_bands_a_metric(git_repo):
-    bands = [{"max_count": 180, "value": -1.0}, {"max_count": 730, "value": 0.3},
-             {"max_count": None, "value": 1.0}]
+    bands = [
+        {"max_count": 180, "value": -1.0},
+        {"max_count": 730, "value": 0.3},
+        {"max_count": None, "value": 1.0},
+    ]
     result = resolve_measured(_git_stats_indicator("age_days", bands), git_repo)
     assert result.resolved is True
     assert result.value == 0.3  # 400 days lands in the middle band
@@ -118,8 +167,11 @@ def _github_indicator(metric, bands):
     )
 
 
-_STAR_BANDS = [{"max_count": 100, "value": -0.8}, {"max_count": 2000, "value": 0.2},
-               {"max_count": None, "value": 1.0}]
+_STAR_BANDS = [
+    {"max_count": 100, "value": -0.8},
+    {"max_count": 2000, "value": 0.2},
+    {"max_count": None, "value": 1.0},
+]
 
 
 def test_github_api_bands_a_metric(tmp_path, monkeypatch):

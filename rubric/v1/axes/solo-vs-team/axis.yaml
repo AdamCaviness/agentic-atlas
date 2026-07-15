@@ -1,6 +1,5 @@
 id: solo-vs-team
 title: Solo vs Team
-scale: 10
 poles:
   negative: solo
   positive: team

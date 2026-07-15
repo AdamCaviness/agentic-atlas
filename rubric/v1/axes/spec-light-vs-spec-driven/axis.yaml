@@ -1,6 +1,5 @@
 id: spec-light-vs-spec-driven
 title: Spec-light vs Spec-driven
-scale: 10
 poles:
   negative: spec_light
   positive: spec_driven

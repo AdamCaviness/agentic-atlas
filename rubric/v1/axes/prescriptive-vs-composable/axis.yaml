@@ -1,6 +1,5 @@
 id: prescriptive-vs-composable
 title: Prescriptive vs Composable
-scale: 10
 poles:
   negative: prescriptive
   positive: composable

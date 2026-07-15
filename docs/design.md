@@ -38,7 +38,7 @@ target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
 The hard part is getting a deterministic result out of a subjective axis. It resolves by decomposing each axis into indicators of two kinds.
 
 - **`measured`** indicators are computed by the engine directly from the repository, with no model. Current signal types: `vocabulary` (term density across docs and commands, bucketed into bands), `path_presence` (glob matches to a value), `git_stats` (repository facts like age and commit count), and `github_api` (host facts like stars). These are deterministic given their input.
-- **`classified`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model or a human picks the answer, and the engine records the answer **plus a cited quote** as evidence. The answer set is bounded and anchored so independent resolvers converge.
+- **`classified`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model picks the answer and must cite a quote copied **verbatim from the target**; the engine discards any answer whose quote it cannot find, and the bounded, anchored answer set keeps independent runs consistent.
 
 The scoring step treats both kinds identically: each resolved indicator yields a value in `[-1, 1]` and a weight. The axis score is:
 
@@ -46,16 +46,19 @@ The scoring step treats both kinds identically: each resolved indicator yields a
 axis_score = scale * sum(weight_i * value_i) / sum(weight_i)
 ```
 
-clamped to `[-scale, +scale]` and rounded. Indicators that cannot be resolved (for example classified indicators with no judge configured) are excluded, and the profile reports coverage so a partial profile is never mistaken for a complete one.
+clamped to `[-scale, +scale]` and rounded. Indicators that cannot be resolved (for example classified indicators with no answers supplied) are excluded, and the profile reports coverage so a partial profile is never mistaken for a complete one.
 
 ## Where judgment lives, and how it is constrained
 
-The judgment call is narrower than "score this axis from -10 to 10." It becomes "answer indicator gb1 with yes, partial, or no, and cite the line that proves it." Constraints that keep this reproducible:
+The judgment call is narrower than "score this axis from -10 to 10." It becomes "answer indicator gb1 with yes, partial, or no, and cite the line that proves it." The answer is produced outside the engine (by the agentic-toolkit skill's host agent), and the engine validates it. Constraints that keep this reproducible:
 
 - Bounded answer sets with anchored definitions in the rubric.
-- A required evidence citation per classified answer.
-- A forced single-tool call, so a model's answer is constrained to the allowed set.
-- The model id is stamped on the profile, so a resolution is attributable.
+- The engine rejects any answer outside an indicator's declared value set.
+- A required quote, verified by the engine to appear verbatim in the target. An answer whose quote cannot be found is discarded and the indicator left unresolved rather than guessed.
+- The answerer treats the target's own text as untrusted data, so it cannot instruct the agent into a verdict.
+- The source of each supplied answer is stamped on the profile, so a resolution is attributable.
+
+Validation stops a fabricated citation, but it cannot tell a fair quote from a real-but-cherry-picked one. The answer file is therefore a reviewable artifact, and its provenance and review are what defend against a motivated answerer.
 
 ## Reproducibility
 

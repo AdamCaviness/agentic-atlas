@@ -2,6 +2,10 @@
 
 Two independent version lines. Do not conflate them.
 
+## Status: pre-settled
+
+This rubric is an initial work in progress; nothing has settled. The `rubric/v1/` directory exists to afford versioning later, it is not a statement that v1 is finished. Until the standard stabilizes and profiles are published, score-moving changes are recorded honestly in `rubric/CHANGELOG.md` but do not each mint a new MAJOR version or directory. The discipline below takes full effect once the rubric settles and comparable profiles exist.
+
 ## Rubric version
 
 Declared as `rubric_version` inside the manifest (`rubric/v1/rubric.yaml`), with one directory per MAJOR version (`rubric/v1`, `rubric/v2`). This versions the measurement standard itself. The guiding question for a bump is: **would this change move the score for identical evidence?**

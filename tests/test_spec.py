@@ -27,13 +27,32 @@ _EXPECTED_AXES = [
 
 def test_shipped_rubric_validates_and_parses():
     r = load_rubric(_RUBRIC, validate=True)
-    assert r.rubric_version == "1.1.0"
+    assert r.rubric_version == "1.2.0"
     assert {a.id for a in r.axes} == set(_EXPECTED_AXES)
 
 
 def test_manifest_order_is_preserved():
     r = load_rubric(_RUBRIC)
     assert [a.id for a in r.axes] == _EXPECTED_AXES
+
+
+def test_manifest_scale_propagates_to_every_axis(tmp_path):
+    # A rubric-wide scale in the manifest must reach every axis, so positions stay on one
+    # shared range. Copy the shipped rubric, override the manifest scale, and check.
+    import shutil
+
+    import yaml
+
+    dst = tmp_path / "v1"
+    shutil.copytree(_RUBRIC, dst)
+    manifest_path = dst / "rubric.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text())
+    manifest["scale"] = 7
+    manifest_path.write_text(yaml.safe_dump(manifest))
+
+    r = load_rubric(dst)
+    assert r.axes  # sanity: axes loaded
+    assert all(a.scale == 7 for a in r.axes)
 
 
 def test_classified_indicators_have_answers():

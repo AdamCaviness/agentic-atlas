@@ -1,6 +1,5 @@
 id: greenfield-vs-brownfield
 title: Greenfield vs Brownfield
-scale: 10
 poles:
   negative: greenfield
   positive: brownfield

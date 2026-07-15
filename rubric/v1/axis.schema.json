@@ -9,7 +9,6 @@
     "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
     "title": { "type": "string" },
     "description": { "type": "string" },
-    "scale": { "type": "number", "exclusiveMinimum": 0, "default": 10 },
     "poles": {
       "type": "object",
       "required": ["negative", "positive"],
@@ -76,7 +75,12 @@
           "additionalProperties": false,
           "properties": {
             "type": { "const": "vocabulary" },
-            "terms": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "terms": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string" },
+              "description": "Case-insensitive terms matched as whole tokens, not substrings, so a short term like 'ci' does not match inside 'decision'. List inflected forms explicitly (for example 'deploy' and 'deployment')."
+            },
             "bands": { "$ref": "#/$defs/bands" }
           }
         },

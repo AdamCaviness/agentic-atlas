@@ -10,10 +10,9 @@ PYTEST := $(VENV)/bin/pytest
 RUFF   := $(VENV)/bin/ruff
 ATLAS  := $(VENV)/bin/agentic-atlas
 
-# Overridable on the command line, e.g. make profile TARGET=/path JUDGE=manual
+# Overridable on the command line, e.g. make profile TARGET=/path ANSWERS=answers.json
 RUBRIC  ?= rubric/v1
 TARGET  ?=
-JUDGE   ?= none
 ANSWERS ?=
 FORMAT  ?= text
 
@@ -57,12 +56,11 @@ docs: setup ## Regenerate axis README scoring blocks from axis.yaml
 docs-check: setup ## Fail if any axis README scoring block is stale
 	$(ATLAS) docs $(RUBRIC) --check
 
-profile: setup ## Profile a target: make profile TARGET=/path [JUDGE=manual ANSWERS=a.yaml FORMAT=md]
+profile: setup ## Profile a target: make profile TARGET=/path [ANSWERS=answers.json FORMAT=md]
 	@test -n "$(TARGET)" || { \
-		echo "usage: make profile TARGET=/path/to/approach [JUDGE=none|manual ANSWERS=file FORMAT=text|md|json]"; \
+		echo "usage: make profile TARGET=/path/to/approach [ANSWERS=answers.json FORMAT=text|md|json]"; \
 		exit 2; }
-	$(ATLAS) profile "$(TARGET)" --rubric "$(RUBRIC)" --judge "$(JUDGE)" \
-		$(if $(ANSWERS),--answers "$(ANSWERS)",) --format "$(FORMAT)"
+	$(ATLAS) profile "$(TARGET)" --rubric "$(RUBRIC)" $(if $(ANSWERS),--answers "$(ANSWERS)",) --format "$(FORMAT)"
 
 clean: ## Remove the venv, caches, and build artifacts
 	rm -rf $(VENV) .pytest_cache .ruff_cache build dist *.egg-info

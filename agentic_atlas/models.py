@@ -62,7 +62,7 @@ class IndicatorResult:
     """The resolved value of one indicator, with its provenance.
 
     ``value`` is in [-1, 1]. ``resolved`` is False when the indicator could not be
-    evaluated (for example a classified indicator with no judge), in which case it
+    evaluated (for example a classified indicator with no answer supplied), in which case it
     is excluded from scoring and counted against coverage.
     """
 
@@ -73,7 +73,29 @@ class IndicatorResult:
     resolved: bool
     answer: str | None = None
     evidence: str | None = None
-    source: str | None = None  # "engine" for measured, model id or "manual" for classified
+    source: str | None = None  # "engine" for measured, answer-file provenance for classified
+
+    @classmethod
+    def unresolved(
+        cls,
+        indicator: "Indicator",
+        kind: IndicatorKind,
+        reason: str | None = None,
+        source: str | None = None,
+    ) -> "IndicatorResult":
+        """An indicator that could not be resolved: excluded from scoring, counted
+        against coverage. Shared by the measured and classified resolvers so the
+        unresolved shape is defined once."""
+        return cls(
+            indicator_id=indicator.id,
+            kind=kind,
+            weight=indicator.weight,
+            value=None,
+            resolved=False,
+            answer=None,
+            evidence=reason,
+            source=source,
+        )
 
 
 @dataclass(frozen=True)

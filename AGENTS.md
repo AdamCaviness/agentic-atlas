@@ -33,7 +33,7 @@ rubric/v1/                   One directory per MAJOR version
   axes/<id>/axis.yaml        Source of truth for one axis (poles, indicators, weights)
   axes/<id>/README.md        Human rationale + a generated scoring block
   CHANGELOG.md
-agentic_atlas/ Python engine (spec, scoring, evidence, judge, profiler, report, docs, cli)
+agentic_atlas/ Python engine (spec, scoring, evidence, classify, profiler, report, docs, cli)
 docs/          Design, axis authoring method, versioning policy
 tests/         Tests, with the deterministic scoring core covered first
 profiles/      Curated public profiles (generated JSON), including self-eval

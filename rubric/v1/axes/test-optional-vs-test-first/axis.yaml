@@ -1,6 +1,5 @@
 id: test-optional-vs-test-first
 title: Test-optional vs Test-first
-scale: 10
 poles:
   negative: test_optional
   positive: test_first

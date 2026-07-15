@@ -28,7 +28,7 @@ import re
 import subprocess
 import urllib.error
 import urllib.request
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
@@ -68,10 +68,28 @@ def _glob_regex(pattern: str) -> re.Pattern:
 def _matches(path: str, pattern: str) -> bool:
     return _glob_regex(pattern).match(path) is not None
 
+
+@lru_cache(maxsize=1024)
+def _term_pattern(term: str) -> re.Pattern:
+    """Match ``term`` as a whole token.
+
+    A short term like ``ci`` or ``api`` must not match inside an unrelated word
+    (``special``, ``capital``); lookarounds require a non-word character (or the
+    string edge) on both sides, which also handles multi-word and hyphenated terms.
+    """
+    return re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)")
+
+
+def _count_terms(corpus: str, terms: list[str]) -> int:
+    return sum(len(_term_pattern(t.lower()).findall(corpus)) for t in terms)
+
+
 # File extensions that make up an approach's readable surface.
 _TEXT_SUFFIXES = {".md", ".markdown", ".txt", ".yaml", ".yml", ".json", ".toml"}
 _MAX_FILE_BYTES = 512_000
 _IGNORE_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
+# OS and editor cruft that should never count as target content or a matched path.
+_IGNORE_FILES = {".DS_Store", "Thumbs.db"}
 
 
 @dataclass
@@ -79,6 +97,9 @@ class Target:
     """A profiling target: a local directory, optionally a git checkout."""
 
     root: Path
+    # The text corpus is read from disk once and reused: both the measured vocabulary
+    # signals and the classified verbatim-quote check ask for it, once per indicator.
+    _corpus: dict[str, str] = field(default_factory=dict, repr=False, compare=False)
 
     @classmethod
     def from_path(cls, path: str | Path) -> "Target":
@@ -137,26 +158,36 @@ class Target:
 
     def _files(self) -> list[Path]:
         files: list[Path] = []
-        for p in self.root.rglob("*"):
+        # Sorted so evidence strings and the corpus are deterministic across machines,
+        # not dependent on filesystem walk order.
+        for p in sorted(self.root.rglob("*")):
             if not p.is_file():
+                continue
+            if p.name in _IGNORE_FILES:
                 continue
             if any(part in _IGNORE_DIRS for part in p.relative_to(self.root).parts):
                 continue
             files.append(p)
         return files
 
-    def text_corpus(self) -> str:
-        chunks: list[str] = []
-        for p in self._files():
-            if p.suffix.lower() not in _TEXT_SUFFIXES:
-                continue
-            try:
-                if p.stat().st_size > _MAX_FILE_BYTES:
+    def text_corpus(self, *, lower: bool = True) -> str:
+        if "raw" not in self._corpus:
+            chunks: list[str] = []
+            for p in self._files():
+                if p.suffix.lower() not in _TEXT_SUFFIXES:
                     continue
-                chunks.append(p.read_text(encoding="utf-8", errors="ignore"))
-            except OSError:
-                continue
-        return "\n".join(chunks).lower()
+                try:
+                    if p.stat().st_size > _MAX_FILE_BYTES:
+                        continue
+                    chunks.append(p.read_text(encoding="utf-8", errors="ignore"))
+                except OSError:
+                    continue
+            self._corpus["raw"] = "\n".join(chunks)
+        if not lower:
+            return self._corpus["raw"]
+        if "lower" not in self._corpus:
+            self._corpus["lower"] = self._corpus["raw"].lower()
+        return self._corpus["lower"]
 
     def relative_paths(self) -> list[str]:
         return [str(p.relative_to(self.root)) for p in self._files()]
@@ -182,21 +213,12 @@ def _unresolved_measured(indicator: Indicator, reason: str) -> IndicatorResult:
     Marked unresolved so it is excluded from scoring and counted against coverage,
     exactly like an unanswered classified indicator.
     """
-    return IndicatorResult(
-        indicator_id=indicator.id,
-        kind=IndicatorKind.MEASURED,
-        weight=indicator.weight,
-        value=None,
-        resolved=False,
-        answer=None,
-        evidence=reason,
-        source="engine",
-    )
+    return IndicatorResult.unresolved(indicator, IndicatorKind.MEASURED, reason, source="engine")
 
 
 def _resolve_vocabulary(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
     corpus = target.text_corpus()
-    count = sum(corpus.count(term.lower()) for term in signal["terms"])
+    count = _count_terms(corpus, signal["terms"])
     value = _band_value(count, signal["bands"])
     return IndicatorResult(
         indicator_id=indicator.id,
@@ -224,9 +246,7 @@ def _resolve_path_presence(indicator: Indicator, target: Target, signal: dict) -
     matched = [p for p in paths if any(_matches(p, g) for g in signal["globs"])]
     present = bool(matched)
     value = float(signal["present"]) if present else float(signal["absent"])
-    evidence = (
-        f"matched {matched[:5]}" if present else f"no path matched {signal['globs']}"
-    )
+    evidence = f"matched {matched[:5]}" if present else f"no path matched {signal['globs']}"
     return IndicatorResult(
         indicator_id=indicator.id,
         kind=IndicatorKind.MEASURED,
@@ -307,7 +327,9 @@ def _resolve_github_api(indicator: Indicator, target: Target, signal: dict) -> I
         return _unresolved_measured(indicator, "no GitHub origin remote on target")
     data = _fetch_github_repo(*slug)
     if data is None:
-        return _unresolved_measured(indicator, "GitHub API unavailable (no network or rate limited)")
+        return _unresolved_measured(
+            indicator, "GitHub API unavailable (no network or rate limited)"
+        )
     key = _GITHUB_METRIC_KEYS[signal["metric"]]
     raw = data.get(key)
     if not isinstance(raw, (int, float)):

@@ -1,6 +1,5 @@
 id: prototype-vs-production
 title: Prototype vs Production
-scale: 10
 poles:
   negative: prototype
   positive: production

@@ -1,22 +1,27 @@
 """Command line interface for the Agentic Atlas engine.
 
-    agentic-atlas validate <rubric.yaml>
-    agentic-atlas profile <target> [--rubric FILE] [--judge none|manual|anthropic]
-                                   [--answers FILE] [--model ID] [--format text|md|json]
+    agentic-atlas validate <rubric>
+    agentic-atlas profile <target> [--rubric DIR] [--answers FILE] [--format text|md|json]
+    agentic-atlas questions <target> [--rubric DIR]
+
+The engine is deterministic and needs no API key. A bare ``profile`` run resolves the
+measured indicators only. The classified indicators are unlocked by supplying answers
+(``--answers``) produced outside the engine, the intended producer being the
+agentic-toolkit skill, whose host agent reads the repo and answers each question from
+``questions``. The engine validates those answers, it never calls a model.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
-import yaml
-
 from . import docs
+from .classify import classified_questions
 from .evidence import Target
-from .judge import ManualJudge, NoneJudge
 from .profiler import profile_target
 from .report import render_markdown, render_text
 from .spec import load_rubric
@@ -42,36 +47,57 @@ def _cmd_docs(args: argparse.Namespace) -> int:
     return 0
 
 
-def _build_judge(args: argparse.Namespace):
-    if args.judge == "none":
-        return NoneJudge()
-    if args.judge == "manual":
-        if not args.answers:
-            print("error: --judge manual requires --answers FILE", file=sys.stderr)
-            raise SystemExit(2)
-        data = yaml.safe_load(Path(args.answers).read_text()) or {}
-        return ManualJudge(data.get("answers", data))
-    if args.judge == "anthropic":
-        # Imported here, not at module top, so a default run never imports the
-        # optional ``anthropic`` package and never makes network calls. The
-        # anthropic judge is strictly opt-in via ``--judge anthropic``.
-        from .judge import AnthropicJudge
+def _cmd_questions(args: argparse.Namespace) -> int:
+    rubric = load_rubric(args.rubric, validate=True)
+    target = Target.from_path(args.target)
+    print(
+        json.dumps(
+            {
+                "rubric_version": rubric.rubric_version,
+                "target": str(target.root),
+                "instructions": (
+                    "Answer each question from the target repository only. Return an "
+                    'object keyed by indicator id: {"answer": <one allowed value>, '
+                    '"evidence": <a quote copied verbatim from the target>}. Feed the '
+                    "result back with `agentic-atlas profile --answers`."
+                ),
+                "questions": classified_questions(rubric),
+            },
+            indent=2,
+        )
+    )
+    return 0
 
-        return AnthropicJudge(model=args.model)
-    raise SystemExit(f"unsupported judge: {args.judge}")
+
+def _load_answers(path: str) -> tuple[dict, str]:
+    """Read a supplied-answers file (or stdin, via '-'), returning (answers, source)."""
+    try:
+        # "-" reads stdin, so the skill can pipe answers straight in without a temp file.
+        raw = sys.stdin.read() if path == "-" else Path(path).read_text()
+        data = json.loads(raw)
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"cannot read answers file {path!r}: {exc}")
+    answers = data.get("answers")
+    if not isinstance(answers, dict):
+        raise SystemExit(f"answers file {path!r} must have an object under key 'answers'")
+    return answers, str(data.get("source") or "supplied")
 
 
 def _cmd_profile(args: argparse.Namespace) -> int:
     rubric = load_rubric(args.rubric, validate=True)
     target = Target.from_path(args.target)
-    profile = profile_target(rubric, target, _build_judge(args))
+    answers, source = _load_answers(args.answers) if args.answers else (None, "supplied")
+    profile = profile_target(rubric, target, answers=answers, answers_source=source)
 
     if args.format == "json":
         print(json.dumps(profile.to_dict(), indent=2))
     elif args.format == "md":
         print(render_markdown(profile))
     else:
-        print(render_text(profile))
+        # Color only for an interactive terminal, and never when NO_COLOR is set
+        # (https://no-color.org). Piped or redirected output stays plain ASCII.
+        color = sys.stdout.isatty() and not os.environ.get("NO_COLOR")
+        print(render_text(profile, color=color))
     return 0
 
 
@@ -91,15 +117,21 @@ def build_parser() -> argparse.ArgumentParser:
     pr = sub.add_parser("profile", help="profile a target directory")
     pr.add_argument("target", help="path to the target approach/framework directory")
     pr.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
-    pr.add_argument("--judge", choices=["none", "manual", "anthropic"], default="none")
-    pr.add_argument("--answers", help="YAML file of prepared answers for manual judging")
     pr.add_argument(
-        "--model",
-        default="claude-opus-4-8",
-        help="Claude model id for --judge anthropic (ignored by other judges)",
+        "--answers",
+        help="JSON file of classified answers (from the agentic-toolkit skill) to "
+        "validate and score, or '-' to read them from stdin; without it the profile "
+        "is measured-only",
     )
     pr.add_argument("--format", choices=["text", "md", "json"], default="text")
     pr.set_defaults(func=_cmd_profile)
+
+    q = sub.add_parser(
+        "questions", help="emit the classified questions to answer for a target (JSON)"
+    )
+    q.add_argument("target", help="path to the target approach/framework directory")
+    q.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
+    q.set_defaults(func=_cmd_questions)
 
     return p
 

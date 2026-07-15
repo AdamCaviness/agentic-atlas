@@ -1,6 +1,5 @@
 id: fresh-vs-mature
 title: Fresh vs Mature
-scale: 10
 poles:
   negative: fresh
   positive: mature

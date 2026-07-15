@@ -1,6 +1,5 @@
 id: lightweight-vs-heavyweight
 title: Lightweight vs Heavyweight
-scale: 10
 poles:
   negative: lightweight
   positive: heavyweight

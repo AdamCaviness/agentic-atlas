@@ -128,7 +128,8 @@ make the 3D instinct pay off. See the 2D-first, 3D-signature-toggle plan in
 
 Do not build viz or personas from intuition. The unlock is a real corpus of
 profiles, because it converts every downstream decision (merges, ordering,
-personas, 3D) from guesswork into measurement. Concretely: get `--judge anthropic`
-working end to end, profile 10 to 15 real approaches into `profiles/`, and compute
+personas, 3D) from guesswork into measurement. Concretely: get the classified-answer
+path (`questions` then `profile --answers`) working end to end through the skill,
+profile 10 to 15 real approaches into `profiles/`, and compute
 the correlation matrix. That single artifact answers "how related are the axes"
 with data, and everything here becomes actionable.

@@ -2,6 +2,15 @@
 
 All changes to the measurement standard are recorded here. Version bump rules are in `docs/versioning.md`. One directory per MAJOR version, minor and patch changes are git history within it.
 
+Status: this rubric is an initial work in progress and nothing has settled. The `v1/` directory and these version numbers exist to afford versioning once the standard stabilizes, they are not strict release boundaries yet, and no profiles have been published. Entries below record what changed and whether it moves scores; the strict "any score move is a MAJOR bump" discipline takes full effect once the rubric settles and profiles are published, not during this phase.
+
+## 1.2.0
+
+Two changes to how axes are scored and displayed.
+
+- **Scale is now a rubric-wide constant.** Moved `scale` from a per-axis field to a single value in `rubric.yaml` (`scale: 10`), removed from `axis.schema.json`, added to `rubric.schema.json`. No score moves: scale is only a display multiplier on the normalized weighted mean and every axis already used `10`. A shared scale is what keeps positions comparable across axes, so a per-axis knob was an unused degree of freedom that could only break comparability. The engine still carries `scale` per axis internally, populated from the manifest at load time.
+- **Vocabulary signals match whole tokens, not substrings.** A term like `spec` no longer matches inside `specification`, nor `ci` inside `decision`. This is a correctness fix, but it does move measured scores for identical evidence: counts drop for short or inflectable terms, so banded values and axis positions can shift. Once the rubric settles this class of change is a MAJOR bump; during this WIP phase it is recorded here rather than treated as a comparability boundary.
+
 ## 1.1.0
 
 Added the **fresh-vs-mature** axis (context group, after generalist-vs-specialist). MINOR because it introduces a whole new axis and leaves every existing axis score untouched for identical evidence.

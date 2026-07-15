@@ -1,6 +1,5 @@
 id: autonomous-vs-human-in-loop
 title: Autonomous vs Human-in-loop
-scale: 10
 poles:
   negative: human_in_loop
   positive: autonomous

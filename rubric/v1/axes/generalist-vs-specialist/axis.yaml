@@ -1,6 +1,5 @@
 id: generalist-vs-specialist
 title: Generalist vs Specialist
-scale: 10
 poles:
   negative: generalist
   positive: specialist

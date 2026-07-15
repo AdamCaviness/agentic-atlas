@@ -90,11 +90,16 @@ standard software semver. See `docs/versioning.md`.
   contributor count, age in days, tag count) and `github_api` (stars, forks,
   watchers, open issues) which resolve to unresolved (counted against coverage)
   when there is no git history, no origin remote, or no network.
-- Judges (`agentic_atlas/judge.py`): `NoneJudge` (measured-only), `ManualJudge` (answers
-  file), `AnthropicJudge` (built but untested end to end).
+- Indicator resolution is two symmetric functions: `evidence.resolve_measured` (computed
+  from the repository) and `classify.resolve_classified` (`agentic_atlas/classify.py`),
+  which validates classified answers supplied as data by an external agent; the answer must
+  be a declared value and the cited quote must appear verbatim in the target, else the
+  indicator is left unresolved. With no answers, classified indicators stay unresolved. The
+  engine calls no model and needs no API key; answering happens in the agentic-toolkit
+  skill, validation happens here.
 - Orchestration (`agentic_atlas/profiler.py`), reports text/markdown/JSON (`agentic_atlas/report.py`).
 - Docs generator (`agentic_atlas/docs.py`) + `agentic-atlas docs [--check]`.
-- CLI (`agentic_atlas/cli.py`): `validate`, `docs`, `profile`.
+- CLI (`agentic_atlas/cli.py`): `validate`, `docs`, `profile` (`--answers`), `questions`.
 - Makefile: `setup test lint fmt check validate docs docs-check profile
   clean`. `make check` = lint + docs-check + test.
 - release-please wired for the engine version (`release-type: python`, config +
@@ -139,15 +144,18 @@ before v1 is treated as stable.
    GitHub via a mocked fetch), axis authored with 5 measured + 1 classified
    indicators so it scores meaningfully measured-only. Smoke-tested live against
    agentic-toolkit (stars fetched, all git metrics resolved).
-2. **[DONE]** Wired `AnthropicJudge` end to end: `--judge anthropic` + `--model`
-   (default `claude-opus-4-8`) in the CLI, lazy import so a default run never
-   touches the `anthropic` package or network. Fixed a latent 400 bug (the judge
-   sent `temperature=0`, which current models reject; sampling params removed,
-   determinism now rests on the forced single-tool choice). Tests in
-   `tests/test_judge.py`: an offline mock (fake `anthropic` in `sys.modules`), a
-   regression guard that no sampling params are sent, and a live smoke test
-   double-gated behind the `anthropic` extra and `ATLAS_ANTHROPIC_SMOKE=1` so it
-   never runs in `make check`.
+2. **[DONE]** Classified indicators are unlocked without an API key. The engine calls no
+   model: `agentic-atlas questions <target>` emits the classified worklist (id, axis,
+   question, allowed answers) as JSON, an external agent answers each, and
+   `agentic-atlas profile --answers <file>` feeds them to `classify.resolve_classified`, which
+   validates each deterministically (the answer must be a declared value; the cited quote
+   must appear verbatim in the target) and scores the ones that pass. Provenance is stamped
+   from the answer file's `source`. Validation stops fabrication but not a real-but-cherry
+   picked quote, so the answer file's review is the remaining defense; this is the same
+   grounding rationale that keeps a bare hand-authored path untrusted. `tests/test_classify.py`
+   covers verbatim-quote acceptance, whitespace-reflow tolerance, fabricated-quote
+   rejection, out-of-enum rejection, short-quote rejection, missing-answer handling, and the
+   classified-question worklist.
 3. **Add `agentic-atlas compare`.** Overlay 2-3 profiles on the same axes (text radar or
    markdown table), the primary intended use of the tool.
 4. **Build the `/agentic-atlas` skill in agentic-toolkit.** It shells out to this engine,

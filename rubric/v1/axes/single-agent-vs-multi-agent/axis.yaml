@@ -1,6 +1,5 @@
 id: single-agent-vs-multi-agent
 title: Single-agent vs Multi-agent
-scale: 10
 poles:
   negative: single_agent
   positive: multi_agent

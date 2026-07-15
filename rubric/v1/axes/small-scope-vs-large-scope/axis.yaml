@@ -1,6 +1,5 @@
 id: small-scope-vs-large-scope
 title: Small-scope vs Large-scope
-scale: 10
 poles:
   negative: small_scope
   positive: large_scope
