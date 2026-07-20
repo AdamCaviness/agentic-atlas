@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.2.0...v0.3.0) (2026-07-20)
+
+
+### Features
+
+* **plugin:** ship agentic-atlas as a plugin hosting the run skill ([#8](https://github.com/AdamCaviness/agentic-atlas/issues/8)) ([7eda1d5](https://github.com/AdamCaviness/agentic-atlas/commit/7eda1d51f8d5afa14d358c283f64c0d444241838))
+
 ## [0.2.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.1.0...v0.2.0) (2026-07-20)
 
 

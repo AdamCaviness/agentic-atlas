@@ -1,10 +1,18 @@
 {
   "name": "agentic-atlas",
   "description": "Profile agentic development approaches, frameworks, and skill collections on 13 signed, diverging axes. Deterministic engine, no API key. Hosts the /agentic-atlas:run skill.",
-  "version": "0.2.0",
-  "author": { "name": "Adam Caviness" },
+  "version": "0.3.0",
+  "author": {
+    "name": "Adam Caviness"
+  },
   "homepage": "https://github.com/adamcaviness/agentic-atlas",
   "repository": "https://github.com/adamcaviness/agentic-atlas",
   "license": "MIT",
-  "keywords": ["agentic", "claude-code", "rubric", "profiling", "skill"]
+  "keywords": [
+    "agentic",
+    "claude-code",
+    "rubric",
+    "profiling",
+    "skill"
+  ]
 }
