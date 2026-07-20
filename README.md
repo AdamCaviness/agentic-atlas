@@ -77,7 +77,7 @@ agentic-atlas compare bmad-method superpowers gsd                   # (planned) 
 
 The engine is deterministic and needs no API key. A bare `profile` run resolves the **measured** indicators, the ones the engine computes directly from the repository, and reports how much of each axis that covers. The **classified** indicators, the ones that need the repository read and interpreted, are unlocked by supplying answers: `questions` lists them, an agent answers each with a value from its fixed set and a quote from the target, and `profile --answers` validates every answer (the quote must appear verbatim, the value must be one of the declared options) and scores the ones that pass. The engine never calls a model; it validates.
 
-The intended answerer is the `/agentic-atlas` skill in [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit): its host agent is already a capable model with repo access, so it answers the questions and feeds them back, no key required. Running the engine raw gives you the deterministic measured axes; running it through the skill unlocks the rest.
+The intended answerer is the `run` skill of the `agentic-atlas` plugin, which now ships in this repo (invoked `/agentic-atlas:run`) and installs via the [agentic-marketplace](https://github.com/adamcaviness/agentic-marketplace). Its host agent is already a capable model with repo access, so it answers the classified questions and feeds them back, no key required. Running the engine raw gives you the deterministic measured axes; running it through the skill unlocks the rest.
 
 ## Reproducibility and fairness
 
@@ -87,7 +87,7 @@ I also maintain [agentic-toolkit](https://github.com/adamcaviness/agentic-toolki
 
 ## Status
 
-Early scaffold, actively developed. Working today: the per-axis rubric with schema validation, the deterministic scoring core, evidence collectors (vocabulary, path presence, git stats, GitHub API), the classified-indicator seam (a `questions` worklist plus a quote-verified `--answers` path, no API key), text/markdown/JSON reports, and the `agentic-atlas docs` generator kept in sync by `make docs-check`. Next: the `/agentic-atlas` skill that answers the questions, the `compare` overlay, committed answer sets for reproducible published profiles, and more public profiles. See `docs/` and `specs/handoff.md`.
+Early scaffold, actively developed. Working today: the per-axis rubric with schema validation, the deterministic scoring core, evidence collectors (vocabulary, path presence, git stats, GitHub API), the classified-indicator seam (a `questions` worklist plus a quote-verified `--answers` path, no API key), text/markdown/JSON reports, the `agentic-atlas docs` generator kept in sync by `make docs-check`, and the `/agentic-atlas:run` skill that answers the classified questions. Next: the `compare` overlay, committed answer sets for reproducible published profiles, and more public profiles. See `docs/` and `specs/handoff.md`.
 
 ## License
 
