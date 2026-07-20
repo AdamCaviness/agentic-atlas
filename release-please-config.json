@@ -19,7 +19,8 @@
         { "type": "test", "section": "Tests", "hidden": true }
       ],
       "extra-files": [
-        { "type": "generic", "path": "agentic_atlas/__init__.py" }
+        { "type": "generic", "path": "agentic_atlas/__init__.py" },
+        { "type": "json", "path": ".claude-plugin/plugin.json", "jsonpath": "$.version" }
       ]
     }
   }

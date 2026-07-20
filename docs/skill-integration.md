@@ -1,10 +1,10 @@
 # Skill integration: how the engine is driven
 
-The primary way a human profiles a target is the `/agentic-atlas` skill in
-[agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit), running inside their
-own agentic coding harness (Claude Code). This engine is deterministic and needs no API
-key. It computes the measured indicators and validates classified answers; it never calls
-a model. The skill's host agent (the user's coding agent) is the model that answers the
+The primary way a human profiles a target is the `run` skill of the `agentic-atlas`
+plugin, which ships in this repo (invoked `/agentic-atlas:run`), running inside their own
+agentic coding harness (Claude Code). This engine is deterministic and needs no API key.
+It computes the measured indicators and validates classified answers; it never calls a
+model. The skill's host agent (the user's coding agent) is the model that answers the
 classified questions, so the full profile is produced with no key and no extra cost.
 
 This file is the contract the skill targets. It is stable engine surface.
@@ -46,7 +46,7 @@ This file is the contract the skill targets. It is stable engine surface.
 
    ```json
    {
-     "source": "agentic-toolkit:claude-opus-4-8",
+     "source": "agentic-atlas:claude-opus-4-8",
      "answers": {
        "sd1": {"answer": "none", "evidence": "a verbatim quote from the target"}
      }

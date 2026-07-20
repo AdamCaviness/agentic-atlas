@@ -1,0 +1,6 @@
+{
+  "name": "agentic-atlas",
+  "description": "Profile agentic development approaches, frameworks, and skill collections on 13 signed, diverging axes. Deterministic engine, no API key. Hosts the run skill.",
+  "version": "0.2.0",
+  "contextFileName": "AGENTS.md"
+}
