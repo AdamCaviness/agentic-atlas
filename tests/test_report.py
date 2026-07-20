@@ -9,7 +9,7 @@ from agentic_atlas.models import (
     Poles,
     Profile,
 )
-from agentic_atlas.report import render_html, render_text
+from agentic_atlas.report import _display_name, render_html, render_text
 
 
 def _ind(kind: IndicatorKind, resolved: bool, weight: float = 1.0) -> IndicatorResult:
@@ -36,9 +36,9 @@ def _axis(title, score, coverage, indicators, explain=Explain()) -> AxisResult:
     )
 
 
-def _profile(axes) -> Profile:
+def _profile(axes, target="/t") -> Profile:
     return Profile(
-        target="/t",
+        target=target,
         rubric_version="1.2.0",
         engine_version="0.2.0",
         target_sha="abc123",
@@ -194,7 +194,7 @@ def test_html_states_there_is_no_aggregate_score():
     ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
     out = render_html(_profile([ax]))
     assert (
-        "doesn't grade, rank, or crown a winner" in out
+        "not a grade, a rank, or a winner" in out
     )  # the no-aggregate invariant, stated to the reader
 
 
@@ -213,7 +213,7 @@ def test_html_shows_pole_meanings_in_an_expander_when_present():
         explain=Explain(negative="excels from an idea", positive="excels in existing code"),
     )
     out = render_html(_profile([ax]))
-    assert "what these poles mean" in out  # the expander is present
+    assert "<summary>what the poles mean</summary>" in out  # the expander is present
     assert "excels from an idea" in out
     assert "excels in existing code" in out
     # the shared neutral note is stated per axis, not authored per axis
@@ -223,7 +223,24 @@ def test_html_shows_pole_meanings_in_an_expander_when_present():
 def test_html_omits_pole_expander_when_no_meanings_authored():
     ax = _axis("Bare", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
     out = render_html(_profile([ax]))
-    assert "what these poles mean" not in out
+    assert "<summary>what the poles mean</summary>" not in out
+
+
+def test_display_name_takes_last_segment_of_path_or_git_url():
+    assert _display_name("/Users/adam/_opensource/superpowers") == "superpowers"
+    assert _display_name("/Users/adam/_opensource/superpowers/") == "superpowers"
+    assert _display_name("https://github.com/obra/superpowers.git") == "superpowers"
+    assert _display_name("https://github.com/obra/superpowers") == "superpowers"
+    assert _display_name("superpowers") == "superpowers"
+
+
+def test_html_header_shows_name_pill_not_full_path():
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    out = render_html(_profile([ax], target="/Users/adam/_opensource/superpowers"))
+    # the pill shows the short name, and keeps the full target in its title for provenance
+    assert '<span class="target-pill" title="/Users/adam/_opensource/superpowers">superpowers</span>' in out
+    # the full path no longer appears in the stamps line
+    assert '<div class="stamps">rubric' in out
 
 
 def test_html_and_text_humanize_underscored_pole_ids():
