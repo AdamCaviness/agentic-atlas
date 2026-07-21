@@ -33,7 +33,7 @@ Unresolved indicators are excluded and the profile reports coverage, so you neve
 
 ## Axes in v1
 
-Thirteen axes ship today. The full candidate catalog is much larger, see [`docs/axes.md`](docs/axes.md); heavily correlated axes dilute a profile rather than sharpen it, so the rest are backlog.
+A curated subset of the candidate catalog ships today; the full catalog is much larger, see [`docs/axes.md`](docs/axes.md). Heavily correlated axes dilute a profile rather than sharpen it, so the rest are backlog.
 
 | Axis (negative ↔ positive) | Meaning |
 |---|---|
