@@ -256,8 +256,8 @@ _HTML_CSS = """
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
   .wrap{max-width:880px;margin:0 auto;padding:32px 20px 64px}
-  .wrap.wide{max-width:1180px}
-  .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:30px;align-items:start}
+  .wrap.wide{max-width:940px}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:28px;align-items:start}
   .col-main{grid-column:1;grid-row:1;min-width:0}
   .col-rail{grid-column:2;grid-row:1}
   @media (max-width:880px){
@@ -322,6 +322,7 @@ _HTML_CSS = """
   dl.poles{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin:12px 0 2px;font-size:.82rem}
   dl.poles dt{font-weight:600;color:var(--fg);white-space:nowrap}
   dl.poles dd{margin:0;color:var(--muted)}
+  dl.poles dt.neg{color:var(--neg)}dl.poles dt.pos{color:var(--pos)}
   dl.poles dt.mid,dl.poles dd.mid{color:var(--faint)}
   table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.78rem}
   .table-scroll{overflow-x:auto}
@@ -341,10 +342,9 @@ _HTML_CSS = """
                max-width:80%;padding:6px 9px;border-radius:8px;font-size:.78rem;line-height:1.35;
                background:var(--bg);border:1px solid var(--line);color:var(--fg);
                box-shadow:0 4px 14px rgba(0,0,0,.18);z-index:2}
-  .hero3d .tip .ts{font-family:var(--mono);color:var(--muted)}
+  .hero3d .tip .th{font-weight:650}
+  .hero3d .tip .th.pos{color:var(--pos)}.hero3d .tip .th.neg{color:var(--neg)}
   .hero3d .tip .tp{color:var(--muted);font-size:.72rem}
-  .hero3d .hint{position:absolute;left:0;right:0;top:10px;text-align:center;font-size:.72rem;
-                color:var(--faint);pointer-events:none}
   .hero3d .fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;
                     padding:0 22px;text-align:center;font-size:.85rem;color:var(--muted)}
 """
@@ -434,8 +434,8 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
             f'      <h3 class="modal-title">{title}</h3>\n'
             '      <p class="modal-sub">what the poles mean</p>\n'
             '      <dl class="poles">\n'
-            f"        <dt>{neg_label}</dt><dd>{_html_escape(ax.explain.negative)}</dd>\n"
-            f"        <dt>{pos_label}</dt><dd>{_html_escape(ax.explain.positive)}</dd>\n"
+            f'        <dt class="neg">{neg_label}</dt><dd>{_html_escape(ax.explain.negative)}</dd>\n'
+            f'        <dt class="pos">{pos_label}</dt><dd>{_html_escape(ax.explain.positive)}</dd>\n'
             f'        <dt class="mid">near 0</dt><dd class="mid">{_html_escape(_MIDDLE_NOTE)}</dd>\n'
             "      </dl>\n"
             "    </dialog>"
@@ -476,17 +476,17 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
     )
 
 
-# One continuous wireframe tube for the whole profile, in the rail beside the cards and the
-# same height as them. Each axis's band is a straight vertical segment at its own signed
-# offset, so a zero or no-reading axis sits dead centered and a neighbor's lean never bleeds
-# in; the tube bends only in the short, neutrally colored necks that bridge the gaps between
-# cards. Band heights are measured from the DOM cards, so segment i lines up with card i, and
-# the orthographic, yaw-only view keeps that vertical alignment while it spins. A triangle
-# wireframe over a quiet occluder body gives the unfinished low-poly look; cyan leans toward
-# the negative pole, magenta toward the positive. It auto-rotates, pauses on hover, drags to
-# spin either way, and picks the band under the cursor (an offscreen id pass) to name the axis.
-# Raw WebGL, no libraries, self-contained for file:// use. Axis data is injected as JSON at
-# ``/*__AXES__*/`` so the emitted bytes stay a deterministic function of the Profile.
+# A low-poly crystal in the rail beside the cards, the same height as them and aligned band
+# to card. It is NOT a tube: each cross-section is a small kite that pushes a tip outward in
+# that axis's lean direction, its length the score, so a zero or no-reading axis is a centered
+# symmetric diamond that points nowhere. The body hugs a central spine inside an (invisible)
+# bounding cylinder; consecutive axes are lofted into one continuous faceted mesh, bent only
+# in the neutral necks that bridge the gaps between cards. Flat-shaded triangles with a faint
+# wireframe give the unfinished low-poly-game look; cyan tips lean to the negative pole,
+# magenta to the positive. Orthographic, yaw-only rotation keeps the vertical alignment while
+# it spins; it auto-rotates, pauses on hover, drags to spin, and picks the band under the
+# cursor to name the axis. Raw WebGL, self-contained for file:// use, axis data injected as
+# JSON at ``/*__AXES__*/`` so the emitted bytes stay a deterministic function of the Profile.
 _HERO_JS = r"""(function(){
   var host=document.getElementById('atlas-hero');
   if(!host) return;
@@ -494,7 +494,6 @@ _HERO_JS = r"""(function(){
   var tip=host.querySelector('.tip');
   var AXES=/*__AXES__*/;
   function fail(){ canvas.style.display='none';
-    var h=host.querySelector('.hint'); if(h) h.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
   var gl=null;
@@ -508,22 +507,28 @@ _HERO_JS = r"""(function(){
     return [((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255]; }
   function mix(a,b,t){ return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]; }
   var NEG=hex(css('--neg')), POS=hex(css('--pos')), FAINT=hex(css('--faint')),
-      CARD=hex(css('--card')), FG=hex(css('--fg')), FILL=mix(CARD,FG,0.14), NECK=FAINT;
+      CARD=hex(css('--card')), FG=hex(css('--fg')), NECK=mix(FAINT,CARD,0.35), WIRE=FAINT;
 
-  // shaders: flat color, plus an id pass for hover picking (no lighting needed)
+  // shaders: flat-shaded (per-face normal), an id pass for picking, and a flat-color wire pass
   function sh(t,s){ var o=gl.createShader(t); gl.shaderSource(o,s); gl.compileShader(o);
     if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)) console.log(gl.getShaderInfoLog(o)); return o; }
   var prog=gl.createProgram();
   gl.attachShader(prog,sh(gl.VERTEX_SHADER,
-    'attribute vec3 aPos;attribute vec3 aColor;attribute vec3 aId;uniform mat4 uMVP;'+
-    'varying vec3 vC;varying vec3 vId;void main(){vC=aColor;vId=aId;gl_Position=uMVP*vec4(aPos,1.0);}'));
+    'attribute vec3 aPos;attribute vec3 aNormal;attribute vec3 aColor;attribute vec3 aId;'+
+    'uniform mat4 uMVP;uniform mat3 uNMat;varying vec3 vN;varying vec3 vC;varying vec3 vId;'+
+    'void main(){vN=uNMat*aNormal;vC=aColor;vId=aId;gl_Position=uMVP*vec4(aPos,1.0);}'));
   gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,
-    'precision mediump float;precision mediump int;varying vec3 vC;varying vec3 vId;uniform int uMode;'+
-    'void main(){gl_FragColor=(uMode==1)?vec4(vId,1.0):vec4(vC,1.0);}'));
+    'precision mediump float;precision mediump int;varying vec3 vN;varying vec3 vC;varying vec3 vId;'+
+    'uniform int uMode;uniform vec3 uLight;void main(){'+
+    'if(uMode==1){gl_FragColor=vec4(vId,1.0);return;}'+
+    'if(uMode==2){gl_FragColor=vec4(vC,1.0);return;}'+
+    'vec3 n=normalize(vN);float d=max(dot(n,normalize(uLight)),0.0);'+
+    'float b=floor(d*4.0+0.5)/4.0;gl_FragColor=vec4(vC*(0.45+0.6*b),1.0);}'));
   gl.linkProgram(prog); gl.useProgram(prog);
-  var aPos=gl.getAttribLocation(prog,'aPos'), aColor=gl.getAttribLocation(prog,'aColor'),
-      aId=gl.getAttribLocation(prog,'aId'), uMVP=gl.getUniformLocation(prog,'uMVP'),
-      uMode=gl.getUniformLocation(prog,'uMode');
+  var aPos=gl.getAttribLocation(prog,'aPos'), aNormal=gl.getAttribLocation(prog,'aNormal'),
+      aColor=gl.getAttribLocation(prog,'aColor'), aId=gl.getAttribLocation(prog,'aId'),
+      uMVP=gl.getUniformLocation(prog,'uMVP'), uNMat=gl.getUniformLocation(prog,'uNMat'),
+      uMode=gl.getUniformLocation(prog,'uMode'), uLight=gl.getUniformLocation(prog,'uLight');
   function up(buf,data){ if(!buf) buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
     gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW); return buf; }
   function attr(loc,b){ if(loc<0)return; gl.enableVertexAttribArray(loc);
@@ -534,60 +539,81 @@ _HERO_JS = r"""(function(){
   function mul(a,b){ var o=new Float32Array(16);
     for(var c=0;c<4;c++)for(var r=0;r<4;r++){var s=0;for(var k=0;k<4;k++)s+=a[k*4+r]*b[c*4+k];o[c*4+r]=s;} return o; }
   function rotY(r){ var c=Math.cos(r),s=Math.sin(r),o=ident(); o[0]=c;o[2]=-s;o[8]=s;o[10]=c; return o; }
+  function nmat3(r){ var c=Math.cos(r),s=Math.sin(r); return new Float32Array([c,0,-s,0,1,0,s,0,c]); }
   function ortho(hw,hh,nf){ var o=ident(); o[0]=1/hw;o[5]=1/hh;o[10]=-1/nf; return o; }
 
   // state
-  var K=6, TAU=6.2831853, N=AXES.length;
+  var N=AXES.length;
   var ry=0.5, inside=false, dragging=false, lastX=0, hovered=-1;
   var proj=ident(), vw=1, vh=1, pickFB=null, pickTex=null, pickDepth=null;
-  var bPos=null,bCol=null,bId=null,bWpos=null,bWcol=null, fillCount=0, wireCount=0, halfW=1, halfH=1;
+  var bPos=null,bNrm=null,bCol=null,bId=null,bWpos=null,bWcol=null, fillCount=0, wireCount=0, halfW=1, halfH=1;
 
-  // geometry: ONE tube whose bands sit exactly beside their cards
+  // geometry: one lofted crystal whose kite cross-section points a tip in each axis's lean dir
   function buildGeom(){
     var narrow=window.matchMedia('(max-width:880px)').matches;
     var cards=document.querySelectorAll('.col-main .axis');
     var tops=[], bots=[], hostH;
     if(!narrow && cards.length===N){
-      var main=document.querySelector('.col-main');
-      hostH=main.offsetHeight; host.style.height=hostH+'px';
-      var refTop=host.getBoundingClientRect().top;
-      for(var c=0;c<N;c++){ var r=cards[c].getBoundingClientRect(); tops.push(r.top-refTop); bots.push(r.bottom-refTop); }
+      // Bound the container to the cards: top of the first card, bottom of the last, offset
+      // below the header so the shape spans exactly the sections it describes.
+      var railTop=host.parentElement.getBoundingClientRect().top;
+      var rects=[]; for(var c=0;c<N;c++) rects.push(cards[c].getBoundingClientRect());
+      var firstTop=rects[0].top, lastBot=rects[N-1].bottom;
+      hostH=lastBot-firstTop;
+      host.style.marginTop=(firstTop-railTop)+'px'; host.style.height=hostH+'px';
+      for(var c3=0;c3<N;c3++){ tops.push(rects[c3].top-firstTop); bots.push(rects[c3].bottom-firstTop); }
     } else {
-      host.style.height=''; hostH=host.clientHeight;
+      host.style.marginTop=''; host.style.height=''; hostH=host.clientHeight;
       var pad=hostH*0.07, bh=(hostH-2*pad)/N;
       for(var c2=0;c2<N;c2++){ tops.push(pad+c2*bh+bh*0.12); bots.push(pad+(c2+1)*bh-bh*0.12); }
     }
     var W=host.clientWidth; halfW=W/2; halfH=hostH/2;
-    var R=Math.max(12, Math.min(W*0.15, hostH/N*0.34)), MAXOFF=W*0.30;
-    function xoff(i){ var a=AXES[i], has=(a.s!==null&&a.s!==undefined);
-      var f=has?Math.max(-1,Math.min(1,a.s/a.sc)):0; return f*MAXOFF; }
+    // A substantial spine (coreR/sideR) is the body inside the invisible bounding cylinder; the
+    // tip reaches out up to MAXOFF past the spine at the card's center, tapering back at the edges.
+    // Fractions of the (small) rail width, so the shape fills it snugly with a little margin.
+    var MAXOFF=W*0.28, coreR=Math.max(6,W*0.13), sideR=Math.max(8,W*0.16);
+
+    function reach(i){ var a=AXES[i]; return (a.s===null||a.s===undefined)?0:Math.min(Math.abs(a.s/a.sc),1)*MAXOFF; }
+    function sgn(i){ var a=AXES[i]; return (a.s!==null&&a.s!==undefined&&a.s<0)?-1:1; }
     function lean(i){ var a=AXES[i], has=(a.s!==null&&a.s!==undefined);
       var f=has?Math.max(-1,Math.min(1,a.s/a.sc)):0;
       return has?mix(FAINT, f<0?NEG:POS, 0.32+0.68*Math.min(Math.abs(f),1)):FAINT; }
     function wy(py){ return hostH/2-py; }
-    function ring(x,py){ var o=[],cy=wy(py); for(var j=0;j<K;j++){var t=j/K*TAU;o.push([x+R*Math.cos(t),cy,R*Math.sin(t)]);} o.cx=x; o.cy=cy; return o; }
+    // kite cross-section, verts E(+x),N(+z),W(-x),S(-z). A "core" ring is a small centered
+    // diamond; a "tip" ring pushes one side out to reach, making the apex point in the lean dir.
+    function core(py){ var y=wy(py); return [[coreR,y,0],[0,y,sideR],[-coreR,y,0],[0,y,-sideR]]; }
+    function tipRing(i,py){ var e=reach(i), sg=sgn(i), y=wy(py);
+      var r=(sg>0)?coreR+e:coreR, l=(sg<0)?coreR+e:coreR;
+      return [[r,y,0],[0,y,sideR],[-l,y,0],[0,y,-sideR]]; }
 
-    var pos=[],col=[],ids=[],wpos=[],wcol=[];
-    function tri(A,B,C,c,id){ var P=[A,B,C]; for(var k=0;k<3;k++){pos.push(P[k][0],P[k][1],P[k][2]);col.push(c[0],c[1],c[2]);ids.push(id[0],id[1],id[2]);} }
-    function wl(a,b,c){ wpos.push(a[0],a[1],a[2],b[0],b[1],b[2]); wcol.push(c[0],c[1],c[2],c[0],c[1],c[2]); }
-    function connect(rA,rB,wc,id){ for(var j=0;j<K;j++){ var j1=(j+1)%K,a0=rA[j],a1=rA[j1],b0=rB[j],b1=rB[j1];
-      tri(a0,b0,b1,FILL,id); tri(a0,b1,a1,FILL,id); wl(a0,b0,wc); wl(a0,b1,wc); } }
-    function wring(rg,c){ for(var j=0;j<K;j++) wl(rg[j],rg[(j+1)%K],c); }
+    var pos=[],nrm=[],col=[],ids=[],wpos=[],wcol=[];
+    function triFlat(A,B,C,c,id){
+      var ux=B[0]-A[0],uy=B[1]-A[1],uz=B[2]-A[2],vx=C[0]-A[0],vy=C[1]-A[1],vz=C[2]-A[2];
+      var nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx,l=Math.sqrt(nx*nx+ny*ny+nz*nz)||1; nx/=l;ny/=l;nz/=l;
+      var cxp=(A[0]+B[0]+C[0])/3, czp=(A[2]+B[2]+C[2])/3;      // point normals outward from the spine
+      if(nx*cxp+nz*czp<0){ nx=-nx;ny=-ny;nz=-nz; }
+      var P=[A,B,C]; for(var k=0;k<3;k++){ pos.push(P[k][0],P[k][1],P[k][2]); nrm.push(nx,ny,nz);
+        col.push(c[0],c[1],c[2]); ids.push(id[0],id[1],id[2]); } }
+    function wl(a,b){ wpos.push(a[0],a[1],a[2],b[0],b[1],b[2]); wcol.push(WIRE[0],WIRE[1],WIRE[2],WIRE[0],WIRE[1],WIRE[2]); }
+    function loft(r0,r1,c,id){ for(var j=0;j<4;j++){ var j1=(j+1)%4;
+      triFlat(r0[j],r0[j1],r1[j1],c,id); triFlat(r0[j],r1[j1],r1[j],c,id);
+      wl(r0[j],r0[j1]); wl(r0[j],r1[j]); wl(r0[j],r1[j1]); } }
+    function cap(rg,c,id){ var C=[(rg[0][0]+rg[1][0]+rg[2][0]+rg[3][0])/4, rg[0][1], (rg[0][2]+rg[1][2]+rg[2][2]+rg[3][2])/4];
+      for(var j=0;j<4;j++){ var j1=(j+1)%4; triFlat(C,rg[j],rg[j1],c,id); wl(rg[j],rg[j1]); } }
 
     var prevBot=null;
     for(var i=0;i<N;i++){
-      var x=xoff(i), lc=lean(i), id=[((i+1)&255)/255,0,0];
-      var rt=ring(x,tops[i]), rb=ring(x,bots[i]);
-      if(prevBot) connect(prevBot,rt,NECK,id);   // neck across the gap (neutral joint)
-      connect(rt,rb,lc,id);                        // the card's own straight band
-      wring(rt,lc); wring(rb,lc);
-      prevBot=rb;
+      var mid=(tops[i]+bots[i])/2, lc=lean(i), id=[((i+1)&255)/255,0,0];
+      var ct=core(tops[i]), mt=tipRing(i,mid), cb=core(bots[i]);
+      if(prevBot) loft(prevBot,ct,NECK,id);   // thin spine joint across the gap (neutral)
+      loft(ct,mt,lc,id); loft(mt,cb,lc,id);     // the axis's spike: out to the point, back in
+      prevBot=cb;
     }
-    (function(){ var rg=ring(xoff(0),tops[0]); for(var j=0;j<K;j++) tri([rg.cx,rg.cy,0],rg[(j+1)%K],rg[j],FILL,[1/255,0,0]); })();
-    (function(){ var rg=ring(xoff(N-1),bots[N-1]); for(var j=0;j<K;j++) tri([rg.cx,rg.cy,0],rg[j],rg[(j+1)%K],FILL,[(N&255)/255,0,0]); })();
+    cap(core(tops[0]), NECK, [1/255,0,0]);
+    cap(core(bots[N-1]), NECK, [(N&255)/255,0,0]);
 
     fillCount=pos.length/3; wireCount=wpos.length/3;
-    bPos=up(bPos,pos); bCol=up(bCol,col); bId=up(bId,ids); bWpos=up(bWpos,wpos); bWcol=up(bWcol,wcol);
+    bPos=up(bPos,pos); bNrm=up(bNrm,nrm); bCol=up(bCol,col); bId=up(bId,ids); bWpos=up(bWpos,wpos); bWcol=up(bWcol,wcol);
   }
 
   function resize(){
@@ -618,14 +644,18 @@ _HERO_JS = r"""(function(){
     gl.enable(gl.DEPTH_TEST); gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
     gl.useProgram(prog);
     gl.uniformMatrix4fv(uMVP,false,mul(proj,rotY(ry)));
-    attr(aPos,bPos); attr(aColor,bCol); attr(aId,bId);
+    gl.uniformMatrix3fv(uNMat,false,nmat3(ry));
+    gl.uniform3f(uLight,0.5,0.8,0.6);
+    attr(aPos,bPos); attr(aNormal,bNrm); attr(aColor,bCol); attr(aId,bId);
     gl.uniform1i(uMode, forPick?1:0);
     if(!forPick){ gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1.1,1.1); }
     gl.drawArrays(gl.TRIANGLES,0,fillCount);
     if(!forPick){
       gl.disable(gl.POLYGON_OFFSET_FILL);
+      if(aNormal>=0){ gl.disableVertexAttribArray(aNormal); gl.vertexAttrib3f(aNormal,0,1,0); }
       if(aId>=0){ gl.disableVertexAttribArray(aId); gl.vertexAttrib3f(aId,0,0,0); }
       attr(aPos,bWpos); attr(aColor,bWcol);
+      gl.uniform1i(uMode,2);
       gl.drawArrays(gl.LINES,0,wireCount);
     } else gl.bindFramebuffer(gl.FRAMEBUFFER,null);
   }
@@ -635,8 +665,13 @@ _HERO_JS = r"""(function(){
 
   function fmt(s){ return (s>=0?'+':'')+s.toFixed(1); }
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
-  function showTip(i,cx,cy){ var a=AXES[i], sc=(a.s===null||a.s===undefined)?'no reading':fmt(a.s);
-    tip.innerHTML='<b>'+esc(a.t)+'</b> <span class="ts">'+esc(sc)+'</span><br><span class="tp">'+esc(a.n)+' ↔ '+esc(a.p)+'</span>';
+  function showTip(i,cx,cy){ var a=AXES[i], head, cls='';
+    // Header says which pole it leans toward and by how much, as one phrase, not both names.
+    if(a.s===null||a.s===undefined) head='No reading';
+    else if(a.s===0) head='Leans neither way';
+    else if(a.s>0){ head='Leans '+a.p+' '+fmt(a.s); cls=' pos'; }
+    else { head='Leans '+a.n+' '+fmt(a.s); cls=' neg'; }
+    tip.innerHTML='<b class="th'+cls+'">'+esc(head)+'</b><br><span class="tp">'+esc(a.t)+'</span>';
     tip.style.opacity='1'; var tw=tip.offsetWidth, th=tip.offsetHeight;
     tip.style.left=Math.max(6,Math.min(cx+14, host.clientWidth-tw-6))+'px';
     tip.style.top=Math.max(6,Math.min(cy+14, host.clientHeight-th-6))+'px'; }
@@ -704,9 +739,8 @@ def _hero_html(profile: Profile) -> str:
         '  <section class="hero3d" id="atlas-hero">\n'
         "    <canvas></canvas>\n"
         '    <div class="tip" role="status"></div>\n'
-        '    <div class="hint">drag to spin · hover the shape to read an axis</div>\n'
-        '    <div class="fallback">One wireframe tube for the whole profile: it bends toward '
-        "each axis's pole by that axis's score.</div>\n"
+        '    <div class="fallback">A low-poly shape of the profile: a tip points out for each '
+        "axis in its lean direction, its length the score.</div>\n"
         "  </section>\n"
         f"  <script>{js}</script>"
     )
@@ -757,20 +791,21 @@ def render_html(profile: Profile) -> str:
     </div>
   </header>"""
     hero = _hero_html(profile)
-    main = f"{header}\n{axes_html}{hint_html}"
+    cards = f"{axes_html}{hint_html}"
     if hero:
-        # Tower in the right rail, cards (and the header) in the left column. Both columns
-        # start at the same top, so the tower spans the header-plus-cards height and its
-        # measured bands line up with the cards. The header shares the left column, so its
-        # width still tracks the cards below it.
+        # The header ("top data") spans the top; below it a centered block pairs the small
+        # tower with the cards. Both columns start at the same top (no header inside them), so
+        # the tower spans exactly the cards and its measured bands line up with them.
         body = (
-            '<div class="wrap wide">\n  <div class="layout">\n'
+            '<div class="wrap wide">\n'
+            f"{header}\n"
+            '  <div class="layout">\n'
             f'    <aside class="col-rail">\n{hero}\n    </aside>\n'
-            f'    <div class="col-main">\n{main}\n    </div>\n'
+            f'    <div class="col-main">\n{cards}\n    </div>\n'
             "  </div>\n</div>"
         )
     else:
-        body = f'<div class="wrap">\n{main}\n</div>'
+        body = f'<div class="wrap">\n{header}\n{cards}\n</div>'
     if profile.axes:
         # One delegated listener drives every card's detail dialogs.
         body += f"\n<script>{_MODAL_JS}</script>"
