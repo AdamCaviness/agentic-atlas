@@ -222,6 +222,21 @@ def render_text(profile: Profile, color: bool = False) -> str:
 # read the repo and decided.
 _KIND_LABEL = {IndicatorKind.MEASURED: "detected", IndicatorKind.CLASSIFIED: "judged"}
 
+# The rubric is the whole point: a profile is only meaningful relative to it, so the page
+# links there. Points at the rubric root, which lists the versioned major directories, so it
+# stays valid across rubric versions.
+_RUBRIC_URL = "https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric"
+
+
+def _display_name(target: str) -> str:
+    """The target's last path segment, for the header pill. ``/a/b/superpowers`` and
+    ``https://github.com/obra/superpowers.git`` both read as ``superpowers``. The full target
+    stays in the pill's title attribute, the stamps, and the JSON, so provenance is not lost."""
+    name = target.rstrip("/").rsplit("/", 1)[-1]
+    if name.endswith(".git"):
+        name = name[:-4]
+    return name or target
+
 # Inlined so the page is self-contained: no external fonts, stylesheets, or scripts, so it
 # renders identically from a file:// path in any harness. Two non-judgmental pole hues mirror
 # the terminal renderer (neither pole is "good"); coverage keeps a separate green/amber/red
@@ -229,22 +244,24 @@ _KIND_LABEL = {IndicatorKind.MEASURED: "detected", IndicatorKind.CLASSIFIED: "ju
 _HTML_CSS = """
   :root {
     --bg:#fff;--fg:#1a1a1a;--muted:#6b7280;--faint:#9ca3af;--card:#f7f7f8;--line:#e5e7eb;--track:#e9eaed;
-    --neg:#0891b2;--pos:#9333ea;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;
+    --neg:#0891b2;--pos:#9333ea;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;--accent:#4f46e5;--pill-fg:#fff;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   @media (prefers-color-scheme:dark){:root{
     --bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--faint:#6e7681;--card:#161b22;--line:#30363d;--track:#21262d;
-    --neg:#22d3ee;--pos:#c084fc;--cov-good:#3fb950;--cov-mid:#d29922;--cov-low:#f85149;
+    --neg:#22d3ee;--pos:#c084fc;--cov-good:#3fb950;--cov-mid:#d29922;--cov-low:#f85149;--accent:#818cf8;--pill-fg:#0d1117;
   }}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
   .wrap{max-width:880px;margin:0 auto;padding:32px 20px 64px}
-  header h1{font-size:1.5rem;margin:0 0 6px;font-weight:650}
-  .stamps{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin:0 0 2px;word-break:break-all}
-  .stamps .target{font-weight:700;color:var(--fg)}
-  .note{color:var(--fg);font-size:.95rem;margin:10px 0 2px;max-width:62ch}
-  .aside{color:var(--muted);font-size:.82rem;margin:2px 0 0;max-width:62ch}
+  header h1{font-size:1.5rem;margin:0 0 8px;font-weight:650}
+  .target-pill{display:inline-block;font-weight:650;font-size:1.15rem;color:var(--pill-fg);
+               background:var(--accent);padding:3px 14px;border-radius:999px;margin:0 0 10px;word-break:break-word}
+  .stamps{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin:0 0 2px}
+  .note{color:var(--fg);font-size:.95rem;margin:10px 0 2px}
+  .note a{color:var(--accent);text-decoration:underline}
+  .aside{color:var(--muted);font-size:.82rem;margin:2px 0 0}
   .legend{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0 26px;padding:12px 14px;background:var(--card);
           border:1px solid var(--line);border-radius:10px;font-size:.82rem;color:var(--muted)}
   .legend .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px}
@@ -373,7 +390,7 @@ def _html_axis(ax: AxisResult) -> str:
     explain_html = ""
     if ax.explain.negative or ax.explain.positive:
         explain_html = (
-            "    <details><summary>what these poles mean</summary>\n"
+            "    <details><summary>what the poles mean</summary>\n"
             '      <dl class="poles">\n'
             f"        <dt>{neg_label}</dt><dd>{_html_escape(ax.explain.negative)}</dd>\n"
             f"        <dt>{pos_label}</dt><dd>{_html_escape(ax.explain.positive)}</dd>\n"
@@ -424,8 +441,9 @@ def render_html(profile: Profile) -> str:
     """
     scale = profile.axes[0].scale if profile.axes else 10.0
     axes_html = "\n".join(_html_axis(ax) for ax in profile.axes)
+    name = _html_escape(_display_name(profile.target))
+    target_full = _html_escape(profile.target)
     stamps = (
-        f'<span class="target">{_html_escape(profile.target)}</span> · '
         f"rubric {_html_escape(profile.rubric_version)} · "
         f"engine {_html_escape(profile.engine_version)} · "
         f"sha {_html_escape((profile.target_sha or 'unknown')[:12])}"
@@ -444,14 +462,13 @@ def render_html(profile: Profile) -> str:
 <div class="wrap">
   <header>
     <h1>Agentic Atlas Profile</h1>
+    <span class="target-pill" title="{target_full}">{name}</span>
     <div class="stamps">{stamps}</div>
-    <p class="note">Agentic Atlas reports what it sees, it doesn't grade, rank, or crown a winner. Every person and project has unique needs, so each axis simply shows where this tool leans between two equally valid ends, and you judge the fit for your own work.</p>
-    <p class="aside">Scale &plusmn;{scale:g} per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; expand an axis to see what its poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
+    <p class="note">These results are non-judgmental measurements against the <a href="{_RUBRIC_URL}" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
+    <p class="aside">Scale &plusmn;{scale:g} per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; expand an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
-      <span><span class="swatch" style="background:var(--neg)"></span>leans left</span>
-      <span><span class="swatch" style="background:var(--pos)"></span>leans right</span>
+      <span><span class="swatch" style="background:var(--neg)"></span><span class="swatch" style="background:var(--pos)"></span>the bar leans toward the end it favors</span>
       <span><span class="swatch" style="background:var(--cov-good)"></span>evidence found</span>
-      <span>neither end is better</span>
       <span>expand an axis to see why</span>
     </div>
   </header>
