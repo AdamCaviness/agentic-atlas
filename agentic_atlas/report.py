@@ -12,6 +12,7 @@ position rests on more of its intended evidence.
 
 from __future__ import annotations
 
+import json
 from html import escape as _html_escape
 
 from .models import AxisResult, IndicatorKind, Profile
@@ -255,6 +256,15 @@ _HTML_CSS = """
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
   .wrap{max-width:880px;margin:0 auto;padding:32px 20px 64px}
+  .wrap.wide{max-width:940px}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:28px;align-items:start}
+  .col-main{grid-column:1;grid-row:1;min-width:0}
+  .col-rail{grid-column:2;grid-row:1}
+  @media (max-width:880px){
+    .layout{grid-template-columns:1fr}
+    .col-main,.col-rail{grid-column:1}
+    .col-rail{margin-bottom:22px}
+  }
   header h1{font-size:1.5rem;margin:0 0 8px;font-weight:650}
   .target-pill{display:inline-block;font-weight:650;font-size:1.15rem;color:var(--pill-fg);
                background:var(--accent);padding:3px 14px;border-radius:999px;margin:0 0 10px;word-break:break-word}
@@ -294,14 +304,25 @@ _HTML_CSS = """
   .cov-floor{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
   .cov-good{background:var(--cov-good)}.cov-mid{background:var(--cov-mid)}.cov-low{background:var(--cov-low)}
   .cov-text{color:var(--muted);font-family:var(--mono)}
-  details{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
-  summary{cursor:pointer;font-size:.8rem;color:var(--muted);list-style:none;user-select:none}
-  summary::-webkit-details-marker{display:none}
-  summary::before{content:"\\25B8 ";color:var(--faint)}
-  details[open] summary::before{content:"\\25BE "}
+  .axis-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+  .mbtn{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);
+        border-radius:8px;padding:6px 12px;cursor:pointer;transition:border-color .12s,color .12s}
+  .mbtn:hover{border-color:var(--accent);color:var(--accent)}
+  .mbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  dialog.modal{max-width:560px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;
+               background:var(--card);color:var(--fg);padding:22px 24px 24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+  dialog.modal.modal-wide{max-width:760px}
+  dialog.modal::backdrop{background:rgba(0,0,0,.5)}
+  dialog.modal form{margin:0}
+  .modal-x{float:right;font-size:1.4rem;line-height:1;background:none;border:0;color:var(--muted);cursor:pointer;padding:0 4px}
+  .modal-x:hover{color:var(--fg)}
+  .modal-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .modal-title{margin:0 0 2px;font-size:1.05rem;font-weight:650}
+  .modal-sub{margin:0 0 14px;font-size:.82rem;color:var(--muted)}
   dl.poles{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin:12px 0 2px;font-size:.82rem}
   dl.poles dt{font-weight:600;color:var(--fg);white-space:nowrap}
   dl.poles dd{margin:0;color:var(--muted)}
+  dl.poles dt.neg{color:var(--neg)}dl.poles dt.pos{color:var(--pos)}
   dl.poles dt.mid,dl.poles dd.mid{color:var(--faint)}
   table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.78rem}
   .table-scroll{overflow-x:auto}
@@ -312,6 +333,20 @@ _HTML_CSS = """
   .val{font-family:var(--mono)}
   .footer-hint{margin-top:22px;padding:12px 14px;border-left:3px solid var(--cov-mid);background:var(--card);
                border-radius:0 8px 8px 0;font-size:.85rem;color:var(--muted)}
+  .hero3d{position:relative;width:100%;height:60vh;margin:0;
+          border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;
+          touch-action:none;user-select:none}
+  .hero3d canvas{display:block;width:100%;height:100%;cursor:grab}
+  .hero3d canvas:active{cursor:grabbing}
+  .hero3d .tip{position:absolute;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .1s;
+               max-width:80%;padding:6px 9px;border-radius:8px;font-size:.78rem;line-height:1.35;
+               background:var(--bg);border:1px solid var(--line);color:var(--fg);
+               box-shadow:0 4px 14px rgba(0,0,0,.18);z-index:2}
+  .hero3d .tip .th{font-weight:650}
+  .hero3d .tip .th.pos{color:var(--pos)}.hero3d .tip .th.neg{color:var(--neg)}
+  .hero3d .tip .tp{color:var(--muted);font-size:.72rem}
+  .hero3d .fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;
+                    padding:0 22px;text-align:center;font-size:.85rem;color:var(--muted)}
 """
 
 
@@ -342,7 +377,7 @@ def _html_indicator_rows(ax: AxisResult) -> str:
     return "\n".join(rows)
 
 
-def _html_axis(ax: AxisResult) -> str:
+def _html_axis(ax: AxisResult, idx: int) -> str:
     m_res, m_total, c_res, c_total = _kind_counts(ax)
     cov_pct = round(ax.coverage * 100)
     cov_txt = f"detected {m_res}/{m_total} · judged {c_res}/{c_total} · {cov_pct}% evidence"
@@ -379,37 +414,53 @@ def _html_axis(ax: AxisResult) -> str:
                 '<div class="center"></div></div>'
             )
 
+    title = _html_escape(ax.title)
     neg_label = _html_escape(_humanize(ax.poles.negative))
     pos_label = _html_escape(_humanize(ax.poles.positive))
 
-    # Plain-language meaning of each pole, plus the shared neutral note, tucked into an
-    # expandable so a reader who does not know the pole words can learn them without the
-    # card growing taller by default. Uses the same <details> idiom as the signals table,
-    # so it works on touch and desktop with no script. Rendered even when nothing resolved:
-    # the meaning of the poles does not depend on the score.
-    explain_html = ""
+    # Details live in modal dialogs, not inline expanders, so every card keeps a fixed
+    # height no matter what is opened. That fixed height is what lets the tower's bands line
+    # up with the cards: opening a dialog never reflows the column. Dialogs close natively
+    # (the form-method button, plus Esc); only opening and backdrop-close need _MODAL_JS.
+    buttons = []
+    dialogs = []
     if ax.explain.negative or ax.explain.positive:
-        explain_html = (
-            "    <details><summary>what the poles mean</summary>\n"
+        buttons.append(
+            f'<button type="button" class="mbtn" data-dialog="poles-{idx}">what the poles mean</button>'
+        )
+        dialogs.append(
+            f'    <dialog id="poles-{idx}" class="modal">\n'
+            '      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>\n'
+            f'      <h3 class="modal-title">{title}</h3>\n'
+            '      <p class="modal-sub">what the poles mean</p>\n'
             '      <dl class="poles">\n'
-            f"        <dt>{neg_label}</dt><dd>{_html_escape(ax.explain.negative)}</dd>\n"
-            f"        <dt>{pos_label}</dt><dd>{_html_escape(ax.explain.positive)}</dd>\n"
+            f'        <dt class="neg">{neg_label}</dt><dd>{_html_escape(ax.explain.negative)}</dd>\n'
+            f'        <dt class="pos">{pos_label}</dt><dd>{_html_escape(ax.explain.positive)}</dd>\n'
             f'        <dt class="mid">near 0</dt><dd class="mid">{_html_escape(_MIDDLE_NOTE)}</dd>\n'
             "      </dl>\n"
-            "    </details>\n"
+            "    </dialog>"
         )
-
-    details = (
-        f"<details><summary>show the {len(ax.indicators)} signals behind this</summary>"
-        '<div class="table-scroll"><table>'
+    n_sig = len(ax.indicators)
+    buttons.append(
+        f'<button type="button" class="mbtn" data-dialog="signals-{idx}">show the {n_sig} signals behind this</button>'
+    )
+    dialogs.append(
+        f'    <dialog id="signals-{idx}" class="modal modal-wide">\n'
+        '      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>\n'
+        f'      <h3 class="modal-title">{title}</h3>\n'
+        f'      <p class="modal-sub">{n_sig} signals behind this position</p>\n'
+        '      <div class="table-scroll"><table>'
         "<thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th>"
         "<th>value</th><th>evidence</th><th>source</th></tr></thead>"
-        f"<tbody>{_html_indicator_rows(ax)}</tbody></table></div></details>"
+        f"<tbody>{_html_indicator_rows(ax)}</tbody></table></div>\n"
+        "    </dialog>"
     )
+    actions = '    <div class="axis-actions">' + "".join(buttons) + "</div>"
+    dialogs_html = "\n".join(dialogs)
 
     return (
         '  <section class="axis">\n'
-        f'    <div class="axis-head"><span class="axis-title">{_html_escape(ax.title)}</span>{score_html}</div>\n'
+        f'    <div class="axis-head"><span class="axis-title">{title}</span>{score_html}</div>\n'
         '    <div class="bar-row">\n'
         f'      <span class="pole left">{neg_label}</span>\n'
         f"      {bar}\n"
@@ -419,9 +470,279 @@ def _html_axis(ax: AxisResult) -> str:
         f'      <div class="cov-meter"><div class="cov-fill {_coverage_class(ax.coverage)}" style="width:{cov_pct}%"></div><div class="cov-floor"></div></div>\n'
         f'      <span class="cov-text">{_html_escape(cov_txt)}</span>\n'
         "    </div>\n"
-        f"{explain_html}"
-        f"    {details}\n"
+        f"{actions}\n"
+        f"{dialogs_html}\n"
         "  </section>"
+    )
+
+
+# A low-poly crystal in the rail beside the cards, the same height as them and aligned band
+# to card. It is NOT a tube: each cross-section is a small kite that pushes a tip outward in
+# that axis's lean direction, its length the score, so a zero or no-reading axis is a centered
+# symmetric diamond that points nowhere. The body hugs a central spine inside an (invisible)
+# bounding cylinder; consecutive axes are lofted into one continuous faceted mesh, bent only
+# in the neutral necks that bridge the gaps between cards. Flat-shaded triangles with a faint
+# wireframe give the unfinished low-poly-game look; cyan tips lean to the negative pole,
+# magenta to the positive. Orthographic, yaw-only rotation keeps the vertical alignment while
+# it spins; it auto-rotates, pauses on hover, drags to spin, and picks the band under the
+# cursor to name the axis. Raw WebGL, self-contained for file:// use, axis data injected as
+# JSON at ``/*__AXES__*/`` so the emitted bytes stay a deterministic function of the Profile.
+_HERO_JS = r"""(function(){
+  var host=document.getElementById('atlas-hero');
+  if(!host) return;
+  var canvas=host.querySelector('canvas');
+  var tip=host.querySelector('.tip');
+  var AXES=/*__AXES__*/;
+  function fail(){ canvas.style.display='none';
+    var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
+  if(!AXES.length){ host.style.display='none'; return; }
+  var gl=null;
+  try{ gl=canvas.getContext('webgl',{antialias:true,alpha:true,premultipliedAlpha:false})
+        ||canvas.getContext('experimental-webgl'); }catch(e){}
+  if(!gl){ fail(); return; }
+
+  function css(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function hex(h){ h=(h||'').replace('#',''); if(h.length===3){h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];}
+    var n=parseInt(h,16); if(isNaN(n)) return [.5,.5,.5];
+    return [((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255]; }
+  function mix(a,b,t){ return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]; }
+  var NEG=hex(css('--neg')), POS=hex(css('--pos')), FAINT=hex(css('--faint')),
+      CARD=hex(css('--card')), FG=hex(css('--fg')), NECK=mix(FAINT,CARD,0.35), WIRE=FAINT;
+
+  // shaders: flat-shaded (per-face normal), an id pass for picking, and a flat-color wire pass
+  function sh(t,s){ var o=gl.createShader(t); gl.shaderSource(o,s); gl.compileShader(o);
+    if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)) console.log(gl.getShaderInfoLog(o)); return o; }
+  var prog=gl.createProgram();
+  gl.attachShader(prog,sh(gl.VERTEX_SHADER,
+    'attribute vec3 aPos;attribute vec3 aNormal;attribute vec3 aColor;attribute vec3 aId;'+
+    'uniform mat4 uMVP;uniform mat3 uNMat;varying vec3 vN;varying vec3 vC;varying vec3 vId;'+
+    'void main(){vN=uNMat*aNormal;vC=aColor;vId=aId;gl_Position=uMVP*vec4(aPos,1.0);}'));
+  gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,
+    'precision mediump float;precision mediump int;varying vec3 vN;varying vec3 vC;varying vec3 vId;'+
+    'uniform int uMode;uniform vec3 uLight;void main(){'+
+    'if(uMode==1){gl_FragColor=vec4(vId,1.0);return;}'+
+    'if(uMode==2){gl_FragColor=vec4(vC,1.0);return;}'+
+    'vec3 n=normalize(vN);float d=max(dot(n,normalize(uLight)),0.0);'+
+    'float b=floor(d*4.0+0.5)/4.0;gl_FragColor=vec4(vC*(0.45+0.6*b),1.0);}'));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  var aPos=gl.getAttribLocation(prog,'aPos'), aNormal=gl.getAttribLocation(prog,'aNormal'),
+      aColor=gl.getAttribLocation(prog,'aColor'), aId=gl.getAttribLocation(prog,'aId'),
+      uMVP=gl.getUniformLocation(prog,'uMVP'), uNMat=gl.getUniformLocation(prog,'uNMat'),
+      uMode=gl.getUniformLocation(prog,'uMode'), uLight=gl.getUniformLocation(prog,'uLight');
+  function up(buf,data){ if(!buf) buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW); return buf; }
+  function attr(loc,b){ if(loc<0)return; gl.enableVertexAttribArray(loc);
+    gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.vertexAttribPointer(loc,3,gl.FLOAT,false,0,0); }
+
+  // matrices (column-major); orthographic so vertical position never foreshortens
+  function ident(){ return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]); }
+  function mul(a,b){ var o=new Float32Array(16);
+    for(var c=0;c<4;c++)for(var r=0;r<4;r++){var s=0;for(var k=0;k<4;k++)s+=a[k*4+r]*b[c*4+k];o[c*4+r]=s;} return o; }
+  function rotY(r){ var c=Math.cos(r),s=Math.sin(r),o=ident(); o[0]=c;o[2]=-s;o[8]=s;o[10]=c; return o; }
+  function nmat3(r){ var c=Math.cos(r),s=Math.sin(r); return new Float32Array([c,0,-s,0,1,0,s,0,c]); }
+  function ortho(hw,hh,nf){ var o=ident(); o[0]=1/hw;o[5]=1/hh;o[10]=-1/nf; return o; }
+
+  // state
+  var N=AXES.length;
+  var ry=0.5, inside=false, dragging=false, lastX=0, hovered=-1;
+  var proj=ident(), vw=1, vh=1, pickFB=null, pickTex=null, pickDepth=null;
+  var bPos=null,bNrm=null,bCol=null,bId=null,bWpos=null,bWcol=null, fillCount=0, wireCount=0, halfW=1, halfH=1;
+
+  // geometry: one lofted crystal whose kite cross-section points a tip in each axis's lean dir
+  function buildGeom(){
+    var narrow=window.matchMedia('(max-width:880px)').matches;
+    var cards=document.querySelectorAll('.col-main .axis');
+    var tops=[], bots=[], hostH;
+    if(!narrow && cards.length===N){
+      // Bound the container to the cards: top of the first card, bottom of the last, offset
+      // below the header so the shape spans exactly the sections it describes.
+      var railTop=host.parentElement.getBoundingClientRect().top;
+      var rects=[]; for(var c=0;c<N;c++) rects.push(cards[c].getBoundingClientRect());
+      var firstTop=rects[0].top, lastBot=rects[N-1].bottom;
+      hostH=lastBot-firstTop;
+      host.style.marginTop=(firstTop-railTop)+'px'; host.style.height=hostH+'px';
+      for(var c3=0;c3<N;c3++){ tops.push(rects[c3].top-firstTop); bots.push(rects[c3].bottom-firstTop); }
+    } else {
+      host.style.marginTop=''; host.style.height=''; hostH=host.clientHeight;
+      var pad=hostH*0.07, bh=(hostH-2*pad)/N;
+      for(var c2=0;c2<N;c2++){ tops.push(pad+c2*bh+bh*0.12); bots.push(pad+(c2+1)*bh-bh*0.12); }
+    }
+    var W=host.clientWidth; halfW=W/2; halfH=hostH/2;
+    // A substantial spine (coreR/sideR) is the body inside the invisible bounding cylinder; the
+    // tip reaches out up to MAXOFF past the spine at the card's center, tapering back at the edges.
+    // Fractions of the (small) rail width, so the shape fills it snugly with a little margin.
+    var MAXOFF=W*0.28, coreR=Math.max(6,W*0.13), sideR=Math.max(8,W*0.16);
+
+    function reach(i){ var a=AXES[i]; return (a.s===null||a.s===undefined)?0:Math.min(Math.abs(a.s/a.sc),1)*MAXOFF; }
+    function sgn(i){ var a=AXES[i]; return (a.s!==null&&a.s!==undefined&&a.s<0)?-1:1; }
+    function lean(i){ var a=AXES[i], has=(a.s!==null&&a.s!==undefined);
+      var f=has?Math.max(-1,Math.min(1,a.s/a.sc)):0;
+      return has?mix(FAINT, f<0?NEG:POS, 0.32+0.68*Math.min(Math.abs(f),1)):FAINT; }
+    function wy(py){ return hostH/2-py; }
+    // kite cross-section, verts E(+x),N(+z),W(-x),S(-z). A "core" ring is a small centered
+    // diamond; a "tip" ring pushes one side out to reach, making the apex point in the lean dir.
+    function core(py){ var y=wy(py); return [[coreR,y,0],[0,y,sideR],[-coreR,y,0],[0,y,-sideR]]; }
+    function tipRing(i,py){ var e=reach(i), sg=sgn(i), y=wy(py);
+      var r=(sg>0)?coreR+e:coreR, l=(sg<0)?coreR+e:coreR;
+      return [[r,y,0],[0,y,sideR],[-l,y,0],[0,y,-sideR]]; }
+
+    var pos=[],nrm=[],col=[],ids=[],wpos=[],wcol=[];
+    function triFlat(A,B,C,c,id){
+      var ux=B[0]-A[0],uy=B[1]-A[1],uz=B[2]-A[2],vx=C[0]-A[0],vy=C[1]-A[1],vz=C[2]-A[2];
+      var nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx,l=Math.sqrt(nx*nx+ny*ny+nz*nz)||1; nx/=l;ny/=l;nz/=l;
+      var cxp=(A[0]+B[0]+C[0])/3, czp=(A[2]+B[2]+C[2])/3;      // point normals outward from the spine
+      if(nx*cxp+nz*czp<0){ nx=-nx;ny=-ny;nz=-nz; }
+      var P=[A,B,C]; for(var k=0;k<3;k++){ pos.push(P[k][0],P[k][1],P[k][2]); nrm.push(nx,ny,nz);
+        col.push(c[0],c[1],c[2]); ids.push(id[0],id[1],id[2]); } }
+    function wl(a,b){ wpos.push(a[0],a[1],a[2],b[0],b[1],b[2]); wcol.push(WIRE[0],WIRE[1],WIRE[2],WIRE[0],WIRE[1],WIRE[2]); }
+    function loft(r0,r1,c,id){ for(var j=0;j<4;j++){ var j1=(j+1)%4;
+      triFlat(r0[j],r0[j1],r1[j1],c,id); triFlat(r0[j],r1[j1],r1[j],c,id);
+      wl(r0[j],r0[j1]); wl(r0[j],r1[j]); wl(r0[j],r1[j1]); } }
+    function cap(rg,c,id){ var C=[(rg[0][0]+rg[1][0]+rg[2][0]+rg[3][0])/4, rg[0][1], (rg[0][2]+rg[1][2]+rg[2][2]+rg[3][2])/4];
+      for(var j=0;j<4;j++){ var j1=(j+1)%4; triFlat(C,rg[j],rg[j1],c,id); wl(rg[j],rg[j1]); } }
+
+    var prevBot=null;
+    for(var i=0;i<N;i++){
+      var mid=(tops[i]+bots[i])/2, lc=lean(i), id=[((i+1)&255)/255,0,0];
+      var ct=core(tops[i]), mt=tipRing(i,mid), cb=core(bots[i]);
+      if(prevBot) loft(prevBot,ct,NECK,id);   // thin spine joint across the gap (neutral)
+      loft(ct,mt,lc,id); loft(mt,cb,lc,id);     // the axis's spike: out to the point, back in
+      prevBot=cb;
+    }
+    cap(core(tops[0]), NECK, [1/255,0,0]);
+    cap(core(bots[N-1]), NECK, [(N&255)/255,0,0]);
+
+    fillCount=pos.length/3; wireCount=wpos.length/3;
+    bPos=up(bPos,pos); bNrm=up(bNrm,nrm); bCol=up(bCol,col); bId=up(bId,ids); bWpos=up(bWpos,wpos); bWcol=up(bWcol,wcol);
+  }
+
+  function resize(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    buildGeom();
+    var w=Math.max(1,Math.round(host.clientWidth*dpr)), h=Math.max(1,Math.round(host.clientHeight*dpr));
+    vw=w; vh=h; canvas.width=w; canvas.height=h;
+    proj=ortho(halfW,halfH,4000);
+    if(pickFB) gl.deleteFramebuffer(pickFB);
+    if(pickTex) gl.deleteTexture(pickTex);
+    if(pickDepth) gl.deleteRenderbuffer(pickDepth);
+    pickTex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,pickTex);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+    pickDepth=gl.createRenderbuffer(); gl.bindRenderbuffer(gl.RENDERBUFFER,pickDepth);
+    gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,w,h);
+    pickFB=gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER,pickFB);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,pickTex,0);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,pickDepth);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  }
+
+  function draw(forPick){
+    gl.bindFramebuffer(gl.FRAMEBUFFER, forPick?pickFB:null);
+    gl.viewport(0,0,vw,vh);
+    gl.clearColor(0,0,0, forPick?1:0);
+    gl.enable(gl.DEPTH_TEST); gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    gl.useProgram(prog);
+    gl.uniformMatrix4fv(uMVP,false,mul(proj,rotY(ry)));
+    gl.uniformMatrix3fv(uNMat,false,nmat3(ry));
+    gl.uniform3f(uLight,0.5,0.8,0.6);
+    attr(aPos,bPos); attr(aNormal,bNrm); attr(aColor,bCol); attr(aId,bId);
+    gl.uniform1i(uMode, forPick?1:0);
+    if(!forPick){ gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1.1,1.1); }
+    gl.drawArrays(gl.TRIANGLES,0,fillCount);
+    if(!forPick){
+      gl.disable(gl.POLYGON_OFFSET_FILL);
+      if(aNormal>=0){ gl.disableVertexAttribArray(aNormal); gl.vertexAttrib3f(aNormal,0,1,0); }
+      if(aId>=0){ gl.disableVertexAttribArray(aId); gl.vertexAttrib3f(aId,0,0,0); }
+      attr(aPos,bWpos); attr(aColor,bWcol);
+      gl.uniform1i(uMode,2);
+      gl.drawArrays(gl.LINES,0,wireCount);
+    } else gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  }
+  function pick(px,py){ draw(true); var b=new Uint8Array(4);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,pickFB); gl.readPixels(px,vh-py,1,1,gl.RGBA,gl.UNSIGNED_BYTE,b);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null); var id=b[0]; return (id>=1&&id<=N)?id-1:-1; }
+
+  function fmt(s){ return (s>=0?'+':'')+s.toFixed(1); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function showTip(i,cx,cy){ var a=AXES[i], head, cls='';
+    // Header says which pole it leans toward and by how much, as one phrase, not both names.
+    if(a.s===null||a.s===undefined) head='No reading';
+    else if(a.s===0) head='Leans neither way';
+    else if(a.s>0){ head='Leans '+a.p+' '+fmt(a.s); cls=' pos'; }
+    else { head='Leans '+a.n+' '+fmt(a.s); cls=' neg'; }
+    tip.innerHTML='<b class="th'+cls+'">'+esc(head)+'</b><br><span class="tp">'+esc(a.t)+'</span>';
+    tip.style.opacity='1'; var tw=tip.offsetWidth, th=tip.offsetHeight;
+    tip.style.left=Math.max(6,Math.min(cx+14, host.clientWidth-tw-6))+'px';
+    tip.style.top=Math.max(6,Math.min(cy+14, host.clientHeight-th-6))+'px'; }
+  function hideTip(){ tip.style.opacity='0'; hovered=-1; }
+
+  function loc(e){ var r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top,w:r.width,h:r.height}; }
+  host.addEventListener('pointerenter',function(){ inside=true; });
+  host.addEventListener('pointerleave',function(){ inside=false; dragging=false; hideTip(); });
+  canvas.addEventListener('pointerdown',function(e){ dragging=true; lastX=e.clientX; hideTip();
+    try{canvas.setPointerCapture(e.pointerId);}catch(_){} });
+  canvas.addEventListener('pointerup',function(e){ dragging=false; try{canvas.releasePointerCapture(e.pointerId);}catch(_){} });
+  canvas.addEventListener('pointermove',function(e){
+    if(dragging){ ry+=(e.clientX-lastX)*0.01; lastX=e.clientX; return; }
+    var p=loc(e), i=pick(Math.round(p.x/p.w*vw), Math.round(p.y/p.h*vh));
+    if(i>=0){ hovered=i; showTip(i,p.x,p.y); } else hideTip(); });
+
+  var last=0;
+  function frame(ts){ if(!last) last=ts; var dt=Math.min((ts-last)/1000,0.05); last=ts;
+    if(!inside&&!dragging) ry+=dt*0.5; draw(false); requestAnimationFrame(frame); }
+  if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ resize(); });
+    var m=document.querySelector('.col-main'); if(m) ro.observe(m); }
+  window.addEventListener('resize',function(){ resize(); });
+  window.addEventListener('load',function(){ resize(); });
+  resize(); draw(false); requestAnimationFrame(frame);
+})();"""
+
+
+# Opens a card's detail dialog on button click and closes it on a backdrop click. Native
+# <dialog> handles Esc and the form-method close button, so this is all the script modals
+# need. Delegated from the document, so it covers every card with one listener.
+_MODAL_JS = (
+    "(function(){document.addEventListener('click',function(e){"
+    "var o=e.target.closest('[data-dialog]');"
+    "if(o){var d=document.getElementById(o.getAttribute('data-dialog'));"
+    "if(d&&d.showModal&&!d.open)d.showModal();return;}"
+    "if(e.target.tagName==='DIALOG')e.target.close();});})();"
+)
+
+
+def _hero_data(profile: Profile) -> str:
+    """The per-axis payload the tower reads, as safe-to-embed JSON. Keys are terse (the mesh
+    builder is the only reader): title, signed score (null when nothing resolved), scale,
+    negative/positive pole labels. Deterministic: fixed key order, rounded floats, and ``<``
+    escaped to ``\\u003c`` so a title can never break out of the surrounding <script>."""
+    data = [
+        {
+            "t": ax.title,
+            "s": None if ax.score is None else round(ax.score, 3),
+            "sc": ax.scale,
+            "n": _humanize(ax.poles.negative),
+            "p": _humanize(ax.poles.positive),
+        }
+        for ax in profile.axes
+    ]
+    return json.dumps(data, ensure_ascii=True).replace("<", "\\u003c")
+
+
+def _hero_html(profile: Profile) -> str:
+    """The rotating profile tower: a hero visual above the axis cards. Empty when there are no
+    axes to plot, so the page degrades to just the cards."""
+    if not profile.axes:
+        return ""
+    js = _HERO_JS.replace("/*__AXES__*/", _hero_data(profile))
+    return (
+        '  <section class="hero3d" id="atlas-hero">\n'
+        "    <canvas></canvas>\n"
+        '    <div class="tip" role="status"></div>\n'
+        '    <div class="fallback">A low-poly shape of the profile: a tip points out for each '
+        "axis in its lean direction, its length the score.</div>\n"
+        "  </section>\n"
+        f"  <script>{js}</script>"
     )
 
 
@@ -438,9 +759,16 @@ def render_html(profile: Profile) -> str:
     only when nothing resolved at all (``score is None``), which reads as "nothing
     could be read". The user-facing language is plain: the two indicator kinds show
     as "detected" and "judged", and coverage reads as "evidence".
+
+    Beside the cards, in a right rail the same height as them, sits an interactive
+    WebGL "profile tower" (see ``_HERO_JS``) that measures the cards and lines its
+    bands up with them; a tiny delegated handler (see ``_MODAL_JS``) opens the per-card
+    detail dialogs. Both scripts are inline and self-contained, so the page still needs
+    no external resources, and the geometry varies only in the injected axis data, so
+    the emitted bytes stay a deterministic function of the Profile.
     """
     scale = profile.axes[0].scale if profile.axes else 10.0
-    axes_html = "\n".join(_html_axis(ax) for ax in profile.axes)
+    axes_html = "\n".join(_html_axis(ax, i) for i, ax in enumerate(profile.axes))
     name = _html_escape(_display_name(profile.target))
     target_full = _html_escape(profile.target)
     stamps = (
@@ -450,6 +778,37 @@ def render_html(profile: Profile) -> str:
     )
     hint = _skill_hint(profile)
     hint_html = f'\n  <p class="footer-hint">{_html_escape(hint)}</p>' if hint else ""
+    header = f"""  <header>
+    <h1>Agentic Atlas Profile</h1>
+    <span class="target-pill" title="{target_full}">{name}</span>
+    <div class="stamps">{stamps}</div>
+    <p class="note">These results are non-judgmental measurements against the <a href="{_RUBRIC_URL}" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
+    <p class="aside">Scale &plusmn;{scale:g} per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--neg)"></span><span class="swatch" style="background:var(--pos)"></span>the bar leans toward the end it favors</span>
+      <span><span class="swatch" style="background:var(--cov-good)"></span>evidence found</span>
+      <span>open an axis for its poles and signals</span>
+    </div>
+  </header>"""
+    hero = _hero_html(profile)
+    cards = f"{axes_html}{hint_html}"
+    if hero:
+        # The header ("top data") spans the top; below it a centered block pairs the small
+        # tower with the cards. Both columns start at the same top (no header inside them), so
+        # the tower spans exactly the cards and its measured bands line up with them.
+        body = (
+            '<div class="wrap wide">\n'
+            f"{header}\n"
+            '  <div class="layout">\n'
+            f'    <aside class="col-rail">\n{hero}\n    </aside>\n'
+            f'    <div class="col-main">\n{cards}\n    </div>\n'
+            "  </div>\n</div>"
+        )
+    else:
+        body = f'<div class="wrap">\n{header}\n{cards}\n</div>'
+    if profile.axes:
+        # One delegated listener drives every card's detail dialogs.
+        body += f"\n<script>{_MODAL_JS}</script>"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -459,21 +818,7 @@ def render_html(profile: Profile) -> str:
 <style>{_HTML_CSS}</style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>Agentic Atlas Profile</h1>
-    <span class="target-pill" title="{target_full}">{name}</span>
-    <div class="stamps">{stamps}</div>
-    <p class="note">These results are non-judgmental measurements against the <a href="{_RUBRIC_URL}" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
-    <p class="aside">Scale &plusmn;{scale:g} per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; expand an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
-    <div class="legend">
-      <span><span class="swatch" style="background:var(--neg)"></span><span class="swatch" style="background:var(--pos)"></span>the bar leans toward the end it favors</span>
-      <span><span class="swatch" style="background:var(--cov-good)"></span>evidence found</span>
-      <span>expand an axis to see why</span>
-    </div>
-  </header>
-{axes_html}{hint_html}
-</div>
+{body}
 </body>
 </html>
 """

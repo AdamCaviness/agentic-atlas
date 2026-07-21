@@ -26,7 +26,7 @@ class Explain:
     """Plain-language meaning of each pole, shown in the report so a reader who does not
     already know the pole words still understands the axis. The neutral middle is not stored
     per axis: it means the same thing on every axis (a tool near 0 does both ends well, or
-    neither), so the renderer states it once rather than repeating it thirteen times."""
+    neither), so the renderer states it once rather than repeating it on every axis."""
 
     negative: str = ""
     positive: str = ""
