@@ -1,9 +1,11 @@
 rubric_version: 1.4.0
 title: Agentic Atlas Rubric
 description: >
-  Curated rubric of 13 axes. Sign conventions and weights are a proposal and are
-  expected to change before this version is treated as stable. Any change that can
-  move a score requires a MAJOR bump. See docs/versioning.md.
+  An opinionated, versioned rubric for locating agentic development approaches on
+  signed, diverging axes, open to adoption and adaptation by the community. Sign
+  conventions and weights are deliberate positions, not defaults: disagree, trace it
+  to the indicators, and open a pull request against this version. Any change that
+  can move a score for identical evidence requires a MAJOR bump. See docs/versioning.md.
 
 # Every axis is a signed position on the same range, -scale..+scale. A single
 # shared scale is what makes positions comparable across axes, so it is a rubric

@@ -41,8 +41,8 @@ skill unlocks the complete profile, with no key and no extra cost.
 ## Arguments
 
 - **`<path-or-git-url>` (optional)**: a local directory path OR a git URL of the target to
-  profile. If omitted, profile the current directory, but announce it first and never fall
-  back silently (see Step 2).
+  profile. If omitted, the current directory is the target; announce which directory first
+  (see Step 2).
 - **`--save` (optional)**: in addition to printing, write the answers JSON and the profile
   JSON under `profiles/<target-name>/` in this repo. Default is print-only.
 
@@ -105,9 +105,9 @@ the engine another way.
 
 ### Step 2: Resolve the target
 
-- **No argument**: profile the current working directory. Announce it before doing any work,
-  for example `No target given, profiling the current directory: <name> (<abs-path>)`, so a
-  fallback is never silent.
+- **No argument**: the current working directory is the intended target. Announce which
+  directory before doing any work, for example `Profiling the current directory: <name>
+  (<abs-path>)`, so the target is always explicit.
 - **Local path**: expand it to an absolute path and confirm it is a directory. If it does
   not exist or is not a directory, tell the user and stop.
 - **Git URL** (starts with `http://`, `https://`, `git@`, `ssh://`, or ends in `.git`):
@@ -148,7 +148,7 @@ Then let intent set the strictness:
 
 - If it is clearly an agentic approach, proceed.
 - If it is clearly not one (a regular app or library with none of these markers) and the
-  target came from the no-argument current-directory fallback, stop and say so, for example
+  target came from the no-argument current-directory default, stop and say so, for example
   "This looks like a regular application, not an agentic workflow or framework, which is what
   I profile. Re-run with an explicit target, or confirm you want to profile it anyway," and
   wait for the user to confirm. If the user passed the target explicitly (a path or URL they
@@ -168,7 +168,7 @@ bash "$SKILL_DIR/atlas.sh" questions "<abs-target-path>"
 
 This prints JSON: `rubric_version`, `target`, `instructions`, and `questions[]`. Each
 question is `{"id", "axis", "question", "answers": [<allowed values>]}`. There are 25
-classified questions across the 13 axes. Read the whole list before answering.
+classified questions across the axes. Read the whole list before answering.
 
 ### Step 4: Read the target, then answer each question
 
@@ -289,7 +289,7 @@ bash "$SKILL_DIR/atlas.sh" profile "<abs-target-path>" --answers <answers-file> 
 Finally add a short summary of your own:
 
 - `TARGET_NAME`, and the stamped `rubric`, `engine`, and target SHA (from the JSON).
-- How many of the 13 axes show a confident position, how many are provisional (a faded bar,
+- How many axes show a confident position, how many are provisional (a faded bar,
   thin evidence below half coverage), and how many could not be read at all; for each
   provisional or unread axis, one line on why (which classified answers are missing or
   unresolved).
