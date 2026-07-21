@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/AdamCaviness/agentic-atlas/compare/v0.3.0...v0.3.1) (2026-07-21)
+
+
+### Bug Fixes
+
+* **report:** refine HTML header wording, layout, and target pill ([#11](https://github.com/AdamCaviness/agentic-atlas/issues/11)) ([e472fe0](https://github.com/AdamCaviness/agentic-atlas/commit/e472fe0b9ea19fce4a4fc0eb44ad8bed7438136b))
+
 ## [0.3.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.2.0...v0.3.0) (2026-07-20)
 
 
