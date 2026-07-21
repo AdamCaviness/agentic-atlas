@@ -9,7 +9,7 @@ from agentic_atlas.models import (
     Poles,
     Profile,
 )
-from agentic_atlas.report import _display_name, render_html, render_text
+from agentic_atlas.report import _MODAL_JS, _display_name, render_html, render_text
 
 
 def _ind(kind: IndicatorKind, resolved: bool, weight: float = 1.0) -> IndicatorResult:
@@ -204,7 +204,7 @@ def test_html_neutral_score_reads_as_neutral_not_positive():
     assert '<span class="score zero">0.0</span>' in out  # neutral, no forced sign
 
 
-def test_html_shows_pole_meanings_in_an_expander_when_present():
+def test_html_shows_pole_meanings_in_a_modal_when_present():
     ax = _axis(
         "GB",
         score=-5.5,
@@ -213,17 +213,30 @@ def test_html_shows_pole_meanings_in_an_expander_when_present():
         explain=Explain(negative="excels from an idea", positive="excels in existing code"),
     )
     out = render_html(_profile([ax]))
-    assert "<summary>what the poles mean</summary>" in out  # the expander is present
+    assert '<button type="button" class="mbtn" data-dialog="poles-0">' in out  # the trigger
+    assert '<dialog id="poles-0" class="modal">' in out  # opens a modal, not an inline expander
     assert "excels from an idea" in out
     assert "excels in existing code" in out
     # the shared neutral note is stated per axis, not authored per axis
     assert "serves both ends well, or neither" in out
 
 
-def test_html_omits_pole_expander_when_no_meanings_authored():
+def test_html_omits_pole_modal_when_no_meanings_authored():
     ax = _axis("Bare", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
     out = render_html(_profile([ax]))
-    assert "<summary>what the poles mean</summary>" not in out
+    assert 'data-dialog="poles-0"' not in out
+    assert "<details>" not in out  # no inline expanders anywhere; details live in dialogs
+
+
+def test_html_signals_open_in_a_modal_and_cards_stay_fixed_height():
+    # The signals detail is a dialog (opened by a button), so opening it never reflows the
+    # card. That fixed height is what lets the tower align with the cards.
+    ax = _axis("A vs B", score=1.0, coverage=1.0, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    out = render_html(_profile([ax]))
+    assert 'data-dialog="signals-0"' in out
+    assert '<dialog id="signals-0" class="modal modal-wide">' in out
+    assert "<details>" not in out and "<summary>" not in out
+    assert _MODAL_JS in out  # the tiny open/close handler is shipped
 
 
 def test_display_name_takes_last_segment_of_path_or_git_url():
@@ -241,6 +254,41 @@ def test_html_header_shows_name_pill_not_full_path():
     assert '<span class="target-pill" title="/Users/adam/_opensource/superpowers">superpowers</span>' in out
     # the full path no longer appears in the stamps line
     assert '<div class="stamps">rubric' in out
+
+
+def test_html_hero_tower_present_with_axis_data():
+    ax = _axis(
+        "Greenfield vs Brownfield",
+        score=2.7,
+        coverage=1.0,
+        indicators=[_ind(IndicatorKind.MEASURED, True)],
+    )
+    out = render_html(_profile([ax]))
+    assert 'id="atlas-hero"' in out  # the 3D tower container
+    assert "<canvas>" in out
+    assert "<script>" in out  # the only (inline) script on the page
+    assert '"Greenfield vs Brownfield"' in out  # axis title embedded for the tower to read
+
+
+def test_html_hero_absent_when_no_axes():
+    out = render_html(_profile([]))
+    assert "atlas-hero" not in out
+    assert "<script>" not in out  # nothing to plot, so no tower and no script
+
+
+def test_html_hero_data_cannot_break_out_of_script():
+    # A title is embedded into a <script> block as JSON; a "</script>" in it must not close
+    # the tag early. "<" is escaped to <, so only the real closing tag remains.
+    ax = _axis(
+        "Evil </script> axis",
+        score=1.0,
+        coverage=1.0,
+        indicators=[_ind(IndicatorKind.MEASURED, True)],
+    )
+    out = render_html(_profile([ax]))
+    # two legitimate scripts (the tower and the modal handler); the title must add no more
+    assert out.count("</script>") == 2
+    assert "\\u003c/script>" in out  # the title's "<" was neutralized
 
 
 def test_html_and_text_humanize_underscored_pole_ids():
