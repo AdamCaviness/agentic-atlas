@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.3.1...v0.4.0) (2026-07-21)
+
+
+### Features
+
+* **report:** interactive low-poly 3D profile crystal, plus rubric and skill wording ([#14](https://github.com/AdamCaviness/agentic-atlas/issues/14)) ([7aae898](https://github.com/AdamCaviness/agentic-atlas/commit/7aae898a12923d6da7266ce4d522e64b98006e7a))
+
 ## [0.3.1](https://github.com/AdamCaviness/agentic-atlas/compare/v0.3.0...v0.3.1) (2026-07-21)
 
 
