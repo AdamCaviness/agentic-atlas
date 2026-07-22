@@ -1,0 +1,56 @@
+{
+  "workflow_version": "1.2.0",
+  "timestamps": {
+    "started": "2026-07-22T13:17:11Z",
+    "last_updated": "2026-07-22T13:20:00Z",
+    "completed": "2026-07-22T13:20:00Z"
+  },
+  "mode": "initial_scan",
+  "scan_level": "deep",
+  "project_root": "/Users/adam/_opensource/agentic-atlas",
+  "project_knowledge": "/Users/adam/_opensource/agentic-atlas/docs",
+  "repository_type": "multi-part",
+  "project_types": [
+    { "part_id": "engine", "project_type_id": "cli", "display_name": "Python CLI + library engine" },
+    { "part_id": "rubric", "project_type_id": "data", "display_name": "Versioned YAML rubric data" },
+    { "part_id": "plugin", "project_type_id": "extension", "display_name": "Claude Code / Gemini plugin and skill" }
+  ],
+  "completed_steps": [
+    { "step": "step_1", "status": "completed", "timestamp": "2026-07-22T13:17:11Z", "summary": "Classified as multi-part with 3 parts (engine, rubric, plugin); user directed the rubric and plugin to be treated as separate from the engine" },
+    { "step": "step_2", "status": "completed", "timestamp": "2026-07-22T13:17:11Z", "summary": "Found existing docs: README.md, AGENTS.md, docs/{design,axes,versioning,skill-integration}.md, specs/{handoff,personas-correlation-ordering}.md, CHANGELOG.md, rubric/v1/CHANGELOG.md" },
+    { "step": "step_3", "status": "completed", "timestamp": "2026-07-22T13:17:11Z", "summary": "Tech stack: Python 3.11+, hatchling build, pyyaml + jsonschema runtime, pytest + ruff dev; stdlib-only engine, no framework" },
+    { "step": "step_4", "status": "completed", "timestamp": "2026-07-22T13:18:00Z", "summary": "Deep read of all 9 engine modules, sample axis.yaml, Makefile, atlas.sh, existing docs. CLI/library type: no api/data-model/UI scans required" },
+    { "step": "step_5", "status": "completed", "timestamp": "2026-07-22T13:18:30Z", "summary": "Wrote source-tree-analysis.md (annotated tree, entry points, critical dirs per part)" },
+    { "step": "step_6", "status": "completed", "timestamp": "2026-07-22T13:19:00Z", "summary": "Extracted dev setup, make targets, test approach, release-please flow into development-guide.md" },
+    { "step": "step_7", "status": "completed", "timestamp": "2026-07-22T13:19:15Z", "summary": "Documented the 4 integration points across 3 parts in integration-architecture.md + project-parts.json" },
+    { "step": "step_8", "status": "completed", "timestamp": "2026-07-22T13:19:40Z", "summary": "Wrote architecture-{engine,rubric,plugin}.md" },
+    { "step": "step_9", "status": "completed", "timestamp": "2026-07-22T13:19:55Z", "summary": "Wrote project-overview.md and remaining supporting docs" },
+    { "step": "step_10", "status": "completed", "timestamp": "2026-07-22T13:20:00Z", "summary": "Generated master index.md; all expected files exist, no (To be generated) markers" },
+    { "step": "step_11", "status": "completed", "timestamp": "2026-07-22T13:20:00Z", "summary": "Validated: all internal links resolve, no incomplete markers, 855 lines of generated docs" },
+    { "step": "step_12", "status": "completed", "timestamp": "2026-07-22T13:20:00Z", "summary": "Workflow complete" }
+  ],
+  "current_step": "completed",
+  "findings": {
+    "project_classification": "multi-part: engine (Python CLI/library), rubric (YAML data, 13 axes), plugin (Claude Code/Gemini skill)",
+    "technology_stack": "Python 3.11+, pyyaml, jsonschema, pytest, ruff, hatchling",
+    "engine_loc": 1969,
+    "test_count": 69,
+    "axis_count": 13,
+    "rubric_version": "1.4.0",
+    "engine_version": "0.4.0",
+    "integration_points": 4
+  },
+  "outputs_generated": [
+    "project-scan-report.json",
+    "index.md",
+    "project-overview.md",
+    "source-tree-analysis.md",
+    "architecture-engine.md",
+    "architecture-rubric.md",
+    "architecture-plugin.md",
+    "integration-architecture.md",
+    "development-guide.md",
+    "project-parts.json"
+  ],
+  "resume_instructions": "Complete. Re-run the workflow to full_rescan or deep-dive a specific area."
+}

@@ -1,0 +1,45 @@
+{
+  "repository_type": "multi-part",
+  "generated": "2026-07-22",
+  "scan_level": "deep",
+  "parts": [
+    {
+      "part_id": "engine",
+      "display_name": "Python CLI + library engine",
+      "project_type_id": "cli",
+      "root_paths": ["agentic_atlas/", "tests/"],
+      "entry_point": "agentic_atlas/cli.py:main (console script: agentic-atlas)",
+      "language": "Python >=3.11",
+      "version": "0.4.0",
+      "loc": 1969,
+      "runtime_deps": ["pyyaml>=6.0", "jsonschema>=4.0"],
+      "dev_deps": ["pytest>=8.0", "ruff>=0.6"],
+      "summary": "Reads a rubric, gathers evidence, resolves measured + classified indicators, scores axes with a fixed formula, renders text/md/json/html reports. Deterministic, no API key."
+    },
+    {
+      "part_id": "rubric",
+      "display_name": "Versioned YAML rubric data",
+      "project_type_id": "data",
+      "root_paths": ["rubric/v1/"],
+      "language": "YAML + JSON Schema",
+      "version": "1.4.0",
+      "axis_count": 13,
+      "summary": "The measurement standard as data: manifest plus one axis.yaml per axis (poles, indicators, weights, signals). All scoring policy lives here; the engine embeds none. Follows measurement-standard semver."
+    },
+    {
+      "part_id": "plugin",
+      "display_name": "Claude Code / Gemini / Codex plugin and skill",
+      "project_type_id": "extension",
+      "root_paths": [".claude-plugin/", "skills/run/", "gemini-extension.json", ".codex/"],
+      "entry_point": "skills/run/SKILL.md (/agentic-atlas:run); launcher skills/run/atlas.sh",
+      "version": "0.4.0",
+      "summary": "Distribution surface. The run skill drives the engine via the atlas.sh launcher (cached venv bootstrap, arg forwarding) and its CLI contract. Contains no scoring logic; the host agent answers the classified questions."
+    }
+  ],
+  "integration_points": [
+    { "from": "plugin", "to": "engine", "type": "subprocess/CLI", "details": "atlas.sh bootstraps venv and forwards to agentic-atlas; skill uses questions, profile --answers, --repo-root" },
+    { "from": "host-agent", "to": "engine", "type": "answers JSON", "details": "supplied classified answers validated by the engine (value in allowed set, quote verbatim in corpus)" },
+    { "from": "engine", "to": "rubric", "type": "data read", "details": "spec.load_rubric reads + jsonschema-validates rubric.yaml and axes/<id>/axis.yaml" },
+    { "from": "engine", "to": "rubric-readmes", "type": "codegen", "details": "docs.sync regenerates each axis README scoring block; make docs-check fails on drift" }
+  ]
+}
