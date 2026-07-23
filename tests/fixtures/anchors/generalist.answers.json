@@ -1,0 +1,7 @@
+{
+  "source": "anchor:generalist",
+  "answers": {
+    "gs1": {"answer": "any_domain", "evidence": "A general assistant for any kind of work, not limited to software."},
+    "gs2": {"answer": "yes_broad", "evidence": "It helps with writing, research, analysis, and everyday tasks across any"}
+  }
+}

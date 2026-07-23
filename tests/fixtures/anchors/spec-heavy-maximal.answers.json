@@ -1,0 +1,12 @@
+{
+  "source": "anchor:spec-heavy-maximal",
+  "answers": {
+    "sd1": {"answer": "required", "evidence": "Before any code, you must write a specification"},
+    "sd2": {"answer": "yes", "evidence": "All of these are saved to disk and reviewed."},
+    "lw1": {"answer": "heavy", "evidence": "A rigorous, staged methodology."},
+    "lw2": {"answer": "large", "evidence": "The process runs in ordered phases with gates between them."},
+    "tf1": {"answer": "enforced", "evidence": "Testing is enforced test-first: write a failing test, then code to make it"},
+    "tf2": {"answer": "first_class", "evidence": "Red-green is mandatory and coverage gates the merge."},
+    "ma1": {"answer": "many", "evidence": "Work is split across many specialist subagents that orchestrate and delegate"}
+  }
+}

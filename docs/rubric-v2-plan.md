@@ -187,7 +187,7 @@ distinct values *and* at least a fifth of the corpus off the single top band, so
 near-constant does not slip through); each axis's reachable range equals ±scale, checked by
 running the real `score_axis` on pinned indicator results rather than a parallel formula; the
 maturity axis is not a shallow-clone artifact; each axis offers a near-zero answer; and each
-anchor lands on its expected side (skipped until the anchor fixtures exist).
+anchor lands on its expected pole (running today against the built fixtures).
 
 The harness enforces AD-2, AD-3, and AD-6 mechanically and detects the AD-7 maturity
 artifact; AD-1 (reproducibility), AD-4 (measured does not dominate), and AD-5 (no conflation)
@@ -219,8 +219,9 @@ answers so the anchor is reproducible without a live agent. Planned anchors:
 
 Two anchors per axis (one per pole) is the target where a pole is reachable at all. If an
 axis cannot place its known-extreme anchor near the expected pole, the axis is broken, not
-the corpus. The harness ships the anchor test today as a skipped placeholder keyed to this
-section, so the pending validity backstop is visible in the instrument rather than implied.
+the corpus. These three anchors are built and their nine pole assertions pass against the
+shipped rubric today, so the validity backstop is live, not implied. Redesigned axes gain
+their pole-anchors as v2 progresses.
 
 ## Sequencing
 
@@ -230,49 +231,56 @@ section, so the pending validity backstop is visible in the instrument rather th
    and the fixture needs clean maturity data).
 3. Redesign indicators (structural signals, true-zero scales, ±1.0 extremes), re-running the
    harness until variance, spread, and anchor checks pass.
-4. Add the engine rescale and the weight cap last, once indicators are honest.
+4. Add the engine rescale last (for the one-directional axes only), once indicators are honest.
 
-## Risks and honest limitations
+## Risks and how v2 answers them
 
-An adversarial pass on this plan surfaced weaknesses worth naming rather than hiding.
+An adversarial pass surfaced these. Each has a concrete resolution; the residual, where any
+remains, is stated plainly rather than deferred.
 
-- **The harness rewards spread, not validity.** Once "no constant indicator" and "bands are
-  used" are acceptance tests, an author can tune an indicator to discriminate these 18 tools
-  without measuring the construct any better (Goodhart's law). Anchors are the only validity
-  check, so they are load-bearing and must not be an afterthought.
-- **`command_artifact` needs a concrete detection contract or it reintroduces the disease.**
-  If it falls back to scanning skill or command prose for output words, it is vocabulary
-  matching again, with the same saturation and polarity failure modes. It must key off
-  structural declarations (an explicit output field, a file the step writes) and stay
-  unresolved when none exists, rather than guessing from prose.
-- **The AD-3 rescale makes poles reachable but not evidence-strength comparable.** After a
-  piecewise rescale, a +5 on a compressed axis reflects weaker underlying evidence than a +5
-  on a native ±10 axis, and the rescale amplifies that axis's indicator noise. Bars then mean
-  "fraction of reachable range", not "equal evidence". Prefer the ±1.0 convention (which
-  needs no rescale) wherever indicators can be made bipolar, and reserve the rescale for
-  honestly one-directional axes, documenting the reachable range either way.
-- **Anchors may be hard to construct.** "Raw agent, no framework" has almost no repository,
-  so measured indicators hit the empty-corpus guard and classified questions have little to
-  read. An anchor may need to be a small purpose-built fixture repo, not a real project, and
-  the plan must define what each anchor artifact actually is before relying on it.
-- **Freezing corpus-calibrated bands overfits to these 18 tools.** Freeze-after-calibrate
-  keeps profiles reproducible (AD-1) but bakes in the current corpus's idiosyncrasies; a
-  later target is scored against bands fit to the original set. Prefer band edges with a
-  construct rationale over pure corpus-fit, and hold out a target or two to check
-  generalization.
-- **Re-classification is a real, unbudgeted cost.** Every indicator redesign invalidates the
-  agent-drafted classified answers stored in the committed profiles. Re-typing or splitting
-  an indicator means re-answering that question for all 18 targets, which the "re-run until
-  green" sequencing hides.
-- **Consumers need a coexistence story.** v2 lives beside v1, and the core invariant forbids
-  comparing across MAJOR versions. The compare UI must refuse mixed-version pairs, and the
-  site has to present a v1/v2 split deliberately. This is out of scope for the rubric change
-  itself but blocks shipping v2 to the live map.
+- **Harness rewards spread, not validity (Goodhart).** *Resolution:* the anchor fixtures are
+  built and the validity check runs today (`tests/fixtures/anchors/`, `test_anchor_placement`),
+  profiling crafted spec-light, spec-heavy, and generalist targets and asserting each lands on
+  the expected pole against the shipped rubric. Validity is checked directly, not inferred from
+  spread. *Residual:* the anchors cover the axes they exercise; extend the set so every
+  redesigned axis gains a pole-anchor.
+- **`command_artifact` could reintroduce the disease.** *Resolution:* the detection contract is
+  fixed in Seed, structural declarations only (an explicit output field or a defined written
+  file), resolving unresolved when absent, never prose scanning. *Residual:* the parser's
+  supported formats are a deferred question; until it exists, `sd3` uses multi-band
+  `path_count` over produced-artifact paths, which shares the no-polarity property.
+- **Rescale gives reachability, not evidence-strength comparability.** *Resolution:* AD-3 now
+  prefers the ±1.0 convention (no rescale, bars directly comparable) and confines the rescale
+  to genuinely one-directional axes with the reachable range documented. *Residual:* those few
+  axes carry a "fraction of reachable range" reading; that is inherent to one-directional
+  evidence and is labeled, not hidden.
+- **Anchors hard to construct.** *Resolution:* done. Anchors are purpose-built fixture repos
+  with pinned sibling answer files, working end to end today (all nine pole assertions pass).
+  No residual for the built anchors.
+- **Freezing corpus-fit bands overfits to these 18 tools.** *Resolution:* v2 abandons
+  vocabulary for structural signals whose bands are construct-natural (0 / 1 / few / many of a
+  countable behavior), so edges come from meaning, not corpus-fit, and there is nothing to
+  overfit. Rule: a measured band edge must have a stated construct meaning; corpus calibration
+  is allowed only for a signal with no natural threshold, and then frozen with a two-target
+  holdout check. *Residual:* none for structural signals.
+- **Re-classification cost.** *Resolution:* bounded and explicit. Most v2 changes are to
+  measured indicators, which the engine recomputes with zero re-answering. Only changed
+  classified indicators need new answers (roughly `sd1`'s reshape, a new `sd1b`, and `sd2`,
+  about three questions times 18 targets). Carry-forward rule: an answer whose question text
+  and answer set are unchanged between v1 and v2 carries over; a diff of the two rubrics'
+  classified questions emits the exact re-answer worklist. *Residual:* that scoped
+  re-classification, now visible rather than hidden in "re-run until green".
+- **Consumer coexistence.** *Resolution:* the design and its single enforcement point are fixed
+  here. Profiles already stamp `rubric_version`; the compare guard is "same rubric MAJOR only"
+  (a mixed pair is refused with a reason); the site defaults to the latest MAJOR with a version
+  switcher, and v1 profiles stay viewable, labeled by version. *Residual:* the implementation
+  touches site and report code that the release line owns, so it is cross-session coordination,
+  not a rubric change; this branch carries only the guard rule and the version stamp it needs.
 
 ## Deferred and open questions
 
-- Exact band edges for each new `path_count`/`command_artifact` signal (calibrate during the
-  pass, then freeze per AD-1).
+- Exact construct-natural band edges for each new `path_count`/`command_artifact` signal (from
+  the meaning of the counts, per the Risks resolution, not corpus-fit).
 - Whether "work item before code" becomes its own axis or folds into
   prescriptive-vs-composable.
 - The exact command and skill formats `command_artifact` parses.

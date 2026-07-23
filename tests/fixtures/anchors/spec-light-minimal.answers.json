@@ -1,0 +1,12 @@
+{
+  "source": "anchor:spec-light-minimal",
+  "answers": {
+    "sd1": {"answer": "none", "evidence": "You begin implementation immediately, with nothing written up front."},
+    "sd2": {"answer": "no", "evidence": "Nothing is saved or handed off between steps."},
+    "lw1": {"answer": "minimal", "evidence": "The tool does one small job and gets out of the way."},
+    "lw2": {"answer": "tiny", "evidence": "The tool does one small job and gets out of the way."},
+    "tf1": {"answer": "no", "evidence": "Tests are optional here, and are added only after the fact if at all."},
+    "tf2": {"answer": "incidental", "evidence": "Tests are optional here, and are added only after the fact if at all."},
+    "ma1": {"answer": "single", "evidence": "One person drives the whole change from start to finish."}
+  }
+}

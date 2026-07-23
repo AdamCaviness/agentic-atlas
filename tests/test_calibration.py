@@ -22,8 +22,10 @@ reachable), and AD-6 (a near-zero answer exists) mechanically, and detects the A
 artifact. AD-1 (reproducibility), AD-4 (measured does not dominate), and AD-5 (no conflation)
 are authoring constraints checked at review or by schema, not by a corpus statistic. Spread is
 not validity: an indicator can discriminate these 18 tools and still measure the wrong thing,
-so ``test_anchor_placement`` (the validity backstop) is the load-bearing check and is a
-skipped placeholder until the anchor fixtures in docs/rubric-v2-plan.md exist.
+so ``test_anchor_placement`` is the load-bearing validity check. It profiles crafted anchor
+fixtures with known poles (tests/fixtures/anchors/) and asserts each lands on the expected
+side, so an axis that cannot place a clear-cut target is caught even when the corpus happens
+to spread.
 """
 
 from __future__ import annotations
@@ -197,32 +199,48 @@ def _multiband_measured():
     return out
 
 
-# --- AD-2/AD-4: no indicator is constant across the corpus ----------------------------------
+# --- Constancy, split by kind because the two kinds mean different things ---------------------
+# A constant *measured* indicator is a discrimination failure (the engine computes the same
+# value everywhere). A constant *classified* indicator is a degenerate-question signal (every
+# answerer picked the same option across varied targets). Same numeric check, different fault,
+# so they are separate tests with separate messages rather than one bar over both kinds.
+
+_MEASURED_IDS = [
+    (aid, ind.id) for aid, ind in _all_indicators() if ind.kind is IndicatorKind.MEASURED
+]
+_CLASSIFIED_IDS = [
+    (aid, ind.id) for aid, ind in _all_indicators() if ind.kind is IndicatorKind.CLASSIFIED
+]
+
+
+def _maybe_xfail(aid: str, iid: str, registry: dict):
+    if iid in registry:
+        return pytest.param(aid, iid, marks=pytest.mark.xfail(reason=registry[iid], strict=True))
+    return (aid, iid)
 
 
 @pytest.mark.parametrize(
-    "axis_id,indicator_id",
-    [
-        pytest.param(
-            aid,
-            ind.id,
-            marks=pytest.mark.xfail(reason=CONSTANT_INDICATORS[ind.id], strict=True),
-        )
-        if ind.id in CONSTANT_INDICATORS
-        else (aid, ind.id)
-        for aid, ind in _all_indicators()
-    ],
+    "axis_id,indicator_id", [_maybe_xfail(a, i, CONSTANT_INDICATORS) for a, i in _MEASURED_IDS]
 )
-def test_indicator_is_not_constant(axis_id, indicator_id):
-    # Non-constancy is necessary, not sufficient. For a measured indicator, constant means the
-    # engine can't discriminate. For a classified indicator, variance only shows the answers
-    # differed (not that the question is sound), but a classified indicator that is constant
-    # across 18 varied targets still signals a degenerate question or answer set (see sd2).
+def test_measured_indicator_discriminates(axis_id, indicator_id):
     values = _indicator_values(axis_id, indicator_id)
     assert len(set(values)) >= 2, (
         f"{axis_id}/{indicator_id} is constant across the corpus "
-        f"(value {values[0] if values else 'unresolved'}): it cannot discriminate and, if "
-        f"nonzero, injects a fixed bias into every profile."
+        f"(value {values[0] if values else 'unresolved'}); it adds fixed bias, not signal."
+    )
+
+
+@pytest.mark.parametrize(
+    "axis_id,indicator_id", [_maybe_xfail(a, i, CONSTANT_INDICATORS) for a, i in _CLASSIFIED_IDS]
+)
+def test_classified_question_is_not_degenerate(axis_id, indicator_id):
+    # Variance here is not proof the question is sound (answerers may just differ), but a
+    # classified indicator constant across 18 varied targets signals a degenerate question or
+    # answer set, e.g. sd2 where every tool resolves to "yes".
+    values = _indicator_values(axis_id, indicator_id)
+    assert len(set(values)) >= 2, (
+        f"{axis_id}/{indicator_id} drew the same answer for all {len(values)} targets; the "
+        f"question or its answer set is likely degenerate."
     )
 
 
@@ -317,27 +335,27 @@ def test_maturity_is_not_a_shallow_clone_artifact():
 # --- Anchors: the validity backstop (AD-7) --------------------------------------------------
 # Spread is not validity: an indicator can discriminate these 18 tools and still measure the
 # wrong construct. Anchors are purpose-built fixture repos with known poles
-# (docs/rubric-v2-plan.md#anchors). These parametrized cases are the executable spec of that
-# design; each skips until its fixture exists, so the pending check is visible here rather than
-# implied, and activates automatically the moment the fixture lands.
+# (docs/rubric-v2-plan.md#anchors), profiled here and asserted onto the expected pole. The
+# three below run today; the skip guard only fires if a future anchor is listed without its
+# fixture, so adding a row to ANCHORS never silently no-ops.
 
 _ANCHOR_DIR = _ROOT / "tests" / "fixtures" / "anchors"
 
-# fixture name -> {axis_id: expected pole sign (-1 negative, +1 positive)}
-PLANNED_ANCHORS = {
+# fixture name -> {axis_id: expected pole sign (-1 negative, +1 positive)}. Each pairing is
+# verified against the shipped rubric by the fixture's crafted content plus its pinned answers
+# (tests/fixtures/anchors/<name>/ and the sibling <name>.answers.json).
+ANCHORS = {
     "spec-light-minimal": {
         "spec-light-vs-spec-driven": -1,
         "lightweight-vs-heavyweight": -1,
         "test-optional-vs-test-first": -1,
         "single-agent-vs-multi-agent": -1,
-        "prescriptive-vs-composable": +1,  # composable is the positive pole
     },
     "spec-heavy-maximal": {
         "spec-light-vs-spec-driven": +1,
         "lightweight-vs-heavyweight": +1,
         "test-optional-vs-test-first": +1,
         "single-agent-vs-multi-agent": +1,
-        "prescriptive-vs-composable": -1,
     },
     "generalist": {"generalist-vs-specialist": -1},
 }
@@ -345,23 +363,21 @@ PLANNED_ANCHORS = {
 
 @pytest.mark.parametrize(
     "anchor,axis_id,expected_sign",
-    [
-        (name, axis_id, sign)
-        for name, axes in PLANNED_ANCHORS.items()
-        for axis_id, sign in axes.items()
-    ],
+    [(name, axis_id, sign) for name, axes in ANCHORS.items() for axis_id, sign in axes.items()],
 )
 def test_anchor_placement(anchor, axis_id, expected_sign):
     fixture = _ANCHOR_DIR / anchor
     if not fixture.is_dir():
         pytest.skip(
-            f"anchor fixture {anchor!r} not built yet (docs/rubric-v2-plan.md#anchors); "
-            "validity backstop pending"
+            f"anchor fixture {anchor!r} listed in ANCHORS but missing under "
+            f"{_ANCHOR_DIR}; build it (docs/rubric-v2-plan.md#anchors)"
         )
     from agentic_atlas.evidence import Target
     from agentic_atlas.profiler import profile_target
 
-    answers_path = fixture / "answers.json"
+    # Answers live in a sibling file, not inside the profiled tree, so they never leak into
+    # the target's text corpus and skew the measured indicators or self-satisfy a quote check.
+    answers_path = _ANCHOR_DIR / f"{anchor}.answers.json"
     answers = (
         json.loads(answers_path.read_text()).get("answers") if answers_path.is_file() else None
     )
