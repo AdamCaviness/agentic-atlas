@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.1](https://github.com/AdamCaviness/agentic-atlas/compare/v0.7.0...v0.7.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* guard git metrics against shallow clones ([11ba7d2](https://github.com/AdamCaviness/agentic-atlas/commit/11ba7d27912cd402dd0d90d9f6b9ada8e1a92eac))
+* guard git metrics against shallow clones ([1fea262](https://github.com/AdamCaviness/agentic-atlas/commit/1fea262d8745841966bd37eb1833833a69d774d6)), closes [#22](https://github.com/AdamCaviness/agentic-atlas/issues/22)
+
 ## [0.7.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.6.0...v0.7.0) (2026-07-23)
 
 
