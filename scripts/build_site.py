@@ -70,9 +70,9 @@ header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .btnrow{display:flex;gap:8px;margin-top:10px}
 button.act{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
 button.act:hover{border-color:var(--accent);color:var(--accent)}
-#map{width:100%;height:460px;border:1px solid var(--line);border-radius:12px;background:var(--card);display:block}
-.mapbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 8px;font-size:.82rem;color:var(--muted)}
-.mapbar select{font:inherit;font-size:.8rem;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:3px 6px}
+#plot{width:100%;height:380px;border:1px solid var(--line);border-radius:12px;background:var(--card);display:block}
+.tline{cursor:pointer}
+.tline:hover{opacity:1 !important;stroke-width:2.5}
 .hint{color:var(--muted);font-size:.8rem;margin:8px 0 0}
 .dot{cursor:pointer}
 .matches{margin:14px 0 0}
@@ -187,41 +187,30 @@ function renderMatches(){
   }).join("");
 }
 
-// ---- map ----
-let MX="greenfield-vs-brownfield", MY="autonomous-vs-human-in-loop";
-function renderMap(){
-  const svg=$("#map"); const W=svg.clientWidth||760, H=460, pad=54;
-  const x=s=>pad+(s+10)/20*(W-2*pad), y=s=>H-pad-(s+10)/20*(H-2*pad);
-  const axx=AXES.find(a=>a.id===MX), axy=AXES.find(a=>a.id===MY);
-  let s=`<line x1='${x(0)}' y1='${pad}' x2='${x(0)}' y2='${H-pad}' stroke='var(--faint)' stroke-dasharray='3 4'/>`;
-  s+=`<line x1='${pad}' y1='${y(0)}' x2='${W-pad}' y2='${y(0)}' stroke='var(--faint)' stroke-dasharray='3 4'/>`;
-  const t=(tx,ty,txt,anchor,col)=>`<text x='${tx}' y='${ty}' fill='${col}' font-size='11' text-anchor='${anchor}' font-family='var(--sans)'>${esc(txt)}</text>`;
-  s+=t(pad,y(0)-6,axx.neg,"start","var(--neg)")+t(W-pad,y(0)-6,axx.pos,"end","var(--pos)");
-  s+=t(x(0)+6,pad+4,axy.pos,"start","var(--pos)")+t(x(0)+6,H-pad,axy.neg,"start","var(--neg)");
-  // gather plottable points at their true positions
-  const pts=[];
-  DATA.forEach(p=>{const ax=axScore(p,MX),ay=axScore(p,MY);
-    if(!ax||!ay||ax.score===null||ay.score===null)return;
-    pts.push({p,tx:x(ax.score),ty:y(ay.score),cx:x(ax.score),cy:y(ay.score),thin:(ax.cov<0.5||ay.cov<0.5)});});
-  // de-overlap dots: spread coincident/near dots in a tight cluster around their true spot (golden-angle)
-  // labels only: greedy vertical de-collision. Dots stay at TRUE positions (tied dots honestly overlap).
-  const lab=[];
-  pts.slice().sort((a,b)=>a.ty-b.ty||a.tx-b.tx).forEach(pt=>{
-    const w=pt.p.name.length*6.4+6;let lx=pt.tx+11,ly=pt.ty+4,k=0;
-    const hit=()=>lab.some(L=>lx<L.x+L.w&&lx+w>L.x&&ly-11<L.y+3&&ly+3>L.y-11);
-    while(hit()&&k<60){ly+=13;k++;}
-    if(ly>H-6)ly=pt.ty-7;
-    lab.push({x:lx,y:ly,w,name:pt.p.name,slug:pt.p.slug,cx:pt.tx,cy:pt.ty});});
-  // dots at their exact true positions; coincident (tied) dots overlap, which is the honest picture
-  pts.forEach(pt=>{s+=`<circle class="dot" onclick="location.href='profiles/${pt.p.slug}.html'" cx='${pt.tx.toFixed(1)}' cy='${pt.ty.toFixed(1)}' r='6' fill='${pt.thin?'none':'var(--accent)'}' fill-opacity='.7' stroke='var(--accent)' stroke-width='${pt.thin?'1.5':'1'}' ${pt.thin?"stroke-dasharray='2 2'":''}><title>${esc(pt.p.name)}</title></circle>`;});
-  // labels (+leaders when pushed)
-  lab.forEach(L=>{if(Math.abs(L.y-(L.cy+4))>10)s+=`<line x1='${L.cx.toFixed(1)}' y1='${L.cy.toFixed(1)}' x2='${(L.x-2).toFixed(1)}' y2='${(L.y-4).toFixed(1)}' stroke='var(--faint)' stroke-width='.75' opacity='.4'/>`;
-    s+=`<text class="dot" x='${L.x.toFixed(1)}' y='${L.y.toFixed(1)}' font-size='11' fill='var(--fg)' font-family='var(--sans)' onclick="location.href='profiles/${L.slug}.html'">${esc(L.name)}</text>`;});
-  // "you" marker
-  if(prefs[MX].active||prefs[MY].active){
-    const ux=prefs[MX].active?prefs[MX].value:0, uy=prefs[MY].active?prefs[MY].value:0;
-    s+=`<g><circle cx='${x(ux)}' cy='${y(uy)}' r='9' fill='none' stroke='var(--accent)' stroke-width='2.5'/><text x='${x(ux)+12}' y='${y(uy)-8}' font-size='11' font-weight='700' fill='var(--accent)'>you</text></g>`;
-  }
+// ---- parallel-coordinates plot: one vertical axis per preference you set ----
+function renderPlot(){
+  const svg=$("#plot"), hint=$("#plothint");
+  const axs=ORDER.filter(id=>prefs[id]&&prefs[id].active).map(id=>AXES.find(a=>a.id===id));
+  if(!axs.length){svg.style.display="none";if(hint)hint.style.display="block";svg.innerHTML="";return;}
+  svg.style.display="block";if(hint)hint.style.display="none";
+  const W=svg.clientWidth||760,H=380,padX=64,padT=30,padB=30,scale=10;
+  const xF=i=>axs.length===1?W/2:padX+i*(W-2*padX)/(axs.length-1);
+  const yF=v=>padT+(scale-v)/(2*scale)*(H-padT-padB);
+  let s="";
+  axs.forEach((a,i)=>{const x=xF(i);
+    s+=`<line x1='${x}' y1='${padT}' x2='${x}' y2='${H-padB}' stroke='var(--line)' stroke-width='1'/>`;
+    s+=`<line x1='${x-5}' y1='${yF(0)}' x2='${x+5}' y2='${yF(0)}' stroke='var(--faint)'/>`;
+    s+=`<text x='${x}' y='${padT-8}' text-anchor='middle' font-size='10' fill='var(--pos)' font-family='var(--sans)'>${esc(a.pos)}</text>`;
+    s+=`<text x='${x}' y='${H-padB+15}' text-anchor='middle' font-size='10' fill='var(--neg)' font-family='var(--sans)'>${esc(a.neg)}</text>`;});
+  DATA.map(p=>({p,f:fitFor(p)})).filter(o=>o.f).forEach(({p,f})=>{
+    const pts=axs.map((a,i)=>{const v=axScore(p,a.id);return (v&&v.score!==null)?`${xF(i)},${yF(v.score).toFixed(1)}`:null;}).filter(Boolean);
+    if(!pts.length)return;
+    const r=f.aligned/f.total,op=(0.1+0.55*r).toFixed(2),col=r>=1?"var(--accent)":"var(--muted)";
+    s+=`<polyline class="tline" data-slug='${p.slug}' points='${pts.join(' ')}' fill='none' stroke='${col}' stroke-width='1.5' opacity='${op}'><title>${esc(p.name)} — leans your way on ${f.aligned}/${f.total}</title></polyline>`;});
+  const ypts=axs.map((a,i)=>`${xF(i)},${yF(prefs[a.id].value).toFixed(1)}`).join(' ');
+  s+=`<polyline points='${ypts}' fill='none' stroke='var(--accent)' stroke-width='3'/>`;
+  axs.forEach((a,i)=>{s+=`<circle cx='${xF(i)}' cy='${yF(prefs[a.id].value).toFixed(1)}' r='4' fill='var(--accent)'/>`;});
+  s+=`<text x='${xF(0)+7}' y='${(yF(prefs[axs[0].id].value)-8).toFixed(1)}' font-size='11' font-weight='700' fill='var(--accent)' font-family='var(--sans)'>You</text>`;
   svg.innerHTML=s;
 }
 
@@ -258,15 +247,12 @@ function showCompare(){
   alert("Side-by-side (rubric order, no total by design):\n\n"+rows);
 }
 
-function update(){renderMap();renderFitLines();}
+function update(){renderPlot();renderFitLines();}
 document.addEventListener("DOMContentLoaded",()=>{
-  const fill=(sel,cur)=>{const s=$(sel);s.innerHTML=AXES.map(a=>`<option value="${a.id}" ${a.id===cur?'selected':''}>${esc(a.title)}</option>`).join("");};
-  fill("#mx",MX);fill("#my",MY);
-  $("#mx").addEventListener("change",e=>{MX=e.target.value;renderMap();});
-  $("#my").addEventListener("change",e=>{MY=e.target.value;renderMap();});
-  buildPanel();renderCards();renderMap();renderTray();
+  buildPanel();renderCards();renderPlot();renderTray();
+  $("#plot").addEventListener("click",e=>{const t=e.target.closest("[data-slug]");if(t)location.href="profiles/"+t.dataset.slug+".html";});
   document.addEventListener("click",()=>$$(".tip.show").forEach(t=>t.classList.remove("show")));
-  window.addEventListener("resize",renderMap);
+  window.addEventListener("resize",renderPlot);
 });
 """
 
@@ -320,8 +306,8 @@ def build():
 </section>
 <div class="layout">
   <aside class="panel"><h2>Your preferences</h2><p class="sub">Set only what matters. Untouched sliders mean no preference. The map updates as you go.</p><div id="prefs"></div><div class="btnrow"><button class="act" onclick="clearAll()">Clear all</button></div><div id="matches" class="matches"></div></aside>
-  <main><div class="mapbar"><span>The map</span><label>left–right: <select id="mx"></select></label><label>up–down: <select id="my"></select></label></div>
-  <svg id="map"></svg><p class="hint">Each dot is a tool at its measured position. Click a dot to open its full profile. Swap the axes to compare on what you care about.</p>
+  <main>
+  <svg id="plot" style="display:none"></svg><p id="plothint" class="hint">Set a preference on the left and the tools line up against it, one vertical axis per preference you set, with your line running through them. Or just scan the cards below.</p>
   <div id="gallery" class="gallery"></div>
   <div id="tray" class="tray"></div></main>
 </div>
