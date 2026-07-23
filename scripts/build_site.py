@@ -72,7 +72,7 @@ header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .btnrow{display:flex;gap:8px;margin-top:10px}
 button.act{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
 button.act:hover{border-color:var(--accent);color:var(--accent)}
-#plot{width:100%;height:380px;border:1px solid var(--line);border-radius:12px;background:var(--card);display:block}
+#plot{width:100%;height:380px;border:1px solid var(--line);border-radius:12px;background:var(--card);display:block;margin:0 0 22px}
 .tline{cursor:pointer}
 .tline:hover{opacity:1 !important;stroke-width:2.5}
 .hint{color:var(--muted);font-size:.8rem;margin:8px 0 0}
@@ -82,7 +82,7 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .matches .mcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px 14px;margin:0 0 10px}
 .matches .mname{display:block;font-weight:650;font-size:.95rem}
 .matches .msum{font-size:.72rem;color:var(--muted);margin:1px 0 8px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:22px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 .pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
 .pcard .nm{font-weight:650;font-size:.98rem;line-height:1.2}
 .pcard .cov2{font-size:.68rem;color:var(--muted);font-family:var(--mono);margin-top:1px}
