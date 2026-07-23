@@ -163,6 +163,75 @@ def test_git_stats_unresolved_without_git(tmp_path):
     assert result.kind is IndicatorKind.MEASURED
 
 
+@pytest.fixture
+def shallow_repo(tmp_path):
+    """A ``--depth 1`` clone of the two-commit source: only the tip commit is present.
+
+    A shallow checkout collapses every git-history metric to a false "fresh" floor
+    (commit_count=1, age_days=0, contributor_count=1), so the engine must leave those
+    unresolved rather than measure the fetch instead of the project.
+    """
+    source = tmp_path / "source"
+    source.mkdir()
+    _git(source, "init", "-q")
+    _git(source, "config", "user.email", "dev@example.com")
+    _git(source, "config", "user.name", "Dev")
+    (source / "a.txt").write_text("one")
+    _git(source, "add", "-A")
+    _git(source, "commit", "-qm", "first", when="2020-01-01T00:00:00 +0000")
+    (source / "b.txt").write_text("two")
+    _git(source, "add", "-A")
+    _git(source, "commit", "-qm", "second", when="2021-02-04T00:00:00 +0000")
+    _git(source, "tag", "v1.0.0")
+    clone = tmp_path / "clone"
+    # A local-path clone hardlinks the whole object store and ignores --depth, so the
+    # file:// URL is required to force a real shallow fetch over the transport.
+    _git(tmp_path, "clone", "--depth", "1", "-q", source.as_uri(), str(clone))
+    return Target.from_path(clone)
+
+
+def test_git_metrics_unresolved_on_shallow_clone(shallow_repo):
+    # A shallow clone carries only the tip of history; every git-history metric must
+    # resolve as unavailable rather than collapse to a false "fresh" floor.
+    assert shallow_repo.git_metric("commit_count") is None
+    assert shallow_repo.git_metric("contributor_count") is None
+    assert shallow_repo.git_metric("tag_count") is None
+    assert shallow_repo.git_metric("age_days") is None
+
+
+def test_git_stats_unresolved_on_shallow_clone(shallow_repo):
+    bands = [{"max_count": None, "value": 1.0}]
+    result = resolve_measured(_git_stats_indicator("commit_count", bands), shallow_repo)
+    assert result.resolved is False
+    assert result.value is None
+    assert result.kind is IndicatorKind.MEASURED
+    # The reason must name the shallow clone, not falsely claim "no git history".
+    assert "shallow" in (result.evidence or "").lower()
+
+
+def test_git_metrics_resolve_on_full_clone(tmp_path):
+    # A full (non-shallow) clone is unchanged: the shallow guard must not fire, so the
+    # git-history metrics resolve to their real values over the same clone transport.
+    source = tmp_path / "source"
+    source.mkdir()
+    _git(source, "init", "-q")
+    _git(source, "config", "user.email", "dev@example.com")
+    _git(source, "config", "user.name", "Dev")
+    (source / "a.txt").write_text("one")
+    _git(source, "add", "-A")
+    _git(source, "commit", "-qm", "first", when="2020-01-01T00:00:00 +0000")
+    (source / "b.txt").write_text("two")
+    _git(source, "add", "-A")
+    _git(source, "commit", "-qm", "second", when="2021-02-04T00:00:00 +0000")
+    _git(source, "tag", "v1.0.0")
+    clone = tmp_path / "clone"
+    _git(tmp_path, "clone", "-q", source.as_uri(), str(clone))
+    target = Target.from_path(clone)
+    assert target.git_metric("commit_count") == 2
+    assert target.git_metric("tag_count") == 1
+    assert target.git_metric("age_days") == 400.0
+
+
 @pytest.mark.parametrize(
     "url,expected",
     [

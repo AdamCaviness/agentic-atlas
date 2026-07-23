@@ -103,6 +103,15 @@ _IGNORE_DIRS = {
 # OS and editor cruft that should never count as target content or a matched path.
 _IGNORE_FILES = {".DS_Store", "Thumbs.db"}
 
+# Git-history metrics that a shallow clone truncates. On a shallow checkout only the tip
+# of history is present, so these collapse to a false "fresh" floor (commit_count=1,
+# age_days=0, contributor_count=1, tag_count=0). They resolve as unresolved there rather
+# than fabricate a position. The github_api stars indicator is not a git-history metric,
+# so it is unaffected.
+_SHALLOW_SENSITIVE_METRICS = frozenset(
+    {"commit_count", "contributor_count", "tag_count", "age_days"}
+)
+
 
 @dataclass
 class Target:
@@ -135,6 +144,18 @@ class Target:
     def git_sha(self) -> str | None:
         return self._run_git("rev-parse", "HEAD") or None
 
+    def is_shallow(self) -> bool:
+        """True when the checkout has only partial history (a shallow clone).
+
+        ``git clone --depth N`` fetches only the tip of history, so the git-history
+        metrics would collapse to a false "fresh" floor and measure the fetch, not the
+        project. Detected via a cheap ``.git/shallow`` stat first, then the authoritative
+        ``git rev-parse`` (which also covers worktrees where ``.git`` is a file).
+        """
+        if (self.root / ".git" / "shallow").exists():
+            return True
+        return self._run_git("rev-parse", "--is-shallow-repository") == "true"
+
     def git_origin(self) -> str | None:
         """The target's origin remote URL, or None (no git checkout, or no origin remote)."""
         return self._run_git("remote", "get-url", "origin") or None
@@ -144,7 +165,12 @@ class Target:
 
         ``age_days`` spans the first commit to HEAD (git log lists newest first),
         so it is a function of the checked-out history, not of wall-clock now.
+
+        A shallow checkout truncates history, so the history-derived metrics return
+        None (unresolved) rather than a false "fresh" floor. See ``is_shallow``.
         """
+        if metric in _SHALLOW_SENSITIVE_METRICS and self.is_shallow():
+            return None
         if metric == "commit_count":
             out = self._run_git("rev-list", "--count", "HEAD")
             return int(out) if out and out.isdigit() else None
@@ -317,9 +343,14 @@ def _resolve_git_stats(indicator: Indicator, target: Target, signal: dict) -> In
     metric = signal["metric"]
     raw = target.git_metric(metric)
     if raw is None:
-        return _unresolved_measured(
-            indicator, f"git metric {metric!r} unavailable (target has no git history)"
+        # Name the shallow clone explicitly: on a truncated history the metric is not
+        # "no git history", it is untrustworthy, and the evidence must say so honestly.
+        detail = (
+            "shallow clone, history truncated"
+            if target.is_shallow()
+            else "target has no git history"
         )
+        return _unresolved_measured(indicator, f"git metric {metric!r} unavailable ({detail})")
     value = _band_value(raw, signal["bands"])
     answer = f"{raw:.1f}" if isinstance(raw, float) else str(raw)
     return IndicatorResult(
