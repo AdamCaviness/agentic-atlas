@@ -1,0 +1,280 @@
+# Rubric v2 plan: calibration remediation
+
+Status: draft. Audience: rubric authors and engine maintainers. This is a planning
+document, not a rubric. It records the decisions v2 commits to and the concrete changes
+that follow from them.
+
+## Why v2 exists
+
+A corpus-wide audit of v1 (18 curated profiles, 13 axes) found that the rubric collapses
+most targets onto one pole of several axes, and that the nominal ±10 scale is never
+reachable. The defects are systemic, not isolated to one axis:
+
+- **Vocabulary-band saturation.** Every `vocabulary` measured indicator tops out at a
+  trivially small count, so any repo with documentation saturates to the top band. Raw
+  counts span two to three orders of magnitude (`sd3`: 56 to 8628) and the three bands
+  flatten all of it to a single value. Affects `sd3, sl3, gs3, io3, lw3, ah3, tf3, pp3,
+  st3, ma2, gb3`.
+- **Saturated indicators inject bias, they do not merely fail to discriminate.** A
+  constant indicator contributes nothing to spread but shifts every score by
+  `value * weight / axis_weight`. `sd2`, `sd3`, and `sl3` are fully constant across the
+  corpus, each adding roughly +2.29 points to every target. Spec-driven is hit twice,
+  which is why it is the most collapsed axis (observed range 2.4 of a possible 20).
+- **The ±10 scale is a false promise.** No axis reaches ±10; the clamp in `scoring.py` is
+  dead code. Per-axis reachable ceilings run from +6.0 (greenfield/brownfield) to +9.5
+  (autonomous), set by whatever value magnitudes each indicator author happened to pick.
+  Equal bar lengths across axes are therefore not equal extremity, which defeats the
+  shared-scale premise, and some ranges are asymmetric so score 0 is not construct-neutral.
+- **Weak construct validity in measured proxies.** `fresh-vs-mature` measures the checkout,
+  not the project: 15 of 18 profiles report `commit_count = 1` and `age_days = 0` because
+  the targets were shallow clones, so the git indicators resolve to the "fresh" floor as a
+  fetch artifact, while `stars` (popularity, orthogonal to maturity) saturates to "mature"
+  for everyone.
+- **Keyword-context blindness.** Bag-of-words counts a term regardless of whether the
+  sentence supports or negates the pole. "The ticket body is your spec" is a spec-light
+  statement that scored as spec-driven; a doc saying "no approval needed" counts its words
+  toward human-in-loop.
+- **Middle answers tilt positive.** Intermediate classified answers are almost always
+  mapped positive (+0.2 to +0.48), rarely 0, so "encouraged but not required" scores a
+  quarter of the way to the positive pole instead of neutral.
+
+v2 is a MAJOR rubric bump. It changes scores for identical evidence, so it lives under a
+new `rubric/v2/` directory, ships a `rubric/CHANGELOG.md` entry with rationale, and does
+not recompute v1 profiles. It does not touch the atlas premise: signed diverging axes, both
+poles legitimate, no aggregate score.
+
+## The invariant spine
+
+These are the durable decisions. Everything under "Seed" is a specific way to satisfy them
+and can change without reopening the spine. Each decision names what it binds and the
+divergence it prevents.
+
+### AD-1 Reproducibility forbids corpus-relative scoring `[ADOPTED]`
+
+- **Binds:** all normalization, band calibration, and threshold selection.
+- **Prevents:** a single profile's score depending on which other targets were profiled,
+  which would break "every profile is reproducible" (core invariant 4).
+- **Rule:** any quantity derived from the corpus (band edges, thresholds, reachable-range
+  constants) is calibrated once and frozen into the rubric as data. Scoring a target reads
+  only that target plus frozen rubric constants. Per-target self-relative measures (for
+  example, a count normalized by the target's own corpus size) are allowed because they
+  depend on the target alone. Corpus-relative math at scoring time (z-scores, demeaning,
+  live quantile bands) is not.
+
+### AD-2 The measured layer scores behavior-bearing structure, not prose
+
+- **Binds:** every `measured` indicator.
+- **Prevents:** vocabulary saturation, keyword-context blindness, and "talks about X"
+  masquerading as "does X".
+- **Rule:** measured indicators read structural or behavioral evidence (command, skill, and
+  template definitions; the artifacts a workflow produces; git and host-API facts), not
+  free-text word density. A lexical signal, if one survives, is corroborating only under
+  AD-4 and is never the sole measured indicator that can move an axis.
+
+### AD-3 The nominal scale is the reachable scale
+
+- **Binds:** indicator value ranges and the axis scoring step.
+- **Prevents:** unreachable poles, and (under the ±1.0 convention) incommensurable bars
+  across axes.
+- **Rule:** every axis can reach both `+scale` and `-scale`. The preferred mechanism is the
+  ±1.0 value convention (AD-4): when every bipolar indicator's extremes are ±1.0, the axis
+  reaches the bound with no rescale and bars are directly comparable across axes. Where an
+  indicator is honestly one-directional (it can only evidence one pole, for example `gb1`),
+  an engine rescale maps the axis's rubric-derived reachable range onto ±scale piecewise
+  about zero, so raw 0 stays 0 and each pole is reachable. A rescaled axis buys reachability
+  but not evidence-strength comparability, a bar then means "fraction of reachable range"
+  (see Risks), so the rescale is a fallback for genuinely one-directional axes, not the
+  default.
+
+### AD-4 Uncertainty is expressed through weight, not shrunk extremes
+
+- **Binds:** how indicator values and weights are assigned.
+- **Prevents:** a noisy indicator injecting constant bias while appearing humble (the v1
+  ±0.8 habit shrank extremes on saturated signals, which added bias rather than caution).
+- **Rule:** a low-confidence indicator carries low weight; its extreme values remain ±1.0.
+  Measured indicators should not dominate an axis; prefer classified indicators to carry the
+  construct, so a future saturated measured signal has bounded influence. (A fixed weight cap
+  is deferred: on a three-indicator axis a single weight-2 measured indicator is already 29%,
+  so a hard 20% would force indicator inflation. The principle is "measured does not
+  dominate", not a specific percentage.)
+
+### AD-5 One construct per axis, one construct per indicator
+
+- **Binds:** axis and indicator authoring.
+- **Prevents:** conflation, such as scoring "a written work item exists" (a ticket) as if
+  it were "a design specification exists" (a PRD).
+- **Rule:** each indicator names the single construct it measures. The conflation test: name
+  a target that has property A but not property B; if the indicator cannot distinguish them,
+  it conflates and must be split.
+
+### AD-6 Classified scales have a true zero
+
+- **Binds:** every `classified` answer map.
+- **Prevents:** the middle-answer positive tilt.
+- **Rule:** extremes map to ±1.0, and intermediate answers are placed by justified construct
+  distance rather than defaulted to a positive value. That distance may be 0.0, and a
+  genuinely asymmetric construct may justify a nonzero middle, but the placement is argued,
+  not incidental. An axis must offer at least one answer that can land near zero, so a
+  balanced target is expressible.
+
+### AD-7 Guarantees live in the engine, calibration lives in a standing harness
+
+- **Binds:** where each protection is enforced.
+- **Prevents:** a known failure mode recurring through prose an agent can skip. The v1 run
+  skill already warned against shallow clones, yet the committed corpus is still corrupt,
+  because a warning is not a guarantee.
+- **Rule:** deterministic invariants are enforced in code or schema (a shallow clone makes
+  git indicators resolve to unresolved, not to a pole; the schema validates the AD-4 and
+  AD-6 value conventions). Corpus-level health (indicator variance, axis spread,
+  reachability, anchor placement) is a CI test over a frozen fixture.
+
+## Seed: the concrete v2 changes
+
+Replaceable specifics that satisfy the spine. True at v2 cold-start, owned by the rubric and
+engine once built.
+
+**New engine signal type `command_artifact`** (satisfies AD-2). Parses command and skill
+definitions (`skills/*/SKILL.md` frontmatter, `.claude/commands/*.md`) and detects artifacts
+a step *structurally* declares it produces: an explicit output field, or a file path the step
+is defined to write. The detection contract is the whole point, and its failure mode is real
+(see Risks): if it falls back to scanning the skill body prose for output words, it is
+vocabulary matching again. So it keys only off structural declarations and resolves
+*unresolved* when a target's commands carry none, rather than guessing from prose. Within that
+contract it measures behavior ("this tool has a step that emits a PRD") rather than vocabulary
+("this tool says PRD a lot"), has no polarity problem, and is reproducible from the target
+alone.
+
+**Spec-light vs spec-driven** (AD-2, AD-5, AD-6):
+- Split `sd1` into "is a design specification required before code?" and "is a work item
+  required before code?" Decide whether the second belongs here or on
+  prescriptive-vs-composable (a ticket-before-code is a process decision, not a spec).
+- `sd2` requires the persisted artifact to be a specification, not any file, so filing a
+  ticket no longer counts as producing a spec.
+- Replace `sd3` (vocabulary) with a `command_artifact` or multi-band `path_count` signal
+  over spec-producing steps (`**/templates/*prd*`, `.kiro/specs/**`, `openspec/**`,
+  commands that emit `design.md`/`requirements.md`).
+- Re-map `sd1` answers with a true zero: `{none: -1.0, encouraged: 0.0, required: +1.0}`,
+  adjusting only with a written justification.
+
+**Fresh vs mature** (AD-2, AD-7):
+- The engine detects a shallow clone (`git rev-parse --is-shallow-repository`) and resolves
+  git indicators to unresolved rather than the "fresh" floor.
+- Drop `stars` from this axis; it measures popularity. Prefer reproducible git-history facts
+  (`age_days`, `commit_count` from a full clone) with host-API `created_at`/`pushed_at` and
+  release count as fallback.
+- Re-profile the corpus with full clones.
+
+**The other nine vocabulary indicators** (AD-2): convert to a structural signal where one
+genuinely reflects the practice (for example test-first to test directories plus CI config),
+otherwise move the judgment into a `classified` indicator the skill answers with a cited
+quote. This continues the plan already sketched in `docs/axes.md`, corrected to prefer
+multi-band `path_count` over binary `path_presence` (presence under-discriminates) and to
+target produced-artifact structure rather than the framework's own files.
+
+**Scale** (AD-3, AD-4): set bipolar indicator extremes to ±1.0; add the piecewise rescale in
+`scoring.py` for one-directional axes; keep the clamp as a safety net.
+
+**Schema** (AD-7): validate that bipolar indicator extremes are ±1.0 and that each axis offers
+a near-zero answer. The "measured does not dominate" principle (AD-4) is a review-time check
+rather than a schema rule, since it has no single defensible threshold.
+
+## Calibration harness
+
+`tests/test_calibration.py` runs the rubric over a frozen fixture (the committed corpus plus
+the anchors above) and asserts, per indicator and per axis: no indicator is constant across
+the corpus; multi-band measured indicators actually exercise their bands (at least three
+distinct values *and* at least a fifth of the corpus off the single top band, so a 16/1/1
+near-constant does not slip through); each axis's reachable range equals ±scale, checked by
+running the real `score_axis` on pinned indicator results rather than a parallel formula; the
+maturity axis is not a shallow-clone artifact; each axis offers a near-zero answer; and each
+anchor lands on its expected side (skipped until the anchor fixtures exist).
+
+The harness enforces AD-2, AD-3, and AD-6 mechanically and detects the AD-7 maturity
+artifact; AD-1 (reproducibility), AD-4 (measured does not dominate), and AD-5 (no conflation)
+are authoring constraints checked at review and, where possible, by schema, not by the corpus
+harness. Spread is not validity, so the anchors are what keep the harness from rewarding
+mere discrimination (see Risks). Today's known-broken cases ship as strict `xfail` entries
+keyed to the solution that removes them, so the suite stays green while the live defect list
+is explicit, and a fix flips the xfail to a failure that prompts removing the marker.
+
+## Anchors
+
+Deliberate calibration targets so a collapsed axis can be told apart from a homogeneous
+corpus (AD-7), and the only check on *validity* rather than mere spread, so their design is
+load-bearing, not an afterthought.
+
+A real "no framework" project has almost no repository, so it would leave the measured
+indicators unresolved and the classified questions with nothing to read (see Risks).
+Anchors are therefore **purpose-built fixture repositories** under `tests/fixtures/anchors/`,
+each a minimal but real tree crafted to sit at a known pole, committed with pinned classified
+answers so the anchor is reproducible without a live agent. Planned anchors:
+
+- **`spec-light-minimal/`**: a README plus one skill that jumps straight to implementation,
+  no spec templates, no CI, one contributor. Expected negative on spec-driven, lightweight,
+  test-optional, single-agent, composable.
+- **`spec-heavy-maximal/`**: PRD, design, and requirements templates, a mandatory ordered
+  pipeline, multi-agent roles, CI and coverage gates. Expected positive on the same axes.
+- **`generalist/`**: a domain-agnostic assistant config with no software-only vocabulary.
+  Expected negative on generalist-vs-specialist.
+
+Two anchors per axis (one per pole) is the target where a pole is reachable at all. If an
+axis cannot place its known-extreme anchor near the expected pole, the axis is broken, not
+the corpus. The harness ships the anchor test today as a skipped placeholder keyed to this
+section, so the pending validity backstop is visible in the instrument rather than implied.
+
+## Sequencing
+
+1. Build the calibration harness and anchor fixture. It fails loudly on v1; that is the
+   baseline.
+2. Re-profile with full clones and add the engine shallow-clone guard (cheapest real win,
+   and the fixture needs clean maturity data).
+3. Redesign indicators (structural signals, true-zero scales, ±1.0 extremes), re-running the
+   harness until variance, spread, and anchor checks pass.
+4. Add the engine rescale and the weight cap last, once indicators are honest.
+
+## Risks and honest limitations
+
+An adversarial pass on this plan surfaced weaknesses worth naming rather than hiding.
+
+- **The harness rewards spread, not validity.** Once "no constant indicator" and "bands are
+  used" are acceptance tests, an author can tune an indicator to discriminate these 18 tools
+  without measuring the construct any better (Goodhart's law). Anchors are the only validity
+  check, so they are load-bearing and must not be an afterthought.
+- **`command_artifact` needs a concrete detection contract or it reintroduces the disease.**
+  If it falls back to scanning skill or command prose for output words, it is vocabulary
+  matching again, with the same saturation and polarity failure modes. It must key off
+  structural declarations (an explicit output field, a file the step writes) and stay
+  unresolved when none exists, rather than guessing from prose.
+- **The AD-3 rescale makes poles reachable but not evidence-strength comparable.** After a
+  piecewise rescale, a +5 on a compressed axis reflects weaker underlying evidence than a +5
+  on a native ±10 axis, and the rescale amplifies that axis's indicator noise. Bars then mean
+  "fraction of reachable range", not "equal evidence". Prefer the ±1.0 convention (which
+  needs no rescale) wherever indicators can be made bipolar, and reserve the rescale for
+  honestly one-directional axes, documenting the reachable range either way.
+- **Anchors may be hard to construct.** "Raw agent, no framework" has almost no repository,
+  so measured indicators hit the empty-corpus guard and classified questions have little to
+  read. An anchor may need to be a small purpose-built fixture repo, not a real project, and
+  the plan must define what each anchor artifact actually is before relying on it.
+- **Freezing corpus-calibrated bands overfits to these 18 tools.** Freeze-after-calibrate
+  keeps profiles reproducible (AD-1) but bakes in the current corpus's idiosyncrasies; a
+  later target is scored against bands fit to the original set. Prefer band edges with a
+  construct rationale over pure corpus-fit, and hold out a target or two to check
+  generalization.
+- **Re-classification is a real, unbudgeted cost.** Every indicator redesign invalidates the
+  agent-drafted classified answers stored in the committed profiles. Re-typing or splitting
+  an indicator means re-answering that question for all 18 targets, which the "re-run until
+  green" sequencing hides.
+- **Consumers need a coexistence story.** v2 lives beside v1, and the core invariant forbids
+  comparing across MAJOR versions. The compare UI must refuse mixed-version pairs, and the
+  site has to present a v1/v2 split deliberately. This is out of scope for the rubric change
+  itself but blocks shipping v2 to the live map.
+
+## Deferred and open questions
+
+- Exact band edges for each new `path_count`/`command_artifact` signal (calibrate during the
+  pass, then freeze per AD-1).
+- Whether "work item before code" becomes its own axis or folds into
+  prescriptive-vs-composable.
+- The exact command and skill formats `command_artifact` parses.
+- Whether any purely lexical signal is worth keeping as a low-weight corroborator, or whether
+  the type is retired entirely.
