@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/ccpm",
+  "target": "ccpm",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697",
   "target_url": "https://github.com/automazeio/ccpm",
   "axes": [
@@ -282,17 +282,17 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -1.2,
+      "score": 1.8,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "0.0",
-          "evidence": "git age_days = 0.0",
+          "answer": "211.5",
+          "evidence": "git age_days = 211.5",
           "source": "engine"
         },
         {
@@ -301,18 +301,18 @@
           "weight": 2.0,
           "value": -0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git commit_count = 1",
+          "answer": "87",
+          "evidence": "git commit_count = 87",
           "source": "engine"
         },
         {
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.16,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git contributor_count = 1",
+          "answer": "10",
+          "evidence": "git contributor_count = 10",
           "source": "engine"
         },
         {
@@ -331,8 +331,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "8285",
-          "evidence": "stars = 8285 for automazeio/ccpm via GitHub API",
+          "answer": "8286",
+          "evidence": "stars = 8286 for automazeio/ccpm via GitHub API",
           "source": "engine"
         },
         {

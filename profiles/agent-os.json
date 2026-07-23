@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/agent-os",
+  "target": "agent-os",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "cae8e664fb59a01869718c3151e0f45b7a06a2fb",
   "target_url": "https://github.com/buildermethods/agent-os",
   "axes": [
@@ -282,47 +282,47 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -3.2,
+      "score": 4.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "0.0",
-          "evidence": "git age_days = 0.0",
+          "answer": "292.3",
+          "evidence": "git age_days = 292.3",
           "source": "engine"
         },
         {
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git commit_count = 1",
+          "answer": "130",
+          "evidence": "git commit_count = 130",
           "source": "engine"
         },
         {
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git contributor_count = 1",
+          "answer": "19",
+          "evidence": "git contributor_count = 19",
           "source": "engine"
         },
         {
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "0",
-          "evidence": "git tag_count = 0",
+          "answer": "12",
+          "evidence": "git tag_count = 12",
           "source": "engine"
         },
         {

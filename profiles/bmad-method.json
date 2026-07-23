@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/BMAD-METHOD",
+  "target": "BMAD-METHOD",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "717479bc3f50f38119fd958b9e577a8bde2e0184",
   "target_url": "https://github.com/bmad-code-org/BMAD-METHOD.git",
   "axes": [
@@ -331,8 +331,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "51022",
-          "evidence": "stars = 51022 for bmad-code-org/BMAD-METHOD via GitHub API",
+          "answer": "51030",
+          "evidence": "stars = 51030 for bmad-code-org/BMAD-METHOD via GitHub API",
           "source": "engine"
         },
         {

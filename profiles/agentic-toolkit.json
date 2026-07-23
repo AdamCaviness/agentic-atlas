@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/agentic-toolkit",
+  "target": "agentic-toolkit",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "5ef8682281b612500216c6de272da0e5459d9ed6",
   "target_url": "https://github.com/adamcaviness/agentic-toolkit.git",
   "axes": [
@@ -113,8 +113,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "280",
-          "evidence": "280 occurrences of ['requirements', 'architecture', 'deployment', 'release', 'retrospective', 'epic', 'milestone'] across the text corpus",
+          "answer": "269",
+          "evidence": "269 occurrences of ['requirements', 'architecture', 'deployment', 'release', 'retrospective', 'epic', 'milestone'] across the text corpus",
           "source": "engine"
         }
       ]
@@ -160,8 +160,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "99",
-          "evidence": "99 occurrences of ['production', 'deploy', 'ci', 'security', 'observability', 'rollback', 'monitoring'] across the text corpus",
+          "answer": "98",
+          "evidence": "98 occurrences of ['production', 'deploy', 'ci', 'security', 'observability', 'rollback', 'monitoring'] across the text corpus",
           "source": "engine"
         }
       ]
@@ -264,8 +264,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "142",
-          "evidence": "142 occurrences of ['compile', 'deploy', 'unit test', 'pull request', 'refactor', 'api', 'repository'] across the text corpus",
+          "answer": "139",
+          "evidence": "139 occurrences of ['compile', 'deploy', 'unit test', 'pull request', 'refactor', 'api', 'repository'] across the text corpus",
           "source": "engine"
         }
       ]
@@ -388,8 +388,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "277",
-          "evidence": "277 occurrences of ['must', 'always', 'never', 'required', 'enforce', 'mandatory'] across the text corpus",
+          "answer": "268",
+          "evidence": "268 occurrences of ['must', 'always', 'never', 'required', 'enforce', 'mandatory'] across the text corpus",
           "source": "engine"
         }
       ]
@@ -566,8 +566,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "95",
-          "evidence": "95 occurrences of ['subagent', 'persona', 'orchestrate', 'delegate', 'specialist agent', 'sub-agent'] across the text corpus",
+          "answer": "92",
+          "evidence": "92 occurrences of ['subagent', 'persona', 'orchestrate', 'delegate', 'specialist agent', 'sub-agent'] across the text corpus",
           "source": "engine"
         },
         {
@@ -670,8 +670,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "178",
-          "evidence": "178 occurrences of ['phase', 'gate', 'ceremony', 'role', 'artifact', 'template', 'workflow', 'epic'] across the text corpus",
+          "answer": "174",
+          "evidence": "174 occurrences of ['phase', 'gate', 'ceremony', 'role', 'artifact', 'template', 'workflow', 'epic'] across the text corpus",
           "source": "engine"
         }
       ]

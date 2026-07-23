@@ -62,9 +62,9 @@ CONSTANT_INDICATORS = {
 }
 
 # Measured indicators whose signal defines >= 3 bands but that collapse to < 3 distinct
-# values across the corpus: the bands are never exercised (AD-2). git_stats collapses are
-# excluded here because their cause is the shallow-clone data artifact (see the maturity
-# test / MATURITY_ARTIFACT), not band design.
+# values across the corpus: the bands are never exercised (AD-2). The git_stats indicators
+# are not listed: profiled from full clones they exercise their bands across the corpus, so
+# their spread is a band-design non-issue (see the maturity regression guard below).
 COLLAPSED_BANDS = {
     "sd3": "vocabulary: all 18 in the top band.",
     "sl3": "vocabulary: all 18 in the top band.",
@@ -98,13 +98,6 @@ UNREACHABLE_SCALE_REASON = (
     "so the weighted mean cannot reach +-scale. Fixed by the +-1.0 value convention plus the "
     "engine rescale."
 )
-
-MATURITY_ARTIFACT_REASON = (
-    "AD-2/AD-7: 15/18 targets report commit_count == 1 and age_days == 0 because the corpus "
-    "was profiled from shallow clones, pinning the git indicators to the 'fresh' floor as a "
-    "fetch artifact. Fixed by the engine shallow-clone guard plus re-profiling."
-)
-
 
 # --- Fixtures -------------------------------------------------------------------------------
 
@@ -313,9 +306,11 @@ def test_axis_offers_a_neutral_answer(axis_id):
 
 
 # --- AD-2/AD-7: the maturity axis is not a shallow-clone artifact ----------------------------
+# Regression guard: the corpus is profiled from full clones, so fresh-vs-mature measures each
+# project's real git history. A shallow clone would collapse every git indicator to the "fresh"
+# floor (commit_count == 1, age_days == 0), which this asserts the corpus never does.
 
 
-@pytest.mark.xfail(reason=MATURITY_ARTIFACT_REASON, strict=True)
 def test_maturity_is_not_a_shallow_clone_artifact():
     commits = [int(a) for a in _indicator_answers("fresh-vs-mature", "fm2")]
     ages = [float(a) for a in _indicator_answers("fresh-vs-mature", "fm1")]

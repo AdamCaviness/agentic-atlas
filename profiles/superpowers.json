@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/superpowers",
+  "target": "superpowers",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "d884ae04edebef577e82ff7c4e143debd0bbec99",
   "target_url": "https://github.com/obra/superpowers.git",
   "axes": [
@@ -331,8 +331,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "259872",
-          "evidence": "stars = 259872 for obra/superpowers via GitHub API",
+          "answer": "259970",
+          "evidence": "stars = 259970 for obra/superpowers via GitHub API",
           "source": "engine"
         },
         {

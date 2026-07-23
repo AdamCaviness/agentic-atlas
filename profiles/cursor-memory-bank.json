@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/cursor-memory-bank",
+  "target": "cursor-memory-bank",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "7d879d8f5079ad77d845fdc92ca03903dbbd3a85",
   "target_url": "https://github.com/vanzan01/cursor-memory-bank",
   "axes": [
@@ -282,17 +282,17 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -3.2,
+      "score": 1.4,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "0.0",
-          "evidence": "git age_days = 0.0",
+          "answer": "290.9",
+          "evidence": "git age_days = 290.9",
           "source": "engine"
         },
         {
@@ -301,28 +301,28 @@
           "weight": 2.0,
           "value": -0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git commit_count = 1",
+          "answer": "83",
+          "evidence": "git commit_count = 83",
           "source": "engine"
         },
         {
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git contributor_count = 1",
+          "answer": "12",
+          "evidence": "git contributor_count = 12",
           "source": "engine"
         },
         {
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.16,
           "resolved": true,
-          "answer": "0",
-          "evidence": "git tag_count = 0",
+          "answer": "4",
+          "evidence": "git tag_count = 4",
           "source": "engine"
         },
         {
