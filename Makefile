@@ -24,7 +24,7 @@ _SLUGARG  = $(if $(SLUG),--slug $(SLUG),)
 # is well within rate limits for a corpus this size.
 CORPUS_PY = env -u GH_TOKEN -u GITHUB_TOKEN $(PY) scripts/corpus.py
 
-.PHONY: help setup install test check lint fmt format validate docs docs-check profiles profiles-check profile corpus-fetch corpus-rescore corpus-refresh clean
+.PHONY: help setup install test check lint fmt fmt-check format validate docs docs-check profiles profiles-check profile corpus-fetch corpus-rescore corpus-refresh clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -51,9 +51,12 @@ lint: setup ## Lint with ruff
 fmt: setup ## Format the code with ruff
 	$(RUFF) format .
 
+fmt-check: setup ## Fail if any file is not ruff-formatted (run `make fmt` to fix)
+	$(RUFF) format --check .
+
 format: fmt ## Alias for fmt
 
-check: lint docs-check profiles-check test ## Lint, check docs + corpus sync, then test (the CI gate)
+check: lint fmt-check docs-check profiles-check test ## Lint, format, docs + corpus sync, then test (the CI gate)
 
 validate: setup ## Validate the rubric against the schema (RUBRIC=...)
 	$(ATLAS) validate $(RUBRIC)
