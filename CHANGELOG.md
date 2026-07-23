@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.4.0...v0.5.0) (2026-07-23)
+
+
+### Features
+
+* pre-run profile corpus + interactive discovery site ([b5a2145](https://github.com/AdamCaviness/agentic-atlas/commit/b5a2145bdc5a3c03d5584ea9d933b97ffa7b6b68))
+* **site:** pre-run profile corpus + interactive discovery site ([8ec5596](https://github.com/AdamCaviness/agentic-atlas/commit/8ec5596c13257a5036a13587a840c5750df2bd5c))
+* **site:** replace 2D scatter with an n-dimensional parallel-coordinates plot ([c0f2b1a](https://github.com/AdamCaviness/agentic-atlas/commit/c0f2b1a45d90d8b1b44ef5074163d568ac649c52))
+
+
+### Bug Fixes
+
+* **site:** colon not em dash in tooltips/verdicts; external-link icon for new-tab links instead of '(new tab)' text ([46543f3](https://github.com/AdamCaviness/agentic-atlas/commit/46543f357da4a3c07b07afb6e95726d45878f650))
+* **ui:** best-matches layout, verdict glyphs, centered vs, active-only center tick; profile page faster crystal + coverage-line signals trigger ([2e49d03](https://github.com/AdamCaviness/agentic-atlas/commit/2e49d036c6ffc7698a6b340513813a68f00eca38))
+
 ## [0.4.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.3.1...v0.4.0) (2026-07-21)
 
 
