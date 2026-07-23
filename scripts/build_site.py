@@ -45,7 +45,10 @@ header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .layout{display:grid;grid-template-columns:280px 1fr;gap:22px}
 @media (max-width:860px){.layout{grid-template-columns:1fr}}
 .panel{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
-.panel h2{font-size:.9rem;margin:0 0 4px}
+.panel h2{font-size:.9rem;margin:0}
+.phead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}
+.clr{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border:1px solid var(--line);border-radius:8px;background:none;color:var(--muted);cursor:pointer;flex:none}
+.clr:hover{border-color:var(--accent);color:var(--accent)}
 .panel .sub{color:var(--muted);font-size:.8rem;margin:0 0 12px}
 .group{margin:0 0 6px;border-top:1px solid var(--line);padding-top:8px}
 .group>summary{cursor:pointer;font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
@@ -284,6 +287,14 @@ GH_MARK = (
 )
 
 
+BROOM = (
+    "<svg viewBox='0 0 24 24' width='16' height='16' fill='currentColor' aria-hidden='true'>"
+    "<path d='M19.36 2.72l1.42 1.42-5.72 5.71c1.07 1.54 1.22 3.39.32 4.59L9.06 8.83c1.2-.9 3.05-.75"
+    " 4.59.32l5.71-5.72M5.93 17.57c-2.01-2.01-3.24-4.41-3.58-6.65l4.88-2.09 7.44 7.44-2.09 4.88c-2.24"
+    "-.34-4.64-1.57-6.65-3.58z'/></svg>"
+)
+
+
 def _display_name(target: str) -> str:
     """Last path segment, matching report.py's pill (full target stays in the JSON)."""
     name = target.rstrip("/").rsplit("/", 1)[-1]
@@ -321,7 +332,7 @@ def build():
 <p class="principle">Positions, not rankings. Both ends of every axis are legitimate, and there's no overall score.</p>
 </section>
 <div class="layout">
-  <aside class="panel"><h2>Your preferences</h2><p class="sub">Set only what matters. Untouched sliders mean no preference. The map updates as you go.</p><div id="prefs"></div><div class="btnrow"><button class="act" onclick="clearAll()">Clear all</button></div><div id="matches" class="matches"></div></aside>
+  <aside class="panel"><div class="phead"><h2>Your preferences</h2><button class="clr" onclick="clearAll()" title="Clear all preferences" aria-label="Clear all preferences">{BROOM}</button></div><p class="sub">Set only what matters. Untouched sliders mean no preference.</p><div id="prefs"></div><div id="matches" class="matches"></div></aside>
   <main>
   <svg id="plot" style="display:none"></svg>
   <div id="gallery" class="gallery"></div>
