@@ -175,3 +175,44 @@ class Profile:
                 for ax in self.axes
             ],
         }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "Profile":
+        """Rebuild a Profile from ``to_dict`` output. The exact inverse of ``to_dict``,
+        so a saved profile JSON round-trips and can be re-rendered without re-running the
+        engine or having the target repository on hand."""
+        return cls(
+            target=data["target"],
+            rubric_version=data["rubric_version"],
+            engine_version=data["engine_version"],
+            target_sha=data.get("target_sha"),
+            target_url=data.get("target_url"),
+            axes=tuple(
+                AxisResult(
+                    axis_id=ax["axis_id"],
+                    title=ax["title"],
+                    poles=Poles(ax["poles"]["negative"], ax["poles"]["positive"]),
+                    scale=ax["scale"],
+                    score=ax["score"],
+                    coverage=ax["coverage"],
+                    explain=Explain(
+                        ax.get("explain", {}).get("negative", ""),
+                        ax.get("explain", {}).get("positive", ""),
+                    ),
+                    indicators=tuple(
+                        IndicatorResult(
+                            indicator_id=ir["indicator_id"],
+                            kind=IndicatorKind(ir["kind"]),
+                            weight=ir["weight"],
+                            value=ir["value"],
+                            resolved=ir["resolved"],
+                            answer=ir.get("answer"),
+                            evidence=ir.get("evidence"),
+                            source=ir.get("source"),
+                        )
+                        for ir in ax["indicators"]
+                    ),
+                )
+                for ax in data["axes"]
+            ),
+        )

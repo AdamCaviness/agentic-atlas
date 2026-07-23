@@ -228,6 +228,12 @@ _KIND_LABEL = {IndicatorKind.MEASURED: "detected", IndicatorKind.CLASSIFIED: "ju
 # stays valid across rubric versions.
 _RUBRIC_URL = "https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric"
 
+# The hosted Explorer: the interactive map of all published profiles. Every profile page links
+# home to it through the brand mark, so a reader who lands on one profile can step back to the
+# whole set. Absolute so the link resolves the same whether the page is opened from the hosted
+# site, the built local site, or a standalone file.
+_HOME_URL = "https://adamcaviness.github.io/agentic-atlas/"
+
 
 def _display_name(target: str) -> str:
     """The target's last path segment, for the header pill. ``/a/b/superpowers`` and
@@ -269,6 +275,10 @@ _HTML_CSS = """
   .target-pill{display:inline-block;font-weight:650;font-size:1.15rem;color:var(--pill-fg);
                background:var(--accent);padding:3px 14px;border-radius:999px;margin:0 0 10px;word-break:break-word}
   .brand{display:flex;align-items:center;gap:11px;margin:0 0 12px}
+  .brand .home{display:inline-flex;align-items:center;gap:11px;color:inherit;text-decoration:none;cursor:pointer;
+               margin:-6px 0 -6px -8px;padding:6px 8px;border-radius:10px;transition:background .12s ease,box-shadow .12s ease}
+  .brand .home:hover{background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.10)}
+  .brand .home:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .brand .mark{width:32px;height:33px;flex:none}
   .brand .word{font-size:1.55rem;font-weight:750;letter-spacing:-.01em;line-height:1;background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));-webkit-background-clip:text;background-clip:text;color:transparent}
   .brand .ptitle{font-size:1.55rem;font-weight:400;line-height:1;color:var(--fg)}
@@ -854,7 +864,7 @@ def render_html(profile: Profile) -> str:
     hint = _skill_hint(profile)
     hint_html = f'\n  <p class="footer-hint">{_html_escape(hint)}</p>' if hint else ""
     header = f"""  <header>
-    <div class="brand">{_CRYSTAL_MARK}<span class="word">Agentic Atlas</span><span class="ptitle">Profile</span></div>
+    <div class="brand"><a class="home" href="{_HOME_URL}" title="Back to the Explorer" aria-label="Back to the Explorer, browse all profiles">{_CRYSTAL_MARK}<span class="word">Agentic Atlas</span></a><span class="ptitle">Profile</span></div>
     {project}
     <div class="stamps">{stamps}</div>
     <p class="note">These results are non-judgmental measurements against the <a href="{_RUBRIC_URL}" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
