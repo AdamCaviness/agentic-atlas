@@ -28,6 +28,10 @@ packages = ["agentic_atlas"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Vendored third-party trees (the bmad-method skills and runtime) ship in the repo but are not
+# ours to lint. `_bmad-output/` is already skipped as it is gitignored. Our own Python lives in
+# agentic_atlas/, tests/, and scripts/.
+extend-exclude = [".claude", "_bmad"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
