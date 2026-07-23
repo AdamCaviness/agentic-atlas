@@ -50,10 +50,10 @@ header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .group{margin:0 0 6px;border-top:1px solid var(--line);padding-top:8px}
 .group>summary{cursor:pointer;font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .slider{margin:12px 0}
-.prow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.82rem;color:var(--fg);margin-bottom:3px}
-.prow .hl{font-weight:600}
+.prow{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;gap:8px;font-size:.82rem;color:var(--fg);margin-bottom:3px}
+.prow .hl{font-weight:600;text-align:left}
 .prow .hr{font-weight:600;text-align:right}
-.prow em{font-style:italic;font-weight:400;color:var(--muted)}
+.prow .hvs{font-style:italic;font-weight:400;color:var(--muted);text-align:center}
 .state{position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.72rem;margin-top:3px;min-height:1.1em}
 .state .np{font-style:italic;color:var(--faint)}
 .slider:not(.off) .state .np{color:var(--accent);font-style:normal}
@@ -64,8 +64,10 @@ header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .tip .pn{color:var(--neg);font-weight:600}.tip .pp{color:var(--pos);font-weight:600}
 .info:hover ~ .tip,.info:focus ~ .tip,.tip.show{display:block}
 .srange{position:relative}
-.srange input[type=range]{width:100%;display:block;accent-color:var(--accent);position:relative;z-index:1;background:transparent}
-.srange::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:2px;height:16px;background:var(--faint);pointer-events:none;z-index:0}
+.srange input[type=range]{width:100%;display:block;accent-color:var(--accent)}
+/* center tick shows only while the slider is active (thumb is off-center); at rest the thumb marks center */
+.srange::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:2px;height:12px;background:var(--faint);pointer-events:none;display:none}
+.slider:not(.off) .srange::before{display:block}
 .slider.off .srange input[type=range]{filter:grayscale(1);opacity:.5}
 .btnrow{display:flex;gap:8px;margin-top:10px}
 button.act{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
@@ -77,6 +79,9 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .dot{cursor:pointer}
 .matches{margin:14px 0 0}
 .matches h3{font-size:.85rem;margin:0 0 6px}
+.matches .mcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px 14px;margin:0 0 10px}
+.matches .mname{display:block;font-weight:650;font-size:.95rem}
+.matches .msum{font-size:.72rem;color:var(--muted);margin:1px 0 8px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:22px}
 .pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
 .pcard .nm{font-weight:650;font-size:.98rem;line-height:1.2}
@@ -95,7 +100,9 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .pcard .acts{display:flex;gap:8px;margin-top:12px}
 .pcard .fitline{font-size:.78rem;color:var(--muted);margin-top:8px;min-height:1em}
 .verdict{font-family:var(--mono);font-size:.74rem;margin:2px 0}
-.v-match::before{content:"[match] "}.v-close::before{content:"[close] "}.v-counter::before{content:"[opposite] "}
+.v-match::before{content:"✓ ";color:var(--accent);font-weight:700}
+.v-close::before{content:"~ ";color:var(--faint)}
+.v-counter::before{content:"✗ ";color:var(--cov-mid)}
 .tray{position:sticky;bottom:0;margin-top:22px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .tray .chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.8rem;display:inline-flex;gap:6px;align-items:center}
 .tray .chip b{font-weight:600}
@@ -182,8 +189,8 @@ function renderMatches(){
     const ord={match:0,close:1,counter:2};
     const vs=[...f.rows].sort((x,y)=>(ord[x.verdict]??9)-(ord[y.verdict]??9)).map(r=>{const ax=axName(r.id);const cls=r.verdict==="match"?"v-match":r.verdict==="close"?"v-close":"v-counter";
       const word = r.v<0?ax.neg:ax.pos;
-      return `<div class="verdict ${cls}">${esc(ax.title)} — you want ${esc(word)}${r.tool!==null?`, this is ${r.tool>0?'+':''}${r.tool.toFixed(1)}`:', no reading'}</div>`;}).join("");
-    return `<div class="pcard"><div class="nm"><a href="profiles/${p.slug}.html">${esc(p.name)}</a><span class="cov">leans your way on ${f.aligned} of ${f.total}</span></div>${vs}</div>`;
+      return `<div class="verdict ${cls}">${esc(ax.title)}: you want ${esc(word)}${r.tool!==null?`, this is ${r.tool>0?'+':''}${r.tool.toFixed(1)}`:', no reading'}</div>`;}).join("");
+    return `<div class="mcard"><a class="mname" href="profiles/${p.slug}.html">${esc(p.name)}</a><div class="msum">leans your way on ${f.aligned} of ${f.total}</div>${vs}</div>`;
   }).join("");
 }
 
@@ -220,9 +227,9 @@ function buildPanel(){
   ORDER.forEach(id=>{const a=AXES.find(x=>x.id===id); if(!a)return;
     const w=document.createElement("div"); w.className="slider off"; w.dataset.axis=id;
     const tp=esc(a.title).split(' vs ');
-    w.innerHTML=`<div class="prow"><span class="hl">${tp[0]||esc(a.title)}${tp[1]?' <em>vs</em>':''}</span>${tp[1]?`<span class="hr">${tp[1]}</span>`:''}</div>
+    w.innerHTML=`<div class="prow"><span class="hl">${tp[0]||esc(a.title)}</span>${tp[1]?`<em class="hvs">vs</em><span class="hr">${tp[1]}</span>`:''}</div>
       <div class="srange"><input type="range" min="-10" max="10" value="0" step="1"></div>
-      <div class="state"><button class="info" type="button" aria-label="What ${esc(a.title)} means">i</button><span class="tip" role="tooltip"><span class="th">${esc(a.title)}</span><span class="pn">${esc(a.neg)}</span> — ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span> — ${esc(a.epos)}</span><span class="np">no preference</span></div>`;
+      <div class="state"><button class="info" type="button" aria-label="What ${esc(a.title)} means">i</button><span class="tip" role="tooltip"><span class="th">${esc(a.title)}</span><span class="pn">${esc(a.neg)}</span>: ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span>: ${esc(a.epos)}</span><span class="np">no preference</span></div>`;
     const inp=$("input",w), st=$(".np",w);
     inp.addEventListener("input",()=>{const v=+inp.value;
       if(v===0){prefs[id]={value:0,active:false};w.classList.add("off");st.textContent="no preference";inp.style.accentColor="";}

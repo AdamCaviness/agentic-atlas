@@ -71,13 +71,14 @@
   .track.empty .center{background:var(--line)}
   .ni{display:inline-block;font-size:.8rem;color:var(--faint);position:absolute;left:50%;top:50%;
       transform:translate(-50%,-50%);background:var(--card);padding:0 8px;white-space:nowrap}
-  .cov{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.78rem}
+  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:8px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
   .cov-meter{position:relative;width:120px;height:6px;background:var(--track);border-radius:3px;overflow:hidden;flex:none}
   .cov-fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
   .cov-floor{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
   .cov-good{background:var(--cov-good)}.cov-mid{background:var(--cov-mid)}.cov-low{background:var(--cov-low)}
   .cov-text{color:var(--muted);font-family:var(--mono)}
-  .axis-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+  .cov-more{margin-left:auto;font-size:.8rem;color:var(--muted);white-space:nowrap}
+  .cov:hover .cov-more{color:var(--accent)}
   .mbtn{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);
         border-radius:8px;padding:6px 12px;cursor:pointer;transition:border-color .12s,color .12s}
   .mbtn:hover{border-color:var(--accent);color:var(--accent)}
@@ -352,7 +353,7 @@
   var last=0, TAU=Math.PI*2, ALIGN=0, spun=0, done=false;
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ ry=ALIGN; done=true; }
   function frame(ts){ if(!last) last=ts; var dt=Math.min((ts-last)/1000,0.05); last=ts;
-    if(!done&&!dragging){ var step=dt*0.75; ry+=step; spun+=step; if(spun>=TAU){ ry=ALIGN; done=true; } }
+    if(!done&&!dragging){ var step=dt*1.5; ry+=step; spun+=step; if(spun>=TAU){ ry=ALIGN; done=true; } }
     draw(false); requestAnimationFrame(frame); }
   if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ resize(); });
     var m=document.querySelector('.col-main'); if(m) ro.observe(m); }
@@ -369,11 +370,11 @@
       <div class="track"><div class="fill pos" style="width:27.5%"></div><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-0" title="show the 5 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 2/2 · judged 3/3 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-0">show the 5 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-0" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
@@ -402,11 +403,11 @@
       <div class="track"><div class="fill pos" style="width:10.5%"></div><div class="center"></div></div>
       <span class="pole right">large scope</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-1" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-1">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-1" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
@@ -433,11 +434,11 @@
       <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-2">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-2" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
@@ -464,11 +465,11 @@
       <div class="track"><div class="fill pos" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 2/2 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-3">show the 4 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-3" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
@@ -496,11 +497,11 @@
       <div class="track"><div class="fill pos" style="width:40%"></div><div class="center"></div></div>
       <span class="pole right">specialist</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-4" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-4">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-4" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
@@ -527,11 +528,11 @@
       <div class="track"><div class="fill neg" style="width:22%"></div><div class="center"></div></div>
       <span class="pole right">mature</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-5" title="show the 6 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:80%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 5/5 · judged 0/1 · 80% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-5">show the 6 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-5" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
@@ -561,11 +562,11 @@
       <div class="track"><div class="fill pos" style="width:6%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-6">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-6" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
@@ -592,11 +593,11 @@
       <div class="track"><div class="fill neg" style="width:4.5%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-7">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-7" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
@@ -623,11 +624,11 @@
       <div class="track"><div class="fill pos" style="width:40%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-8">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-8" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
@@ -654,11 +655,11 @@
       <div class="track"><div class="fill pos" style="width:46.5%"></div><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-9" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-9">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-9" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
@@ -685,11 +686,11 @@
       <div class="track"><div class="fill pos" style="width:16%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 2/2 · judged 1/1 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-10">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-10" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
@@ -716,11 +717,11 @@
       <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">composable</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-11" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-11">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-11" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
@@ -747,11 +748,11 @@
       <div class="track"><div class="fill neg" style="width:24.5%"></div><div class="center"></div></div>
       <span class="pole right">heavyweight</span>
     </div>
-    <div class="cov">
+    <button type="button" class="cov" data-dialog="signals-12" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
       <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
-    </div>
-    <div class="axis-actions"><button type="button" class="mbtn" data-dialog="signals-12">show the 3 signals behind this</button></div>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
     <dialog id="poles-12" class="modal">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>

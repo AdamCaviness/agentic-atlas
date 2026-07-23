@@ -309,13 +309,14 @@ _HTML_CSS = """
   .track.empty .center{background:var(--line)}
   .ni{display:inline-block;font-size:.8rem;color:var(--faint);position:absolute;left:50%;top:50%;
       transform:translate(-50%,-50%);background:var(--card);padding:0 8px;white-space:nowrap}
-  .cov{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.78rem}
+  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:8px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
   .cov-meter{position:relative;width:120px;height:6px;background:var(--track);border-radius:3px;overflow:hidden;flex:none}
   .cov-fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
   .cov-floor{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
   .cov-good{background:var(--cov-good)}.cov-mid{background:var(--cov-mid)}.cov-low{background:var(--cov-low)}
   .cov-text{color:var(--muted);font-family:var(--mono)}
-  .axis-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+  .cov-more{margin-left:auto;font-size:.8rem;color:var(--muted);white-space:nowrap}
+  .cov:hover .cov-more{color:var(--accent)}
   .mbtn{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);
         border-radius:8px;padding:6px 12px;cursor:pointer;transition:border-color .12s,color .12s}
   .mbtn:hover{border-color:var(--accent);color:var(--accent)}
@@ -456,9 +457,6 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
             "    </dialog>"
         )
     n_sig = len(ax.indicators)
-    signals_btn = (
-        f'<button type="button" class="mbtn" data-dialog="signals-{idx}">show the {n_sig} signals behind this</button>'
-    )
     dialogs.append(
         f'    <dialog id="signals-{idx}" class="modal modal-wide">\n'
         '      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>\n'
@@ -470,7 +468,6 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
         f"<tbody>{_html_indicator_rows(ax)}</tbody></table></div>\n"
         "    </dialog>"
     )
-    actions = '    <div class="axis-actions">' + signals_btn + "</div>"
     dialogs_html = "\n".join(dialogs)
 
     return (
@@ -481,11 +478,11 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
         f"      {bar}\n"
         f'      <span class="pole right">{pos_label}</span>\n'
         "    </div>\n"
-        '    <div class="cov">\n'
+        f'    <button type="button" class="cov" data-dialog="signals-{idx}" title="show the {n_sig} signals behind this">\n'
         f'      <div class="cov-meter"><div class="cov-fill {_coverage_class(ax.coverage)}" style="width:{cov_pct}%"></div><div class="cov-floor"></div></div>\n'
         f'      <span class="cov-text">{_html_escape(cov_txt)}</span>\n'
-        "    </div>\n"
-        f"{actions}\n"
+        '      <span class="cov-more">signals &rsaquo;</span>\n'
+        "    </button>\n"
         f"{dialogs_html}\n"
         "  </section>"
     )
@@ -708,7 +705,7 @@ _HERO_JS = r"""(function(){
   var last=0, TAU=Math.PI*2, ALIGN=0, spun=0, done=false;
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ ry=ALIGN; done=true; }
   function frame(ts){ if(!last) last=ts; var dt=Math.min((ts-last)/1000,0.05); last=ts;
-    if(!done&&!dragging){ var step=dt*0.75; ry+=step; spun+=step; if(spun>=TAU){ ry=ALIGN; done=true; } }
+    if(!done&&!dragging){ var step=dt*1.5; ry+=step; spun+=step; if(spun>=TAU){ ry=ALIGN; done=true; } }
     draw(false); requestAnimationFrame(frame); }
   if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ resize(); });
     var m=document.querySelector('.col-main'); if(m) ro.observe(m); }
