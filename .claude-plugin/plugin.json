@@ -1,7 +1,7 @@
 {
   "name": "agentic-atlas",
   "description": "Profile agentic development approaches, frameworks, and skill collections on axes that can help you decide if it would work well for you or your projects. It has a deterministic engine with an open rubric that is versioned and community driven. We provide hosted profiles of the popular workflows but we encourage you to experiment and improve the engine and rubric to keep this system objective and useful for everyone.",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "author": {
     "name": "Adam Caviness"
   },

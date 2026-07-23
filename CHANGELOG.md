@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.6.0...v0.7.0) (2026-07-23)
+
+
+### Features
+
+* add corpus refresh tooling (corpus-fetch/rescore/refresh) ([1d0cb53](https://github.com/AdamCaviness/agentic-atlas/commit/1d0cb535caa1ad972988bafd89ff9d47ec466870))
+* corpus refresh tooling + correct Fresh vs Mature from full clones ([18d46bb](https://github.com/AdamCaviness/agentic-atlas/commit/18d46bbcbab0d3f5742fc3b75229d5bb00fb7525))
+
+
+### Bug Fixes
+
+* correct Fresh vs Mature scores by re-profiling from full clones ([45f5d75](https://github.com/AdamCaviness/agentic-atlas/commit/45f5d7537627fb3933b71d8a6d91cdc345da8581))
+
 ## [0.6.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.5.0...v0.6.0) (2026-07-23)
 
 
