@@ -323,12 +323,10 @@ def build():
 <div class="layout">
   <aside class="panel"><h2>Your preferences</h2><p class="sub">Set only what matters. Untouched sliders mean no preference. The map updates as you go.</p><div id="prefs"></div><div class="btnrow"><button class="act" onclick="clearAll()">Clear all</button></div><div id="matches" class="matches"></div></aside>
   <main>
-  <svg id="plot" style="display:none"></svg><p id="plothint" class="hint">Set a preference on the left and the tools line up against it, one vertical axis per preference you set, with your line running through them. Or just scan the cards below.</p>
+  <svg id="plot" style="display:none"></svg>
   <div id="gallery" class="gallery"></div>
   <div id="tray" class="tray"></div></main>
-</div>
-<p class="note" style="margin-top:26px">Draft profiles for local design review, evidence is engine-validated but not yet human-vouched. No aggregate score anywhere: fit is per-axis only.</p>
-</div>
+</div></div>
 <script>const DATA={json.dumps(data)};</script><script>{JS}</script></body></html>"""
     out_index = os.path.join(OUT, "index.html")
     open(out_index, "w").write(page)
