@@ -268,6 +268,15 @@ _HTML_CSS = """
   header h1{font-size:1.5rem;margin:0 0 8px;font-weight:650}
   .target-pill{display:inline-block;font-weight:650;font-size:1.15rem;color:var(--pill-fg);
                background:var(--accent);padding:3px 14px;border-radius:999px;margin:0 0 10px;word-break:break-word}
+  .brand{display:flex;align-items:center;gap:11px;margin:0 0 12px}
+  .brand .mark{width:32px;height:33px;flex:none}
+  .brand .word{font-size:1.55rem;font-weight:750;letter-spacing:-.01em;line-height:1;background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand .ptitle{font-size:1.55rem;font-weight:400;line-height:1;color:var(--fg)}
+  .project{margin:0 0 10px;font-size:1.02rem}
+  .project a{display:inline-flex;align-items:center;gap:8px;color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 15px}
+  .project a:hover{border-color:var(--accent);color:var(--accent)}
+  .project .gh{flex:none;width:18px;height:18px}
+  .project .pname{font-weight:600}
   .stamps{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin:0 0 2px}
   .note{color:var(--fg);font-size:.95rem;margin:10px 0 2px}
   .note a{color:var(--accent);text-decoration:underline}
@@ -275,40 +284,46 @@ _HTML_CSS = """
   .legend{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0 26px;padding:12px 14px;background:var(--card);
           border:1px solid var(--line);border-radius:10px;font-size:.82rem;color:var(--muted)}
   .legend .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px}
-  .axis{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 14px;background:var(--card)}
+  .axis{border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:0 0 11px;background:var(--card)}
   .axis-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .axis-title{font-weight:600;font-size:1.02rem}
-  .score{font-family:var(--mono);font-weight:700;font-size:1.05rem;white-space:nowrap}
+  .axis-title{font-weight:600;font-size:.95rem}
+  .ahl{display:inline-flex;align-items:center;gap:8px}
+  .axis-title em{font-style:italic;font-weight:400;color:var(--muted)}
+  .score{font-family:var(--mono);font-weight:700;font-size:.98rem;white-space:nowrap}
   .score.neg{color:var(--neg)}.score.pos{color:var(--pos)}
   .score.none{color:var(--faint);font-weight:500;font-style:italic;font-size:.9rem}
   .score.zero{color:var(--faint)}
   .prov-tag{font-family:var(--sans);font-weight:500;font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;
             color:var(--cov-low);border:1px solid var(--cov-low);border-radius:4px;padding:1px 5px;margin-left:8px;vertical-align:1px}
-  .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:14px 0 6px}
-  .pole{font-size:.82rem;color:var(--muted)}
+  .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:10px 0 4px}
+  .pole{font-size:.78rem;color:var(--muted)}
   .pole.left{text-align:right}.pole.right{text-align:left}
-  .track{position:relative;height:26px;background:var(--track);border-radius:6px}
+  .track{position:relative;height:22px;background:var(--track);border-radius:6px}
   .track .center{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--faint);transform:translateX(-1px)}
-  .fill{position:absolute;top:3px;bottom:3px;border-radius:4px}
-  .fill.neg{right:50%;background:var(--neg)}
-  .fill.pos{left:50%;background:var(--pos)}
+  .fill{position:absolute;top:3px;bottom:3px}
+  .fill.neg{right:50%;background:var(--neg);border-radius:4px 0 0 4px}
+  .fill.pos{left:50%;background:var(--pos);border-radius:0 4px 4px 0}
   .fill.prov{opacity:.4;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px);
              outline:1px dashed var(--faint);outline-offset:-1px}
   .track.empty{background:repeating-linear-gradient(45deg,transparent,transparent 6px,var(--track) 6px,var(--track) 12px);border:1px dashed var(--line)}
   .track.empty .center{background:var(--line)}
   .ni{display:inline-block;font-size:.8rem;color:var(--faint);position:absolute;left:50%;top:50%;
       transform:translate(-50%,-50%);background:var(--card);padding:0 8px;white-space:nowrap}
-  .cov{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.78rem}
+  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:6px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
   .cov-meter{position:relative;width:120px;height:6px;background:var(--track);border-radius:3px;overflow:hidden;flex:none}
   .cov-fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
   .cov-floor{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
   .cov-good{background:var(--cov-good)}.cov-mid{background:var(--cov-mid)}.cov-low{background:var(--cov-low)}
-  .cov-text{color:var(--muted);font-family:var(--mono)}
-  .axis-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+  .cov-text{color:var(--muted);font-family:var(--mono);font-size:.82rem}
+  .cov-more{margin-left:auto;font-size:.8rem;color:var(--muted);white-space:nowrap}
+  .cov:hover .cov-more{color:var(--accent)}
   .mbtn{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);
         border-radius:8px;padding:6px 12px;cursor:pointer;transition:border-color .12s,color .12s}
   .mbtn:hover{border-color:var(--accent);color:var(--accent)}
   .mbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .info{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;padding:0;border:1px solid var(--faint);color:var(--muted);background:none;border-radius:50%;font:600 .66rem/1 var(--sans);cursor:pointer;vertical-align:middle}
+  .info:hover{border-color:var(--accent);color:var(--accent)}
+  .info:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   dialog.modal{max-width:560px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;
                background:var(--card);color:var(--fg);padding:22px 24px 24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
   dialog.modal.modal-wide{max-width:760px}
@@ -415,6 +430,7 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
             )
 
     title = _html_escape(ax.title)
+    title_disp = title.replace(" vs ", " <em>vs</em> ")
     neg_label = _html_escape(_humanize(ax.poles.negative))
     pos_label = _html_escape(_humanize(ax.poles.positive))
 
@@ -422,11 +438,11 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
     # height no matter what is opened. That fixed height is what lets the tower's bands line
     # up with the cards: opening a dialog never reflows the column. Dialogs close natively
     # (the form-method button, plus Esc); only opening and backdrop-close need _MODAL_JS.
-    buttons = []
+    poles_info = ""
     dialogs = []
     if ax.explain.negative or ax.explain.positive:
-        buttons.append(
-            f'<button type="button" class="mbtn" data-dialog="poles-{idx}">what the poles mean</button>'
+        poles_info = (
+            f'<button type="button" class="info" data-dialog="poles-{idx}" aria-label="what the poles mean" title="what the poles mean">i</button>'
         )
         dialogs.append(
             f'    <dialog id="poles-{idx}" class="modal">\n'
@@ -441,9 +457,6 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
             "    </dialog>"
         )
     n_sig = len(ax.indicators)
-    buttons.append(
-        f'<button type="button" class="mbtn" data-dialog="signals-{idx}">show the {n_sig} signals behind this</button>'
-    )
     dialogs.append(
         f'    <dialog id="signals-{idx}" class="modal modal-wide">\n'
         '      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>\n'
@@ -455,22 +468,21 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
         f"<tbody>{_html_indicator_rows(ax)}</tbody></table></div>\n"
         "    </dialog>"
     )
-    actions = '    <div class="axis-actions">' + "".join(buttons) + "</div>"
     dialogs_html = "\n".join(dialogs)
 
     return (
         '  <section class="axis">\n'
-        f'    <div class="axis-head"><span class="axis-title">{title}</span>{score_html}</div>\n'
+        f'    <div class="axis-head"><span class="ahl"><span class="axis-title">{title_disp}</span>{poles_info}</span>{score_html}</div>\n'
         '    <div class="bar-row">\n'
         f'      <span class="pole left">{neg_label}</span>\n'
         f"      {bar}\n"
         f'      <span class="pole right">{pos_label}</span>\n'
         "    </div>\n"
-        '    <div class="cov">\n'
+        f'    <button type="button" class="cov" data-dialog="signals-{idx}" title="show the {n_sig} signals behind this">\n'
         f'      <div class="cov-meter"><div class="cov-fill {_coverage_class(ax.coverage)}" style="width:{cov_pct}%"></div><div class="cov-floor"></div></div>\n'
         f'      <span class="cov-text">{_html_escape(cov_txt)}</span>\n'
-        "    </div>\n"
-        f"{actions}\n"
+        '      <span class="cov-more">signals &rsaquo;</span>\n'
+        "    </button>\n"
         f"{dialogs_html}\n"
         "  </section>"
     )
@@ -544,7 +556,7 @@ _HERO_JS = r"""(function(){
 
   // state
   var N=AXES.length;
-  var ry=0.5, inside=false, dragging=false, lastX=0, hovered=-1;
+  var ry=0, inside=false, dragging=false, lastX=0, hovered=-1;
   var proj=ident(), vw=1, vh=1, pickFB=null, pickTex=null, pickDepth=null;
   var bPos=null,bNrm=null,bCol=null,bId=null,bWpos=null,bWcol=null, fillCount=0, wireCount=0, halfW=1, halfH=1;
 
@@ -680,7 +692,7 @@ _HERO_JS = r"""(function(){
   function loc(e){ var r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top,w:r.width,h:r.height}; }
   host.addEventListener('pointerenter',function(){ inside=true; });
   host.addEventListener('pointerleave',function(){ inside=false; dragging=false; hideTip(); });
-  canvas.addEventListener('pointerdown',function(e){ dragging=true; lastX=e.clientX; hideTip();
+  canvas.addEventListener('pointerdown',function(e){ dragging=true; done=true; lastX=e.clientX; hideTip();
     try{canvas.setPointerCapture(e.pointerId);}catch(_){} });
   canvas.addEventListener('pointerup',function(e){ dragging=false; try{canvas.releasePointerCapture(e.pointerId);}catch(_){} });
   canvas.addEventListener('pointermove',function(e){
@@ -688,9 +700,13 @@ _HERO_JS = r"""(function(){
     var p=loc(e), i=pick(Math.round(p.x/p.w*vw), Math.round(p.y/p.h*vh));
     if(i>=0){ hovered=i; showTip(i,p.x,p.y); } else hideTip(); });
 
-  var last=0;
+  // One 50%-faster revolution from the aligned orientation, then stop aligned so the tips line
+  // up with the card bars. Dragging cancels the intro; reduced-motion skips it and rests aligned.
+  var last=0, TAU=Math.PI*2, ALIGN=0, spun=0, done=false;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ ry=ALIGN; done=true; }
   function frame(ts){ if(!last) last=ts; var dt=Math.min((ts-last)/1000,0.05); last=ts;
-    if(!inside&&!dragging) ry+=dt*0.5; draw(false); requestAnimationFrame(frame); }
+    if(!done&&!dragging){ var step=dt*1.5; ry+=step; spun+=step; if(spun>=TAU){ ry=ALIGN; done=true; } }
+    draw(false); requestAnimationFrame(frame); }
   if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ resize(); });
     var m=document.querySelector('.col-main'); if(m) ro.observe(m); }
   window.addEventListener('resize',function(){ resize(); });
@@ -746,6 +762,66 @@ def _hero_html(profile: Profile) -> str:
     )
 
 
+# GitHub mark, inlined so the report stays self-contained (no external asset).
+_GH_MARK = (
+    "<svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'>"
+    "<path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49"
+    "-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82"
+    ".72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08"
+    "-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82"
+    " 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48"
+    " 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg>"
+)
+
+
+# External-link glyph, appended to project links that open in a new tab.
+# The 2D brand crystal (matches the dashboard). Theme-aware via the CSS pole vars.
+_CRYSTAL_MARK = (
+    "<svg class='mark' viewBox='0 0 30 31' aria-hidden='true'>"
+    "<polygon points='15,1 4,11 15,11' fill='var(--neg)'/>"
+    "<polygon points='15,1 26,11 15,11' fill='var(--pos)'/>"
+    "<polygon points='4,11 15,11 15,30' fill='var(--neg)' opacity='.8'/>"
+    "<polygon points='26,11 15,11 15,30' fill='var(--pos)' opacity='.8'/>"
+    "<polygon points='15,1 4,11 15,30 26,11' fill='none' stroke='var(--accent)' stroke-width='1' opacity='.55'/>"
+    "</svg>"
+)
+
+
+def _github_slug(url: str | None) -> tuple[str, str] | None:
+    if not url or "github.com" not in url:
+        return None
+    tail = url.split("github.com", 1)[1].lstrip(":/")
+    if tail.endswith(".git"):
+        tail = tail[:-4]
+    parts = [p for p in tail.rstrip("/").split("/") if p]
+    return (parts[0], parts[1]) if len(parts) >= 2 else None
+
+
+def _project_html(url: str | None, name: str) -> str:
+    """The single project-identity visual. GitHub origin -> mark + owner/repo (new tab);
+    other http(s) origin -> a plain link; no upstream at all -> just the project name."""
+    slug = _github_slug(url) if url else None
+    if slug:
+        owner, repo = slug
+        href = f"https://github.com/{owner}/{repo}"
+        return (
+            f'<div class="project"><a href="{_html_escape(href)}" target="_blank" rel="noopener" '
+            f'title="Open {_html_escape(owner)}/{_html_escape(repo)} on GitHub" '
+            f'aria-label="Open {_html_escape(owner)}/{_html_escape(repo)} on GitHub, opens in a new tab">'
+            f'{_GH_MARK}<span>{_html_escape(owner)}/{_html_escape(repo)}</span></a></div>'
+        )
+    if url:
+        clean = url[:-4] if url.endswith(".git") else url
+        if clean.startswith("http"):
+            label = clean.split("://", 1)[-1]
+            return (
+                f'<div class="project"><a href="{_html_escape(clean)}" target="_blank" rel="noopener" '
+                f'aria-label="Open {_html_escape(label)}, opens in a new tab">'
+                f'{_html_escape(label)}</a></div>'
+            )
+    return f'<div class="project"><span class="pname">{_html_escape(name)}</span></div>'
+
+
 def render_html(profile: Profile) -> str:
     """Render a Profile to a self-contained HTML page.
 
@@ -769,8 +845,7 @@ def render_html(profile: Profile) -> str:
     """
     scale = profile.axes[0].scale if profile.axes else 10.0
     axes_html = "\n".join(_html_axis(ax, i) for i, ax in enumerate(profile.axes))
-    name = _html_escape(_display_name(profile.target))
-    target_full = _html_escape(profile.target)
+    project = _project_html(profile.target_url, _display_name(profile.target))
     stamps = (
         f"rubric {_html_escape(profile.rubric_version)} · "
         f"engine {_html_escape(profile.engine_version)} · "
@@ -779,8 +854,8 @@ def render_html(profile: Profile) -> str:
     hint = _skill_hint(profile)
     hint_html = f'\n  <p class="footer-hint">{_html_escape(hint)}</p>' if hint else ""
     header = f"""  <header>
-    <h1>Agentic Atlas Profile</h1>
-    <span class="target-pill" title="{target_full}">{name}</span>
+    <div class="brand">{_CRYSTAL_MARK}<span class="word">Agentic Atlas</span><span class="ptitle">Profile</span></div>
+    {project}
     <div class="stamps">{stamps}</div>
     <p class="note">These results are non-judgmental measurements against the <a href="{_RUBRIC_URL}" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;{scale:g} per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
@@ -814,7 +889,7 @@ def render_html(profile: Profile) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agentic Atlas Profile: {_html_escape(profile.target)}</title>
+<title>Agentic Atlas Profile: {_html_escape(_display_name(profile.target))}</title>
 <style>{_HTML_CSS}</style>
 </head>
 <body>

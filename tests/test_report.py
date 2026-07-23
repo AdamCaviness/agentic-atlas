@@ -213,7 +213,7 @@ def test_html_shows_pole_meanings_in_a_modal_when_present():
         explain=Explain(negative="excels from an idea", positive="excels in existing code"),
     )
     out = render_html(_profile([ax]))
-    assert '<button type="button" class="mbtn" data-dialog="poles-0">' in out  # the trigger
+    assert 'class="info" data-dialog="poles-0"' in out  # the poles info-icon trigger
     assert '<dialog id="poles-0" class="modal">' in out  # opens a modal, not an inline expander
     assert "excels from an idea" in out
     assert "excels in existing code" in out
@@ -247,12 +247,12 @@ def test_display_name_takes_last_segment_of_path_or_git_url():
     assert _display_name("superpowers") == "superpowers"
 
 
-def test_html_header_shows_name_pill_not_full_path():
+def test_html_header_shows_name_not_full_path():
     ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
     out = render_html(_profile([ax], target="/Users/adam/_opensource/superpowers"))
-    # the pill shows the short name, and keeps the full target in its title for provenance
-    assert '<span class="target-pill" title="/Users/adam/_opensource/superpowers">superpowers</span>' in out
-    # the full path no longer appears in the stamps line
+    # with no upstream remote, the single project visual shows the short name, not the full path
+    assert '<span class="pname">superpowers</span>' in out
+    assert "/Users/adam/_opensource/superpowers" not in out
     assert '<div class="stamps">rubric' in out
 
 

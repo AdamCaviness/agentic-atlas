@@ -135,6 +135,10 @@ class Target:
     def git_sha(self) -> str | None:
         return self._run_git("rev-parse", "HEAD") or None
 
+    def git_origin(self) -> str | None:
+        """The target's origin remote URL, or None (no git checkout, or no origin remote)."""
+        return self._run_git("remote", "get-url", "origin") or None
+
     def git_metric(self, metric: str) -> int | float | None:
         """Return a deterministic git-history metric, or None if unavailable.
 

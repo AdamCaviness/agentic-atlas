@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Atlas Profile: PRPs-agentic-eng</title>
+<style>
+  :root {
+    --bg:#fff;--fg:#1a1a1a;--muted:#6b7280;--faint:#9ca3af;--card:#f7f7f8;--line:#e5e7eb;--track:#e9eaed;
+    --neg:#0891b2;--pos:#9333ea;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;--accent:#4f46e5;--pill-fg:#fff;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--faint:#6e7681;--card:#161b22;--line:#30363d;--track:#21262d;
+    --neg:#22d3ee;--pos:#c084fc;--cov-good:#3fb950;--cov-mid:#d29922;--cov-low:#f85149;--accent:#818cf8;--pill-fg:#0d1117;
+  }}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
+  .wrap{max-width:880px;margin:0 auto;padding:32px 20px 64px}
+  .wrap.wide{max-width:940px}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:28px;align-items:start}
+  .col-main{grid-column:1;grid-row:1;min-width:0}
+  .col-rail{grid-column:2;grid-row:1}
+  @media (max-width:880px){
+    .layout{grid-template-columns:1fr}
+    .col-main,.col-rail{grid-column:1}
+    .col-rail{margin-bottom:22px}
+  }
+  header h1{font-size:1.5rem;margin:0 0 8px;font-weight:650}
+  .target-pill{display:inline-block;font-weight:650;font-size:1.15rem;color:var(--pill-fg);
+               background:var(--accent);padding:3px 14px;border-radius:999px;margin:0 0 10px;word-break:break-word}
+  .brand{display:flex;align-items:center;gap:11px;margin:0 0 12px}
+  .brand .mark{width:32px;height:33px;flex:none}
+  .brand .word{font-size:1.55rem;font-weight:750;letter-spacing:-.01em;line-height:1;background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand .ptitle{font-size:1.55rem;font-weight:400;line-height:1;color:var(--fg)}
+  .project{margin:0 0 10px;font-size:1.02rem}
+  .project a{display:inline-flex;align-items:center;gap:8px;color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 15px}
+  .project a:hover{border-color:var(--accent);color:var(--accent)}
+  .project .gh{flex:none;width:18px;height:18px}
+  .project .pname{font-weight:600}
+  .stamps{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin:0 0 2px}
+  .note{color:var(--fg);font-size:.95rem;margin:10px 0 2px}
+  .note a{color:var(--accent);text-decoration:underline}
+  .aside{color:var(--muted);font-size:.82rem;margin:2px 0 0}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0 26px;padding:12px 14px;background:var(--card);
+          border:1px solid var(--line);border-radius:10px;font-size:.82rem;color:var(--muted)}
+  .legend .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px}
+  .axis{border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:0 0 11px;background:var(--card)}
+  .axis-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .axis-title{font-weight:600;font-size:.95rem}
+  .ahl{display:inline-flex;align-items:center;gap:8px}
+  .axis-title em{font-style:italic;font-weight:400;color:var(--muted)}
+  .score{font-family:var(--mono);font-weight:700;font-size:.98rem;white-space:nowrap}
+  .score.neg{color:var(--neg)}.score.pos{color:var(--pos)}
+  .score.none{color:var(--faint);font-weight:500;font-style:italic;font-size:.9rem}
+  .score.zero{color:var(--faint)}
+  .prov-tag{font-family:var(--sans);font-weight:500;font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;
+            color:var(--cov-low);border:1px solid var(--cov-low);border-radius:4px;padding:1px 5px;margin-left:8px;vertical-align:1px}
+  .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:10px 0 4px}
+  .pole{font-size:.78rem;color:var(--muted)}
+  .pole.left{text-align:right}.pole.right{text-align:left}
+  .track{position:relative;height:22px;background:var(--track);border-radius:6px}
+  .track .center{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--faint);transform:translateX(-1px)}
+  .fill{position:absolute;top:3px;bottom:3px}
+  .fill.neg{right:50%;background:var(--neg);border-radius:4px 0 0 4px}
+  .fill.pos{left:50%;background:var(--pos);border-radius:0 4px 4px 0}
+  .fill.prov{opacity:.4;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px);
+             outline:1px dashed var(--faint);outline-offset:-1px}
+  .track.empty{background:repeating-linear-gradient(45deg,transparent,transparent 6px,var(--track) 6px,var(--track) 12px);border:1px dashed var(--line)}
+  .track.empty .center{background:var(--line)}
+  .ni{display:inline-block;font-size:.8rem;color:var(--faint);position:absolute;left:50%;top:50%;
+      transform:translate(-50%,-50%);background:var(--card);padding:0 8px;white-space:nowrap}
+  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:6px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+  .cov-meter{position:relative;width:120px;height:6px;background:var(--track);border-radius:3px;overflow:hidden;flex:none}
+  .cov-fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+  .cov-floor{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
+  .cov-good{background:var(--cov-good)}.cov-mid{background:var(--cov-mid)}.cov-low{background:var(--cov-low)}
+  .cov-text{color:var(--muted);font-family:var(--mono);font-size:.82rem}
+  .cov-more{margin-left:auto;font-size:.8rem;color:var(--muted);white-space:nowrap}
+  .cov:hover .cov-more{color:var(--accent)}
+  .mbtn{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);
+        border-radius:8px;padding:6px 12px;cursor:pointer;transition:border-color .12s,color .12s}
+  .mbtn:hover{border-color:var(--accent);color:var(--accent)}
+  .mbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .info{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;padding:0;border:1px solid var(--faint);color:var(--muted);background:none;border-radius:50%;font:600 .66rem/1 var(--sans);cursor:pointer;vertical-align:middle}
+  .info:hover{border-color:var(--accent);color:var(--accent)}
+  .info:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  dialog.modal{max-width:560px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;
+               background:var(--card);color:var(--fg);padding:22px 24px 24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+  dialog.modal.modal-wide{max-width:760px}
+  dialog.modal::backdrop{background:rgba(0,0,0,.5)}
+  dialog.modal form{margin:0}
+  .modal-x{float:right;font-size:1.4rem;line-height:1;background:none;border:0;color:var(--muted);cursor:pointer;padding:0 4px}
+  .modal-x:hover{color:var(--fg)}
+  .modal-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .modal-title{margin:0 0 2px;font-size:1.05rem;font-weight:650}
+  .modal-sub{margin:0 0 14px;font-size:.82rem;color:var(--muted)}
+  dl.poles{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin:12px 0 2px;font-size:.82rem}
+  dl.poles dt{font-weight:600;color:var(--fg);white-space:nowrap}
+  dl.poles dd{margin:0;color:var(--muted)}
+  dl.poles dt.neg{color:var(--neg)}dl.poles dt.pos{color:var(--pos)}
+  dl.poles dt.mid,dl.poles dd.mid{color:var(--faint)}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.78rem}
+  .table-scroll{overflow-x:auto}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;white-space:nowrap}
+  td.evidence{color:var(--muted);font-family:var(--mono);font-size:.72rem;min-width:16rem}
+  .kind{font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+  .val{font-family:var(--mono)}
+  .footer-hint{margin-top:22px;padding:12px 14px;border-left:3px solid var(--cov-mid);background:var(--card);
+               border-radius:0 8px 8px 0;font-size:.85rem;color:var(--muted)}
+  .hero3d{position:relative;width:100%;height:60vh;margin:0;
+          border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;
+          touch-action:none;user-select:none}
+  .hero3d canvas{display:block;width:100%;height:100%;cursor:grab}
+  .hero3d canvas:active{cursor:grabbing}
+  .hero3d .tip{position:absolute;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .1s;
+               max-width:80%;padding:6px 9px;border-radius:8px;font-size:.78rem;line-height:1.35;
+               background:var(--bg);border:1px solid var(--line);color:var(--fg);
+               box-shadow:0 4px 14px rgba(0,0,0,.18);z-index:2}
+  .hero3d .tip .th{font-weight:650}
+  .hero3d .tip .th.pos{color:var(--pos)}.hero3d .tip .th.neg{color:var(--neg)}
+  .hero3d .tip .tp{color:var(--muted);font-size:.72rem}
+  .hero3d .fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;
+                    padding:0 22px;text-align:center;font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap wide">
+  <header>
+    <div class="brand"><svg class='mark' viewBox='0 0 30 31' aria-hidden='true'><polygon points='15,1 4,11 15,11' fill='var(--neg)'/><polygon points='15,1 26,11 15,11' fill='var(--pos)'/><polygon points='4,11 15,11 15,30' fill='var(--neg)' opacity='.8'/><polygon points='26,11 15,11 15,30' fill='var(--pos)' opacity='.8'/><polygon points='15,1 4,11 15,30 26,11' fill='none' stroke='var(--accent)' stroke-width='1' opacity='.55'/></svg><span class="word">Agentic Atlas</span><span class="ptitle">Profile</span></div>
+    <div class="project"><a href="https://github.com/Wirasm/PRPs-agentic-eng" target="_blank" rel="noopener" title="Open Wirasm/PRPs-agentic-eng on GitHub" aria-label="Open Wirasm/PRPs-agentic-eng on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>Wirasm/PRPs-agentic-eng</span></a></div>
+    <div class="stamps">rubric 1.4.0 · engine 0.4.0 · sha a643e84600c4</div>
+    <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
+    <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--neg)"></span><span class="swatch" style="background:var(--pos)"></span>the bar leans toward the end it favors</span>
+      <span><span class="swatch" style="background:var(--cov-good)"></span>evidence found</span>
+      <span>open an axis for its poles and signals</span>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="col-rail">
+  <section class="hero3d" id="atlas-hero">
+    <canvas></canvas>
+    <div class="tip" role="status"></div>
+    <div class="fallback">A low-poly shape of the profile: a tip points out for each axis in its lean direction, its length the score.</div>
+  </section>
+  <script>(function(){
+  var host=document.getElementById('atlas-hero');
+  if(!host) return;
+  var canvas=host.querySelector('canvas');
+  var tip=host.querySelector('.tip');
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 5.5, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 4.3, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 6.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 2.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 8.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -1.2, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -0.6, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 1.8, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 8.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -1.8, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 8.7, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 2.3, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 0.3, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  function fail(){ canvas.style.display='none';
+    var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
+  if(!AXES.length){ host.style.display='none'; return; }
+  var gl=null;
+  try{ gl=canvas.getContext('webgl',{antialias:true,alpha:true,premultipliedAlpha:false})
+        ||canvas.getContext('experimental-webgl'); }catch(e){}
+  if(!gl){ fail(); return; }
+
+  function css(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function hex(h){ h=(h||'').replace('#',''); if(h.length===3){h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];}
+    var n=parseInt(h,16); if(isNaN(n)) return [.5,.5,.5];
+    return [((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255]; }
+  function mix(a,b,t){ return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]; }
+  var NEG=hex(css('--neg')), POS=hex(css('--pos')), FAINT=hex(css('--faint')),
+      CARD=hex(css('--card')), FG=hex(css('--fg')), NECK=mix(FAINT,CARD,0.35), WIRE=FAINT;
+
+  // shaders: flat-shaded (per-face normal), an id pass for picking, and a flat-color wire pass
+  function sh(t,s){ var o=gl.createShader(t); gl.shaderSource(o,s); gl.compileShader(o);
+    if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)) console.log(gl.getShaderInfoLog(o)); return o; }
+  var prog=gl.createProgram();
+  gl.attachShader(prog,sh(gl.VERTEX_SHADER,
+    'attribute vec3 aPos;attribute vec3 aNormal;attribute vec3 aColor;attribute vec3 aId;'+
+    'uniform mat4 uMVP;uniform mat3 uNMat;varying vec3 vN;varying vec3 vC;varying vec3 vId;'+
+    'void main(){vN=uNMat*aNormal;vC=aColor;vId=aId;gl_Position=uMVP*vec4(aPos,1.0);}'));
+  gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,
+    'precision mediump float;precision mediump int;varying vec3 vN;varying vec3 vC;varying vec3 vId;'+
+    'uniform int uMode;uniform vec3 uLight;void main(){'+
+    'if(uMode==1){gl_FragColor=vec4(vId,1.0);return;}'+
+    'if(uMode==2){gl_FragColor=vec4(vC,1.0);return;}'+
+    'vec3 n=normalize(vN);float d=max(dot(n,normalize(uLight)),0.0);'+
+    'float b=floor(d*4.0+0.5)/4.0;gl_FragColor=vec4(vC*(0.45+0.6*b),1.0);}'));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  var aPos=gl.getAttribLocation(prog,'aPos'), aNormal=gl.getAttribLocation(prog,'aNormal'),
+      aColor=gl.getAttribLocation(prog,'aColor'), aId=gl.getAttribLocation(prog,'aId'),
+      uMVP=gl.getUniformLocation(prog,'uMVP'), uNMat=gl.getUniformLocation(prog,'uNMat'),
+      uMode=gl.getUniformLocation(prog,'uMode'), uLight=gl.getUniformLocation(prog,'uLight');
+  function up(buf,data){ if(!buf) buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW); return buf; }
+  function attr(loc,b){ if(loc<0)return; gl.enableVertexAttribArray(loc);
+    gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.vertexAttribPointer(loc,3,gl.FLOAT,false,0,0); }
+
+  // matrices (column-major); orthographic so vertical position never foreshortens
+  function ident(){ return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]); }
+  function mul(a,b){ var o=new Float32Array(16);
+    for(var c=0;c<4;c++)for(var r=0;r<4;r++){var s=0;for(var k=0;k<4;k++)s+=a[k*4+r]*b[c*4+k];o[c*4+r]=s;} return o; }
+  function rotY(r){ var c=Math.cos(r),s=Math.sin(r),o=ident(); o[0]=c;o[2]=-s;o[8]=s;o[10]=c; return o; }
+  function nmat3(r){ var c=Math.cos(r),s=Math.sin(r); return new Float32Array([c,0,-s,0,1,0,s,0,c]); }
+  function ortho(hw,hh,nf){ var o=ident(); o[0]=1/hw;o[5]=1/hh;o[10]=-1/nf; return o; }
+
+  // state
+  var N=AXES.length;
+  var ry=0, inside=false, dragging=false, lastX=0, hovered=-1;
+  var proj=ident(), vw=1, vh=1, pickFB=null, pickTex=null, pickDepth=null;
+  var bPos=null,bNrm=null,bCol=null,bId=null,bWpos=null,bWcol=null, fillCount=0, wireCount=0, halfW=1, halfH=1;
+
+  // geometry: one lofted crystal whose kite cross-section points a tip in each axis's lean dir
+  function buildGeom(){
+    var narrow=window.matchMedia('(max-width:880px)').matches;
+    var cards=document.querySelectorAll('.col-main .axis');
+    var tops=[], bots=[], hostH;
+    if(!narrow && cards.length===N){
+      // Bound the container to the cards: top of the first card, bottom of the last, offset
+      // below the header so the shape spans exactly the sections it describes.
+      var railTop=host.parentElement.getBoundingClientRect().top;
+      var rects=[]; for(var c=0;c<N;c++) rects.push(cards[c].getBoundingClientRect());
+      var firstTop=rects[0].top, lastBot=rects[N-1].bottom;
+      hostH=lastBot-firstTop;
+      host.style.marginTop=(firstTop-railTop)+'px'; host.style.height=hostH+'px';
+      for(var c3=0;c3<N;c3++){ tops.push(rects[c3].top-firstTop); bots.push(rects[c3].bottom-firstTop); }
+    } else {
+      host.style.marginTop=''; host.style.height=''; hostH=host.clientHeight;
+      var pad=hostH*0.07, bh=(hostH-2*pad)/N;
+      for(var c2=0;c2<N;c2++){ tops.push(pad+c2*bh+bh*0.12); bots.push(pad+(c2+1)*bh-bh*0.12); }
+    }
+    var W=host.clientWidth; halfW=W/2; halfH=hostH/2;
+    // A substantial spine (coreR/sideR) is the body inside the invisible bounding cylinder; the
+    // tip reaches out up to MAXOFF past the spine at the card's center, tapering back at the edges.
+    // Fractions of the (small) rail width, so the shape fills it snugly with a little margin.
+    var MAXOFF=W*0.28, coreR=Math.max(6,W*0.13), sideR=Math.max(8,W*0.16);
+
+    function reach(i){ var a=AXES[i]; return (a.s===null||a.s===undefined)?0:Math.min(Math.abs(a.s/a.sc),1)*MAXOFF; }
+    function sgn(i){ var a=AXES[i]; return (a.s!==null&&a.s!==undefined&&a.s<0)?-1:1; }
+    function lean(i){ var a=AXES[i], has=(a.s!==null&&a.s!==undefined);
+      var f=has?Math.max(-1,Math.min(1,a.s/a.sc)):0;
+      return has?mix(FAINT, f<0?NEG:POS, 0.32+0.68*Math.min(Math.abs(f),1)):FAINT; }
+    function wy(py){ return hostH/2-py; }
+    // kite cross-section, verts E(+x),N(+z),W(-x),S(-z). A "core" ring is a small centered
+    // diamond; a "tip" ring pushes one side out to reach, making the apex point in the lean dir.
+    function core(py){ var y=wy(py); return [[coreR,y,0],[0,y,sideR],[-coreR,y,0],[0,y,-sideR]]; }
+    function tipRing(i,py){ var e=reach(i), sg=sgn(i), y=wy(py);
+      var r=(sg>0)?coreR+e:coreR, l=(sg<0)?coreR+e:coreR;
+      return [[r,y,0],[0,y,sideR],[-l,y,0],[0,y,-sideR]]; }
+
+    var pos=[],nrm=[],col=[],ids=[],wpos=[],wcol=[];
+    function triFlat(A,B,C,c,id){
+      var ux=B[0]-A[0],uy=B[1]-A[1],uz=B[2]-A[2],vx=C[0]-A[0],vy=C[1]-A[1],vz=C[2]-A[2];
+      var nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx,l=Math.sqrt(nx*nx+ny*ny+nz*nz)||1; nx/=l;ny/=l;nz/=l;
+      var cxp=(A[0]+B[0]+C[0])/3, czp=(A[2]+B[2]+C[2])/3;      // point normals outward from the spine
+      if(nx*cxp+nz*czp<0){ nx=-nx;ny=-ny;nz=-nz; }
+      var P=[A,B,C]; for(var k=0;k<3;k++){ pos.push(P[k][0],P[k][1],P[k][2]); nrm.push(nx,ny,nz);
+        col.push(c[0],c[1],c[2]); ids.push(id[0],id[1],id[2]); } }
+    function wl(a,b){ wpos.push(a[0],a[1],a[2],b[0],b[1],b[2]); wcol.push(WIRE[0],WIRE[1],WIRE[2],WIRE[0],WIRE[1],WIRE[2]); }
+    function loft(r0,r1,c,id){ for(var j=0;j<4;j++){ var j1=(j+1)%4;
+      triFlat(r0[j],r0[j1],r1[j1],c,id); triFlat(r0[j],r1[j1],r1[j],c,id);
+      wl(r0[j],r0[j1]); wl(r0[j],r1[j]); wl(r0[j],r1[j1]); } }
+    function cap(rg,c,id){ var C=[(rg[0][0]+rg[1][0]+rg[2][0]+rg[3][0])/4, rg[0][1], (rg[0][2]+rg[1][2]+rg[2][2]+rg[3][2])/4];
+      for(var j=0;j<4;j++){ var j1=(j+1)%4; triFlat(C,rg[j],rg[j1],c,id); wl(rg[j],rg[j1]); } }
+
+    var prevBot=null;
+    for(var i=0;i<N;i++){
+      var mid=(tops[i]+bots[i])/2, lc=lean(i), id=[((i+1)&255)/255,0,0];
+      var ct=core(tops[i]), mt=tipRing(i,mid), cb=core(bots[i]);
+      if(prevBot) loft(prevBot,ct,NECK,id);   // thin spine joint across the gap (neutral)
+      loft(ct,mt,lc,id); loft(mt,cb,lc,id);     // the axis's spike: out to the point, back in
+      prevBot=cb;
+    }
+    cap(core(tops[0]), NECK, [1/255,0,0]);
+    cap(core(bots[N-1]), NECK, [(N&255)/255,0,0]);
+
+    fillCount=pos.length/3; wireCount=wpos.length/3;
+    bPos=up(bPos,pos); bNrm=up(bNrm,nrm); bCol=up(bCol,col); bId=up(bId,ids); bWpos=up(bWpos,wpos); bWcol=up(bWcol,wcol);
+  }
+
+  function resize(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    buildGeom();
+    var w=Math.max(1,Math.round(host.clientWidth*dpr)), h=Math.max(1,Math.round(host.clientHeight*dpr));
+    vw=w; vh=h; canvas.width=w; canvas.height=h;
+    proj=ortho(halfW,halfH,4000);
+    if(pickFB) gl.deleteFramebuffer(pickFB);
+    if(pickTex) gl.deleteTexture(pickTex);
+    if(pickDepth) gl.deleteRenderbuffer(pickDepth);
+    pickTex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,pickTex);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+    pickDepth=gl.createRenderbuffer(); gl.bindRenderbuffer(gl.RENDERBUFFER,pickDepth);
+    gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,w,h);
+    pickFB=gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER,pickFB);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,pickTex,0);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,pickDepth);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  }
+
+  function draw(forPick){
+    gl.bindFramebuffer(gl.FRAMEBUFFER, forPick?pickFB:null);
+    gl.viewport(0,0,vw,vh);
+    gl.clearColor(0,0,0, forPick?1:0);
+    gl.enable(gl.DEPTH_TEST); gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    gl.useProgram(prog);
+    gl.uniformMatrix4fv(uMVP,false,mul(proj,rotY(ry)));
+    gl.uniformMatrix3fv(uNMat,false,nmat3(ry));
+    gl.uniform3f(uLight,0.5,0.8,0.6);
+    attr(aPos,bPos); attr(aNormal,bNrm); attr(aColor,bCol); attr(aId,bId);
+    gl.uniform1i(uMode, forPick?1:0);
+    if(!forPick){ gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1.1,1.1); }
+    gl.drawArrays(gl.TRIANGLES,0,fillCount);
+    if(!forPick){
+      gl.disable(gl.POLYGON_OFFSET_FILL);
+      if(aNormal>=0){ gl.disableVertexAttribArray(aNormal); gl.vertexAttrib3f(aNormal,0,1,0); }
+      if(aId>=0){ gl.disableVertexAttribArray(aId); gl.vertexAttrib3f(aId,0,0,0); }
+      attr(aPos,bWpos); attr(aColor,bWcol);
+      gl.uniform1i(uMode,2);
+      gl.drawArrays(gl.LINES,0,wireCount);
+    } else gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  }
+  function pick(px,py){ draw(true); var b=new Uint8Array(4);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,pickFB); gl.readPixels(px,vh-py,1,1,gl.RGBA,gl.UNSIGNED_BYTE,b);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null); var id=b[0]; return (id>=1&&id<=N)?id-1:-1; }
+
+  function fmt(s){ return (s>=0?'+':'')+s.toFixed(1); }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function showTip(i,cx,cy){ var a=AXES[i], head, cls='';
+    // Header says which pole it leans toward and by how much, as one phrase, not both names.
+    if(a.s===null||a.s===undefined) head='No reading';
+    else if(a.s===0) head='Leans neither way';
+    else if(a.s>0){ head='Leans '+a.p+' '+fmt(a.s); cls=' pos'; }
+    else { head='Leans '+a.n+' '+fmt(a.s); cls=' neg'; }
+    tip.innerHTML='<b class="th'+cls+'">'+esc(head)+'</b><br><span class="tp">'+esc(a.t)+'</span>';
+    tip.style.opacity='1'; var tw=tip.offsetWidth, th=tip.offsetHeight;
+    tip.style.left=Math.max(6,Math.min(cx+14, host.clientWidth-tw-6))+'px';
+    tip.style.top=Math.max(6,Math.min(cy+14, host.clientHeight-th-6))+'px'; }
+  function hideTip(){ tip.style.opacity='0'; hovered=-1; }
+
+  function loc(e){ var r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top,w:r.width,h:r.height}; }
+  host.addEventListener('pointerenter',function(){ inside=true; });
+  host.addEventListener('pointerleave',function(){ inside=false; dragging=false; hideTip(); });
+  canvas.addEventListener('pointerdown',function(e){ dragging=true; done=true; lastX=e.clientX; hideTip();
+    try{canvas.setPointerCapture(e.pointerId);}catch(_){} });
+  canvas.addEventListener('pointerup',function(e){ dragging=false; try{canvas.releasePointerCapture(e.pointerId);}catch(_){} });
+  canvas.addEventListener('pointermove',function(e){
+    if(dragging){ ry+=(e.clientX-lastX)*0.01; lastX=e.clientX; return; }
+    var p=loc(e), i=pick(Math.round(p.x/p.w*vw), Math.round(p.y/p.h*vh));
+    if(i>=0){ hovered=i; showTip(i,p.x,p.y); } else hideTip(); });
+
+  // One 50%-faster revolution from the aligned orientation, then stop aligned so the tips line
+  // up with the card bars. Dragging cancels the intro; reduced-motion skips it and rests aligned.
+  var last=0, TAU=Math.PI*2, ALIGN=0, spun=0, done=false;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){ ry=ALIGN; done=true; }
+  function frame(ts){ if(!last) last=ts; var dt=Math.min((ts-last)/1000,0.05); last=ts;
+    if(!done&&!dragging){ var step=dt*1.5; ry+=step; spun+=step; if(spun>=TAU){ ry=ALIGN; done=true; } }
+    draw(false); requestAnimationFrame(frame); }
+  if(window.ResizeObserver){ var ro=new ResizeObserver(function(){ resize(); });
+    var m=document.querySelector('.col-main'); if(m) ro.observe(m); }
+  window.addEventListener('resize',function(){ resize(); });
+  window.addEventListener('load',function(){ resize(); });
+  resize(); draw(false); requestAnimationFrame(frame);
+})();</script>
+    </aside>
+    <div class="col-main">
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.5</span></div>
+    <div class="bar-row">
+      <span class="pole left">greenfield</span>
+      <div class="track"><div class="fill pos" style="width:27.5%"></div><div class="center"></div></div>
+      <span class="pole right">brownfield</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-0" title="show the 5 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 2/2 · judged 3/3 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-0" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Greenfield vs Brownfield</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">greenfield</dt><dd>excels starting from an idea, with no code yet</dd>
+        <dt class="pos">brownfield</dt><dd>excels working inside an existing, established codebase</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-0" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Greenfield vs Brownfield</h3>
+      <p class="modal-sub">5 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gb1</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">+0.00</td><td class="evidence">Skip the PRD. Go straight to a plan:</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>gb2</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">CODEBASE FIRST, RESEARCH SECOND. Solutions must fit existing patterns before introducing new ones.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>gb3</td><td><span class="kind">detected</span></td><td>2</td><td>223</td><td class="val">+0.80</td><td class="evidence">223 occurrences of [&#x27;legacy&#x27;, &#x27;migration&#x27;, &#x27;migrate&#x27;, &#x27;refactor&#x27;, &#x27;existing codebase&#x27;, &#x27;brownfield&#x27;] across the text corpus</td><td>engine</td></tr>
+<tr><td>gb4</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Each plan should be completable by an AI in one loop</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>gb5</td><td><span class="kind">detected</span></td><td>1</td><td>absent</td><td class="val">-0.60</td><td class="evidence">no path matched [&#x27;**/brownfield*&#x27;, &#x27;**/*existing*&#x27;, &#x27;**/*legacy*&#x27;]</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.3</span></div>
+    <div class="bar-row">
+      <span class="pole left">small scope</span>
+      <div class="track"><div class="fill pos" style="width:21.5%"></div><div class="center"></div></div>
+      <span class="pole right">large scope</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-1" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-1" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Small-scope vs Large-scope</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">small scope</dt><dd>one focused task</dd>
+        <dt class="pos">large scope</dt><dd>the whole delivery lifecycle, from idea to release</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-1" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Small-scope vs Large-scope</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sl1</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.48</td><td class="evidence">Autonomous cyclic pipeline: plan → implement → pr → review</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>sl2</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Every skill is then available across all your projects as `/prp-core:&lt;name&gt;`</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>sl3</td><td><span class="kind">detected</span></td><td>2</td><td>403</td><td class="val">+0.80</td><td class="evidence">403 occurrences of [&#x27;requirements&#x27;, &#x27;architecture&#x27;, &#x27;deployment&#x27;, &#x27;release&#x27;, &#x27;retrospective&#x27;, &#x27;epic&#x27;, &#x27;milestone&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
+    <div class="bar-row">
+      <span class="pole left">prototype</span>
+      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
+      <span class="pole right">production</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-2" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Prototype vs Production</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">prototype</dt><dd>fast, throwaway output to prove an idea</dd>
+        <dt class="pos">production</dt><dd>hardened output with tests, CI, security, and maintainability in mind</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-2" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Prototype vs Production</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pp1</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.20</td><td class="evidence">SECURITY: Attack vectors? Data exposure risks? Auth/authz?</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>pp2</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">The minimum viable packet an AI needs to ship production-ready code on the first pass.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>pp3</td><td><span class="kind">detected</span></td><td>2</td><td>421</td><td class="val">+0.80</td><td class="evidence">421 occurrences of [&#x27;production&#x27;, &#x27;deploy&#x27;, &#x27;ci&#x27;, &#x27;security&#x27;, &#x27;observability&#x27;, &#x27;rollback&#x27;, &#x27;monitoring&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.0</span></div>
+    <div class="bar-row">
+      <span class="pole left">solo</span>
+      <div class="track"><div class="fill pos" style="width:10%"></div><div class="center"></div></div>
+      <span class="pole right">team</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 4 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 2/2 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-3" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Solo vs Team</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">solo</dt><dd>built for one developer working alone</dd>
+        <dt class="pos">team</dt><dd>built for many contributors, with team-safe collaboration and handoffs</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-3" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Solo vs Team</h3>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>st1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.20</td><td class="evidence">Map dependencies and conflict risk: predict the files each workstream touches.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>st2</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.30</td><td class="evidence">Do not launch until the user approves.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>st3</td><td><span class="kind">detected</span></td><td>2</td><td>283</td><td class="val">+0.80</td><td class="evidence">283 occurrences of [&#x27;team&#x27;, &#x27;assign&#x27;, &#x27;reviewer&#x27;, &#x27;pull request&#x27;, &#x27;collaborate&#x27;, &#x27;stakeholder&#x27;, &#x27;handoff&#x27;] across the text corpus</td><td>engine</td></tr>
+<tr><td>st4</td><td><span class="kind">detected</span></td><td>2</td><td>0</td><td class="val">-0.50</td><td class="evidence">0 files matched [&#x27;**/.github/workflows/**&#x27;, &#x27;**/CODEOWNERS&#x27;, &#x27;**/.github/CODEOWNERS&#x27;, &#x27;**/PULL_REQUEST_TEMPLATE*&#x27;, &#x27;**/.github/PULL_REQUEST_TEMPLATE*&#x27;]</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Generalist <em>vs</em> Specialist</span><button type="button" class="info" data-dialog="poles-4" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+8.0</span></div>
+    <div class="bar-row">
+      <span class="pole left">generalist</span>
+      <div class="track"><div class="fill pos" style="width:40%"></div><div class="center"></div></div>
+      <span class="pole right">specialist</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-4" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-4" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Generalist vs Specialist</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">generalist</dt><dd>works across any domain, from writing to business to code</dd>
+        <dt class="pos">specialist</dt><dd>built specifically for software delivery</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-4" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Generalist vs Specialist</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gs1</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+0.80</td><td class="evidence">A collection of prompts for AI-assisted development with Claude Code.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>gs2</td><td><span class="kind">judged</span></td><td>1</td><td>no</td><td class="val">+0.80</td><td class="evidence">an agentic-engineering workflow packaged as Claude Code</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>gs3</td><td><span class="kind">detected</span></td><td>2</td><td>764</td><td class="val">+0.80</td><td class="evidence">764 occurrences of [&#x27;compile&#x27;, &#x27;deploy&#x27;, &#x27;unit test&#x27;, &#x27;pull request&#x27;, &#x27;refactor&#x27;, &#x27;api&#x27;, &#x27;repository&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.2</span></div>
+    <div class="bar-row">
+      <span class="pole left">fresh</span>
+      <div class="track"><div class="fill neg" style="width:6%"></div><div class="center"></div></div>
+      <span class="pole right">mature</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-5" title="show the 6 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 5/5 · judged 1/1 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-5" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Fresh vs Mature</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">fresh</dt><dd>new and moving fast, the newest ideas on a thin track record</dd>
+        <dt class="pos">mature</dt><dd>established and battle tested, stable but slower to change</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-5" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Fresh vs Mature</h3>
+      <p class="modal-sub">6 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>fm1</td><td><span class="kind">detected</span></td><td>2</td><td>0.0</td><td class="val">-0.80</td><td class="evidence">git age_days = 0.0</td><td>engine</td></tr>
+<tr><td>fm2</td><td><span class="kind">detected</span></td><td>2</td><td>1</td><td class="val">-0.80</td><td class="evidence">git commit_count = 1</td><td>engine</td></tr>
+<tr><td>fm3</td><td><span class="kind">detected</span></td><td>1</td><td>1</td><td class="val">-0.80</td><td class="evidence">git contributor_count = 1</td><td>engine</td></tr>
+<tr><td>fm4</td><td><span class="kind">detected</span></td><td>1</td><td>0</td><td class="val">-0.80</td><td class="evidence">git tag_count = 0</td><td>engine</td></tr>
+<tr><td>fm5</td><td><span class="kind">detected</span></td><td>2</td><td>2225</td><td class="val">+0.80</td><td class="evidence">stars = 2225 for Wirasm/PRPs-agentic-eng via GitHub API</td><td>engine</td></tr>
+<tr><td>fm6</td><td><span class="kind">judged</span></td><td>2</td><td>stable</td><td class="val">+1.00</td><td class="evidence">I keep this surface small and stable on purpose.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-0.6</span></div>
+    <div class="bar-row">
+      <span class="pole left">interrogative</span>
+      <div class="track"><div class="fill neg" style="width:3%"></div><div class="center"></div></div>
+      <span class="pole right">opinionated</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-6" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Interrogative vs Opinionated</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">interrogative</dt><dd>asks questions and defers the decisions to you</dd>
+        <dt class="pos">opinionated</dt><dd>prescribes a strong default path and drives it</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-6" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Interrogative vs Opinionated</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>io1</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Asks clarifying questions before assuming</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>io2</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.30</td><td class="evidence">Medium Features: Direct to Plan</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>io3</td><td><span class="kind">detected</span></td><td>2</td><td>1351</td><td class="val">+0.80</td><td class="evidence">1351 occurrences of [&#x27;must&#x27;, &#x27;always&#x27;, &#x27;never&#x27;, &#x27;required&#x27;, &#x27;enforce&#x27;, &#x27;mandatory&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+1.8</span></div>
+    <div class="bar-row">
+      <span class="pole left">human in loop</span>
+      <div class="track"><div class="fill pos" style="width:9%"></div><div class="center"></div></div>
+      <span class="pole right">autonomous</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-7" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">human in loop</dt><dd>pauses for your approval at checkpoints along the way</dd>
+        <dt class="pos">autonomous</dt><dd>runs end to end on its own, with little intervention</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-7" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ah1</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Fully autonomous (`--dangerously-skip-permissions`).</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>ah2</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Wait for user response before proceeding.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>ah3</td><td><span class="kind">detected</span></td><td>2</td><td>842</td><td class="val">-0.80</td><td class="evidence">842 occurrences of [&#x27;approve&#x27;, &#x27;confirm&#x27;, &#x27;review&#x27;, &#x27;checkpoint&#x27;, &#x27;wait for&#x27;, &#x27;your approval&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+8.0</span></div>
+    <div class="bar-row">
+      <span class="pole left">spec light</span>
+      <div class="track"><div class="fill pos" style="width:40%"></div><div class="center"></div></div>
+      <span class="pole right">spec driven</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-8" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Spec-light vs Spec-driven</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">spec light</dt><dd>jumps straight to implementation, little written up front</dd>
+        <dt class="pos">spec driven</dt><dd>writes and follows a spec or plan before coding</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-8" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Spec-light vs Spec-driven</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sd1</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+0.80</td><td class="evidence">Create a plan first: /prp-plan</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>sd2</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+0.80</td><td class="evidence">All artifacts are stored in `.claude/PRPs/`:</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>sd3</td><td><span class="kind">detected</span></td><td>2</td><td>1532</td><td class="val">+0.80</td><td class="evidence">1532 occurrences of [&#x27;prd&#x27;, &#x27;specification&#x27;, &#x27;requirements&#x27;, &#x27;acceptance criteria&#x27;, &#x27;design doc&#x27;, &#x27;plan&#x27;, &#x27;spec&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.8</span></div>
+    <div class="bar-row">
+      <span class="pole left">test optional</span>
+      <div class="track"><div class="fill neg" style="width:9%"></div><div class="center"></div></div>
+      <span class="pole right">test first</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-9" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-9" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Test-optional vs Test-first</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">test optional</dt><dd>testing is incidental, left to your judgment</dd>
+        <dt class="pos">test first</dt><dd>test-first discipline (TDD) is built in and enforced</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-9" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Test-optional vs Test-first</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tf1</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Validation loops catch mistakes early. Run checks after every change.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>tf2</td><td><span class="kind">judged</span></td><td>1</td><td>present</td><td class="val">+0.30</td><td class="evidence">You MUST write or update tests for new code.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>tf3</td><td><span class="kind">detected</span></td><td>2</td><td>237</td><td class="val">+0.80</td><td class="evidence">237 occurrences of [&#x27;tdd&#x27;, &#x27;red-green&#x27;, &#x27;test-first&#x27;, &#x27;failing test&#x27;, &#x27;coverage&#x27;, &#x27;unit test&#x27;, &#x27;test-driven&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+8.7</span></div>
+    <div class="bar-row">
+      <span class="pole left">single agent</span>
+      <div class="track"><div class="fill pos" style="width:43.5%"></div><div class="center"></div></div>
+      <span class="pole right">multi agent</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 2/2 · judged 1/1 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-10" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Single-agent vs Multi-agent</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">single agent</dt><dd>one agent in one conversation does the work</dd>
+        <dt class="pos">multi agent</dt><dd>many specialized subagents or personas work together</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-10" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Single-agent vs Multi-agent</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ma1</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">multi-agent specialist fan-out (comments, tests, errors, types, code, docs, simplify)</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>ma2</td><td><span class="kind">detected</span></td><td>2</td><td>130</td><td class="val">+0.80</td><td class="evidence">130 occurrences of [&#x27;subagent&#x27;, &#x27;persona&#x27;, &#x27;orchestrate&#x27;, &#x27;delegate&#x27;, &#x27;specialist agent&#x27;, &#x27;sub-agent&#x27;] across the text corpus</td><td>engine</td></tr>
+<tr><td>ma3</td><td><span class="kind">detected</span></td><td>1</td><td>present</td><td class="val">+0.60</td><td class="evidence">matched [&#x27;.agents/skills/prp-plan/references/agent-prompts.md&#x27;, &#x27;.agents/skills/prp-review/workflows/agents.md&#x27;, &#x27;.claude/agents/code-reviewer.md&#x27;, &#x27;.claude/agents/code-simplifier.md&#x27;, &#x27;.claude/agents/codebase-analyst.md&#x27;]</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prescriptive <em>vs</em> Composable</span><button type="button" class="info" data-dialog="poles-11" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.3</span></div>
+    <div class="bar-row">
+      <span class="pole left">prescriptive</span>
+      <div class="track"><div class="fill pos" style="width:11.5%"></div><div class="center"></div></div>
+      <span class="pole right">composable</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-11" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-11" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Prescriptive vs Composable</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">prescriptive</dt><dd>a fixed pipeline you follow in order</dd>
+        <dt class="pos">composable</dt><dd>modular parts you pick and combine as you need them</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-11" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Prescriptive vs Composable</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pc1</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Compose skills by name only.</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>pc2</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">ONLY AFTER Phase 2 is complete</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>pc3</td><td><span class="kind">detected</span></td><td>2</td><td>109</td><td class="val">+0.80</td><td class="evidence">109 files matched [&#x27;**/skills/**&#x27;, &#x27;**/modules/**&#x27;, &#x27;**/commands/**&#x27;]</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+  <section class="axis">
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+0.3</span></div>
+    <div class="bar-row">
+      <span class="pole left">lightweight</span>
+      <div class="track"><div class="fill pos" style="width:1.5%"></div><div class="center"></div></div>
+      <span class="pole right">heavyweight</span>
+    </div>
+    <button type="button" class="cov" data-dialog="signals-12" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-more">signals &rsaquo;</span>
+    </button>
+    <dialog id="poles-12" class="modal">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Lightweight vs Heavyweight</h3>
+      <p class="modal-sub">what the poles mean</p>
+      <dl class="poles">
+        <dt class="neg">lightweight</dt><dd>small footprint, few concepts, little to learn before you start</dd>
+        <dt class="pos">heavyweight</dt><dd>many concepts, roles, and steps to take on</dd>
+        <dt class="mid">near 0</dt><dd class="mid">leans neither way, which can mean it serves both ends well, or neither. The signals below tell you which.</dd>
+      </dl>
+    </dialog>
+    <dialog id="signals-12" class="modal modal-wide">
+      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
+      <h3 class="modal-title">Lightweight vs Heavyweight</h3>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lw1</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.20</td><td class="evidence">PRD + curated codebase intelligence + agent/runbook</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>lw2</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">cp -r /path/to/PRPs-agentic-eng/.claude/skills/prp-plan .claude/skills/</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>lw3</td><td><span class="kind">detected</span></td><td>2</td><td>1432</td><td class="val">+0.80</td><td class="evidence">1432 occurrences of [&#x27;phase&#x27;, &#x27;gate&#x27;, &#x27;ceremony&#x27;, &#x27;role&#x27;, &#x27;artifact&#x27;, &#x27;template&#x27;, &#x27;workflow&#x27;, &#x27;epic&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+    </dialog>
+  </section>
+    </div>
+  </div>
+</div>
+<script>(function(){document.addEventListener('click',function(e){var o=e.target.closest('[data-dialog]');if(o){var d=document.getElementById(o.getAttribute('data-dialog'));if(d&&d.showModal&&!d.open)d.showModal();return;}if(e.target.tagName==='DIALOG')e.target.close();});})();</script>
+</body>
+</html>
+
