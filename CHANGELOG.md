@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.6.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.5.0...v0.6.0) (2026-07-23)
+
+
+### Features
+
+* explorer/report polish, CI gate, and rubric v2 calibration plan + harness ([c0ba96c](https://github.com/AdamCaviness/agentic-atlas/commit/c0ba96c40b949da55166d44d2afee1191f25d0ef))
+* **report:** link every profile page home to the Explorer via the brand mark ([94153cd](https://github.com/AdamCaviness/agentic-atlas/commit/94153cdecece82ba67260e658375d930ebd1c9b7))
+* **site:** make the explorer card title the profile link; add open-explorer and explain skills ([84ef09c](https://github.com/AdamCaviness/agentic-atlas/commit/84ef09c77043ce1ac9bc6bbc3797a1dee8a3e4f0))
+
 ## [0.5.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.4.0...v0.5.0) (2026-07-23)
 
 
