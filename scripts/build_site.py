@@ -31,7 +31,8 @@ header.top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bott
 header.top h1{font-size:1.15rem;margin:0}
 header.top .tag{color:var(--muted);font-size:.85rem}
 header.top .spacer{flex:1}
-header.top a.repo{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;color:var(--muted);border:1px solid var(--line);border-radius:50%}
+header.top a.repo{display:inline-flex;align-items:center;gap:5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+header.top a.repo .ext{opacity:.75}
 header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .hero{margin:0 0 22px}
 .hero .lead{font-size:1.08rem;margin:0 0 8px}
@@ -213,7 +214,7 @@ function renderPlot(){
     const pts=axs.map((a,i)=>{const v=axScore(p,a.id);return (v&&v.score!==null)?`${xF(i)},${yF(v.score).toFixed(1)}`:null;}).filter(Boolean);
     if(!pts.length)return;
     const r=f.aligned/f.total,op=(0.1+0.55*r).toFixed(2),col=r>=1?"var(--accent)":"var(--muted)";
-    s+=`<polyline class="tline" data-slug='${p.slug}' points='${pts.join(' ')}' fill='none' stroke='${col}' stroke-width='1.5' opacity='${op}'><title>${esc(p.name)} — leans your way on ${f.aligned}/${f.total}</title></polyline>`;});
+    s+=`<polyline class="tline" data-slug='${p.slug}' points='${pts.join(' ')}' fill='none' stroke='${col}' stroke-width='1.5' opacity='${op}'><title>${esc(p.name)}, leans your way on ${f.aligned}/${f.total}</title></polyline>`;});
   const ypts=axs.map((a,i)=>`${xF(i)},${yF(prefs[a.id].value).toFixed(1)}`).join(' ');
   s+=`<polyline points='${ypts}' fill='none' stroke='var(--accent)' stroke-width='3'/>`;
   axs.forEach((a,i)=>{s+=`<circle cx='${xF(i)}' cy='${yF(prefs[a.id].value).toFixed(1)}' r='4' fill='var(--accent)'/>`;});
@@ -249,8 +250,8 @@ function renderTray(){const t=$("#tray");if(!compare.length){t.innerHTML='<span 
   t.innerHTML=compare.map(s=>`<span class="chip"><b>${esc(DATA.find(d=>d.slug===s).name)}</b> <a href="#" onclick="toggleCompare('${s}');return false">×</a></span>`).join("")+
     (compare.length>=2?` <a class="act" href="#" onclick="showCompare();return false">Compare →</a>`:"");}
 function showCompare(){
-  const rows=AXES.map(a=>{const cells=compare.map(s=>{const v=axScore(DATA.find(d=>d.slug===s),a.id);return v&&v.score!==null?`${DATA.find(d=>d.slug===s).name}: ${v.score>0?'+':''}${v.score.toFixed(1)}`:`${DATA.find(d=>d.slug===s).name}: —`;}).join(" | ");
-    return `${a.title} — ${cells}`;}).join("\n");
+  const rows=AXES.map(a=>{const cells=compare.map(s=>{const v=axScore(DATA.find(d=>d.slug===s),a.id);return v&&v.score!==null?`${DATA.find(d=>d.slug===s).name}: ${v.score>0?'+':''}${v.score.toFixed(1)}`:`${DATA.find(d=>d.slug===s).name}: n/a`;}).join(" | ");
+    return `${a.title}: ${cells}`;}).join("\n");
   alert("Side-by-side (rubric order, no total by design):\n\n"+rows);
 }
 
@@ -272,6 +273,14 @@ GH_MARK = (
     " 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07"
     "-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013"
     " 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg>"
+)
+
+
+EXT_MARK = (
+    "<svg class='ext' viewBox='0 0 24 24' width='12' height='12' fill='none' stroke='currentColor'"
+    " stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'>"
+    "<path d='M14 4h6v6'/><path d='M20 4l-8.5 8.5'/>"
+    "<path d='M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5'/></svg>"
 )
 
 
@@ -304,8 +313,8 @@ def build():
             shutil.copy(src, os.path.join(OUT, "profiles", p["slug"] + ".html"))
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agentic Atlas — find your fit</title><style>{CSS}</style></head><body><div class="wrap">
-<header class="top"><div class="brand"><svg class="mark" viewBox="0 0 30 31" aria-hidden="true"><polygon points="15,1 4,11 15,11" fill="var(--neg)"/><polygon points="15,1 26,11 15,11" fill="var(--pos)"/><polygon points="4,11 15,11 15,30" fill="var(--neg)" opacity=".8"/><polygon points="26,11 15,11 15,30" fill="var(--pos)" opacity=".8"/><polygon points="15,1 4,11 15,30 26,11" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".55"/></svg><span class="word">Agentic Atlas</span></div><span class="spacer"></span><a class="repo" href="https://github.com/AdamCaviness/agentic-atlas" target="_blank" rel="noopener" aria-label="Open agentic-atlas on GitHub (opens in a new tab)" title="Open agentic-atlas on GitHub (new tab)">{GH_MARK}</a></header>
+<title>Agentic Atlas, find your fit</title><style>{CSS}</style></head><body><div class="wrap">
+<header class="top"><div class="brand"><svg class="mark" viewBox="0 0 30 31" aria-hidden="true"><polygon points="15,1 4,11 15,11" fill="var(--neg)"/><polygon points="15,1 26,11 15,11" fill="var(--pos)"/><polygon points="4,11 15,11 15,30" fill="var(--neg)" opacity=".8"/><polygon points="26,11 15,11 15,30" fill="var(--pos)" opacity=".8"/><polygon points="15,1 4,11 15,30 26,11" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".55"/></svg><span class="word">Agentic Atlas</span></div><span class="spacer"></span><a class="repo" href="https://github.com/AdamCaviness/agentic-atlas" target="_blank" rel="noopener" aria-label="Open agentic-atlas on GitHub (opens in a new tab)" title="Open agentic-atlas on GitHub">{GH_MARK}{EXT_MARK}</a></header>
 <section class="hero">
 <p class="lead">Profile agentic development approaches, frameworks, and skill collections on shared axes, and see if one fits you and your projects.</p>
 <p class="sub2">A deterministic engine over an open, versioned, community-driven rubric. Hosted profiles of popular tools, run it yourself and help improve it.</p>
@@ -318,7 +327,7 @@ def build():
   <div id="gallery" class="gallery"></div>
   <div id="tray" class="tray"></div></main>
 </div>
-<p class="note" style="margin-top:26px">Draft profiles for local design review — evidence is engine-validated but not yet human-vouched. No aggregate score anywhere: fit is per-axis only.</p>
+<p class="note" style="margin-top:26px">Draft profiles for local design review, evidence is engine-validated but not yet human-vouched. No aggregate score anywhere: fit is per-axis only.</p>
 </div>
 <script>const DATA={json.dumps(data)};</script><script>{JS}</script></body></html>"""
     out_index = os.path.join(OUT, "index.html")
