@@ -16,7 +16,7 @@ TARGET  ?=
 ANSWERS ?=
 FORMAT  ?= text
 
-.PHONY: help setup install test check lint fmt format validate docs docs-check profile clean
+.PHONY: help setup install test check lint fmt format validate docs docs-check profiles profiles-check profile clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -45,7 +45,7 @@ fmt: setup ## Format the code with ruff
 
 format: fmt ## Alias for fmt
 
-check: lint docs-check test ## Lint, check docs sync, then test (the CI gate)
+check: lint docs-check profiles-check test ## Lint, check docs + corpus sync, then test (the CI gate)
 
 validate: setup ## Validate the rubric against the schema (RUBRIC=...)
 	$(ATLAS) validate $(RUBRIC)
@@ -55,6 +55,12 @@ docs: setup ## Regenerate axis README scoring blocks from axis.yaml
 
 docs-check: setup ## Fail if any axis README scoring block is stale
 	$(ATLAS) docs $(RUBRIC) --check
+
+profiles: setup ## Regenerate the committed profile HTML from profile JSON
+	$(PY) scripts/check_corpus.py --write
+
+profiles-check: setup ## Fail if any committed profile HTML is stale vs its JSON
+	$(PY) scripts/check_corpus.py
 
 profile: setup ## Profile a target: make profile TARGET=/path [ANSWERS=answers.json FORMAT=md]
 	@test -n "$(TARGET)" || { \

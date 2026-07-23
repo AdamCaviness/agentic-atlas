@@ -43,6 +43,12 @@ Each axis README's scoring block is generated from its `axis.yaml` by `agentic-a
 (`make docs`). Never hand-edit the block between the generated markers, edit the
 `axis.yaml` and regenerate. `make docs-check` (part of `make check`) fails on drift.
 
+The committed profile corpus under `profiles/` is generated the same way: each `<slug>.html`
+is `render_html` of its `<slug>.json`. After any change to `report.py` that affects the HTML,
+run `make profiles` to regenerate the corpus (it re-renders from the JSON, no target repos
+needed). `make profiles-check` (part of `make check`) fails on drift, and the hosted site
+deploy is gated on `make check` passing, so a stale corpus cannot ship.
+
 ## Conventions
 
 - Python 3.11+. Keep the deterministic core (`models.py`, `spec.py`, `scoring.py`) dependency-light and fully tested.

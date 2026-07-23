@@ -3,6 +3,7 @@
     agentic-atlas validate <rubric>
     agentic-atlas profile <target> [--rubric DIR] [--answers FILE] [--format text|md|json|html]
     agentic-atlas questions <target> [--rubric DIR]
+    agentic-atlas render <profile.json> [--format text|md|json|html]
 
 The engine is deterministic and needs no API key. A bare ``profile`` run resolves the
 measured indicators only. The classified indicators are unlocked by supplying answers
@@ -22,6 +23,7 @@ from pathlib import Path
 from . import docs
 from .classify import classified_questions
 from .evidence import Target
+from .models import Profile
 from .profiler import profile_target
 from .report import render_html, render_markdown, render_text
 from .spec import load_rubric
@@ -83,23 +85,41 @@ def _load_answers(path: str) -> tuple[dict, str]:
     return answers, str(data.get("source") or "supplied")
 
 
-def _cmd_profile(args: argparse.Namespace) -> int:
-    rubric = load_rubric(args.rubric, validate=True)
-    target = Target.from_path(args.target)
-    answers, source = _load_answers(args.answers) if args.answers else (None, "supplied")
-    profile = profile_target(rubric, target, answers=answers, answers_source=source)
-
-    if args.format == "json":
+def _emit(profile: Profile, fmt: str) -> None:
+    """Print a profile in the requested format. Shared by `profile` and `render` so the two
+    commands stay byte-for-byte consistent."""
+    if fmt == "json":
         print(json.dumps(profile.to_dict(), indent=2))
-    elif args.format == "md":
+    elif fmt == "md":
         print(render_markdown(profile))
-    elif args.format == "html":
+    elif fmt == "html":
         print(render_html(profile))
     else:
         # Color only for an interactive terminal, and never when NO_COLOR is set
         # (https://no-color.org). Piped or redirected output stays plain ASCII.
         color = sys.stdout.isatty() and not os.environ.get("NO_COLOR")
         print(render_text(profile, color=color))
+
+
+def _cmd_profile(args: argparse.Namespace) -> int:
+    rubric = load_rubric(args.rubric, validate=True)
+    target = Target.from_path(args.target)
+    answers, source = _load_answers(args.answers) if args.answers else (None, "supplied")
+    profile = profile_target(rubric, target, answers=answers, answers_source=source)
+    _emit(profile, args.format)
+    return 0
+
+
+def _cmd_render(args: argparse.Namespace) -> int:
+    """Re-render a saved profile JSON (from `profile --format json`) without re-running the
+    engine or having the target on hand. Deterministic: byte-identical to the original render
+    for the same JSON, which is what makes the committed corpus checkable for drift."""
+    try:
+        raw = sys.stdin.read() if args.profile == "-" else Path(args.profile).read_text()
+        data = json.loads(raw)
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"cannot read profile file {args.profile!r}: {exc}")
+    _emit(Profile.from_dict(data), args.format)
     return 0
 
 
@@ -134,6 +154,15 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("target", help="path to the target approach/framework directory")
     q.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
     q.set_defaults(func=_cmd_questions)
+
+    rn = sub.add_parser(
+        "render", help="re-render a saved profile JSON without re-running the engine"
+    )
+    rn.add_argument(
+        "profile", help="path to a profile JSON (from `profile --format json`), or '-' for stdin"
+    )
+    rn.add_argument("--format", choices=["text", "md", "json", "html"], default="html")
+    rn.set_defaults(func=_cmd_render)
 
     return p
 

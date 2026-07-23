@@ -8,7 +8,11 @@ opens from file:// and serves statically. Visual language is inherited from the
 report's tokens; all user-facing copy uses plain words (see the plain-language rule).
 """
 from __future__ import annotations
-import json, glob, os, shutil, html
+
+import glob
+import json
+import os
+import shutil
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROFILES = os.path.join(REPO, "profiles")
@@ -87,7 +91,12 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .matches .msum{font-size:.72rem;color:var(--muted);margin:1px 0 8px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 .pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
-.pcard .nm{font-weight:650;font-size:.98rem;line-height:1.2}
+/* The card title IS the link to the profile (no separate "open profile" control). Same
+   button feel as the profile page's home mark: no underline, a subtle lift on hover. On the
+   card's own --card surface the hover tint steps to --track so it stays visible. */
+.pcard .nm{display:inline-flex;align-items:center;max-width:100%;font-weight:650;font-size:.98rem;line-height:1.2;color:inherit;text-decoration:none;cursor:pointer;margin:-5px -8px 1px;padding:5px 8px;border-radius:9px;transition:background .12s ease,box-shadow .12s ease,color .12s ease}
+.pcard .nm:hover{background:var(--track);box-shadow:0 1px 4px rgba(0,0,0,.10);color:var(--accent)}
+.pcard .nm:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .pcard .cov2{font-size:.68rem;color:var(--muted);font-family:var(--mono);margin-top:1px}
 .sig{margin:10px 0 0}
 .sig .row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin:5px 0;font-size:.8rem}
@@ -151,12 +160,11 @@ function renderCards(){
     const sig = sigAxes(p);
     const rows = sig.map(a=>`<div class="row"><span class="word">${esc(poleWord(a))}</span><span class="sc ${a.score<0?'neg':'pos'}">${a.score>0?'+':''}${a.score.toFixed(1)}</span>${bar(a.score,a.scale)}</div>`).join("");
     const el = document.createElement("div"); el.className="pcard";
-    el.innerHTML = `<div class="nm">${esc(p.name)}</div>
+    el.innerHTML = `<a class="nm" href="profiles/${p.slug}.html" title="Open the ${esc(p.name)} profile">${esc(p.name)}</a>
       <div class="cov2">${covPct(p)}% evidence</div>
       <div class="sig">${rows||'<div class="note">partial profile</div>'}</div>
       <div class="fitline" data-fit="${p.slug}"></div>
-      <div class="acts"><a class="act" href="profiles/${p.slug}.html">open profile</a>
-      <button class="act cmpbtn" data-slug="${p.slug}" onclick="toggleCompare('${p.slug}')">+ compare</button></div>`;
+      <div class="acts"><button class="act cmpbtn" data-slug="${p.slug}" onclick="toggleCompare('${p.slug}')">+ compare</button></div>`;
     g.appendChild(el);
   });
   renderFitLines();
@@ -311,12 +319,14 @@ def build():
         try:
             p = json.load(open(f))
         except Exception as e:
-            print(f"skip {slug}: {e}"); continue
+            print(f"skip {slug}: {e}")
+            continue
         p["slug"] = slug
         p["name"] = _display_name(p.get("target", ""))
         data.append(p)
     if not data:
-        print("no profiles found in", PROFILES); return 1
+        print("no profiles found in", PROFILES)
+        return 1
     os.makedirs(os.path.join(OUT, "profiles"), exist_ok=True)
     for p in data:
         src = os.path.join(PROFILES, p["slug"] + ".html")

@@ -318,3 +318,49 @@ def test_text_neutral_score_has_no_forced_sign():
     out = render_text(_profile([ax]))
     assert "0.0" in out
     assert "+0.0" not in out
+
+
+def test_html_brand_links_home_as_a_button_not_a_plain_link():
+    # The mark + wordmark are a home link back to the hosted Atlas, styled as a button
+    # (no underline), with a tooltip. "Profile" stays a plain label outside the link.
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    out = render_html(_profile([ax]))
+    assert 'class="home" href="https://adamcaviness.github.io/agentic-atlas/"' in out
+    assert 'title="Back to the Explorer"' in out
+    assert '<span class="word">Agentic Atlas</span></a>' in out  # wordmark is inside the link
+    assert '</a><span class="ptitle">Profile</span>' in out  # "Profile" is outside it
+    assert ".brand .home{" in out  # the button styling ships
+    assert "text-decoration:none" in out  # not underlined like a text link
+
+
+def test_profile_round_trips_through_dict():
+    # from_dict is the exact inverse of to_dict, so a saved profile JSON re-renders without
+    # re-running the engine or having the target repo on hand.
+    classified = IndicatorResult(
+        indicator_id="c1",
+        kind=IndicatorKind.CLASSIFIED,
+        weight=2.0,
+        value=-0.5,
+        resolved=True,
+        answer="somewhat",
+        evidence="a verbatim quote",
+        source="supplied",
+    )
+    ax = _axis(
+        "Round vs Trip",
+        score=-3.0,
+        coverage=0.75,
+        indicators=[_ind(IndicatorKind.MEASURED, True), classified],
+        explain=Explain(negative="one end", positive="other end"),
+    )
+    profile = Profile(
+        target="/t",
+        rubric_version="1.2.0",
+        engine_version="0.2.0",
+        target_sha="abc123",
+        target_url="https://github.com/o/r",
+        axes=(ax,),
+    )
+    assert Profile.from_dict(profile.to_dict()) == profile
+    # and the reconstruction renders byte-identically to the original
+    assert render_html(Profile.from_dict(profile.to_dict())) == render_html(profile)

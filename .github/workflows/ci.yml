@@ -1,0 +1,47 @@
+# The project's CI gate, the same checks as `make check`, run on every pull request and on
+# pushes to main, across every supported Python version.
+#
+# The steps mirror the Makefile's `check` target (lint, docs sync, corpus sync, tests) but
+# install straight into the runner's interpreter rather than a local venv. The matrix pins the
+# floor and the ceiling of the `requires-python = ">=3.11"` claim in pyproject.toml, which was
+# otherwise unverified.
+#
+# The GitHub Pages deploy (static.yml) is gated on this workflow: it triggers via
+# `workflow_run` only after CI completes successfully on main, so a red build never ships to
+# the hosted Explorer.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install (editable, with dev deps)
+        run: pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check .
+      - name: Axis README scoring blocks in sync
+        run: agentic-atlas docs rubric/v1 --check
+      - name: Committed profile corpus in sync
+        run: python scripts/check_corpus.py
+      - name: Tests
+        run: pytest -q
