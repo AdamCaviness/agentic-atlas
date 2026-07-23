@@ -7,6 +7,7 @@ profiles/<slug>.html in as the per-profile detail page. Deterministic, no networ
 opens from file:// and serves statically. Visual language is inherited from the
 report's tokens; all user-facing copy uses plain words (see the plain-language rule).
 """
+
 from __future__ import annotations
 
 import glob
@@ -354,6 +355,7 @@ def build():
     print(f"built {out_index} with {len(data)} profiles")
     print("profiles:", ", ".join(p["slug"] for p in data))
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(build())

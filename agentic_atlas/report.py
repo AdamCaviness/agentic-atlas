@@ -244,6 +244,7 @@ def _display_name(target: str) -> str:
         name = name[:-4]
     return name or target
 
+
 # Inlined so the page is self-contained: no external fonts, stylesheets, or scripts, so it
 # renders identically from a file:// path in any harness. Two non-judgmental pole hues mirror
 # the terminal renderer (neither pole is "good"); coverage keeps a separate green/amber/red
@@ -451,9 +452,7 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
     poles_info = ""
     dialogs = []
     if ax.explain.negative or ax.explain.positive:
-        poles_info = (
-            f'<button type="button" class="info" data-dialog="poles-{idx}" aria-label="what the poles mean" title="what the poles mean">i</button>'
-        )
+        poles_info = f'<button type="button" class="info" data-dialog="poles-{idx}" aria-label="what the poles mean" title="what the poles mean">i</button>'
         dialogs.append(
             f'    <dialog id="poles-{idx}" class="modal">\n'
             '      <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>\n'
@@ -818,7 +817,7 @@ def _project_html(url: str | None, name: str) -> str:
             f'<div class="project"><a href="{_html_escape(href)}" target="_blank" rel="noopener" '
             f'title="Open {_html_escape(owner)}/{_html_escape(repo)} on GitHub" '
             f'aria-label="Open {_html_escape(owner)}/{_html_escape(repo)} on GitHub, opens in a new tab">'
-            f'{_GH_MARK}<span>{_html_escape(owner)}/{_html_escape(repo)}</span></a></div>'
+            f"{_GH_MARK}<span>{_html_escape(owner)}/{_html_escape(repo)}</span></a></div>"
         )
     if url:
         clean = url[:-4] if url.endswith(".git") else url
@@ -827,7 +826,7 @@ def _project_html(url: str | None, name: str) -> str:
             return (
                 f'<div class="project"><a href="{_html_escape(clean)}" target="_blank" rel="noopener" '
                 f'aria-label="Open {_html_escape(label)}, opens in a new tab">'
-                f'{_html_escape(label)}</a></div>'
+                f"{_html_escape(label)}</a></div>"
             )
     return f'<div class="project"><span class="pname">{_html_escape(name)}</span></div>'
 
