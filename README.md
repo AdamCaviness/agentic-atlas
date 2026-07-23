@@ -1,4 +1,4 @@
-# Agentic Atlas
+<p align="center"><img src="docs/logo.svg" alt="Agentic Atlas" width="380"></p>
 
 An open methodology with tools for finding the ideal agentic workflow for you and your projects.
 

@@ -39,5 +39,6 @@ def profile_target(
         rubric_version=rubric.rubric_version,
         engine_version=__version__,
         target_sha=target.git_sha(),
+        target_url=target.git_origin(),
         axis_results=axis_results,
     )

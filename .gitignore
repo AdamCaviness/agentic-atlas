@@ -26,9 +26,11 @@ dist/
 .venv/
 venv/
 
-# Local run output (profiles are generated, not committed unless curated)
-profiles/*.json
+# Curated public profiles ARE committed — they are the site corpus.
 !profiles/.gitkeep
+
+# BMad / local scratch and build output (site is rebuilt in CI, not committed)
+_bmad-output/
 
 # Memory (auto-generated, user-specific)
 .claude/projects/

@@ -135,6 +135,9 @@ class Profile:
     engine_version: str
     target_sha: str | None
     axes: tuple[AxisResult, ...]
+    # Origin remote URL of the target (provenance + a link on the report); None when the
+    # target has no git origin. Optional so it never shifts an axis score.
+    target_url: str | None = None
 
     def to_dict(self) -> dict:
         return {
@@ -142,6 +145,7 @@ class Profile:
             "rubric_version": self.rubric_version,
             "engine_version": self.engine_version,
             "target_sha": self.target_sha,
+            "target_url": self.target_url,
             "axes": [
                 {
                     "axis_id": ax.axis_id,

@@ -1,0 +1,680 @@
+{
+  "target": "/Users/adam/_opensource/cursor-memory-bank",
+  "rubric_version": "1.4.0",
+  "engine_version": "0.4.0",
+  "target_sha": "7d879d8f5079ad77d845fdc92ca03903dbbd3a85",
+  "target_url": "https://github.com/vanzan01/cursor-memory-bank",
+  "axes": [
+    {
+      "axis_id": "greenfield-vs-brownfield",
+      "title": "Greenfield vs Brownfield",
+      "poles": {
+        "negative": "greenfield",
+        "positive": "brownfield"
+      },
+      "explain": {
+        "negative": "excels starting from an idea, with no code yet",
+        "positive": "excels working inside an existing, established codebase"
+      },
+      "scale": 10.0,
+      "score": 2.3,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "gb1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Initializes projects, detects platform, determines task complexity",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "gb2",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.5,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "Review codebase structure",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "gb3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "19",
+          "evidence": "19 occurrences of ['legacy', 'migration', 'migrate', 'refactor', 'existing codebase', 'brownfield'] across the text corpus",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "gb4",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Memory Bank adapts its workflow based on task complexity",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "gb5",
+          "kind": "measured",
+          "weight": 1.0,
+          "value": -0.6,
+          "resolved": true,
+          "answer": "absent",
+          "evidence": "no path matched ['**/brownfield*', '**/*existing*', '**/*legacy*']",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "small-scope-vs-large-scope",
+      "title": "Small-scope vs Large-scope",
+      "poles": {
+        "negative": "small_scope",
+        "positive": "large_scope"
+      },
+      "explain": {
+        "negative": "one focused task",
+        "positive": "the whole delivery lifecycle, from idea to release"
+      },
+      "scale": 10.0,
+      "score": 6.6,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "sl1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.48,
+          "resolved": true,
+          "answer": "most",
+          "evidence": "`/van` \u2192 `/plan` \u2192 `/creative` \u2192 `/build` \u2192 `/reflect` \u2192 `/archive`",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "sl2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "multi_stage",
+          "evidence": "six specialized commands",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "sl3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "85",
+          "evidence": "85 occurrences of ['requirements', 'architecture', 'deployment', 'release', 'retrospective', 'epic', 'milestone'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "prototype-vs-production",
+      "title": "Prototype vs Production",
+      "poles": {
+        "negative": "prototype",
+        "positive": "production"
+      },
+      "explain": {
+        "negative": "fast, throwaway output to prove an idea",
+        "positive": "hardened output with tests, CI, security, and maintainability in mind"
+      },
+      "scale": 10.0,
+      "score": 4.4,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "pp1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.2,
+          "resolved": true,
+          "answer": "some",
+          "evidence": "Verify dependencies and build configuration",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "pp2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "maintainable_only",
+          "evidence": "It enforces a test-driven approach where tests are written for all success criteria and must pass before completing each phase.",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "pp3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.24,
+          "resolved": true,
+          "answer": "8",
+          "evidence": "8 occurrences of ['production', 'deploy', 'ci', 'security', 'observability', 'rollback', 'monitoring'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "solo-vs-team",
+      "title": "Solo vs Team",
+      "poles": {
+        "negative": "solo",
+        "positive": "team"
+      },
+      "explain": {
+        "negative": "built for one developer working alone",
+        "positive": "built for many contributors, with team-safe collaboration and handoffs"
+      },
+      "scale": 10.0,
+      "score": -6.1,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "st1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Memory Bank is my personal hobby project that I develop for my own use in coding projects.",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "st2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Memory Bank is my personal hobby project that I develop for my own use in coding projects.",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "st3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.24,
+          "resolved": true,
+          "answer": "7",
+          "evidence": "7 occurrences of ['team', 'assign', 'reviewer', 'pull request', 'collaborate', 'stakeholder', 'handoff'] across the text corpus",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "st4",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": -0.5,
+          "resolved": true,
+          "answer": "0",
+          "evidence": "0 files matched ['**/.github/workflows/**', '**/CODEOWNERS', '**/.github/CODEOWNERS', '**/PULL_REQUEST_TEMPLATE*', '**/.github/PULL_REQUEST_TEMPLATE*']",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "generalist-vs-specialist",
+      "title": "Generalist vs Specialist",
+      "poles": {
+        "negative": "generalist",
+        "positive": "specialist"
+      },
+      "explain": {
+        "negative": "works across any domain, from writing to business to code",
+        "positive": "built specifically for software delivery"
+      },
+      "scale": 10.0,
+      "score": 6.1,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "gs1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "software_only",
+          "evidence": "for my own use in coding projects",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "gs2",
+          "kind": "classified",
+          "weight": 1.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "for my own use in coding projects",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "gs3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.24,
+          "resolved": true,
+          "answer": "5",
+          "evidence": "5 occurrences of ['compile', 'deploy', 'unit test', 'pull request', 'refactor', 'api', 'repository'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "fresh-vs-mature",
+      "title": "Fresh vs Mature",
+      "poles": {
+        "negative": "fresh",
+        "positive": "mature"
+      },
+      "explain": {
+        "negative": "new and moving fast, the newest ideas on a thin track record",
+        "positive": "established and battle tested, stable but slower to change"
+      },
+      "scale": 10.0,
+      "score": -3.2,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "fm1",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": -0.8,
+          "resolved": true,
+          "answer": "0.0",
+          "evidence": "git age_days = 0.0",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm2",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": -0.8,
+          "resolved": true,
+          "answer": "1",
+          "evidence": "git commit_count = 1",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm3",
+          "kind": "measured",
+          "weight": 1.0,
+          "value": -0.8,
+          "resolved": true,
+          "answer": "1",
+          "evidence": "git contributor_count = 1",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm4",
+          "kind": "measured",
+          "weight": 1.0,
+          "value": -0.8,
+          "resolved": true,
+          "answer": "0",
+          "evidence": "git tag_count = 0",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm5",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "3052",
+          "evidence": "stars = 3052 for vanzan01/cursor-memory-bank via GitHub API",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm6",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "evolving",
+          "evidence": "The Memory Bank system is actively being developed and improved.",
+          "source": "agent-team wave2 2026-07-23"
+        }
+      ]
+    },
+    {
+      "axis_id": "interrogative-vs-opinionated",
+      "title": "Interrogative vs Opinionated",
+      "poles": {
+        "negative": "interrogative",
+        "positive": "opinionated"
+      },
+      "explain": {
+        "negative": "asks questions and defers the decisions to you",
+        "positive": "prescribes a strong default path and drives it"
+      },
+      "scale": 10.0,
+      "score": 1.2,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "io1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": -0.5,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "Generate 2-4 design options",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "io2",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.3,
+          "resolved": true,
+          "answer": "guided",
+          "evidence": "each command will guide you to the next step",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "io3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "27",
+          "evidence": "27 occurrences of ['must', 'always', 'never', 'required', 'enforce', 'mandatory'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "autonomous-vs-human-in-loop",
+      "title": "Autonomous vs Human-in-loop",
+      "poles": {
+        "negative": "human_in_loop",
+        "positive": "autonomous"
+      },
+      "explain": {
+        "negative": "pauses for your approval at checkpoints along the way",
+        "positive": "runs end to end on its own, with little intervention"
+      },
+      "scale": 10.0,
+      "score": -9.5,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "ah1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "each command will guide you to the next step",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "ah2",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "every_phase",
+          "evidence": "After implementation complete, proceed to `/reflect` command for task review.",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "ah3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": -0.8,
+          "resolved": true,
+          "answer": "28",
+          "evidence": "28 occurrences of ['approve', 'confirm', 'review', 'checkpoint', 'wait for', 'your approval'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "spec-light-vs-spec-driven",
+      "title": "Spec-light vs Spec-driven",
+      "poles": {
+        "negative": "spec_light",
+        "positive": "spec_driven"
+      },
+      "explain": {
+        "negative": "jumps straight to implementation, little written up front",
+        "positive": "writes and follows a spec or plan before coding"
+      },
+      "scale": 10.0,
+      "score": 8.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "sd1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "Check `memory-bank/tasks.md` for planning completion",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "sd2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "Adds detailed implementation plan",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "sd3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "128",
+          "evidence": "128 occurrences of ['prd', 'specification', 'requirements', 'acceptance criteria', 'design doc', 'plan', 'spec'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "test-optional-vs-test-first",
+      "title": "Test-optional vs Test-first",
+      "poles": {
+        "negative": "test_optional",
+        "positive": "test_first"
+      },
+      "explain": {
+        "negative": "testing is incidental, left to your judgment",
+        "positive": "test-first discipline (TDD) is built in and enforced"
+      },
+      "scale": 10.0,
+      "score": 7.5,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "tf1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "enforced",
+          "evidence": "It enforces a test-driven approach where tests are written for all success criteria and must pass before completing each phase.",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "tf2",
+          "kind": "classified",
+          "weight": 1.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "first_class",
+          "evidence": "Test-Driven Phase Completion",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "tf3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.24,
+          "resolved": true,
+          "answer": "2",
+          "evidence": "2 occurrences of ['tdd', 'red-green', 'test-first', 'failing test', 'coverage', 'unit test', 'test-driven'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "single-agent-vs-multi-agent",
+      "title": "Single-agent vs Multi-agent",
+      "poles": {
+        "negative": "single_agent",
+        "positive": "multi_agent"
+      },
+      "explain": {
+        "negative": "one agent in one conversation does the work",
+        "positive": "many specialized subagents or personas work together"
+      },
+      "scale": 10.0,
+      "score": -8.7,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "ma1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "single",
+          "evidence": "six specialized commands",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "ma2",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": -0.8,
+          "resolved": true,
+          "answer": "0",
+          "evidence": "0 occurrences of ['subagent', 'persona', 'orchestrate', 'delegate', 'specialist agent', 'sub-agent'] across the text corpus",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "ma3",
+          "kind": "measured",
+          "weight": 1.0,
+          "value": -0.6,
+          "resolved": true,
+          "answer": "absent",
+          "evidence": "no path matched ['**/agents/**', '**/*agent*.md', '**/personas/**', '**/agent.md']",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "prescriptive-vs-composable",
+      "title": "Prescriptive vs Composable",
+      "poles": {
+        "negative": "prescriptive",
+        "positive": "composable"
+      },
+      "explain": {
+        "negative": "a fixed pipeline you follow in order",
+        "positive": "modular parts you pick and combine as you need them"
+      },
+      "scale": 10.0,
+      "score": -6.3,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "pc1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "fixed_pipeline",
+          "evidence": "Commands transition from one to another in a logical sequence",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "pc2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "mandatory_ordered",
+          "evidence": "Do NOT proceed to next phase until all tests pass",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "pc3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.3,
+          "resolved": true,
+          "answer": "6",
+          "evidence": "6 files matched ['**/skills/**', '**/modules/**', '**/commands/**']",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "lightweight-vs-heavyweight",
+      "title": "Lightweight vs Heavyweight",
+      "poles": {
+        "negative": "lightweight",
+        "positive": "heavyweight"
+      },
+      "explain": {
+        "negative": "small footprint, few concepts, little to learn before you start",
+        "positive": "many concepts, roles, and steps to take on"
+      },
+      "scale": 10.0,
+      "score": 3.1,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "lw1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.2,
+          "resolved": true,
+          "answer": "moderate",
+          "evidence": "Adapts documentation requirements to task complexity (Levels 1-4)",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "lw2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "moderate",
+          "evidence": "Copy the `.cursor` folder to your project directory",
+          "source": "agent-team wave2 2026-07-23"
+        },
+        {
+          "indicator_id": "lw3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.8,
+          "resolved": true,
+          "answer": "241",
+          "evidence": "241 occurrences of ['phase', 'gate', 'ceremony', 'role', 'artifact', 'template', 'workflow', 'epic'] across the text corpus",
+          "source": "engine"
+        }
+      ]
+    }
+  ]
+}
