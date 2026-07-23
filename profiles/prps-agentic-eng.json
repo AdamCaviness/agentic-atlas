@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/PRPs-agentic-eng",
+  "target": "PRPs-agentic-eng",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "a643e84600c4f740e9d5a52051f6783ee9852567",
   "target_url": "https://github.com/Wirasm/PRPs-agentic-eng",
   "axes": [
@@ -282,37 +282,37 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -1.2,
+      "score": 3.9,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "0.0",
-          "evidence": "git age_days = 0.0",
+          "answer": "400.2",
+          "evidence": "git age_days = 400.2",
           "source": "engine"
         },
         {
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git commit_count = 1",
+          "answer": "122",
+          "evidence": "git commit_count = 122",
           "source": "engine"
         },
         {
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.16,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git contributor_count = 1",
+          "answer": "5",
+          "evidence": "git contributor_count = 5",
           "source": "engine"
         },
         {

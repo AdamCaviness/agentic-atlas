@@ -16,7 +16,15 @@ TARGET  ?=
 ANSWERS ?=
 FORMAT  ?= text
 
-.PHONY: help setup install test check lint fmt format validate docs docs-check profiles profiles-check profile clean
+# Limit any corpus command to one slug, e.g. make corpus-rescore SLUG=bmad-method
+SLUG     ?=
+_SLUGARG  = $(if $(SLUG),--slug $(SLUG),)
+# github_api indicators are fetched live; an invalid GH_TOKEN in the environment 401s and
+# silently drops them, so corpus commands run with the GitHub tokens unset. Anonymous access
+# is well within rate limits for a corpus this size.
+CORPUS_PY = env -u GH_TOKEN -u GITHUB_TOKEN $(PY) scripts/corpus.py
+
+.PHONY: help setup install test check lint fmt format validate docs docs-check profiles profiles-check profile corpus-fetch corpus-rescore corpus-refresh clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -67,6 +75,17 @@ profile: setup ## Profile a target: make profile TARGET=/path [ANSWERS=answers.j
 		echo "usage: make profile TARGET=/path/to/approach [ANSWERS=answers.json FORMAT=text|md|json]"; \
 		exit 2; }
 	$(ATLAS) profile "$(TARGET)" --rubric "$(RUBRIC)" $(if $(ANSWERS),--answers "$(ANSWERS)",) --format "$(FORMAT)"
+
+corpus-fetch: setup ## Clone/pull every corpus source repo into .corpus/ (SLUG=one to limit)
+	$(CORPUS_PY) fetch $(_SLUGARG)
+
+corpus-rescore: setup ## Replay answers at each pinned SHA, rewrite JSON, re-render HTML (preview: run scripts/corpus.py rescore without --write)
+	$(CORPUS_PY) rescore --write $(_SLUGARG)
+	$(MAKE) profiles
+
+corpus-refresh: setup ## Pull each repo to latest HEAD, rescore, rewrite JSON, re-render, list stale quotes to re-answer
+	$(CORPUS_PY) refresh --write $(_SLUGARG)
+	$(MAKE) profiles
 
 clean: ## Remove the venv, caches, and build artifacts
 	rm -rf $(VENV) .pytest_cache .ruff_cache build dist *.egg-info

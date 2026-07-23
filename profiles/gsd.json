@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/get-shit-done",
+  "target": "get-shit-done",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "bdcaab2c752d9a33a1a1ca9acf3a3c81fb991815",
   "target_url": "https://github.com/gsd-build/get-shit-done",
   "axes": [
@@ -282,7 +282,7 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -1.2,
+      "score": 5.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -291,38 +291,38 @@
           "weight": 2.0,
           "value": -0.8,
           "resolved": true,
-          "answer": "0.0",
-          "evidence": "git age_days = 0.0",
+          "answer": "167.0",
+          "evidence": "git age_days = 167.0",
           "source": "engine"
         },
         {
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git commit_count = 1",
+          "answer": "2928",
+          "evidence": "git commit_count = 2928",
           "source": "engine"
         },
         {
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git contributor_count = 1",
+          "answer": "151",
+          "evidence": "git contributor_count = 151",
           "source": "engine"
         },
         {
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "0",
-          "evidence": "git tag_count = 0",
+          "answer": "229",
+          "evidence": "git tag_count = 229",
           "source": "engine"
         },
         {

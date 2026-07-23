@@ -29,6 +29,9 @@ venv/
 # Curated public profiles ARE committed — they are the site corpus.
 !profiles/.gitkeep
 
+# Source-repo clones for corpus refresh (scripts/corpus.py). Rebuilt on demand, never committed.
+.corpus/
+
 # BMad / local scratch and build output (site is rebuilt in CI, not committed)
 _bmad-output/
 

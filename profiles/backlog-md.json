@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/Backlog.md",
+  "target": "Backlog.md",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "babd1d26d3d86a834468b256af9349b7415fda9c",
   "target_url": "https://github.com/MrLesk/Backlog.md",
   "axes": [
@@ -282,47 +282,47 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -1.2,
+      "score": 7.3,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "0.0",
-          "evidence": "git age_days = 0.0",
+          "answer": "407.9",
+          "evidence": "git age_days = 407.9",
           "source": "engine"
         },
         {
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git commit_count = 1",
+          "answer": "1056",
+          "evidence": "git commit_count = 1056",
           "source": "engine"
         },
         {
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git contributor_count = 1",
+          "answer": "53",
+          "evidence": "git contributor_count = 53",
           "source": "engine"
         },
         {
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "0",
-          "evidence": "git tag_count = 0",
+          "answer": "242",
+          "evidence": "git tag_count = 242",
           "source": "engine"
         },
         {
@@ -331,8 +331,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "6268",
-          "evidence": "stars = 6268 for MrLesk/Backlog.md via GitHub API",
+          "answer": "6274",
+          "evidence": "stars = 6274 for MrLesk/Backlog.md via GitHub API",
           "source": "engine"
         },
         {

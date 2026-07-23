@@ -1,7 +1,7 @@
 {
-  "target": "/Users/adam/_opensource/spec-kit",
+  "target": "spec-kit",
   "rubric_version": "1.4.0",
-  "engine_version": "0.4.0",
+  "engine_version": "0.6.0",
   "target_sha": "93fc533d790f463355763573dbef17e6b109e1eb",
   "target_url": "https://github.com/github/spec-kit",
   "axes": [
@@ -282,47 +282,47 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -5.2,
+      "score": 3.3,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.24,
           "resolved": true,
-          "answer": "0.0",
-          "evidence": "git age_days = 0.0",
+          "answer": "334.9",
+          "evidence": "git age_days = 334.9",
           "source": "engine"
         },
         {
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git commit_count = 1",
+          "answer": "1521",
+          "evidence": "git commit_count = 1521",
           "source": "engine"
         },
         {
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "1",
-          "evidence": "git contributor_count = 1",
+          "answer": "262",
+          "evidence": "git contributor_count = 262",
           "source": "engine"
         },
         {
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": 0.8,
           "resolved": true,
-          "answer": "0",
-          "evidence": "git tag_count = 0",
+          "answer": "202",
+          "evidence": "git tag_count = 202",
           "source": "engine"
         },
         {
@@ -331,8 +331,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "123422",
-          "evidence": "stars = 123422 for github/spec-kit via GitHub API",
+          "answer": "123459",
+          "evidence": "stars = 123459 for github/spec-kit via GitHub API",
           "source": "engine"
         },
         {
