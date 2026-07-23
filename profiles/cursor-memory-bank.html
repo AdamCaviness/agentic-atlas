@@ -46,21 +46,21 @@
   .legend{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0 26px;padding:12px 14px;background:var(--card);
           border:1px solid var(--line);border-radius:10px;font-size:.82rem;color:var(--muted)}
   .legend .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px}
-  .axis{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 14px;background:var(--card)}
+  .axis{border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:0 0 11px;background:var(--card)}
   .axis-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .axis-title{font-weight:600;font-size:1.02rem}
+  .axis-title{font-weight:600;font-size:.95rem}
   .ahl{display:inline-flex;align-items:center;gap:8px}
   .axis-title em{font-style:italic;font-weight:400;color:var(--muted)}
-  .score{font-family:var(--mono);font-weight:700;font-size:1.05rem;white-space:nowrap}
+  .score{font-family:var(--mono);font-weight:700;font-size:.98rem;white-space:nowrap}
   .score.neg{color:var(--neg)}.score.pos{color:var(--pos)}
   .score.none{color:var(--faint);font-weight:500;font-style:italic;font-size:.9rem}
   .score.zero{color:var(--faint)}
   .prov-tag{font-family:var(--sans);font-weight:500;font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;
             color:var(--cov-low);border:1px solid var(--cov-low);border-radius:4px;padding:1px 5px;margin-left:8px;vertical-align:1px}
-  .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:14px 0 6px}
-  .pole{font-size:.82rem;color:var(--muted)}
+  .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:10px 0 4px}
+  .pole{font-size:.78rem;color:var(--muted)}
   .pole.left{text-align:right}.pole.right{text-align:left}
-  .track{position:relative;height:26px;background:var(--track);border-radius:6px}
+  .track{position:relative;height:22px;background:var(--track);border-radius:6px}
   .track .center{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--faint);transform:translateX(-1px)}
   .fill{position:absolute;top:3px;bottom:3px}
   .fill.neg{right:50%;background:var(--neg);border-radius:4px 0 0 4px}
@@ -71,12 +71,12 @@
   .track.empty .center{background:var(--line)}
   .ni{display:inline-block;font-size:.8rem;color:var(--faint);position:absolute;left:50%;top:50%;
       transform:translate(-50%,-50%);background:var(--card);padding:0 8px;white-space:nowrap}
-  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:8px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:6px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
   .cov-meter{position:relative;width:120px;height:6px;background:var(--track);border-radius:3px;overflow:hidden;flex:none}
   .cov-fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
   .cov-floor{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
   .cov-good{background:var(--cov-good)}.cov-mid{background:var(--cov-mid)}.cov-low{background:var(--cov-low)}
-  .cov-text{color:var(--muted);font-family:var(--mono)}
+  .cov-text{color:var(--muted);font-family:var(--mono);font-size:.82rem}
   .cov-more{margin-left:auto;font-size:.8rem;color:var(--muted);white-space:nowrap}
   .cov:hover .cov-more{color:var(--accent)}
   .mbtn{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);
@@ -130,7 +130,7 @@
 <div class="wrap wide">
   <header>
     <div class="brand"><svg class='mark' viewBox='0 0 30 31' aria-hidden='true'><polygon points='15,1 4,11 15,11' fill='var(--neg)'/><polygon points='15,1 26,11 15,11' fill='var(--pos)'/><polygon points='4,11 15,11 15,30' fill='var(--neg)' opacity='.8'/><polygon points='26,11 15,11 15,30' fill='var(--pos)' opacity='.8'/><polygon points='15,1 4,11 15,30 26,11' fill='none' stroke='var(--accent)' stroke-width='1' opacity='.55'/></svg><span class="word">Agentic Atlas</span><span class="ptitle">Profile</span></div>
-    <div class="project"><a href="https://github.com/vanzan01/cursor-memory-bank" target="_blank" rel="noopener" title="Open vanzan01/cursor-memory-bank on GitHub (new tab)"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>vanzan01/cursor-memory-bank</span></a></div>
+    <div class="project"><a href="https://github.com/vanzan01/cursor-memory-bank" target="_blank" rel="noopener" title="Open vanzan01/cursor-memory-bank on GitHub" aria-label="Open vanzan01/cursor-memory-bank on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>vanzan01/cursor-memory-bank</span></a></div>
     <div class="stamps">rubric 1.4.0 · engine 0.4.0 · sha 7d879d8f5079</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>

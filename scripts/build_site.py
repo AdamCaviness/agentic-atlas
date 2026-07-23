@@ -31,8 +31,7 @@ header.top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bott
 header.top h1{font-size:1.15rem;margin:0}
 header.top .tag{color:var(--muted);font-size:.85rem}
 header.top .spacer{flex:1}
-header.top a.repo{display:inline-flex;align-items:center;gap:5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
-header.top a.repo .ext{opacity:.75}
+header.top a.repo{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;color:var(--muted);border:1px solid var(--line);border-radius:50%}
 header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .hero{margin:0 0 22px}
 .hero .lead{font-size:1.08rem;margin:0 0 8px}
@@ -104,9 +103,14 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .v-match::before{content:"✓ ";color:var(--accent);font-weight:700}
 .v-close::before{content:"~ ";color:var(--faint)}
 .v-counter::before{content:"✗ ";color:var(--cov-mid)}
-.tray{position:sticky;bottom:0;margin-top:22px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tray{display:none;position:sticky;bottom:12px;margin-top:22px;border:1.5px solid var(--accent);border-radius:12px;background:var(--card);padding:12px 16px;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 10px 34px rgba(0,0,0,.24)}
+.tray.active{display:flex}
+.tray .traylbl{font-weight:650;font-size:.82rem;margin-right:2px}
 .tray .chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.8rem;display:inline-flex;gap:6px;align-items:center}
 .tray .chip b{font-weight:600}
+.tray .cbtn{background:var(--accent);color:var(--pill-fg);border:1px solid var(--accent);border-radius:8px;padding:6px 14px;font-size:.82rem;font-weight:600;text-decoration:none}
+.tray .cbtn:hover{filter:brightness(1.08)}
+.act.added{border-color:var(--accent);color:var(--accent);font-weight:600}
 .note{font-size:.78rem;color:var(--muted)}
 """
 
@@ -149,7 +153,7 @@ function renderCards(){
       <div class="sig">${rows||'<div class="note">partial profile</div>'}</div>
       <div class="fitline" data-fit="${p.slug}"></div>
       <div class="acts"><a class="act" href="profiles/${p.slug}.html">open profile</a>
-      <button class="act" onclick="toggleCompare('${p.slug}')">+ compare</button></div>`;
+      <button class="act cmpbtn" data-slug="${p.slug}" onclick="toggleCompare('${p.slug}')">+ compare</button></div>`;
     g.appendChild(el);
   });
   renderFitLines();
@@ -197,10 +201,10 @@ function renderMatches(){
 
 // ---- parallel-coordinates plot: one vertical axis per preference you set ----
 function renderPlot(){
-  const svg=$("#plot"), hint=$("#plothint");
+  const svg=$("#plot");
   const axs=ORDER.filter(id=>prefs[id]&&prefs[id].active).map(id=>AXES.find(a=>a.id===id));
-  if(!axs.length){svg.style.display="none";if(hint)hint.style.display="block";svg.innerHTML="";return;}
-  svg.style.display="block";if(hint)hint.style.display="none";
+  if(!axs.length){svg.style.display="none";svg.innerHTML="";return;}
+  svg.style.display="block";
   const W=svg.clientWidth||760,H=380,padX=64,padT=30,padB=30,scale=10;
   const xF=i=>axs.length===1?W/2:padX+i*(W-2*padX)/(axs.length-1);
   const yF=v=>padT+(scale-v)/(2*scale)*(H-padT-padB);
@@ -245,10 +249,14 @@ function buildPanel(){
 function clearAll(){AXES.forEach(a=>prefs[a.id]={value:0,active:false});$$("#prefs .slider").forEach(w=>{w.classList.add("off");const i=$("input",w);i.value=0;i.style.accentColor="";$(".np",w).textContent="no preference";});update();}
 
 // ---- compare ----
-function toggleCompare(slug){const i=compare.indexOf(slug);if(i>=0)compare.splice(i,1);else if(compare.length<3)compare.push(slug);renderTray();}
-function renderTray(){const t=$("#tray");if(!compare.length){t.innerHTML='<span class="note">Pick up to 3 tools to compare them side by side.</span>';return;}
-  t.innerHTML=compare.map(s=>`<span class="chip"><b>${esc(DATA.find(d=>d.slug===s).name)}</b> <a href="#" onclick="toggleCompare('${s}');return false">×</a></span>`).join("")+
-    (compare.length>=2?` <a class="act" href="#" onclick="showCompare();return false">Compare →</a>`:"");}
+function syncCompareButtons(){$$(".cmpbtn").forEach(b=>{const on=compare.includes(b.dataset.slug);b.classList.toggle("added",on);b.textContent=on?"✓ added":"+ compare";});}
+function toggleCompare(slug){const i=compare.indexOf(slug);if(i>=0)compare.splice(i,1);else if(compare.length<3)compare.push(slug);renderTray();syncCompareButtons();}
+function renderTray(){const t=$("#tray");
+  if(!compare.length){t.className="tray";t.innerHTML="";return;}
+  t.className="tray active";
+  t.innerHTML=`<span class="traylbl">Compare (${compare.length})</span>`+
+    compare.map(s=>`<span class="chip"><b>${esc(DATA.find(d=>d.slug===s).name)}</b> <a href="#" aria-label="remove from compare" onclick="toggleCompare('${s}');return false">×</a></span>`).join("")+
+    (compare.length>=2?`<a class="cbtn" href="#" onclick="showCompare();return false">Compare →</a>`:`<span class="note">add one more</span>`);}
 function showCompare(){
   const rows=AXES.map(a=>{const cells=compare.map(s=>{const v=axScore(DATA.find(d=>d.slug===s),a.id);return v&&v.score!==null?`${DATA.find(d=>d.slug===s).name}: ${v.score>0?'+':''}${v.score.toFixed(1)}`:`${DATA.find(d=>d.slug===s).name}: n/a`;}).join(" | ");
     return `${a.title}: ${cells}`;}).join("\n");
@@ -257,7 +265,7 @@ function showCompare(){
 
 function update(){renderPlot();renderFitLines();}
 document.addEventListener("DOMContentLoaded",()=>{
-  buildPanel();renderCards();renderPlot();renderTray();
+  buildPanel();renderCards();renderPlot();renderTray();syncCompareButtons();
   $("#plot").addEventListener("click",e=>{const t=e.target.closest("[data-slug]");if(t)location.href="profiles/"+t.dataset.slug+".html";});
   document.addEventListener("click",()=>$$(".tip.show").forEach(t=>t.classList.remove("show")));
   window.addEventListener("resize",renderPlot);
@@ -273,14 +281,6 @@ GH_MARK = (
     " 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07"
     "-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013"
     " 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg>"
-)
-
-
-EXT_MARK = (
-    "<svg class='ext' viewBox='0 0 24 24' width='12' height='12' fill='none' stroke='currentColor'"
-    " stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'>"
-    "<path d='M14 4h6v6'/><path d='M20 4l-8.5 8.5'/>"
-    "<path d='M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5'/></svg>"
 )
 
 
@@ -314,7 +314,7 @@ def build():
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agentic Atlas, find your fit</title><style>{CSS}</style></head><body><div class="wrap">
-<header class="top"><div class="brand"><svg class="mark" viewBox="0 0 30 31" aria-hidden="true"><polygon points="15,1 4,11 15,11" fill="var(--neg)"/><polygon points="15,1 26,11 15,11" fill="var(--pos)"/><polygon points="4,11 15,11 15,30" fill="var(--neg)" opacity=".8"/><polygon points="26,11 15,11 15,30" fill="var(--pos)" opacity=".8"/><polygon points="15,1 4,11 15,30 26,11" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".55"/></svg><span class="word">Agentic Atlas</span></div><span class="spacer"></span><a class="repo" href="https://github.com/AdamCaviness/agentic-atlas" target="_blank" rel="noopener" aria-label="Open agentic-atlas on GitHub (opens in a new tab)" title="Open agentic-atlas on GitHub">{GH_MARK}{EXT_MARK}</a></header>
+<header class="top"><div class="brand"><svg class="mark" viewBox="0 0 30 31" aria-hidden="true"><polygon points="15,1 4,11 15,11" fill="var(--neg)"/><polygon points="15,1 26,11 15,11" fill="var(--pos)"/><polygon points="4,11 15,11 15,30" fill="var(--neg)" opacity=".8"/><polygon points="26,11 15,11 15,30" fill="var(--pos)" opacity=".8"/><polygon points="15,1 4,11 15,30 26,11" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".55"/></svg><span class="word">Agentic Atlas</span></div><span class="spacer"></span><a class="repo" href="https://github.com/AdamCaviness/agentic-atlas" target="_blank" rel="noopener" aria-label="Open agentic-atlas on GitHub (opens in a new tab)" title="Open agentic-atlas on GitHub">{GH_MARK}</a></header>
 <section class="hero">
 <p class="lead">Profile agentic development approaches, frameworks, and skill collections on shared axes, and see if one fits you and your projects.</p>
 <p class="sub2">A deterministic engine over an open, versioned, community-driven rubric. Hosted profiles of popular tools, run it yourself and help improve it.</p>

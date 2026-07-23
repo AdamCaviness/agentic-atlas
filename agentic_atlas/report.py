@@ -284,21 +284,21 @@ _HTML_CSS = """
   .legend{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0 26px;padding:12px 14px;background:var(--card);
           border:1px solid var(--line);border-radius:10px;font-size:.82rem;color:var(--muted)}
   .legend .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px}
-  .axis{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 14px;background:var(--card)}
+  .axis{border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:0 0 11px;background:var(--card)}
   .axis-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .axis-title{font-weight:600;font-size:1.02rem}
+  .axis-title{font-weight:600;font-size:.95rem}
   .ahl{display:inline-flex;align-items:center;gap:8px}
   .axis-title em{font-style:italic;font-weight:400;color:var(--muted)}
-  .score{font-family:var(--mono);font-weight:700;font-size:1.05rem;white-space:nowrap}
+  .score{font-family:var(--mono);font-weight:700;font-size:.98rem;white-space:nowrap}
   .score.neg{color:var(--neg)}.score.pos{color:var(--pos)}
   .score.none{color:var(--faint);font-weight:500;font-style:italic;font-size:.9rem}
   .score.zero{color:var(--faint)}
   .prov-tag{font-family:var(--sans);font-weight:500;font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;
             color:var(--cov-low);border:1px solid var(--cov-low);border-radius:4px;padding:1px 5px;margin-left:8px;vertical-align:1px}
-  .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:14px 0 6px}
-  .pole{font-size:.82rem;color:var(--muted)}
+  .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:10px 0 4px}
+  .pole{font-size:.78rem;color:var(--muted)}
   .pole.left{text-align:right}.pole.right{text-align:left}
-  .track{position:relative;height:26px;background:var(--track);border-radius:6px}
+  .track{position:relative;height:22px;background:var(--track);border-radius:6px}
   .track .center{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--faint);transform:translateX(-1px)}
   .fill{position:absolute;top:3px;bottom:3px}
   .fill.neg{right:50%;background:var(--neg);border-radius:4px 0 0 4px}
@@ -309,12 +309,12 @@ _HTML_CSS = """
   .track.empty .center{background:var(--line)}
   .ni{display:inline-block;font-size:.8rem;color:var(--faint);position:absolute;left:50%;top:50%;
       transform:translate(-50%,-50%);background:var(--card);padding:0 8px;white-space:nowrap}
-  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:8px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+  .cov{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:6px 0 0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
   .cov-meter{position:relative;width:120px;height:6px;background:var(--track);border-radius:3px;overflow:hidden;flex:none}
   .cov-fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
   .cov-floor{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
   .cov-good{background:var(--cov-good)}.cov-mid{background:var(--cov-mid)}.cov-low{background:var(--cov-low)}
-  .cov-text{color:var(--muted);font-family:var(--mono)}
+  .cov-text{color:var(--muted);font-family:var(--mono);font-size:.82rem}
   .cov-more{margin-left:auto;font-size:.8rem;color:var(--muted);white-space:nowrap}
   .cov:hover .cov-more{color:var(--accent)}
   .mbtn{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);
@@ -774,6 +774,7 @@ _GH_MARK = (
 )
 
 
+# External-link glyph, appended to project links that open in a new tab.
 # The 2D brand crystal (matches the dashboard). Theme-aware via the CSS pole vars.
 _CRYSTAL_MARK = (
     "<svg class='mark' viewBox='0 0 30 31' aria-hidden='true'>"
@@ -805,15 +806,18 @@ def _project_html(url: str | None, name: str) -> str:
         href = f"https://github.com/{owner}/{repo}"
         return (
             f'<div class="project"><a href="{_html_escape(href)}" target="_blank" rel="noopener" '
-            f'title="Open {_html_escape(owner)}/{_html_escape(repo)} on GitHub (new tab)">'
+            f'title="Open {_html_escape(owner)}/{_html_escape(repo)} on GitHub" '
+            f'aria-label="Open {_html_escape(owner)}/{_html_escape(repo)} on GitHub, opens in a new tab">'
             f'{_GH_MARK}<span>{_html_escape(owner)}/{_html_escape(repo)}</span></a></div>'
         )
     if url:
         clean = url[:-4] if url.endswith(".git") else url
         if clean.startswith("http"):
+            label = clean.split("://", 1)[-1]
             return (
-                f'<div class="project"><a href="{_html_escape(clean)}" target="_blank" rel="noopener">'
-                f'{_html_escape(clean.split("://", 1)[-1])}</a></div>'
+                f'<div class="project"><a href="{_html_escape(clean)}" target="_blank" rel="noopener" '
+                f'aria-label="Open {_html_escape(label)}, opens in a new tab">'
+                f'{_html_escape(label)}</a></div>'
             )
     return f'<div class="project"><span class="pname">{_html_escape(name)}</span></div>'
 
