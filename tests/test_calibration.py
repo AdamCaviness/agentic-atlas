@@ -279,7 +279,9 @@ def test_axis_reaches_both_poles(axis_id):
     lo, hi = _reachable_range(axis)
     assert lo == pytest.approx(-axis.scale, abs=0.05) and hi == pytest.approx(
         axis.scale, abs=0.05
-    ), f"{axis_id} reachable range is [{lo:+.1f}, {hi:+.1f}], not the full [-{axis.scale}, +{axis.scale}]."
+    ), (
+        f"{axis_id} reachable range is [{lo:+.1f}, {hi:+.1f}], not the full [-{axis.scale}, +{axis.scale}]."
+    )
 
 
 # --- AD-6: every axis offers a near-zero answer ---------------------------------------------

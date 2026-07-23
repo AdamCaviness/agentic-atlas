@@ -196,8 +196,16 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
         "slug": slug,
         "mode": mode,
         "wrote": write,
-        "old": {"rubric": old["rubric_version"], "engine": old["engine_version"], "sha": old.get("target_sha")},
-        "new": {"rubric": new["rubric_version"], "engine": new["engine_version"], "sha": new.get("target_sha")},
+        "old": {
+            "rubric": old["rubric_version"],
+            "engine": old["engine_version"],
+            "sha": old.get("target_sha"),
+        },
+        "new": {
+            "rubric": new["rubric_version"],
+            "engine": new["engine_version"],
+            "sha": new.get("target_sha"),
+        },
         "replayed": len(replayed),
         "went_stale": went_stale,
         "new_indicators": new_indicators,
@@ -227,13 +235,17 @@ def _print_report(reports: list[dict], write: bool) -> int:
         print(f"  {r['slug']:28} {tag:8} {', '.join(bump) or 'no stamp change'}")
         if r["went_stale"]:
             stale_total += len(r["went_stale"])
-            print(f"      stale quotes (re-answer via /agentic-atlas:run): {', '.join(r['went_stale'])}")
+            print(
+                f"      stale quotes (re-answer via /agentic-atlas:run): {', '.join(r['went_stale'])}"
+            )
         if r["new_indicators"]:
             print(f"      rubric added, never answered here: {', '.join(r['new_indicators'])}")
         if r["axis_deltas"]:
             for d in r["axis_deltas"]:
                 os_, ns = d["old_score"], d["new_score"]
-                print(f"      axis {d['axis']}: score {os_}->{ns}  coverage {d['old_cov']}->{d['new_cov']}")
+                print(
+                    f"      axis {d['axis']}: score {os_}->{ns}  coverage {d['old_cov']}->{d['new_cov']}"
+                )
 
     print()
     if stale_total:
@@ -242,7 +254,9 @@ def _print_report(reports: list[dict], write: bool) -> int:
             "coverage. Re-run /agentic-atlas:run <url> --save on each affected repo to re-answer."
         )
     if not write:
-        print("dry run: nothing written. Re-run with --write, then `make profiles` to re-render HTML.")
+        print(
+            "dry run: nothing written. Re-run with --write, then `make profiles` to re-render HTML."
+        )
     else:
         print("wrote profile JSON. Now run `make profiles` to re-render the HTML corpus.")
     return 0
