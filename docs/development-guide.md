@@ -35,7 +35,7 @@ make fmt                   # ruff format .   (alias: make format)
 make validate              # validate rubric/v1 against its schemas (RUBRIC=... to override)
 make docs                  # regenerate axis README scoring blocks from axis.yaml
 make docs-check            # fail if any axis README block is stale (part of make check)
-make profile TARGET=/path/to/approach [ANSWERS=answers.json FORMAT=text|md|json|html]
+make profile TARGET=/path/to/methodology [ANSWERS=answers.json FORMAT=text|md|json|html]
 make clean                 # remove venv, caches, build artifacts
 ```
 
@@ -47,10 +47,10 @@ Ruff is configured in `pyproject.toml`: line length 100, target `py311`. Pytest'
 ```bash
 agentic-atlas validate rubric/v1                                # schema check
 agentic-atlas docs rubric/v1 [--check]                          # regenerate / verify README blocks
-agentic-atlas profile /path/to/approach                         # measured indicators only (no key)
-agentic-atlas questions /path/to/approach                       # emit classified worklist (JSON)
-agentic-atlas profile /path/to/approach --answers answers.json  # unlock classified indicators
-agentic-atlas profile /path/to/approach --answers - --format json  # answers from stdin
+agentic-atlas profile /path/to/methodology                         # measured indicators only (no key)
+agentic-atlas questions /path/to/methodology                       # emit classified worklist (JSON)
+agentic-atlas profile /path/to/methodology --answers answers.json  # unlock classified indicators
+agentic-atlas profile /path/to/methodology --answers - --format json  # answers from stdin
 ```
 
 A bare `profile` resolves only the measured indicators and reports the rest as needing

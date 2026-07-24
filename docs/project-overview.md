@@ -4,9 +4,9 @@
 
 ## Purpose
 
-Agentic Atlas is an open, versioned methodology and toolset for **profiling agentic
-development approaches** (the plugins, frameworks, and skill collections you run inside a
-coding harness such as Claude Code or Codex, for example Superpowers, BMAD-METHOD, GSD, LFG).
+Agentic Atlas is an open, versioned profiler for **agentic development methodologies** (the
+plugins, frameworks, and skill collections you run inside a coding harness such as Claude Code
+or Codex, for example Superpowers, BMAD-METHOD, GSD, LFG).
 It locates each target on **13 signed, diverging axes** on a shared `-10..+10` scale, where
 `0` is neutral and both poles are legitimate.
 

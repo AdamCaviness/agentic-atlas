@@ -89,10 +89,10 @@ def _count_terms(corpus: str, terms: list[str]) -> int:
     return sum(len(_term_pattern(t.lower()).findall(corpus)) for t in terms)
 
 
-# File extensions that make up an approach's readable surface.
+# File extensions that make up a methodology's readable surface.
 _TEXT_SUFFIXES = {".md", ".markdown", ".txt", ".yaml", ".yml", ".json", ".toml"}
 _MAX_FILE_BYTES = 512_000
-# Directories that never hold the approach's own authored content: VCS internals, build
+# Directories that never hold the methodology's own authored content: VCS internals, build
 # artifacts and virtualenvs, and vendored third-party dependencies. A project's methodology
 # signal must not be diluted by code it merely bundles, so vendored trees are excluded the
 # same way ``node_modules`` already is.

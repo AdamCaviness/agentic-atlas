@@ -3,7 +3,7 @@
 > **Primary entry point for AI-assisted development.** Generated 2026-07-22 by a deep scan.
 > Point brownfield planning workflows here.
 
-Agentic Atlas profiles agentic development approaches by locating each on 13 signed, diverging
+Agentic Atlas profiles agentic development methodologies by locating each on 13 signed, diverging
 axes on a shared `-10..+10` scale. It is not a ranking tool and there is **no aggregate
 score** — a profile is a vector of independent signed positions.
 
@@ -65,7 +65,7 @@ score** — a profile is a vector of independent signed positions.
 make setup     # create .venv, editable-install with dev deps
 make check     # the CI gate: lint → docs-check → test
 make validate  # validate the rubric against its schemas
-make profile TARGET=/path/to/approach FORMAT=md   # profile a target (measured only)
+make profile TARGET=/path/to/methodology FORMAT=md   # profile a target (measured only)
 ```
 
 Then read [development-guide.md](./development-guide.md) for the full workflow and
