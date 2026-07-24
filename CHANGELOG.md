@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/AdamCaviness/agentic-atlas/compare/v1.1.0...v1.1.1) (2026-07-24)
+
+
+### Bug Fixes
+
+* **ci:** clear ruff 0.16 findings in check_site.py ([9d50702](https://github.com/AdamCaviness/agentic-atlas/commit/9d5070269de092b5f66757514846710d3f4520bb))
+* **ci:** clear ruff 0.16 findings in the Explorer build gate ([bc66e20](https://github.com/AdamCaviness/agentic-atlas/commit/bc66e204ad5555e69fff489ba79ef2e4740c5e49))
+
 ## [1.1.0](https://github.com/AdamCaviness/agentic-atlas/compare/v1.0.0...v1.1.0) (2026-07-24)
 
 
