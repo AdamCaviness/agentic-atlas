@@ -43,5 +43,7 @@ jobs:
         run: agentic-atlas docs rubric/v1 --check
       - name: Committed profile corpus in sync
         run: python scripts/check_corpus.py
+      - name: Explorer site builds and its JS parses
+        run: python scripts/check_site.py
       - name: Tests
         run: pytest -q
