@@ -17,7 +17,8 @@ import shutil
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROFILES = os.path.join(REPO, "profiles")
-OUT = os.path.join(REPO, "_bmad-output", "site")
+# Tool-neutral build output (gitignored). The deploy uploads this directory to Pages.
+OUT = os.path.join(REPO, "dist")
 
 # Report design tokens (kept in sync with agentic_atlas/report.py _HTML_CSS).
 CSS = """
@@ -143,7 +144,7 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .cmp-sum{padding:11px 18px;font-size:.86rem;color:var(--fg);border-bottom:1px solid var(--line);background:var(--card)}
 .cmp-sum .k{font-weight:650}
 .cmp-sum .pn{color:var(--neg);font-weight:600}.cmp-sum .pp{color:var(--pos);font-weight:600}
-.cmp-body{flex:1;overflow:auto;padding:16px 18px 20px}
+.cmp-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 18px 20px}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
 .seg button{font:inherit;font-size:.78rem;font-weight:600;color:var(--muted);background:var(--bg);border:none;padding:6px 13px;cursor:pointer}
 .seg button+button{border-left:1px solid var(--line)}
@@ -187,7 +188,15 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .axtip{display:none;position:absolute;left:0;top:calc(100% + 7px);z-index:40;width:238px;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:9px 11px;box-shadow:0 8px 28px rgba(0,0,0,.2);font:400 .76rem/1.45 var(--sans);text-align:left;font-weight:400;white-space:normal;text-transform:none;letter-spacing:normal}
 .axtip-btn:hover .axtip,.axtip-btn:focus .axtip{display:block}
 .axtip .pn{color:var(--neg);font-weight:600}.axtip .pp{color:var(--pos);font-weight:600}
-.drill-back{font:inherit;font-size:.8rem;color:var(--accent);background:none;border:none;cursor:pointer;padding:0;margin:0 0 12px;display:inline-flex;gap:5px;align-items:center}
+.drill-back{font:inherit;font-size:.8rem;font-weight:600;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:9px;cursor:pointer;padding:7px 13px 7px 11px;margin:0 0 14px;display:inline-flex;gap:6px;align-items:center;transition:border-color .12s ease,color .12s ease,background .12s ease}
+.drill-back:hover{border-color:var(--accent);color:var(--accent);background:var(--bg)}
+.drill-back:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.drill-back .chev{font-size:1.1em;line-height:1;margin-top:-1px}
+.cmp-body.din{animation:drillIn .19s ease both}
+.cmp-body.dback{animation:drillBack .19s ease both}
+@keyframes drillIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes drillBack{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.cmp-body.din,.cmp-body.dback{animation:none}}
 .drill-h{margin:0 0 4px;font-size:1.05rem;font-weight:700}
 .drill-sub{margin:0 0 16px;font-size:.82rem;color:var(--muted);max-width:70ch}
 .drill-sub .pn{color:var(--neg);font-weight:600}.drill-sub .pp{color:var(--pos);font-weight:600}
@@ -431,7 +440,7 @@ function cmpBarsMatrix(){
   const head=`<div class="h gut"></div>`+compare.map((s,i)=>{const p=prof(s),cov=Math.round(p.axes.reduce((a,x)=>a+x.coverage,0)/p.axes.length*100);return `<div class="h thead"><span class="tname"><span class="tdot" style="background:var(${TCOL[i]})"></span>${esc(p.name)}</span><span class="tcov">${cov}% evidence</span></div>`;}).join("");
   const rows=cmpOrdered().map(id=>{
     const a=cmpMeta(id),sp=cmpSpread(id),pipW=6+Math.round(sp/maxSp*46);
-    const gut=`<div class="gut"><div class="ax-t">${esc(a.title)}<button class="axtip-btn" type="button" aria-label="What ${esc(a.title)} means">i<span class="axtip"><span class="pn">${esc(a.neg)}</span>: ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span>: ${esc(a.epos)}</span></button></div><div class="ax-p"><span class="pn">${esc(a.neg)}</span> &harr; <span class="pp">${esc(a.pos)}</span></div><div class="ax-spread"><span class="spread-pip" style="width:${pipW}px"></span>${sp>0?sp.toFixed(1)+" apart":"&mdash;"}</div><button class="sig-link" type="button" onclick="cmpDrill('${id}')">signals &rsaquo;</button></div>`;
+    const gut=`<div class="gut"><div class="ax-t">${esc(a.title)}<button class="axtip-btn" type="button" aria-label="What ${esc(a.title)} means">i<span class="axtip"><span class="pn">${esc(a.neg)}</span>: ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span>: ${esc(a.epos)}</span></button></div><div class="ax-p"><span class="pn">${esc(a.neg)}</span> &harr; <span class="pp">${esc(a.pos)}</span></div><div class="ax-spread"><span class="spread-pip" style="width:${pipW}px"></span>${sp>0?sp.toFixed(1)+" apart":"&mdash;"}</div><button class="sig-link" type="button" data-axis="${id}" onclick="cmpDrill('${id}')">signals &rsaquo;</button></div>`;
     const cells=compare.map(s=>{const rax=prof(s).axes.find(x=>x.axis_id===id),sc=rax?rax.score:null,cov=rax?rax.coverage:0,scale=rax&&rax.scale?rax.scale:10;const numCls=sc===null?"na":(sc<0?"neg":"pos"),num=sc===null?"no reading":(sc>0?"+":"")+sc.toFixed(1);return `<div class="cell">${cmpBar(sc,scale,cov)}<span class="num ${numCls}">${num}</span></div>`;}).join("");
     return gut+cells;
   }).join("");
@@ -481,10 +490,11 @@ function cmpRenderSignals(id){
     const items=inds.length?inds.map(ir=>{const kind=ir.kind==="measured"?"detected":"judged";const v=ir.value,vCls=v==null?"zero":(v<0?"neg":(v>0?"pos":"zero")),vTxt=v==null?"":(v>0?"+":"")+(+v).toFixed(2);const ev=ir.evidence?`<div class="sig-ev">&ldquo;${esc(ir.evidence)}&rdquo;</div>`:`<div class="sig-ev empty">no quote recorded</div>`;const ans=ir.answer&&ir.answer!=="-"?` &middot; ${esc(ir.answer)}`:"";return `<div class="sig-item"><div class="sig-top"><span class="kind ${kind}">${kind}</span><span class="sig-id">${esc(ir.indicator_id)}${ans}</span><span class="sig-v ${vCls}">${vTxt}</span></div>${ev}<div class="sig-src">${esc(ir.source||"")}</div></div>`;}).join(""):`<div class="sig-ev empty">no signals recorded</div>`;
     return `<div class="sig-tool"><div class="sh"><span class="stname"><span class="tdot" style="background:var(${TCOL[i]})"></span>${esc(p.name)}</span><span class="stsc ${scCls}">${scTxt}</span></div>${items}</div>`;
   }).join("");
-  body.innerHTML=`<button class="drill-back" onclick="cmpUndrill()">&lsaquo; Back to compare</button><h3 class="drill-h">${esc(a.title)}</h3><p class="drill-sub"><span class="pn">${esc(a.neg)}</span> &harr; <span class="pp">${esc(a.pos)}</span> &middot; the signals behind each position, <b>detected</b> by the engine or <b>judged</b> by a reviewer reading the repo.</p><div class="sig-cols">${cols}</div>`;
+  body.innerHTML=`<button class="drill-back" type="button" onclick="cmpUndrill()"><span class="chev" aria-hidden="true">&lsaquo;</span> Back to compare</button><h3 class="drill-h">${esc(a.title)}</h3><p class="drill-sub"><span class="pn">${esc(a.neg)}</span> &harr; <span class="pp">${esc(a.pos)}</span> &middot; the signals behind each position, <b>detected</b> by the engine or <b>judged</b> by a reviewer reading the repo.</p><div class="sig-cols">${cols}</div>`;
 }
-function cmpDrill(id){cmpDrillAxis=id;cmpRender();$("#cmp-body").scrollTop=0;}
-function cmpUndrill(){cmpDrillAxis=null;cmpRender();}
+function playDrillAnim(cls){const b=$("#cmp-body");if(!b)return;b.classList.remove("din","dback");void b.offsetWidth;b.classList.add(cls);}
+function cmpDrill(id){cmpDrillAxis=id;cmpRender();$("#cmp-body").scrollTop=0;playDrillAnim("din");const back=$(".drill-back");if(back)back.focus();}
+function cmpUndrill(){const from=cmpDrillAxis;cmpDrillAxis=null;cmpRender();playDrillAnim("dback");const lnk=from&&$('.sig-link[data-axis="'+from+'"]');if(lnk)lnk.focus();}
 function cmpRender(){
   cmpRenderTools();cmpRenderSummary();
   if(compare.length<2){$("#cmp-body").innerHTML='<div class="empty">Add one more methodology to compare.</div>';return;}
