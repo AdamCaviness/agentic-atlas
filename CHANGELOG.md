@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.7.1...v1.0.0) (2026-07-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **rubric:** recalibrate spec-light-vs-spec-driven, ship rubric 2.0.0
+
+### Features
+
+* **rubric:** recalibrate spec-light-vs-spec-driven, ship rubric 2.0.0 ([0e151c1](https://github.com/AdamCaviness/agentic-atlas/commit/0e151c12a4cc3a72792c98208d8ab3742059d170))
+
 ## [0.7.1](https://github.com/AdamCaviness/agentic-atlas/compare/v0.7.0...v0.7.1) (2026-07-23)
 
 
