@@ -42,8 +42,10 @@ def generate_block(axis: Axis) -> str:
     lines = [
         f"### Scoring ({axis.title})",
         "",
-        f"Poles: `{axis.poles.negative}` (negative) to `{axis.poles.positive}` (positive). "
-        f"Scale ±{axis.scale:g}.",
+        (
+            f"Poles: `{axis.poles.negative}` (negative) to `{axis.poles.positive}` (positive). "
+            f"Scale ±{axis.scale:g}."
+        ),
         "",
         f"Position is a weighted mean of {len(axis.indicators)} indicator measurements:",
         "",

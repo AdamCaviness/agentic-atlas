@@ -307,8 +307,7 @@ BROOM = (
 def _display_name(target: str) -> str:
     """Last path segment, matching report.py's pill (full target stays in the JSON)."""
     name = target.rstrip("/").rsplit("/", 1)[-1]
-    if name.endswith(".git"):
-        name = name[:-4]
+    name = name.removesuffix(".git")
     return name or target
 
 
@@ -318,8 +317,9 @@ def build():
     for f in files:
         slug = os.path.splitext(os.path.basename(f))[0]
         try:
-            p = json.load(open(f))
-        except Exception as e:
+            with open(f) as fh:
+                p = json.load(fh)
+        except (OSError, ValueError) as e:
             print(f"skip {slug}: {e}")
             continue
         p["slug"] = slug
@@ -351,7 +351,8 @@ def build():
 </div></div>
 <script>const DATA={json.dumps(data)};</script><script>{JS}</script></body></html>"""
     out_index = os.path.join(OUT, "index.html")
-    open(out_index, "w").write(page)
+    with open(out_index, "w") as fh:
+        fh.write(page)
     print(f"built {out_index} with {len(data)} profiles")
     print("profiles:", ", ".join(p["slug"] for p in data))
     return 0

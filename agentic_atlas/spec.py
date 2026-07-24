@@ -41,7 +41,7 @@ def _parse_answers(indicator: dict) -> dict[str, float]:
         if isinstance(k, bool):
             # YAML 1.1 turns unquoted yes/no/true/false into booleans. Answer keys
             # must be strings, so the author has to quote them.
-            raise ValueError(
+            raise TypeError(
                 f"indicator {indicator['id']!r} has a boolean answer key ({k!r}). "
                 f'Quote yes/no/true/false answer keys in the rubric, e.g. "yes".'
             )

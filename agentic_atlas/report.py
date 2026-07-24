@@ -240,8 +240,7 @@ def _display_name(target: str) -> str:
     ``https://github.com/obra/superpowers.git`` both read as ``superpowers``. The full target
     stays in the pill's title attribute, the stamps, and the JSON, so provenance is not lost."""
     name = target.rstrip("/").rsplit("/", 1)[-1]
-    if name.endswith(".git"):
-        name = name[:-4]
+    name = name.removesuffix(".git")
     return name or target
 
 
@@ -800,8 +799,7 @@ def _github_slug(url: str | None) -> tuple[str, str] | None:
     if not url or "github.com" not in url:
         return None
     tail = url.split("github.com", 1)[1].lstrip(":/")
-    if tail.endswith(".git"):
-        tail = tail[:-4]
+    tail = tail.removesuffix(".git")
     parts = [p for p in tail.rstrip("/").split("/") if p]
     return (parts[0], parts[1]) if len(parts) >= 2 else None
 
@@ -820,7 +818,7 @@ def _project_html(url: str | None, name: str) -> str:
             f"{_GH_MARK}<span>{_html_escape(owner)}/{_html_escape(repo)}</span></a></div>"
         )
     if url:
-        clean = url[:-4] if url.endswith(".git") else url
+        clean = url.removesuffix(".git")
         if clean.startswith("http"):
             label = clean.split("://", 1)[-1]
             return (

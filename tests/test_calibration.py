@@ -114,7 +114,7 @@ UNREACHABLE_SCALE_REASON = (
 
 def _load_corpus() -> list[Profile]:
     paths = sorted(glob.glob(str(_ROOT / "profiles" / "*.json")))
-    profiles = [Profile.from_dict(json.load(open(p))) for p in paths]
+    profiles = [Profile.from_dict(json.loads(Path(p).read_text())) for p in paths]
     assert profiles, "no committed profiles found under profiles/*.json"
     return profiles
 
