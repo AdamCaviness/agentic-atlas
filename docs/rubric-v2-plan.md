@@ -38,10 +38,11 @@ reachable. The defects are systemic, not isolated to one axis:
   mapped positive (+0.2 to +0.48), rarely 0, so "encouraged but not required" scores a
   quarter of the way to the positive pole instead of neutral.
 
-v2 is a MAJOR rubric bump. It changes scores for identical evidence, so it lives under a
-new `rubric/v2/` directory, ships a `rubric/CHANGELOG.md` entry with rationale, and does
-not recompute v1 profiles. It does not touch the atlas premise: signed diverging axes, both
-poles legitimate, no aggregate score.
+v2 is a MAJOR rubric bump. It changes scores for identical evidence, so it advances
+`rubric_version` (profiles are comparable only within the same MAJOR) and ships a
+`rubric/v1/CHANGELOG.md` entry with rationale. The first increment, the spec-light-vs-spec-driven
+recalibration, ships as `2.0.0`. It does not touch the atlas premise: signed diverging axes,
+both poles legitimate, no aggregate score.
 
 ## The invariant spine
 

@@ -1,7 +1,7 @@
 {
   "target": "SuperClaude_Framework",
-  "rubric_version": "1.4.0",
-  "engine_version": "0.6.0",
+  "rubric_version": "2.0.0",
+  "engine_version": "0.7.1",
   "target_sha": "10be75032e249d2dd5c5175e9853c2566874ddd3",
   "target_url": "https://github.com/SuperClaude-Org/SuperClaude_Framework",
   "axes": [
@@ -449,18 +449,18 @@
         "positive": "spec_driven"
       },
       "explain": {
-        "negative": "jumps straight to implementation, little written up front",
-        "positive": "writes and follows a spec or plan before coding"
+        "negative": "jumps straight to implementation, or works from a ticket alone",
+        "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 5.6,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "sd1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.24,
+          "value": 0.0,
           "resolved": true,
           "answer": "encouraged",
           "evidence": "Understand \u2192 Plan \u2192 Build, not Build \u2192 Build more",
@@ -470,20 +470,20 @@
           "indicator_id": "sd2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 0.3,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Generate concrete specifications with cross-session persistence capabilities",
+          "answer": "some",
+          "evidence": "Generate clear design documentation with diagrams and specifications",
           "source": "agent-team wave2 2026-07-23"
         },
         {
           "indicator_id": "sd3",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.8,
+          "value": -1.0,
           "resolved": true,
-          "answer": "1164",
-          "evidence": "1164 occurrences of ['prd', 'specification', 'requirements', 'acceptance criteria', 'design doc', 'plan', 'spec'] across the text corpus",
+          "answer": "0",
+          "evidence": "0 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
           "source": "engine"
         }
       ]

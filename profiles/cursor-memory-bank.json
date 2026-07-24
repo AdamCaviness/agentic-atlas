@@ -1,7 +1,7 @@
 {
   "target": "cursor-memory-bank",
-  "rubric_version": "1.4.0",
-  "engine_version": "0.6.0",
+  "rubric_version": "2.0.0",
+  "engine_version": "0.7.1",
   "target_sha": "7d879d8f5079ad77d845fdc92ca03903dbbd3a85",
   "target_url": "https://github.com/vanzan01/cursor-memory-bank",
   "axes": [
@@ -449,41 +449,41 @@
         "positive": "spec_driven"
       },
       "explain": {
-        "negative": "jumps straight to implementation, little written up front",
-        "positive": "writes and follows a spec or plan before coding"
+        "negative": "jumps straight to implementation, or works from a ticket alone",
+        "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 8.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "sd1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.8,
+          "value": 0.0,
           "resolved": true,
-          "answer": "required",
-          "evidence": "Check `memory-bank/tasks.md` for planning completion",
+          "answer": "encouraged",
+          "evidence": "This command creates detailed implementation plans based on complexity level determined in VAN mode.",
           "source": "agent-team wave2 2026-07-23"
         },
         {
           "indicator_id": "sd2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 0.3,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Adds detailed implementation plan",
+          "answer": "some",
+          "evidence": "Design decision documents (Level 3-4)",
           "source": "agent-team wave2 2026-07-23"
         },
         {
           "indicator_id": "sd3",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.8,
+          "value": -1.0,
           "resolved": true,
-          "answer": "128",
-          "evidence": "128 occurrences of ['prd', 'specification', 'requirements', 'acceptance criteria', 'design doc', 'plan', 'spec'] across the text corpus",
+          "answer": "0",
+          "evidence": "0 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
           "source": "engine"
         }
       ]

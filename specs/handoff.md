@@ -133,8 +133,7 @@ single-pass-vs-review-looped, bare-vs-integration-heavy, informal-vs-ceremonial,
 magic-vs-mechanical, fast-start-vs-high-setup, and the audience axes. Dropped:
 implementation-first-vs-planning-first (near-duplicate of spec-light/spec-driven).
 
-Sign conventions and weights are a first proposal and are meant to be contested
-before v1 is treated as stable.
+Sign conventions and weights are a first proposal and are meant to be contested and refined.
 
 ## Next steps (priority order)
 

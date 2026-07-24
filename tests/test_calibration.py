@@ -53,20 +53,20 @@ _RUBRIC_DIR = _ROOT / "rubric" / "v1"
 # When a v2 change fixes one, its strict xfail becomes an xpass (a failure); delete the entry.
 
 CONSTANT_INDICATORS = {
-    "sd2": "AD-2/AD-4: classified 'yes' for all 18 targets; persisting any artifact (a "
-    "ticket) counts as producing a spec, so it never discriminates and adds ~+2.29 bias.",
-    "sd3": "AD-2: vocabulary top band (>8) saturates for all 18 (counts 56..8628); ~+2.29 "
-    "bias toward spec-driven.",
     "sl3": "AD-2: vocabulary top band saturates for all 18 (counts 13..3886); ~+2.29 bias "
     "toward large-scope.",
 }
+# Removed in rubric 2.0.0 (spec-light-vs-spec-driven recalibration): sd2 now requires a
+# specification document (a ticket no longer counts) so it discriminates no/some/yes, and
+# sd3 became a structural path_count over spec-producing machinery, so neither is constant.
 
 # Measured indicators whose signal defines >= 3 bands but that collapse to < 3 distinct
 # values across the corpus: the bands are never exercised (AD-2). The git_stats indicators
 # are not listed: profiled from full clones they exercise their bands across the corpus, so
 # their spread is a band-design non-issue (see the maturity regression guard below).
 COLLAPSED_BANDS = {
-    "sd3": "vocabulary: all 18 in the top band.",
+    # sd3 removed in rubric 2.0.0: now a path_count over spec-producing machinery whose
+    # none/a-few/many bands are exercised across the corpus (56% off the top band).
     "sl3": "vocabulary: all 18 in the top band.",
     "gb3": "vocabulary: 15/18 in the top band.",
     "gs3": "vocabulary: 16/18 in the top band, middle band never fires.",
@@ -85,14 +85,24 @@ MIN_OFF_MODE_SHARE = 0.2  # at least a fifth of the corpus must sit off the sing
 # Axes with no classified answer that can land near zero, so the middle of the construct is
 # forced off-center (AD-6).
 AXES_WITHOUT_NEUTRAL = {
-    "spec-light-vs-spec-driven": "sd1/sd2 map their middle answer to +0.24, not 0.",
+    # spec-light-vs-spec-driven removed in rubric 2.0.0: sd1's middle answer "encouraged"
+    # now maps to a true zero (0.0), so a balanced position is expressible (AD-6).
     "test-optional-vs-test-first": "tf1/tf2 middle answers map to +0.3.",
     "single-agent-vs-multi-agent": "ma1 is the only classified indicator; middle is +0.3.",
     "solo-vs-team": "st1/st2 middle answers map to +0.2/+0.3.",
     "interrogative-vs-opinionated": "io1/io2 offer no near-zero answer.",
 }
 
-# No v1 axis reaches +-scale on both poles (AD-3); the clamp in scoring.py is dead code.
+# Axes converted to the +-1.0 value convention (AD-3), so they reach both poles and their
+# reachability case must pass. spec-light-vs-spec-driven is the first, converted in rubric
+# 2.0.0: every bipolar indicator's extremes are +-1.0, so the weighted mean reaches +-scale
+# with no engine rescale. Later v2 axes join this set as they are converted.
+SCALE_REACHED_AXES = {"spec-light-vs-spec-driven"}
+
+# The remaining axes still do not reach +-scale on both poles (AD-3): an indicator extreme is
+# < +-1.0, or the axis carries a one-directional indicator, so the clamp in scoring.py is dead
+# code for them. Fixed per axis by the +-1.0 value convention (plus the engine rescale for a
+# genuinely one-directional axis).
 UNREACHABLE_SCALE_REASON = (
     "AD-3: v1 indicator extremes are < +-1.0 (or the axis has a one-directional indicator), "
     "so the weighted mean cannot reach +-scale. Fixed by the +-1.0 value convention plus the "
@@ -270,7 +280,11 @@ def test_multiband_indicator_uses_its_bands(axis_id, indicator_id):
 @pytest.mark.parametrize(
     "axis_id",
     [
-        pytest.param(ax.id, marks=pytest.mark.xfail(reason=UNREACHABLE_SCALE_REASON, strict=True))
+        ax.id
+        if ax.id in SCALE_REACHED_AXES
+        else pytest.param(
+            ax.id, marks=pytest.mark.xfail(reason=UNREACHABLE_SCALE_REASON, strict=True)
+        )
         for ax in RUBRIC.axes
     ],
 )

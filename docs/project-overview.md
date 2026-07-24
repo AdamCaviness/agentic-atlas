@@ -85,8 +85,8 @@ See [architecture-engine.md](./architecture-engine.md) for the module-level desi
 ## Current status
 
 Early scaffold, actively developed (43 commits, 4 tags, ~8 days of history at scan time).
-Engine version `0.4.0`; rubric version `1.4.0` (still MAJOR v1, pre-settled per
-[versioning.md](./versioning.md)). Working today: schema-validated per-axis rubric, the
+Engine version `0.4.0`; rubric version `2.0.0` (see [versioning.md](./versioning.md)). Working
+today: schema-validated per-axis rubric, the
 deterministic scoring core, all five measured evidence collectors, the classified-answer
 validation seam, text/markdown/JSON/HTML reports (including an interactive 3D profile
 crystal), the `agentic-atlas docs` generator kept in sync by `make docs-check`, and the

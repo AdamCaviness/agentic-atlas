@@ -12,7 +12,7 @@ embedding any of it. It is a directory per MAJOR version (`rubric/v1`), schema-v
 its human documentation's scoring block is machine-generated from the same source of truth the
 engine reads. This is the "spec" half of the spec-plus-interpreter design.
 
-Current version: **`rubric_version: 1.4.0`**, scale `10`, **13 active axes**.
+Current version: **`rubric_version: 2.0.0`**, scale `10`, **13 active axes**.
 
 ## Layout
 
@@ -130,13 +130,11 @@ Distinct from the engine's software semver. Guiding question: *would this change
 for identical evidence?*
 
 - **MAJOR** — anything that can move an existing score: add/remove an indicator, change a
-  weight or formula, change an answer→value mapping, redefine a pole. New MAJOR ⇒ new
-  `rubric/vN` directory; profiles across MAJOR versions are not comparable.
+  weight or formula, change an answer→value mapping, redefine a pole. Profiles across MAJOR
+  versions are not comparable.
 - **MINOR** — add a whole new axis or optional metadata, leaving every existing score identical.
 - **PATCH** — wording that cannot change any indicator value.
 
-**Pre-settled status:** v1 is an initial work in progress. Until the standard stabilizes and
-public profiles exist, score-moving changes are logged honestly in `rubric/CHANGELOG.md` but
-do not each mint a new MAJOR directory (which is why the manifest reads `1.4.0` while still
-living under `v1`). Every rubric change requires a CHANGELOG entry and a PR rationale — do not
-silently recalibrate. See [versioning.md](./versioning.md).
+The authoritative version is `rubric_version` in the manifest; the rubric source lives under
+`rubric/v1/`. Every rubric change requires a `rubric/v1/CHANGELOG.md` entry and a PR rationale,
+so do not silently recalibrate. See [versioning.md](./versioning.md).
