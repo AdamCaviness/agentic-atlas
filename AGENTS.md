@@ -49,6 +49,14 @@ run `make profiles` to regenerate the corpus (it re-renders from the JSON, no ta
 needed). `make profiles-check` (part of `make check`) fails on drift, and the hosted site
 deploy is gated on `make check` passing, so a stale corpus cannot ship.
 
+The Explorer site (the hosted map) is built by `scripts/build_site.py` into `dist/`
+(gitignored, not committed, the directory the Pages deploy uploads). The build inlines the
+committed `profiles/*.json` into a single self-contained `index.html`, so it opens straight
+from `file://` with no server. That `dist/index.html` is a snapshot: editing `build_site.py`
+does not update it until you rebuild, so after any change to `build_site.py` run
+`python3 scripts/build_site.py` and surface the path to `dist/index.html` for a visual check.
+`make site-check` (part of `make check`) also rebuilds it and syntax-checks the embedded JS.
+
 ## Conventions
 
 - Python 3.11+. Keep the deterministic core (`models.py`, `spec.py`, `scoring.py`) dependency-light and fully tested.
