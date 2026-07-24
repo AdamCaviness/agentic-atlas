@@ -137,7 +137,7 @@ def build_parser() -> argparse.ArgumentParser:
     d.set_defaults(func=_cmd_docs)
 
     pr = sub.add_parser("profile", help="profile a target directory")
-    pr.add_argument("target", help="path to the target approach/framework directory")
+    pr.add_argument("target", help="path to the target methodology/framework directory")
     pr.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
     pr.add_argument(
         "--answers",
@@ -151,7 +151,7 @@ def build_parser() -> argparse.ArgumentParser:
     q = sub.add_parser(
         "questions", help="emit the classified questions to answer for a target (JSON)"
     )
-    q.add_argument("target", help="path to the target approach/framework directory")
+    q.add_argument("target", help="path to the target methodology/framework directory")
     q.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
     q.set_defaults(func=_cmd_questions)
 

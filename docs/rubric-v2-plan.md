@@ -68,7 +68,7 @@ divergence it prevents.
 - **Prevents:** vocabulary saturation, keyword-context blindness, and "talks about X"
   masquerading as "does X".
 - **Rule:** measured indicators read structural or behavioral evidence (command, skill, and
-  template definitions; the artifacts a workflow produces; git and host-API facts), not
+  template definitions; the artifacts a methodology produces; git and host-API facts), not
   free-text word density. A lexical signal, if one survives, is corroborating only under
   AD-4 and is never the sole measured indicator that can move an axis.
 

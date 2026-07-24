@@ -24,7 +24,7 @@ _SLUGARG  = $(if $(SLUG),--slug $(SLUG),)
 # is well within rate limits for a corpus this size.
 CORPUS_PY = env -u GH_TOKEN -u GITHUB_TOKEN $(PY) scripts/corpus.py
 
-.PHONY: help setup install test check lint fmt fmt-check format validate docs docs-check profiles profiles-check profile corpus-fetch corpus-rescore corpus-refresh clean
+.PHONY: help setup install test check lint fmt fmt-check format validate docs docs-check profiles profiles-check site-check profile corpus-fetch corpus-rescore corpus-refresh clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -56,7 +56,7 @@ fmt-check: setup ## Fail if any file is not ruff-formatted (run `make fmt` to fi
 
 format: fmt ## Alias for fmt
 
-check: lint fmt-check docs-check profiles-check test ## Lint, format, docs + corpus sync, then test (the CI gate)
+check: lint fmt-check docs-check profiles-check site-check test ## Lint, format, docs + corpus sync, Explorer build, then test (the CI gate)
 
 validate: setup ## Validate the rubric against the schema (RUBRIC=...)
 	$(ATLAS) validate $(RUBRIC)
@@ -73,9 +73,12 @@ profiles: setup ## Regenerate the committed profile HTML from profile JSON
 profiles-check: setup ## Fail if any committed profile HTML is stale vs its JSON
 	$(PY) scripts/check_corpus.py
 
+site-check: setup ## Build the Explorer site and syntax-check its JS (gates build_site.py before deploy)
+	$(PY) scripts/check_site.py
+
 profile: setup ## Profile a target: make profile TARGET=/path [ANSWERS=answers.json FORMAT=md]
 	@test -n "$(TARGET)" || { \
-		echo "usage: make profile TARGET=/path/to/approach [ANSWERS=answers.json FORMAT=text|md|json]"; \
+		echo "usage: make profile TARGET=/path/to/methodology [ANSWERS=answers.json FORMAT=text|md|json]"; \
 		exit 2; }
 	$(ATLAS) profile "$(TARGET)" --rubric "$(RUBRIC)" $(if $(ANSWERS),--answers "$(ANSWERS)",) --format "$(FORMAT)"
 

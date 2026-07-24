@@ -57,7 +57,7 @@ on the 13 axes. Its 9-step procedure:
 1. **Preflight** — run a trivial engine command to force first-run bootstrap.
 2. **Resolve the target** — no-arg = current directory (announced); local path; or git URL
    (full clone into temp, never `--depth 1`, because the Fresh↔Mature axis reads git history).
-   Then a soft gate: confirm the target actually looks like an *agentic approach* (SKILL.md,
+   Then a soft gate: confirm the target actually looks like an *agentic methodology* (SKILL.md,
    `skills/`, `agents/`, `.claude/`, AGENTS.md, agentic vocabulary) before spending effort.
 3. **Get the worklist** — `atlas.sh questions <target>` prints the classified questions.
 4. **Read the target, then answer** — pick one allowed value per question and cite a quote

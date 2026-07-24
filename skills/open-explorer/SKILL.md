@@ -14,7 +14,7 @@ description: >
 The **Explorer** is the hosted home of Agentic Atlas, an interactive map of every profile we
 have already run, at https://adamcaviness.github.io/agentic-atlas/ . We keep ready-made
 profiles of popular agentic methodologies there, so most people never need to profile
-anything themselves: just browse, set the axes that matter to you, and see which approaches
+anything themselves: just browse, set the axes that matter to you, and see which methodologies
 lean your way. Both ends of every axis are legitimate. The Explorer locates tools, it does
 not rank them, and there is no overall score.
 
@@ -43,7 +43,7 @@ Tell the user what they will find and how to go further:
 
 - The Explorer hosts the current collection of profiles, popular methodologies we have already
   run, each on the same 13 signed axes. Set only the preferences that matter; untouched axes
-  mean no preference, and the map surfaces the approaches that lean your way.
+  mean no preference, and the map surfaces the methodologies that lean your way.
 - Every profile page links back to the Explorer through its brand mark, so browsing one
   profile is one click from the whole set.
 - To profile a tool that is **not** in the collection (your own repo, a private framework, or

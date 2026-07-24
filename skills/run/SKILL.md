@@ -1,7 +1,7 @@
 ---
 name: run
 description: >
-  Understand how an agentic tool, framework, or workflow fits your own style and projects.
+  Understand how an agentic tool, framework, or methodology fits your own style and projects.
   Profiles the target on 13 independent, diverging axes (Greenfield ↔ Brownfield, Autonomous ↔
   Human-in-loop, Spec-light ↔ Spec-driven, and ten more) on a shared -10..+10 scale where
   both poles are legitimate: it locates a tool, it does not rank one, and there is no
@@ -14,7 +14,7 @@ argument-hint: "[path-or-git-url] [--save]"
 
 # Agentic Atlas
 
-Profile a development approach, framework, or skill collection and locate it on 13 signed,
+Profile a development methodology, framework, or skill collection and locate it on 13 signed,
 diverging axes (for example Greenfield ↔ Brownfield, Autonomous ↔ Human-in-loop, Spec-light ↔
 Spec-driven). Each axis is an independent position on a shared `-10..+10` scale where `0` is
 neutral. Both poles of every axis are legitimate. Agentic Atlas reports what it sees rather
@@ -133,10 +133,10 @@ the engine another way.
 Derive `TARGET_NAME` from the final path segment of the target (the repo or directory name),
 for use in `--save` and in the printed summary.
 
-**Then confirm the target is an agentic approach before spending effort on it.** This skill
-profiles agentic workflows, frameworks, and skill collections, not ordinary applications or
+**Then confirm the target is an agentic methodology before spending effort on it.** This skill
+profiles agentic methodologies, frameworks, and skill collections, not ordinary applications or
 libraries. Take a quick read of the target (its README and top-level structure) and look for
-the markers of an agentic approach:
+the markers of an agentic methodology:
 
 - structural: `SKILL.md`, `skills/`, `commands/`, `agents/`, `.claude/`, `.claude-plugin/`,
   `AGENTS.md`, `GEMINI.md`, `*.prompt`, persona or workflow definitions, an MCP config, or a
@@ -146,10 +146,10 @@ the markers of an agentic approach:
 
 Then let intent set the strictness:
 
-- If it is clearly an agentic approach, proceed.
+- If it is clearly an agentic methodology, proceed.
 - If it is clearly not one (a regular app or library with none of these markers) and the
   target came from the no-argument current-directory default, stop and say so, for example
-  "This looks like a regular application, not an agentic workflow or framework, which is what
+  "This looks like a regular application, not an agentic methodology or framework, which is what
   I profile. Re-run with an explicit target, or confirm you want to profile it anyway," and
   wait for the user to confirm. If the user passed the target explicitly (a path or URL they
   chose), treat that as intent: note the mismatch in one line and proceed.
@@ -173,7 +173,7 @@ classified questions across the axes. Read the whole list before answering.
 ### Step 4: Read the target, then answer each question
 
 First read the target broadly: README, `docs/`, configuration, command/skill/agent
-definitions, and the directory structure. Build a picture of how the approach actually works
+definitions, and the directory structure. Build a picture of how the methodology actually works
 before you answer anything.
 
 Then answer every question in the worklist. For each one:
@@ -335,7 +335,7 @@ beyond them:
 
 - **No argument**: profile the current directory, announced (Step 2). Do not print usage and
   stop; the current directory is the default target.
-- **Target does not look like an agentic approach**: apply the Step 2 gate. On the
+- **Target does not look like an agentic methodology**: apply the Step 2 gate. On the
   no-argument fallback, confirm before continuing rather than emitting a hollow profile; on
   an explicitly passed target, note the mismatch and proceed.
 - **Target is a file, not a directory**: tell the user and stop.

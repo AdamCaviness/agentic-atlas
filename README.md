@@ -1,16 +1,16 @@
 <p align="center"><img src="docs/logo.svg" alt="Agentic Atlas" width="380"></p>
 
-An open methodology with tools for finding the ideal agentic workflow for you and your projects.
+An open profiler for agentic coding methodologies, built to help you find the ones that fit you and your projects.
 
-An "agentic workflow" are the plugins or frameworks that you use your coding harness (Codex, Claude Code, etc). Popular examples include [Superpowers](https://github.com/obra/superpowers), [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [GSD](https://github.com/jnuyens/gsd-plugin), [LFG](https://mcpmarket.com/tools/skills/lfg-autonomous-engineering-workflow), but this approach can profile any framework, method, or skill collection.
+An "agentic methodology" is the plugin, framework, or skill collection you add to your coding harness (Codex, Claude Code, etc). Popular examples include [Superpowers](https://github.com/obra/superpowers), [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [GSD](https://github.com/jnuyens/gsd-plugin), [LFG](https://mcpmarket.com/tools/skills/lfg-autonomous-engineering-workflow), but Agentic Atlas can profile any framework, method, or skill collection.
 
-There's no single best agentic workflow, only a best fit for your project and how you like to work. Agentic Atlas shows you where each tool sits so you can pick.
+There's no single best agentic methodology, only a best fit for your project and how you like to work. Agentic Atlas shows you where each tool sits so you can pick.
 
 ## What it does
 
 Agentic Atlas reports what it sees, it doesn't grade, rank, or crown a winner, because every person and project has unique needs and collapsing independent axes into one number tells you nothing. It locates each tool on signed, diverging axes: `0.0` is neutral, the sign says which pole the tool leans toward, and the magnitude says how strongly. A tool at `-7.8` on Greenfield ↔ Brownfield isn't worse than one at `+2.0`, it is simply aimed at greenfield projects, and you are shown this to draw your own conclusions on fit.
 
-Each position is a deterministic function of small, named, evidence-backed indicators, every one cited to the target repository. So when you disagree with where a tool landed, trace it to the exact indicators behind it and open a pull request against the versioned rubric. The goal is to this methodology to be a community-maintained, open, and auditable rubric for agentic workflows.
+Each position is a deterministic function of small, named, evidence-backed indicators, every one cited to the target repository. So when you disagree with where a tool landed, trace it to the exact indicators behind it and open a pull request against the versioned rubric. The goal is for the rubric to be a community-maintained, open, and auditable standard for profiling agentic methodologies.
 
 See [`docs/design.md`](docs/design.md) for the architecture and [`docs/axes.md`](docs/axes.md) for the axis authoring method and the full candidate catalog.
 
@@ -61,7 +61,7 @@ Everything runs through the Makefile. Run `make` to list targets.
 make setup                 # create the venv and install with dev deps
 make check                 # lint then test (the CI gate)
 make validate              # validate the rubric against the schema
-make profile TARGET=/path/to/approach FORMAT=md
+make profile TARGET=/path/to/methodology FORMAT=md
 ```
 
 The `agentic-atlas` CLI is available inside the venv:
@@ -69,9 +69,9 @@ The `agentic-atlas` CLI is available inside the venv:
 ```bash
 agentic-atlas validate rubric/v1                                    # check against the schema
 agentic-atlas docs rubric/v1                                        # regenerate axis README scoring blocks
-agentic-atlas profile /path/to/approach                             # measured indicators, deterministic, no key
-agentic-atlas questions /path/to/approach                           # emit the classified questions to answer
-agentic-atlas profile /path/to/approach --answers answers.json      # unlock classified indicators from answers
+agentic-atlas profile /path/to/methodology                             # measured indicators, deterministic, no key
+agentic-atlas questions /path/to/methodology                           # emit the classified questions to answer
+agentic-atlas profile /path/to/methodology --answers answers.json      # unlock classified indicators from answers
 agentic-atlas compare bmad-method superpowers gsd                   # (planned) overlay tools on the same axes
 ```
 
