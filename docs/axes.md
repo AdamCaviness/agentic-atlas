@@ -106,20 +106,24 @@ Some axes need evidence collectors beyond the defaults. Fresh↔Mature, for exam
 
 ## Planned calibration: vocabulary signals are weak priors
 
-Eleven of the v1 axes lean on a single `vocabulary` word-count as their only measured
+Ten of the v1 axes still lean on a single `vocabulary` word-count as their only measured
 indicator. A word-count measures how much a project *talks about* a topic, not whether it
 *practices* it, so it over-fires on meta-tooling whose content is itself about agentic
-process (`sd3` scored agentic-toolkit maximally spec-driven off 121 mentions of
-`plan`/`spec`, while the project ships no spec files). This is tolerable today because the
-report's coverage floor stops a lone vocabulary hit from rendering as a position, and
-because the intended experience resolves the classified indicators (which carry the real
-weight) through the skill, leaving vocabulary a minor prior.
+process. The clearest case was spec-light-vs-spec-driven's `sd3`, which scored agentic-toolkit
+maximally spec-driven off 121 mentions of `plan`/`spec` while the project ships no
+specification documents; rubric `2.0.0` converted it to a structural `path_count` over the
+spec-producing machinery a tool ships (see `rubric/v1/CHANGELOG.md`). The same weakness remains
+on the other ten. It is tolerable today because the report's coverage floor stops a lone
+vocabulary hit from rendering as a position, and because the intended experience resolves the
+classified indicators (which carry the real weight) through the skill, leaving vocabulary a
+minor prior.
 
-The planned fix, for the calibration pass that accompanies the first curated-profile
-corpus: where a structural artifact genuinely signals the practice, convert the
-`vocabulary` indicator to `path_presence` (spec-driven → a `specs/` tree or PRD
-templates; test-first → test directories plus CI config; production → CI/deploy/
-observability config). Where no structural proxy exists (for example the tone of
-interrogative-vs-opinionated), move the judgment into a `classified` indicator, which the
-skill answers for free, rather than approximating it with a word-count. Both are MAJOR
-rubric changes and go through `rubric/CHANGELOG.md` with a rationale.
+The fix, applied per axis: where a structural artifact genuinely signals the practice, convert
+the `vocabulary` indicator to a multi-band `path_count` over the artifacts the practice
+produces (spec-driven → spec templates and spec-scaffold conventions, as `sd3` now does;
+test-first → test directories plus CI config; production → CI/deploy/observability config).
+Prefer multi-band `path_count` to binary `path_presence`, which under-discriminates. Where no
+structural proxy exists (for example the tone of interrogative-vs-opinionated), move the
+judgment into a `classified` indicator, which the skill answers for free, rather than
+approximating it with a word-count. Each is a score-moving rubric change and goes through
+`rubric/v1/CHANGELOG.md` with a rationale.

@@ -132,7 +132,7 @@ class Target:
     _corpus: dict[str, str] = field(default_factory=dict, repr=False, compare=False)
 
     @classmethod
-    def from_path(cls, path: str | Path) -> "Target":
+    def from_path(cls, path: str | Path) -> Target:
         root = Path(path).expanduser().resolve()
         if not root.is_dir():
             raise NotADirectoryError(f"target is not a directory: {root}")
@@ -145,6 +145,7 @@ class Target:
                 capture_output=True,
                 text=True,
                 timeout=10,
+                check=False,
             )
         except (OSError, subprocess.SubprocessError):
             return None

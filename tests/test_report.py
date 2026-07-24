@@ -23,7 +23,7 @@ def _ind(kind: IndicatorKind, resolved: bool, weight: float = 1.0) -> IndicatorR
     )
 
 
-def _axis(title, score, coverage, indicators, explain=Explain()) -> AxisResult:
+def _axis(title, score, coverage, indicators, explain: Explain | None = None) -> AxisResult:
     return AxisResult(
         axis_id=title.lower(),
         title=title,
@@ -32,7 +32,7 @@ def _axis(title, score, coverage, indicators, explain=Explain()) -> AxisResult:
         score=score,
         coverage=coverage,
         indicators=tuple(indicators),
-        explain=explain,
+        explain=explain if explain is not None else Explain(),
     )
 
 

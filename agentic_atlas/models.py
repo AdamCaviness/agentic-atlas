@@ -90,11 +90,11 @@ class IndicatorResult:
     @classmethod
     def unresolved(
         cls,
-        indicator: "Indicator",
+        indicator: Indicator,
         kind: IndicatorKind,
         reason: str | None = None,
         source: str | None = None,
-    ) -> "IndicatorResult":
+    ) -> IndicatorResult:
         """An indicator that could not be resolved: excluded from scoring, counted
         against coverage. Shared by the measured and classified resolvers so the
         unresolved shape is defined once."""
@@ -177,7 +177,7 @@ class Profile:
         }
 
     @classmethod
-    def from_dict(cls, data: dict) -> "Profile":
+    def from_dict(cls, data: dict) -> Profile:
         """Rebuild a Profile from ``to_dict`` output. The exact inverse of ``to_dict``,
         so a saved profile JSON round-trips and can be re-rendered without re-running the
         engine or having the target repository on hand."""

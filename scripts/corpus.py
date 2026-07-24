@@ -78,6 +78,7 @@ def _git(*args: str, cwd: Path | None = None) -> str:
         cwd=str(cwd) if cwd else None,
         capture_output=True,
         text=True,
+        check=False,
     )
     if out.returncode != 0:
         raise SystemExit(f"git {' '.join(args)} failed: {out.stderr.strip() or out.stdout.strip()}")

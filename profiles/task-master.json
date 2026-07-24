@@ -1,7 +1,7 @@
 {
   "target": "claude-task-master",
-  "rubric_version": "1.4.0",
-  "engine_version": "0.6.0",
+  "rubric_version": "2.0.0",
+  "engine_version": "0.7.1",
   "target_sha": "c0c98d367c55296bfe69e65680625b6db437af02",
   "target_url": "https://github.com/eyaltoledano/claude-task-master",
   "axes": [
@@ -331,8 +331,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "27895",
-          "evidence": "stars = 27895 for eyaltoledano/claude-task-master via GitHub API",
+          "answer": "27896",
+          "evidence": "stars = 27896 for eyaltoledano/claude-task-master via GitHub API",
           "source": "engine"
         },
         {
@@ -449,18 +449,18 @@
         "positive": "spec_driven"
       },
       "explain": {
-        "negative": "jumps straight to implementation, little written up front",
-        "positive": "writes and follows a spec or plan before coding"
+        "negative": "jumps straight to implementation, or works from a ticket alone",
+        "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 5.6,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "sd1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.24,
+          "value": 0.0,
           "resolved": true,
           "answer": "encouraged",
           "evidence": "Make sure you have a PRD (Recommended)",
@@ -470,20 +470,20 @@
           "indicator_id": "sd2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.8,
+          "value": -1.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Main task data file (auto-managed)",
+          "answer": "no",
+          "evidence": "Generate tasks from PRD document",
           "source": "agent-team draft 2026-07-22"
         },
         {
           "indicator_id": "sd3",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 0.3,
           "resolved": true,
-          "answer": "1006",
-          "evidence": "1006 occurrences of ['prd', 'specification', 'requirements', 'acceptance criteria', 'design doc', 'plan', 'spec'] across the text corpus",
+          "answer": "2",
+          "evidence": "2 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
           "source": "engine"
         }
       ]

@@ -109,7 +109,7 @@ packages the `agentic_atlas` module). The engine version is stamped onto every p
 ## Two version lines (don't conflate)
 
 - **Engine version** — `pyproject.toml` (`0.4.0`), standard software semver.
-- **Rubric version** — `rubric/v1/rubric.yaml` (`rubric_version: 1.4.0`), measurement-standard
+- **Rubric version** — `rubric/v1/rubric.yaml` (`rubric_version: 2.0.0`), measurement-standard
   semver where any change that can move a score for identical evidence is MAJOR.
 
 Every profile stamps both, plus the target commit SHA and (for classified indicators) the

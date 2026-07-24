@@ -4,30 +4,75 @@ poles:
   negative: spec_light
   positive: spec_driven
 description: >
-  How much written specification precedes code. Negative means it jumps to
-  implementation. Positive means it produces and follows a spec or plan first.
+  How much written design specification precedes code. Negative means it jumps to
+  implementation, or works from a ticket or task alone. Positive means it produces and
+  follows a written specification (a PRD, design, or requirements document) before coding.
+  A ticket or work item is not a specification, so this axis measures whether design
+  intent is written up front, not whether a unit of work is tracked. sd1 weighs whether a
+  design spec is required, sd2 whether specification documents are produced, and the
+  measured sd3 corroborates with the spec-producing machinery a tool ships.
 explain:
-  negative: jumps straight to implementation, little written up front
-  positive: writes and follows a spec or plan before coding
+  negative: jumps straight to implementation, or works from a ticket alone
+  positive: writes and follows a design specification before coding
 indicators:
   - id: sd1
-    question: "Is a written spec, PRD, or plan required before implementation?"
+    question: >-
+      Is a written design specification (a PRD, design doc, or written plan, not merely a
+      ticket or work item) required before implementation begins?
     kind: classified
     weight: 3
-    answers: { none: -0.8, encouraged: 0.24, required: 0.8 }
+    # True zero (AD-6): extremes are +-1.0 and the middle answer is a genuine neutral, not
+    # a defaulted positive. "encouraged" means recommended but not enforced, balanced
+    # between the poles, so it maps to 0.0. A tool that requires only a ticket answers
+    # "none": a ticket is a work item, not a design specification (AD-5).
+    answers: { none: -1.0, encouraged: 0.0, required: 1.0 }
   - id: sd2
-    question: "Are spec or plan artifacts produced and persisted (not just discussed)?"
+    question: >-
+      Does the workflow produce and persist specification documents (a PRD, design, or
+      requirements doc), as opposed to only tickets, task lists, or code?
     kind: classified
     weight: 2
-    answers: { "no": -0.8, some: 0.24, "yes": 0.8 }
+    # Producing a ticket or a tasks.json is producing a work item, not a specification
+    # (AD-5), so it is the negative pole. "some" is an argued lean, not a defaulted middle:
+    # producing any specification document is real evidence of spec-driven practice.
+    answers: { "no": -1.0, some: 0.3, "yes": 1.0 }
   - id: sd3
-    question: "Density of specification vocabulary across docs and commands."
+    question: "How many spec-producing artifacts does the tool ship (spec templates and spec-scaffold conventions)?"
     kind: measured
     weight: 2
+    # Structural, not lexical (AD-2): count the spec-producing machinery a tool ships,
+    # PRD/spec/requirements/design/architecture TEMPLATE documents and the recognized
+    # spec-scaffold directory conventions (Kiro's .kiro/specs, OpenSpec's openspec/, PRP
+    # template dirs), never prose word density. Template globs require both a spec token and
+    # "template" (or a spec-token file under a `templates/` directory) and end in `.md`, so a
+    # command definition (`commands/design.md`), a test file (`spec-template-*.test.ts`), a
+    # consumed sample (`sample-prd.txt`), and a framework's own dated `*-design.md` dev docs do
+    # not read as shipped machinery. This is a heuristic count, not an exact inventory: as a
+    # weight-2 corroborator it need not be exact, and sd1/sd2 carry the construct, so a tool
+    # that produces specs at runtime without shipping templates still lands spec-driven on its
+    # classified answers. Bands are construct-natural (none / a few / many), not corpus-fit.
+    # Extremes are +-1.0 (AD-3), so the axis reaches +-scale with no engine rescale, and the
+    # measured layer stays at 29% of weight (AD-4), corroborating rather than dominating.
     signal:
-      type: vocabulary
-      terms: ["prd", "specification", "requirements", "acceptance criteria", "design doc", "plan", "spec"]
+      type: path_count
+      globs:
+        - "**/*prd*template*.md"
+        - "**/*spec*template*.md"
+        - "**/*requirement*template*.md"
+        - "**/*design*template*.md"
+        - "**/*architecture*template*.md"
+        - "**/example_prd*.md"
+        - "**/example-prd*.md"
+        - "**/templates/prd*.md"
+        - "**/templates/spec*.md"
+        - "**/templates/requirement*.md"
+        - "**/templates/design*.md"
+        - "**/templates/architecture*.md"
+        - "**/openspec/**"
+        - "**/.kiro/**/specs/**"
+        - "**/PRPs/templates/**"
+        - "**/prps/templates/**"
       bands:
-        - { max_count: 1, value: -0.8 }
-        - { max_count: 8, value: 0.24 }
-        - { max_count: null, value: 0.8 }
+        - { max_count: 0, value: -1.0 }
+        - { max_count: 2, value: 0.3 }
+        - { max_count: null, value: 1.0 }

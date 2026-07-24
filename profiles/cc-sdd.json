@@ -1,7 +1,7 @@
 {
   "target": "cc-sdd",
-  "rubric_version": "1.4.0",
-  "engine_version": "0.6.0",
+  "rubric_version": "2.0.0",
+  "engine_version": "0.7.1",
   "target_sha": "29aee950f4addc36f9aeecb9881c46540e71ecc9",
   "target_url": "https://github.com/gotalab/cc-sdd",
   "axes": [
@@ -331,8 +331,8 @@
           "weight": 2.0,
           "value": 0.8,
           "resolved": true,
-          "answer": "3582",
-          "evidence": "stars = 3582 for gotalab/cc-sdd via GitHub API",
+          "answer": "3581",
+          "evidence": "stars = 3581 for gotalab/cc-sdd via GitHub API",
           "source": "engine"
         },
         {
@@ -449,18 +449,18 @@
         "positive": "spec_driven"
       },
       "explain": {
-        "negative": "jumps straight to implementation, little written up front",
-        "positive": "writes and follows a spec or plan before coding"
+        "negative": "jumps straight to implementation, or works from a ticket alone",
+        "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 8.0,
+      "score": 10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "sd1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "required",
           "evidence": "All spec files must exist and tasks must be approved",
@@ -470,7 +470,7 @@
           "indicator_id": "sd2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "yes",
           "evidence": "Files on disk are the source of continuity",
@@ -480,10 +480,10 @@
           "indicator_id": "sd3",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
-          "answer": "8628",
-          "evidence": "8628 occurrences of ['prd', 'specification', 'requirements', 'acceptance criteria', 'design doc', 'plan', 'spec'] across the text corpus",
+          "answer": "24",
+          "evidence": "24 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
           "source": "engine"
         }
       ]

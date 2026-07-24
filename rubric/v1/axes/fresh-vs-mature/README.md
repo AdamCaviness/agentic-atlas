@@ -6,7 +6,7 @@ Maturity reads like a magnitude (more stars, more commits, more age), but the ru
 
 This axis is the reason the `git_stats` and `github_api` collectors exist. Its weight sits deliberately on deterministic repository facts (`fm1` through `fm5` are all measured), so it produces a meaningful position with no model in the loop, which is exactly why a classified-only maturity axis was rejected during v1 curation. The single classified indicator (`fm6`) only nudges the position by reading how the project describes its own stability. The two host facts that vary over time (`fm5` stars) record the fetched value verbatim as evidence, and resolve to unresolved (counted against coverage) when there is no network or origin remote, so a partial run is never mistaken for a complete one.
 
-Bands are a first proposal calibrated to open-source norms (roughly: under 6 months / 100 commits / 2 contributors reads as fresh, multi-year with a thousand-plus commits and a real release history reads as mature) and are expected to be contested before v1 is treated as stable.
+Bands are a first proposal calibrated to open-source norms (roughly: under 6 months / 100 commits / 2 contributors reads as fresh, multi-year with a thousand-plus commits and a real release history reads as mature) and are expected to be contested and refined.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Fresh vs Mature)

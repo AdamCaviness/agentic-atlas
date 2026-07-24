@@ -26,7 +26,7 @@ A profile only compares to another profile computed with the same rubric MAJOR v
 ## Layout
 
 ```
-rubric/v1/                   One directory per MAJOR version
+rubric/v1/                   Rubric source (authoritative version is rubric_version in the manifest)
   rubric.yaml                Manifest: version, title, ordered axis ids
   rubric.schema.json         Schema for the manifest
   axis.schema.json           Schema for a single axis file

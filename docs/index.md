@@ -13,7 +13,7 @@ score** — a profile is a vector of independent signed positions.
 - **Primary language:** Python `>= 3.11` (engine); YAML (rubric); Bash + JSON (plugin)
 - **Architecture:** spec + interpreter — a versioned data rubric read by a deterministic
   Python engine, driven from a coding harness by a skill
-- **Engine version:** `0.4.0` · **Rubric version:** `1.4.0` (still MAJOR v1)
+- **Engine version:** `0.4.0` · **Rubric version:** `2.0.0`
 - **Scale of code:** ~1,970 LOC engine, 69 tests, 13 axes
 
 ## Parts
