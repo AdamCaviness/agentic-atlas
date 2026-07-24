@@ -9,4 +9,4 @@ The public surface is intentionally small:
     from agentic_atlas.scoring import score_axis, score_profile
 """
 
-__version__ = "1.0.0"  # x-release-please-version
+__version__ = "1.1.0"  # x-release-please-version
