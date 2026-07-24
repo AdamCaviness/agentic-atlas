@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/AdamCaviness/agentic-atlas/compare/v1.0.0...v1.1.0) (2026-07-24)
+
+
+### Features
+
+* **site:** rich compare dialog and preference-driven card signatures ([f4cf443](https://github.com/AdamCaviness/agentic-atlas/commit/f4cf443ad2b30ecfa866e9a3bc2c99619c823a14))
+
 ## [1.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v0.7.1...v1.0.0) (2026-07-24)
 
 
