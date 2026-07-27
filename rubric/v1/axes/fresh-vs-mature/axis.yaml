@@ -8,8 +8,11 @@ description: >
   cutting-edge, with the churn and thin track record that implies. Positive means
   established, stable, and battle-tested, with the inertia that implies. Neither
   pole is better: fresh often means the newest ideas, mature often means fewer
-  surprises. This axis leans on deterministic repository facts, so it scores
-  meaningfully even with no classified indicators answered.
+  surprises. This axis leans on deterministic repository facts (age, commits,
+  contributors, release tags) read from a full clone, so it scores meaningfully
+  even with no classified indicators answered. Star count is deliberately absent:
+  popularity is adoption, not maturity, and a widely-starred week-old project is
+  still fresh.
 explain:
   negative: new and moving fast, the newest ideas on a thin track record
   positive: established and battle tested, stable but slower to change
@@ -18,13 +21,16 @@ indicators:
     question: "How old is the repository, from its first commit to HEAD?"
     kind: measured
     weight: 2
+    # Construct-natural edges (AD-1, frozen from meaning not corpus-fit): under ~6 months
+    # is fresh, 6 months to 2 years is evolving, past 2 years is mature. Extremes are +-1.0
+    # (AD-3) and the middle is a true zero (AD-6), so age alone can land an axis at neutral.
     signal:
       type: git_stats
       metric: age_days
       bands:
-        - { max_count: 180, value: -0.8 }
-        - { max_count: 730, value: 0.24 }
-        - { max_count: null, value: 0.8 }
+        - { max_count: 180, value: -1.0 }
+        - { max_count: 730, value: 0.0 }
+        - { max_count: null, value: 1.0 }
   - id: fm2
     question: "How many commits has the repository accumulated?"
     kind: measured
@@ -33,9 +39,9 @@ indicators:
       type: git_stats
       metric: commit_count
       bands:
-        - { max_count: 100, value: -0.8 }
-        - { max_count: 1000, value: 0.24 }
-        - { max_count: null, value: 0.8 }
+        - { max_count: 100, value: -1.0 }
+        - { max_count: 1000, value: 0.0 }
+        - { max_count: null, value: 1.0 }
   - id: fm3
     question: "How many distinct contributors have committed?"
     kind: measured
@@ -44,9 +50,9 @@ indicators:
       type: git_stats
       metric: contributor_count
       bands:
-        - { max_count: 2, value: -0.8 }
-        - { max_count: 10, value: 0.16 }
-        - { max_count: null, value: 0.8 }
+        - { max_count: 2, value: -1.0 }
+        - { max_count: 10, value: 0.0 }
+        - { max_count: null, value: 1.0 }
   - id: fm4
     question: "How many release tags exist, as a proxy for an established release cadence?"
     kind: measured
@@ -55,22 +61,13 @@ indicators:
       type: git_stats
       metric: tag_count
       bands:
-        - { max_count: 0, value: -0.8 }
-        - { max_count: 5, value: 0.16 }
-        - { max_count: null, value: 0.8 }
-  - id: fm5
-    question: "How much adoption does the host show, by star count?"
-    kind: measured
-    weight: 2
-    signal:
-      type: github_api
-      metric: stars
-      bands:
-        - { max_count: 100, value: -0.64 }
-        - { max_count: 2000, value: 0.16 }
-        - { max_count: null, value: 0.8 }
+        - { max_count: 0, value: -1.0 }
+        - { max_count: 5, value: 0.0 }
+        - { max_count: null, value: 1.0 }
   - id: fm6
     question: "How does the project describe its own stability in its docs?"
     kind: classified
     weight: 2
+    # True zero (AD-6): "evolving" is the genuine middle between an experimental project and
+    # a stable one, and extremes are +-1.0 (AD-3).
     answers: { experimental: -1.0, evolving: 0.0, stable: 1.0 }

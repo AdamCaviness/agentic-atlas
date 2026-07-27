@@ -4,14 +4,14 @@
 
 The single biggest predictor of whether an approach will help or frustrate is whether your work is greenfield or brownfield. Greenfield methods front-load spec and product generation and assume they own the whole tree. Brownfield methods assume a large existing codebase they must read, respect, and change surgically. A tool tuned for one is often actively painful for the other, so this axis is usually the first one a reader should consult.
 
-Negative (`greenfield`) means the approach shines starting from an idea with no product yet. Positive (`brownfield`) means it shines inside an existing codebase. The two heaviest indicators (`gb1`, `gb2`) capture the defining behaviors: does it insist on generating a spec from scratch, and does it ship real machinery for ingesting existing code. The measured indicators (`gb3`, `gb5`) corroborate with vocabulary and structure so the position does not rest entirely on judgment.
+Negative (`greenfield`) means the approach shines starting from an idea with no product yet. Positive (`brownfield`) means it shines inside an existing codebase. The two heaviest indicators capture the defining choices: `gb1` weighs the starting assumption (a blank slate versus an existing codebase), and `gb2` whether the tool ships real machinery for ingesting existing code. `gb4` adds the default unit of work (whole-project generation versus a targeted small diff). This axis is classified-only: on a corpus that mixes prompt methodologies with full software projects, a structural count of greenfield or brownfield artifacts would measure the target's own repository rather than the methodology it teaches, so the judgment lives in questions the skill answers with a cited quote.
 
 <!-- BEGIN GENERATED: do not edit below, run `make docs` -->
 ### Scoring (Greenfield vs Brownfield)
 
 Poles: `greenfield` (negative) to `brownfield` (positive). Scale ±10.
 
-Position is a weighted mean of 5 indicator measurements:
+Position is a weighted mean of 3 indicator measurements:
 
 ```
 axis_position = 10 * sum(weight * measurement) / sum(weight)
@@ -19,9 +19,7 @@ axis_position = 10 * sum(weight * measurement) / sum(weight)
 
 | id | question | kind | weight | maps to |
 |---|---|---|---|---|
-| gb1 | Is the first mandatory step generating a spec or PRD from an idea, assuming no product exists yet? | classified | 3 | yes -1, partial -0.5, no +0 |
-| gb2 | Does it ship explicit steps or agents for ingesting and mapping an existing codebase? | classified | 3 | yes +1, partial +0.5, no -0.5 |
-| gb3 | Density of brownfield vocabulary across docs and commands. | measured | 2 | 6 terms, banded by count |
+| gb1 | Does the workflow assume it starts from a blank slate (an idea or empty project, with no existing code) or from an existing codebase it must work within? | classified | 3 | blank_slate -1, either +0, existing_codebase +1 |
+| gb2 | Does it ship explicit steps or agents for ingesting and mapping an existing codebase? | classified | 3 | yes +1, partial +0.4, no -1 |
 | gb4 | Is the default unit of work whole-project generation or a targeted small diff? | classified | 2 | whole_project -1, mixed +0, small_diff +1 |
-| gb5 | Does onboarding assume a brand new repo, or point at an existing one? | measured | 1 | present +0.6, absent -0.6 |
 <!-- END GENERATED -->

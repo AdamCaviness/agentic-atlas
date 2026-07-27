@@ -135,7 +135,7 @@
   <header>
     <div class="brand"><a class="home" href="https://adamcaviness.github.io/agentic-atlas/" title="Back to the Explorer" aria-label="Back to the Explorer, browse all profiles"><svg class='mark' viewBox='0 0 30 31' aria-hidden='true'><polygon points='15,1 4,11 15,11' fill='var(--neg)'/><polygon points='15,1 26,11 15,11' fill='var(--pos)'/><polygon points='4,11 15,11 15,30' fill='var(--neg)' opacity='.8'/><polygon points='26,11 15,11 15,30' fill='var(--pos)' opacity='.8'/><polygon points='15,1 4,11 15,30 26,11' fill='none' stroke='var(--accent)' stroke-width='1' opacity='.55'/></svg><span class="word">Agentic Atlas</span></a><span class="ptitle">Profile</span></div>
     <div class="project"><a href="https://github.com/SuperClaude-Org/SuperClaude_Framework" target="_blank" rel="noopener" title="Open SuperClaude-Org/SuperClaude_Framework on GitHub" aria-label="Open SuperClaude-Org/SuperClaude_Framework on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>SuperClaude-Org/SuperClaude_Framework</span></a></div>
-    <div class="stamps">rubric 2.0.0 · engine 0.7.1 · sha 10be75032e24</div>
+    <div class="stamps">rubric 3.0.0 · engine 1.1.2 · sha 10be75032e24</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -156,7 +156,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 4.7, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 5.7, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 6.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 4.4, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 4.7, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 6.2, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -0.6, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -0.9, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": -2.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -1.8, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 8.7, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 6.6, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 3.1, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 6.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 5.8, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 1.2, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 3.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 5.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 1.5, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": -2.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -4.8, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 6.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 6.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -368,15 +368,15 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.7</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.8</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill pos" style="width:23.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:19%"></div><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-0" title="show the 5 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 2/2 · judged 3/3 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-0" class="modal">
@@ -392,24 +392,22 @@
     <dialog id="signals-0" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
-      <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gb1</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">+0.00</td><td class="evidence">Scope clear? → No → Brainstorm mode first</td><td>agent-team wave2 2026-07-23</td></tr>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gb1</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Import existing project structure</td><td>agent-team wave2 2026-07-23</td></tr>
 <tr><td>gb2</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Import existing project structure</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>gb3</td><td><span class="kind">detected</span></td><td>2</td><td>309</td><td class="val">+0.80</td><td class="evidence">309 occurrences of [&#x27;legacy&#x27;, &#x27;migration&#x27;, &#x27;migrate&#x27;, &#x27;refactor&#x27;, &#x27;existing codebase&#x27;, &#x27;brownfield&#x27;] across the text corpus</td><td>engine</td></tr>
-<tr><td>gb4</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">components, APIs, or complete functionality</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>gb5</td><td><span class="kind">detected</span></td><td>1</td><td>present</td><td class="val">+0.60</td><td class="evidence">matched [&#x27;scripts/uninstall_legacy.sh&#x27;]</td><td>engine</td></tr></tbody></table></div>
+<tr><td>gb4</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">components, APIs, or complete functionality</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.7</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
     <div class="bar-row">
       <span class="pole left">small scope</span>
-      <div class="track"><div class="fill pos" style="width:28.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">large scope</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-1" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-1" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-1" class="modal">
@@ -425,22 +423,21 @@
     <dialog id="signals-1" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
-      <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sl1</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+0.80</td><td class="evidence">covering the complete development lifecycle from brainstorming to deployment</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>sl2</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Replace domain-specific commands for simple operations</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>sl3</td><td><span class="kind">detected</span></td><td>2</td><td>1427</td><td class="val">+0.80</td><td class="evidence">1427 occurrences of [&#x27;requirements&#x27;, &#x27;architecture&#x27;, &#x27;deployment&#x27;, &#x27;release&#x27;, &#x27;retrospective&#x27;, &#x27;epic&#x27;, &#x27;milestone&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+      <p class="modal-sub">2 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sl1</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">covering the complete development lifecycle from brainstorming to deployment</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>sl2</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Replace domain-specific commands for simple operations</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.8</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:29%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -456,22 +453,21 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pp1</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.20</td><td class="evidence">Automated testing, deployment strategies, rollback capabilities</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>pp2</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">All generated code must be production-ready, not scaffolding</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>pp3</td><td><span class="kind">detected</span></td><td>2</td><td>1502</td><td class="val">+0.80</td><td class="evidence">1502 occurrences of [&#x27;production&#x27;, &#x27;deploy&#x27;, &#x27;ci&#x27;, &#x27;security&#x27;, &#x27;observability&#x27;, &#x27;rollback&#x27;, &#x27;monitoring&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+      <p class="modal-sub">2 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pp1</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.30</td><td class="evidence">Automated testing, deployment strategies, rollback capabilities</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>pp2</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">All generated code must be production-ready, not scaffolding</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.4</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+1.2</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track"><div class="fill pos" style="width:22%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:6%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 4 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 2/2 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -487,23 +483,21 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">4 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>st1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.20</td><td class="evidence">Create feature branches for ALL work, never work on main/master</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>st2</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.30</td><td class="evidence">Smoother handoff to formal development workflows</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>st3</td><td><span class="kind">detected</span></td><td>2</td><td>136</td><td class="val">+0.80</td><td class="evidence">136 occurrences of [&#x27;team&#x27;, &#x27;assign&#x27;, &#x27;reviewer&#x27;, &#x27;pull request&#x27;, &#x27;collaborate&#x27;, &#x27;stakeholder&#x27;, &#x27;handoff&#x27;] across the text corpus</td><td>engine</td></tr>
-<tr><td>st4</td><td><span class="kind">detected</span></td><td>2</td><td>8</td><td class="val">+0.60</td><td class="evidence">8 files matched [&#x27;**/.github/workflows/**&#x27;, &#x27;**/CODEOWNERS&#x27;, &#x27;**/.github/CODEOWNERS&#x27;, &#x27;**/PULL_REQUEST_TEMPLATE*&#x27;, &#x27;**/.github/PULL_REQUEST_TEMPLATE*&#x27;]</td><td>engine</td></tr></tbody></table></div>
+      <p class="modal-sub">2 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>st1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Create feature branches for ALL work, never work on main/master</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>st2</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.30</td><td class="evidence">Smoother handoff to formal development workflows</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Generalist <em>vs</em> Specialist</span><button type="button" class="info" data-dialog="poles-4" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.7</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Generalist <em>vs</em> Specialist</span><button type="button" class="info" data-dialog="poles-4" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.0</span></div>
     <div class="bar-row">
       <span class="pole left">generalist</span>
-      <div class="track"><div class="fill pos" style="width:23.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:15%"></div><div class="center"></div></div>
       <span class="pole right">specialist</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-4" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-4" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-4" class="modal">
@@ -519,22 +513,21 @@
     <dialog id="signals-4" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
-      <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gs1</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.40</td><td class="evidence">transforms Claude Code into a structured development platform</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>gs2</td><td><span class="kind">judged</span></td><td>1</td><td>some</td><td class="val">+0.00</td><td class="evidence">Multi-expert business analysis with adaptive interaction modes</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>gs3</td><td><span class="kind">detected</span></td><td>2</td><td>926</td><td class="val">+0.80</td><td class="evidence">926 occurrences of [&#x27;compile&#x27;, &#x27;deploy&#x27;, &#x27;unit test&#x27;, &#x27;pull request&#x27;, &#x27;refactor&#x27;, &#x27;api&#x27;, &#x27;repository&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+      <p class="modal-sub">2 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gs1</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">transforms Claude Code into a structured development platform</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>gs2</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Multi-expert business analysis with adaptive interaction modes</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.2</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.0</span></div>
     <div class="bar-row">
       <span class="pole left">fresh</span>
-      <div class="track"><div class="fill pos" style="width:31%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:25%"></div><div class="center"></div></div>
       <span class="pole right">mature</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-5" title="show the 6 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-5" title="show the 5 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 5/5 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 4/4 · judged 1/1 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-5" class="modal">
@@ -550,25 +543,24 @@
     <dialog id="signals-5" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
-      <p class="modal-sub">6 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>fm1</td><td><span class="kind">detected</span></td><td>2</td><td>372.7</td><td class="val">+0.24</td><td class="evidence">git age_days = 372.7</td><td>engine</td></tr>
-<tr><td>fm2</td><td><span class="kind">detected</span></td><td>2</td><td>346</td><td class="val">+0.24</td><td class="evidence">git commit_count = 346</td><td>engine</td></tr>
-<tr><td>fm3</td><td><span class="kind">detected</span></td><td>1</td><td>46</td><td class="val">+0.80</td><td class="evidence">git contributor_count = 46</td><td>engine</td></tr>
-<tr><td>fm4</td><td><span class="kind">detected</span></td><td>1</td><td>19</td><td class="val">+0.80</td><td class="evidence">git tag_count = 19</td><td>engine</td></tr>
-<tr><td>fm5</td><td><span class="kind">detected</span></td><td>2</td><td>23583</td><td class="val">+0.80</td><td class="evidence">stars = 23583 for SuperClaude-Org/SuperClaude_Framework via GitHub API</td><td>engine</td></tr>
+      <p class="modal-sub">5 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>fm1</td><td><span class="kind">detected</span></td><td>2</td><td>372.7</td><td class="val">+0.00</td><td class="evidence">git age_days = 372.7</td><td>engine</td></tr>
+<tr><td>fm2</td><td><span class="kind">detected</span></td><td>2</td><td>346</td><td class="val">+0.00</td><td class="evidence">git commit_count = 346</td><td>engine</td></tr>
+<tr><td>fm3</td><td><span class="kind">detected</span></td><td>1</td><td>46</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 46</td><td>engine</td></tr>
+<tr><td>fm4</td><td><span class="kind">detected</span></td><td>1</td><td>19</td><td class="val">+1.00</td><td class="evidence">git tag_count = 19</td><td>engine</td></tr>
 <tr><td>fm6</td><td><span class="kind">judged</span></td><td>2</td><td>stable</td><td class="val">+1.00</td><td class="evidence">Current Stable Version (v4.3.0)</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-0.6</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill neg" style="width:3%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -584,22 +576,21 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">3 signals behind this position</p>
+      <p class="modal-sub">2 signals behind this position</p>
       <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>io1</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Interactive Requirements Discovery</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>io2</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.30</td><td class="evidence">Understand → Plan (with parallelization analysis) → TodoWrite(3+ tasks) → Execute → Track → Validate</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>io3</td><td><span class="kind">detected</span></td><td>2</td><td>486</td><td class="val">+0.80</td><td class="evidence">486 occurrences of [&#x27;must&#x27;, &#x27;always&#x27;, &#x27;never&#x27;, &#x27;required&#x27;, &#x27;enforce&#x27;, &#x27;mandatory&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+<tr><td>io2</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">Understand → Plan (with parallelization analysis) → TodoWrite(3+ tasks) → Execute → Track → Validate</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-0.9</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+1.5</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill neg" style="width:4.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:7.5%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -615,10 +606,9 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">3 signals behind this position</p>
+      <p class="modal-sub">2 signals behind this position</p>
       <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ah1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.30</td><td class="evidence">autonomous web research</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>ah2</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Present alternatives, ask questions</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>ah3</td><td><span class="kind">detected</span></td><td>2</td><td>520</td><td class="val">-0.80</td><td class="evidence">520 occurrences of [&#x27;approve&#x27;, &#x27;confirm&#x27;, &#x27;review&#x27;, &#x27;checkpoint&#x27;, &#x27;wait for&#x27;, &#x27;your approval&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+<tr><td>ah2</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Present alternatives, ask questions</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -653,15 +643,15 @@
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.8</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-4.8</span></div>
     <div class="bar-row">
       <span class="pole left">test optional</span>
-      <div class="track"><div class="fill neg" style="width:9%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:24%"></div><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-9" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-9" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-9" class="modal">
@@ -677,22 +667,21 @@
     <dialog id="signals-9" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
-      <p class="modal-sub">3 signals behind this position</p>
+      <p class="modal-sub">2 signals behind this position</p>
       <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tf1</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">provide testing recommendations</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>tf2</td><td><span class="kind">judged</span></td><td>1</td><td>present</td><td class="val">+0.30</td><td class="evidence">Testing and Quality Assurance</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>tf3</td><td><span class="kind">detected</span></td><td>2</td><td>298</td><td class="val">+0.80</td><td class="evidence">298 occurrences of [&#x27;tdd&#x27;, &#x27;red-green&#x27;, &#x27;test-first&#x27;, &#x27;failing test&#x27;, &#x27;coverage&#x27;, &#x27;unit test&#x27;, &#x27;test-driven&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+<tr><td>tf2</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.30</td><td class="evidence">Testing and Quality Assurance</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+8.7</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
     <div class="bar-row">
       <span class="pole left">single agent</span>
-      <div class="track"><div class="fill pos" style="width:43.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 2/2 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 1/1 · judged 1/1 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -708,22 +697,21 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">3 signals behind this position</p>
+      <p class="modal-sub">2 signals behind this position</p>
       <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ma1</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">Multi-persona orchestration across architecture, analysis, frontend, backend, security domains</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>ma2</td><td><span class="kind">detected</span></td><td>2</td><td>494</td><td class="val">+0.80</td><td class="evidence">494 occurrences of [&#x27;subagent&#x27;, &#x27;persona&#x27;, &#x27;orchestrate&#x27;, &#x27;delegate&#x27;, &#x27;specialist agent&#x27;, &#x27;sub-agent&#x27;] across the text corpus</td><td>engine</td></tr>
-<tr><td>ma3</td><td><span class="kind">detected</span></td><td>1</td><td>present</td><td class="val">+0.60</td><td class="evidence">matched [&#x27;docs/Development/pm-agent-ideal-workflow.md&#x27;, &#x27;docs/Development/pm-agent-integration.md&#x27;, &#x27;docs/agents/pm-agent-guide.md&#x27;, &#x27;docs/architecture/pm-agent-auto-activation.md&#x27;, &#x27;docs/architecture/pm-agent-responsibility-cleanup.md&#x27;]</td><td>engine</td></tr></tbody></table></div>
+<tr><td>ma3</td><td><span class="kind">detected</span></td><td>1</td><td>20</td><td class="val">+1.00</td><td class="evidence">20 files matched [&#x27;.claude/agents/*.md&#x27;, &#x27;agents/*.md&#x27;, &#x27;plugins/*/agents/*.md&#x27;, &#x27;packages/*/agents/*.md&#x27;]</td><td>engine</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prescriptive <em>vs</em> Composable</span><button type="button" class="info" data-dialog="poles-11" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.6</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prescriptive <em>vs</em> Composable</span><button type="button" class="info" data-dialog="poles-11" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
     <div class="bar-row">
       <span class="pole left">prescriptive</span>
-      <div class="track"><div class="fill pos" style="width:33%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">composable</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-11" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-11" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-11" class="modal">
@@ -739,22 +727,21 @@
     <dialog id="signals-11" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
-      <p class="modal-sub">3 signals behind this position</p>
+      <p class="modal-sub">2 signals behind this position</p>
       <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pc1</td><td><span class="kind">judged</span></td><td>3</td><td>composable</td><td class="val">+1.00</td><td class="evidence">behavioral instruction injection and component orchestration</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>pc2</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Always Check Status First</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>pc3</td><td><span class="kind">detected</span></td><td>2</td><td>77</td><td class="val">+0.80</td><td class="evidence">77 files matched [&#x27;**/skills/**&#x27;, &#x27;**/modules/**&#x27;, &#x27;**/commands/**&#x27;]</td><td>engine</td></tr></tbody></table></div>
+<tr><td>pc2</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Always Check Status First</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.1</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
     <div class="bar-row">
       <span class="pole left">lightweight</span>
-      <div class="track"><div class="fill pos" style="width:15.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">heavyweight</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-12" title="show the 3 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-12" title="show the 2 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-12" class="modal">
@@ -770,10 +757,9 @@
     <dialog id="signals-12" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
-      <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lw1</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.20</td><td class="evidence">Complexity emerges naturally as needed</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>lw2</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">installs all 30 slash commands</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>lw3</td><td><span class="kind">detected</span></td><td>2</td><td>1218</td><td class="val">+0.80</td><td class="evidence">1218 occurrences of [&#x27;phase&#x27;, &#x27;gate&#x27;, &#x27;ceremony&#x27;, &#x27;role&#x27;, &#x27;artifact&#x27;, &#x27;template&#x27;, &#x27;workflow&#x27;, &#x27;epic&#x27;] across the text corpus</td><td>engine</td></tr></tbody></table></div>
+      <p class="modal-sub">2 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lw1</td><td><span class="kind">judged</span></td><td>3</td><td>heavy</td><td class="val">+1.00</td><td class="evidence">Complete project structure with agents, modes, commands, skills, hooks, MCP directories</td><td>agent-team wave2 2026-07-23</td></tr>
+<tr><td>lw2</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">installs all 30 slash commands</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

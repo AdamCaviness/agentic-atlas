@@ -1,6 +1,14 @@
 {
   "source": "anchor:spec-light-minimal",
   "answers": {
+    "gb1": {"answer": "blank_slate", "evidence": "You start from a blank idea, with no existing code"},
+    "gb2": {"answer": "no", "evidence": "it never ingests or maps an existing codebase"},
+    "sl1": {"answer": "one", "evidence": "It covers a single step, not the whole lifecycle."},
+    "sl2": {"answer": "single", "evidence": "It covers a single step, not the whole lifecycle."},
+    "pp1": {"answer": "none", "evidence": "with no production hardening"},
+    "pp2": {"answer": "throwaway_ok", "evidence": "The output is throwaway, meant to prove an idea fast"},
+    "st1": {"answer": "none", "evidence": "There is no collaboration, review, or handoff between people."},
+    "st2": {"answer": "none", "evidence": "There is no collaboration, review, or handoff between people."},
     "sd1": {"answer": "none", "evidence": "You begin implementation immediately, with nothing written up front."},
     "sd2": {"answer": "no", "evidence": "Nothing is saved or handed off between steps."},
     "lw1": {"answer": "minimal", "evidence": "The tool does one small job and gets out of the way."},

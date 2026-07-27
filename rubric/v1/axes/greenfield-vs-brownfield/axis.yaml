@@ -4,45 +4,37 @@ poles:
   negative: greenfield
   positive: brownfield
 description: >
-  Where the approach is strongest. Negative means it excels starting from an
-  idea with no existing product. Positive means it excels working inside an
-  existing codebase.
+  Where the approach is strongest. Negative means it excels starting from an idea
+  with no existing product. Positive means it excels working inside an existing
+  codebase. gb1 weighs the starting assumption (a blank slate versus an existing
+  codebase), gb2 whether it ships steps for ingesting existing code, and gb4 whether
+  the default unit of work is whole-project generation or a targeted small diff.
 explain:
   negative: excels starting from an idea, with no code yet
   positive: excels working inside an existing, established codebase
 indicators:
   - id: gb1
-    question: "Is the first mandatory step generating a spec or PRD from an idea, assuming no product exists yet?"
+    question: >-
+      Does the workflow assume it starts from a blank slate (an idea or empty project, with
+      no existing code) or from an existing codebase it must work within?
     kind: classified
     weight: 3
-    answers: { "yes": -1.0, partial: -0.5, "no": 0.0 }
+    # Bipolar with a true zero (AD-3, AD-6): a blank-slate assumption is greenfield, an
+    # existing-codebase assumption is brownfield, and "either" (works both ways) is the
+    # genuine middle. Replaces the v1 gb1, which asked a greenfield-only question ("is the
+    # first step generating a spec from an idea?") that could never evidence the brownfield
+    # pole, so the axis could not reach +scale (AD-3).
+    answers: { blank_slate: -1.0, either: 0.0, existing_codebase: 1.0 }
   - id: gb2
     question: "Does it ship explicit steps or agents for ingesting and mapping an existing codebase?"
     kind: classified
     weight: 3
-    answers: { "yes": 1.0, partial: 0.5, "no": -0.5 }
-  - id: gb3
-    question: "Density of brownfield vocabulary across docs and commands."
-    kind: measured
-    weight: 2
-    signal:
-      type: vocabulary
-      terms: ["legacy", "migration", "migrate", "refactor", "existing codebase", "brownfield"]
-      bands:
-        - { max_count: 0, value: -0.8 }
-        - { max_count: 5, value: 0.24 }
-        - { max_count: null, value: 0.8 }
+    # Extremes +-1.0 (AD-3): shipping ingestion steps is brownfield, shipping none leans
+    # greenfield. "partial" (some support) is an argued lean toward brownfield.
+    answers: { "yes": 1.0, partial: 0.4, "no": -1.0 }
   - id: gb4
     question: "Is the default unit of work whole-project generation or a targeted small diff?"
     kind: classified
     weight: 2
+    # True zero (AD-6): "mixed" (generates whole modules but also edits in place) is neutral.
     answers: { whole_project: -1.0, mixed: 0.0, small_diff: 1.0 }
-  - id: gb5
-    question: "Does onboarding assume a brand new repo, or point at an existing one?"
-    kind: measured
-    weight: 1
-    signal:
-      type: path_presence
-      globs: ["**/brownfield*", "**/*existing*", "**/*legacy*"]
-      present: 0.6
-      absent: -0.6

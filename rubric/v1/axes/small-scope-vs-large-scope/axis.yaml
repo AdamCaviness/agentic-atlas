@@ -5,7 +5,9 @@ poles:
   positive: large_scope
 description: >
   How much of the delivery lifecycle the approach covers. Negative means a single
-  focused task. Positive means the whole lifecycle from idea to release.
+  focused task. Positive means the whole lifecycle from idea to release. sl1 weighs
+  how many lifecycle phases are covered, sl2 whether it is invoked as one step or a
+  multi-stage pipeline.
 explain:
   negative: one focused task
   positive: the whole delivery lifecycle, from idea to release
@@ -14,20 +16,12 @@ indicators:
     question: "How many lifecycle phases does it cover (idea, spec, plan, implement, test, review, release)?"
     kind: classified
     weight: 3
-    answers: { one: -0.8, few: -0.24, most: 0.48, full_lifecycle: 0.8 }
+    # Extremes +-1.0 (AD-3): one phase is small-scope, the full lifecycle is large-scope.
+    # "few" and "most" are argued interior points, not defaulted middles.
+    answers: { one: -1.0, few: -0.4, most: 0.5, full_lifecycle: 1.0 }
   - id: sl2
     question: "Is it invoked as a single command or skill, or as a multi-stage pipeline?"
     kind: classified
     weight: 2
-    answers: { single: -0.8, mixed: 0.0, multi_stage: 0.8 }
-  - id: sl3
-    question: "Density of lifecycle vocabulary across docs and commands."
-    kind: measured
-    weight: 2
-    signal:
-      type: vocabulary
-      terms: ["requirements", "architecture", "deployment", "release", "retrospective", "epic", "milestone"]
-      bands:
-        - { max_count: 1, value: -0.8 }
-        - { max_count: 8, value: 0.24 }
-        - { max_count: null, value: 0.8 }
+    # True zero (AD-6): a tool with both a single-shot and a pipeline mode sits at "mixed".
+    answers: { single: -1.0, mixed: 0.0, multi_stage: 1.0 }

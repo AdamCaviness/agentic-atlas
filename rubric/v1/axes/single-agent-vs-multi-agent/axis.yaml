@@ -5,7 +5,9 @@ poles:
   positive: multi_agent
 description: >
   How the approach is structured internally. Negative means one conversation or
-  agent. Positive means many specialized subagents or personas working together.
+  agent. Positive means many specialized subagents or personas working together. ma1
+  weighs whether it orchestrates multiple specialized agents, and the measured ma3
+  corroborates by counting the agent-definition files a tool ships.
 explain:
   negative: one agent in one conversation does the work
   positive: many specialized subagents or personas work together
@@ -14,24 +16,29 @@ indicators:
     question: "Does it orchestrate multiple specialized subagents or personas?"
     kind: classified
     weight: 3
-    answers: { single: -1.0, some: 0.3, many: 1.0 }
-  - id: ma2
-    question: "Density of multi-agent vocabulary across docs and commands."
-    kind: measured
-    weight: 2
-    signal:
-      type: vocabulary
-      terms: ["subagent", "persona", "orchestrate", "delegate", "specialist agent", "sub-agent"]
-      bands:
-        - { max_count: 0, value: -0.8 }
-        - { max_count: 5, value: 0.24 }
-        - { max_count: null, value: 0.8 }
+    # True zero (AD-6): "some" delegation (a helper subagent or two, but centered on one
+    # agent) is the balanced middle. Extremes are +-1.0 (AD-3).
+    answers: { single: -1.0, some: 0.0, many: 1.0 }
   - id: ma3
-    question: "Presence of agent or persona definition files."
+    question: "How many agent-definition files does the tool ship?"
     kind: measured
     weight: 1
+    # Structural, not lexical (AD-2): count agent-definition markdown files in the recognized
+    # agent locations a tool installs, never multi-agent vocabulary density. Globs are anchored
+    # (no leading `**/`, so template, example, and source-tree copies do not leak in): a tool
+    # with 0-1 such files reads single-agent, 2+ reads multi-agent. This is a heuristic count,
+    # not an exact inventory (a tool whose personas live inside skill definitions, like
+    # bmad-method, ships them elsewhere and still lands multi-agent on ma1), so it is a
+    # low-weight corroborator (25% of weight, AD-4) that resolves toward the absent pole when a
+    # tool ships no agent files in these locations, and ma1 carries the construct. Extremes are
+    # +-1.0 (AD-3).
     signal:
-      type: path_presence
-      globs: ["**/agents/**", "**/*agent*.md", "**/personas/**", "**/agent.md"]
-      present: 0.6
-      absent: -0.6
+      type: path_count
+      globs:
+        - ".claude/agents/*.md"
+        - "agents/*.md"
+        - "plugins/*/agents/*.md"
+        - "packages/*/agents/*.md"
+      bands:
+        - { max_count: 1, value: -1.0 }
+        - { max_count: null, value: 1.0 }

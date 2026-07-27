@@ -1,8 +1,15 @@
 # Rubric v2 plan: calibration remediation
 
-Status: draft. Audience: rubric authors and engine maintainers. This is a planning
-document, not a rubric. It records the decisions v2 commits to and the concrete changes
-that follow from them.
+Status: complete as of rubric 3.0.0. Audience: rubric authors and engine maintainers. This
+is a planning document, not a rubric. It records the decisions v2 commits to and the concrete
+changes that follow from them. The invariant spine (AD-1..AD-7) is the durable output and
+still governs; the "Seed" specifics were executed, with two deviations noted where they occur:
+`gb1` was redesigned into a genuinely bipolar indicator rather than kept one-directional, so
+the AD-3 engine rescale was not needed (every axis reached ±scale on the ±1.0 convention
+alone), and the vocabulary-to-`path_count` conversions the Seed sketched for test-first and
+production were replaced by classified indicators once the corpus proved those structural
+counts measure the target's own repository rather than its methodology. See
+`rubric/v1/CHANGELOG.md` (3.0.0) for the shipped result.
 
 ## Why v2 exists
 
@@ -220,9 +227,10 @@ answers so the anchor is reproducible without a live agent. Planned anchors:
 
 Two anchors per axis (one per pole) is the target where a pole is reachable at all. If an
 axis cannot place its known-extreme anchor near the expected pole, the axis is broken, not
-the corpus. These three anchors are built and their nine pole assertions pass against the
-shipped rubric today, so the validity backstop is live, not implied. Redesigned axes gain
-their pole-anchors as v2 progresses.
+the corpus. These anchors are built and, as of rubric 3.0.0, extended so every axis except
+fresh-vs-mature (a git-history axis an in-tree fixture cannot anchor) has at least one
+pole-anchor; all 21 pole assertions pass against the shipped rubric, so the validity backstop
+is live, not implied.
 
 ## Sequencing
 
@@ -243,8 +251,8 @@ remains, is stated plainly rather than deferred.
   built and the validity check runs today (`tests/fixtures/anchors/`, `test_anchor_placement`),
   profiling crafted spec-light, spec-heavy, and generalist targets and asserting each lands on
   the expected pole against the shipped rubric. Validity is checked directly, not inferred from
-  spread. *Residual:* the anchors cover the axes they exercise; extend the set so every
-  redesigned axis gains a pole-anchor.
+  spread. *Residual:* resolved at 3.0.0. The anchor set was extended so every axis except
+  fresh-vs-mature (git-history, not anchorable in-tree) has at least one pole-anchor.
 - **`command_artifact` could reintroduce the disease.** *Resolution:* the detection contract is
   fixed in Seed, structural declarations only (an explicit output field or a defined written
   file), resolving unresolved when absent, never prose scanning. *Residual:* the parser's
@@ -252,11 +260,13 @@ remains, is stated plainly rather than deferred.
   `path_count` over produced-artifact paths, which shares the no-polarity property.
 - **Rescale gives reachability, not evidence-strength comparability.** *Resolution:* AD-3 now
   prefers the ±1.0 convention (no rescale, bars directly comparable) and confines the rescale
-  to genuinely one-directional axes with the reachable range documented. *Residual:* those few
-  axes carry a "fraction of reachable range" reading; that is inherent to one-directional
-  evidence and is labeled, not hidden.
+  to genuinely one-directional axes. *Residual:* none. As of 3.0.0 every axis converted to the
+  ±1.0 convention (the one candidate for a one-directional indicator, greenfield's `gb1`, was
+  redesigned into a bipolar question instead), so the rescale was never built and `scoring.py`
+  stays pure arithmetic. If a future axis truly cannot be made bipolar, the rescale returns as
+  an option with the "fraction of reachable range" reading it carries.
 - **Anchors hard to construct.** *Resolution:* done. Anchors are purpose-built fixture repos
-  with pinned sibling answer files, working end to end today (all nine pole assertions pass).
+  with pinned sibling answer files, working end to end today (all 21 pole assertions pass).
   No residual for the built anchors.
 - **Freezing corpus-fit bands overfits to these 18 tools.** *Resolution:* v2 abandons
   vocabulary for structural signals whose bands are construct-natural (0 / 1 / few / many of a
