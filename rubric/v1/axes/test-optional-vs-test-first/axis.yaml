@@ -5,7 +5,9 @@ poles:
   positive: test_first
 description: >
   How central testing is to the approach. Negative means testing is incidental or
-  left to the user. Positive means test-first discipline (TDD) is enforced.
+  left to the user. Positive means test-first discipline (TDD) is enforced. tf1
+  weighs whether tests are required before implementation, tf2 whether testing is a
+  first-class phase or incidental.
 explain:
   negative: testing is incidental, left to your judgment
   positive: test-first discipline (TDD) is built in and enforced
@@ -14,20 +16,13 @@ indicators:
     question: "Does it enforce writing tests before implementation (TDD)?"
     kind: classified
     weight: 3
-    answers: { "no": -1.0, encouraged: 0.3, enforced: 1.0 }
+    # True zero (AD-6): "encouraged" means tests are recommended but not enforced before code,
+    # genuinely balanced between test-optional and test-first. Extremes are +-1.0 (AD-3).
+    answers: { "no": -1.0, encouraged: 0.0, enforced: 1.0 }
   - id: tf2
     question: "Is testing a first-class phase, or incidental?"
     kind: classified
-    weight: 1
-    answers: { incidental: -1.0, present: 0.3, first_class: 1.0 }
-  - id: tf3
-    question: "Density of test-first vocabulary across docs and commands."
-    kind: measured
     weight: 2
-    signal:
-      type: vocabulary
-      terms: ["tdd", "red-green", "test-first", "failing test", "coverage", "unit test", "test-driven"]
-      bands:
-        - { max_count: 0, value: -0.8 }
-        - { max_count: 5, value: 0.24 }
-        - { max_count: null, value: 0.8 }
+    # "present" (a testing phase exists but is not test-first) is an argued lean toward
+    # test-first; the axis's true zero is tf1's "encouraged".
+    answers: { incidental: -1.0, present: 0.3, first_class: 1.0 }

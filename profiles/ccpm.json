@@ -1,7 +1,7 @@
 {
   "target": "ccpm",
-  "rubric_version": "2.0.0",
-  "engine_version": "0.7.1",
+  "rubric_version": "3.0.0",
+  "engine_version": "1.1.2",
   "target_sha": "7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697",
   "target_url": "https://github.com/automazeio/ccpm",
   "axes": [
@@ -17,7 +17,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": -3.4,
+      "score": -2.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -26,7 +26,7 @@
           "weight": 3.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "yes",
+          "answer": "blank_slate",
           "evidence": "Every feature starts as a PRD, becomes a technical epic",
           "source": "agent-team wave2 2026-07-23"
         },
@@ -34,21 +34,11 @@
           "indicator_id": "gb2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.5,
+          "value": 0.4,
           "resolved": true,
           "answer": "partial",
           "evidence": "Look for ways to leverage existing functionality before creating new code",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "gb3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": -0.8,
-          "resolved": true,
-          "answer": "0",
-          "evidence": "0 occurrences of ['legacy', 'migration', 'migrate', 'refactor', 'existing codebase', 'brownfield'] across the text corpus",
-          "source": "engine"
         },
         {
           "indicator_id": "gb4",
@@ -59,16 +49,6 @@
           "answer": "mixed",
           "evidence": "epics into GitHub issues, and issues into production code",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "gb5",
-          "kind": "measured",
-          "weight": 1.0,
-          "value": -0.6,
-          "resolved": true,
-          "answer": "absent",
-          "evidence": "no path matched ['**/brownfield*', '**/*existing*', '**/*legacy*']",
-          "source": "engine"
         }
       ]
     },
@@ -84,14 +64,14 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 6.6,
+      "score": 7.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "sl1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.48,
+          "value": 0.5,
           "resolved": true,
           "answer": "most",
           "evidence": "Use this skill for anything in the software delivery lifecycle",
@@ -101,21 +81,11 @@
           "indicator_id": "sl2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
           "evidence": "CCPM enforces a strict 5-phase discipline",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "sl3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "178",
-          "evidence": "178 occurrences of ['requirements', 'architecture', 'deployment', 'release', 'retrospective', 'epic', 'milestone'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -131,14 +101,14 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.4,
+      "score": 5.8,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "pp1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.3,
           "resolved": true,
           "answer": "some",
           "evidence": "## Non-Functional Requirements",
@@ -153,16 +123,6 @@
           "answer": "maintainable_only",
           "evidence": "Every line of code must trace back to a specification.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "pp3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.24,
-          "resolved": true,
-          "answer": "2",
-          "evidence": "2 occurrences of ['production', 'deploy', 'ci', 'security', 'observability', 'rollback', 'monitoring'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -178,7 +138,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 3.4,
+      "score": 7.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -200,26 +160,6 @@
           "answer": "some",
           "evidence": "an agent can start a task, a human can finish it, or vice versa",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "st3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.24,
-          "resolved": true,
-          "answer": "5",
-          "evidence": "5 occurrences of ['team', 'assign', 'reviewer', 'pull request', 'collaborate', 'stakeholder', 'handoff'] across the text corpus",
-          "source": "engine"
-        },
-        {
-          "indicator_id": "st4",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": -0.5,
-          "resolved": true,
-          "answer": "0",
-          "evidence": "0 files matched ['**/.github/workflows/**', '**/CODEOWNERS', '**/.github/CODEOWNERS', '**/PULL_REQUEST_TEMPLATE*', '**/.github/PULL_REQUEST_TEMPLATE*']",
-          "source": "engine"
         }
       ]
     },
@@ -235,14 +175,14 @@
         "positive": "built specifically for software delivery"
       },
       "scale": 10.0,
-      "score": 8.0,
+      "score": 10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "gs1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "software_only",
           "evidence": "ship better software",
@@ -251,22 +191,12 @@
         {
           "indicator_id": "gs2",
           "kind": "classified",
-          "weight": 1.0,
-          "value": 0.8,
+          "weight": 2.0,
+          "value": 1.0,
           "resolved": true,
           "answer": "no",
           "evidence": "for developers who ship, by developers who ship",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "gs3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "14",
-          "evidence": "14 occurrences of ['compile', 'deploy', 'unit test', 'pull request', 'refactor', 'api', 'repository'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -282,14 +212,14 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 1.8,
+      "score": -1.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.24,
+          "value": 0.0,
           "resolved": true,
           "answer": "211.5",
           "evidence": "git age_days = 211.5",
@@ -299,7 +229,7 @@
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": -0.8,
+          "value": -1.0,
           "resolved": true,
           "answer": "87",
           "evidence": "git commit_count = 87",
@@ -309,7 +239,7 @@
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": 0.16,
+          "value": 0.0,
           "resolved": true,
           "answer": "10",
           "evidence": "git contributor_count = 10",
@@ -319,20 +249,10 @@
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": -1.0,
           "resolved": true,
           "answer": "0",
           "evidence": "git tag_count = 0",
-          "source": "engine"
-        },
-        {
-          "indicator_id": "fm5",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "8286",
-          "evidence": "stars = 8286 for automazeio/ccpm via GitHub API",
           "source": "engine"
         },
         {
@@ -359,7 +279,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 2.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -381,16 +301,6 @@
           "answer": "strict",
           "evidence": "No shortcuts. No assumptions. No regrets.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "io3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "16",
-          "evidence": "16 occurrences of ['must', 'always', 'never', 'required', 'enforce', 'mandatory'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -406,7 +316,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -2.6,
+      "score": -3.5,
       "coverage": 1.0,
       "indicators": [
         {
@@ -428,16 +338,6 @@
           "answer": "every_phase",
           "evidence": "Ready to create technical epic? Say:",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "ah3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "9",
-          "evidence": "9 occurrences of ['approve', 'confirm', 'review', 'checkpoint', 'wait for', 'your approval'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -500,7 +400,7 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -3.7,
+      "score": -4.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -516,22 +416,12 @@
         {
           "indicator_id": "tf2",
           "kind": "classified",
-          "weight": 1.0,
+          "weight": 2.0,
           "value": 0.3,
           "resolved": true,
           "answer": "present",
           "evidence": "Tests: unit, integration, e2e",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "tf3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.24,
-          "resolved": true,
-          "answer": "1",
-          "evidence": "1 occurrences of ['tdd', 'red-green', 'test-first', 'failing test', 'coverage', 'unit test', 'test-driven'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -547,7 +437,7 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 1.3,
+      "score": 5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -561,23 +451,13 @@
           "source": "agent-team wave2 2026-07-23"
         },
         {
-          "indicator_id": "ma2",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": -0.8,
-          "resolved": true,
-          "answer": "0",
-          "evidence": "0 occurrences of ['subagent', 'persona', 'orchestrate', 'delegate', 'specialist agent', 'sub-agent'] across the text corpus",
-          "source": "engine"
-        },
-        {
           "indicator_id": "ma3",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.6,
+          "value": -1.0,
           "resolved": true,
-          "answer": "absent",
-          "evidence": "no path matched ['**/agents/**', '**/*agent*.md', '**/personas/**', '**/agent.md']",
+          "answer": "0",
+          "evidence": "0 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
           "source": "engine"
         }
       ]
@@ -594,7 +474,7 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": -8.9,
+      "score": -10.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -616,16 +496,6 @@
           "answer": "mandatory_ordered",
           "evidence": "No tasks to sync. Decompose the epic first.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "pc3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": -0.6,
-          "resolved": true,
-          "answer": "0",
-          "evidence": "0 files matched ['**/skills/**', '**/modules/**', '**/commands/**']",
-          "source": "engine"
         }
       ]
     },
@@ -641,14 +511,14 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": 0.3,
+      "score": -4.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "lw1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.0,
           "resolved": true,
           "answer": "moderate",
           "evidence": "PRD \u2192 Epic \u2192 Task \u2192 Issue \u2192 Code \u2192 Commit",
@@ -663,16 +533,6 @@
           "answer": "tiny",
           "evidence": "Point your harness at `skill/ccpm/` \u2014 that's it.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "lw3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "180",
-          "evidence": "180 occurrences of ['phase', 'gate', 'ceremony', 'role', 'artifact', 'template', 'workflow', 'epic'] across the text corpus",
-          "source": "engine"
         }
       ]
     }

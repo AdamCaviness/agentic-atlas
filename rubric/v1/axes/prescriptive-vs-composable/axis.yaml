@@ -5,7 +5,9 @@ poles:
   positive: composable
 description: >
   How rigidly the approach's parts are arranged. Negative means a fixed pipeline you
-  follow in order. Positive means modular parts you pick and combine as needed.
+  follow in order. Positive means modular parts you pick and combine as needed. pc1
+  weighs whether it is a fixed pipeline or modular parts, pc2 whether steps are
+  mandatory and ordered or optional and reorderable.
 explain:
   negative: a fixed pipeline you follow in order
   positive: modular parts you pick and combine as you need them
@@ -20,16 +22,3 @@ indicators:
     kind: classified
     weight: 2
     answers: { mandatory_ordered: -1.0, mixed: 0.0, optional_reorderable: 1.0 }
-  - id: pc3
-    question: "Presence of many independent skill or module files."
-    kind: measured
-    weight: 2
-    signal:
-      type: path_count
-      globs: ["**/skills/**", "**/modules/**", "**/commands/**"]
-      bands:
-        - { max_count: 0, value: -0.6 }
-        - { max_count: 3, value: -0.2 }
-        - { max_count: 15, value: 0.3 }
-        - { max_count: 60, value: 0.6 }
-        - { max_count: null, value: 0.8 }

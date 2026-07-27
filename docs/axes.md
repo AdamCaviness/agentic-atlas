@@ -18,17 +18,15 @@ The crafting of the axis is choosing the indicators and their weights. That craf
 
 ## Worked example: Greenfield vs Brownfield
 
-Sign convention: negative pole = greenfield, positive pole = brownfield. A method that shines when starting from an idea and weakens on existing code lands strongly negative.
+Sign convention: negative pole = greenfield, positive pole = brownfield. A method that shines when starting from an idea and weakens on existing code lands strongly negative. Every indicator spans the full [-1, +1] (the ±1.0 convention), so the axis reaches both poles, and the middle answer is a true zero rather than a defaulted lean.
 
 | id  | question                                                        | kind       | weight | maps to |
 |-----|-----------------------------------------------------------------|------------|--------|---------|
-| gb1 | First mandatory step generates a spec/PRD from an idea?         | classified | 3      | yes -1.0, partial -0.5, no 0.0 |
-| gb2 | Ships explicit steps/agents for ingesting an existing codebase? | classified | 3      | yes +1.0, partial +0.5, no -0.5 |
-| gb3 | Density of brownfield vocabulary in docs/commands               | measured   | 2      | none -1.0, some +0.3, heavy +1.0 |
-| gb4 | Default unit of work: whole-project generation vs small diff    | classified | 2      | whole -1.0, mixed 0.0, small_diff +1.0 |
-| gb5 | Onboarding assumes a new repo vs pointing at an existing one    | measured   | 1      | new_repo -1.0, either 0.0, existing +1.0 |
+| gb1 | Starting assumption: a blank slate (idea, no code) vs an existing codebase? | classified | 3 | blank_slate -1.0, either 0.0, existing_codebase +1.0 |
+| gb2 | Ships explicit steps/agents for ingesting an existing codebase? | classified | 3      | yes +1.0, partial +0.4, no -1.0 |
+| gb4 | Default unit of work: whole-project generation vs small diff    | classified | 2      | whole_project -1.0, mixed 0.0, small_diff +1.0 |
 
-The full machine-readable form of this axis is in `rubric/v1/axes/greenfield-vs-brownfield/axis.yaml`, and its generated scoring block is in the sibling `README.md`.
+The full machine-readable form of this axis is in `rubric/v1/axes/greenfield-vs-brownfield/axis.yaml`, and its generated scoring block is in the sibling `README.md`. This axis is classified-only: the corpus mixes prompt methodologies with full software projects, so a structural count of greenfield or brownfield artifacts would measure the target's own repository rather than the methodology it teaches (see the calibration note below).
 
 ## The axis catalog
 
@@ -99,31 +97,28 @@ Some axes need evidence collectors beyond the defaults. Fresh↔Mature, for exam
 
 - Both poles are legitimate, neither is framed as the failure mode.
 - Both poles have a plain-language `explain` meaning (one sharp sentence each), so the report can teach a reader what the pole words mean. The neutral middle is explained once by the renderer, not per axis, because it means the same thing on every axis.
-- At least one `measured` indicator, so the axis is not fully dependent on classification.
+- A `measured` indicator where one is *valid*: it must read structure the methodology itself produces or ships, not the target repository's own engineering (its tests, CI, or source layout), which measures the wrong thing on a corpus that mixes prompt methodologies with full software projects. Where no valid structural signal exists, the axis is classified-only and the skill carries the construct with cited quotes. A vocabulary word-count is not a valid measured indicator (it measures talk, not practice). See the calibration note below.
 - Every `classified` indicator has a small, mutually exclusive, defined answer set.
 - Weights are integers and their intent is documented in the rubric `description`.
 - Adding or reweighting an indicator triggers a MAJOR rubric bump. See `docs/versioning.md`.
 
-## Planned calibration: vocabulary signals are weak priors
+## Calibration: why vocabulary word-counts are gone
 
-Ten of the v1 axes still lean on a single `vocabulary` word-count as their only measured
-indicator. A word-count measures how much a project *talks about* a topic, not whether it
-*practices* it, so it over-fires on meta-tooling whose content is itself about agentic
-process. The clearest case was spec-light-vs-spec-driven's `sd3`, which scored agentic-toolkit
-maximally spec-driven off 121 mentions of `plan`/`spec` while the project ships no
-specification documents; rubric `2.0.0` converted it to a structural `path_count` over the
-spec-producing machinery a tool ships (see `rubric/v1/CHANGELOG.md`). The same weakness remains
-on the other ten. It is tolerable today because the report's coverage floor stops a lone
-vocabulary hit from rendering as a position, and because the intended experience resolves the
-classified indicators (which carry the real weight) through the skill, leaving vocabulary a
-minor prior.
+Every axis once leaned on a `vocabulary` word-count as a measured indicator. A word-count
+measures how much a project *talks about* a topic, not whether it *practices* it, so it
+over-fires on meta-tooling whose content is itself about agentic process. The clearest case was
+spec-light-vs-spec-driven's `sd3`, which scored agentic-toolkit maximally spec-driven off 121
+mentions of `plan`/`spec` while the project ships no specification documents. Rubric `2.0.0`
+converted it to a structural `path_count`, and `3.0.0` removed the word-count from the other ten
+axes it appeared on, plus the GitHub-stars signal on fresh-vs-mature (popularity is not maturity).
 
-The fix, applied per axis: where a structural artifact genuinely signals the practice, convert
-the `vocabulary` indicator to a multi-band `path_count` over the artifacts the practice
-produces (spec-driven → spec templates and spec-scaffold conventions, as `sd3` now does;
-test-first → test directories plus CI config; production → CI/deploy/observability config).
-Prefer multi-band `path_count` to binary `path_presence`, which under-discriminates. Where no
-structural proxy exists (for example the tone of interrogative-vs-opinionated), move the
-judgment into a `classified` indicator, which the skill answers for free, rather than
-approximating it with a word-count. Each is a score-moving rubric change and goes through
-`rubric/v1/CHANGELOG.md` with a rationale.
+The replacement rule, applied per axis: keep a `measured` indicator only where the count is
+itself the construct and cannot name the wrong pole. On this corpus that holds for exactly three
+signals: fresh-vs-mature's git-history facts, spec-driven's `sd3` template count, and
+single-vs-multi-agent's anchored `ma3` agent-file count. It does **not** hold for the structural
+proxies the earlier plan imagined (test-first → test directories, production → CI/deploy config):
+the corpus mixes pure-prompt methodologies with full software projects, so those count the
+target's own repository engineering rather than the methodology it teaches, and sign-flip (a
+heavily-tested CLI reads test-first while its methodology is task management). Where no valid
+structural signal exists, the judgment lives in a `classified` indicator the skill answers with a
+cited quote. This is a score-moving change recorded in `rubric/v1/CHANGELOG.md` (`3.0.0`).

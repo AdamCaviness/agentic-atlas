@@ -49,33 +49,31 @@ _ROOT = Path(__file__).resolve().parent.parent
 _RUBRIC_DIR = _ROOT / "rubric" / "v1"
 
 
-# --- Known v1 calibration defects, each keyed to the v2 solution that removes it. -----------
-# When a v2 change fixes one, its strict xfail becomes an xpass (a failure); delete the entry.
+# --- Calibration defect registries. -------------------------------------------------------
+# These held the known v1 defects, each keyed to the v2 solution that removed it, as strict
+# xfails so the CI gate stayed green while the live defect list stayed explicit. As of rubric
+# 3.0.0 the v2 recalibration is complete and all three are empty: every axis reaches +-scale,
+# no measured indicator saturates, and every axis offers a near-zero answer. A regression
+# re-adds an entry here (and this file documents the expected failure), rather than silently
+# flipping a shipped health property.
 
-CONSTANT_INDICATORS = {
-    "sl3": "AD-2: vocabulary top band saturates for all 18 (counts 13..3886); ~+2.29 bias "
-    "toward large-scope.",
-}
-# Removed in rubric 2.0.0 (spec-light-vs-spec-driven recalibration): sd2 now requires a
-# specification document (a ticket no longer counts) so it discriminates no/some/yes, and
-# sd3 became a structural path_count over spec-producing machinery, so neither is constant.
+CONSTANT_INDICATORS: dict[str, str] = {}
+# Empty as of 3.0.0. The last constant indicator, sl3 (lifecycle vocabulary), was removed
+# when small-scope-vs-large-scope dropped its vocabulary signal. (sd2/sd3 were fixed in 2.0.0.)
 
 # Measured indicators whose signal defines >= 3 bands but that collapse to < 3 distinct
 # values across the corpus: the bands are never exercised (AD-2). The git_stats indicators
 # are not listed: profiled from full clones they exercise their bands across the corpus, so
 # their spread is a band-design non-issue (see the maturity regression guard below).
-COLLAPSED_BANDS = {
-    # sd3 removed in rubric 2.0.0: now a path_count over spec-producing machinery whose
-    # none/a-few/many bands are exercised across the corpus (56% off the top band).
-    "sl3": "vocabulary: all 18 in the top band.",
-    "gb3": "vocabulary: 15/18 in the top band.",
-    "gs3": "vocabulary: 16/18 in the top band, middle band never fires.",
-    "io3": "vocabulary: 17/18 in the top band.",
-    "lw3": "vocabulary: 17/18 in the top band.",
-    "ma2": "vocabulary: only the top and bottom bands ever fire.",
-    "ah3": "vocabulary: only the top and bottom bands ever fire.",
-    "fm5": "github_api stars: 17/18 above the top threshold; popularity is not maturity.",
-}
+COLLAPSED_BANDS: dict[str, str] = {}
+# Empty as of 3.0.0. Every saturating vocabulary word-count (gb3, gs3, io3, lw3, ma2, ah3,
+# sl3, and the discriminating-but-invalid tf3/pp3/st3) was removed, and the github_api stars
+# indicator (fm5) was dropped because popularity is not maturity. The corpus mixes pure-prompt
+# methodologies with full software projects, so a structural count of most methodology
+# artifacts measures the tool's own repo rather than the methodology it teaches and can
+# sign-flip; those judgments moved to classified indicators the skill answers with a cited
+# quote. The three structural measured signals that survive (fresh-vs-mature git_stats,
+# spec-driven sd3, and the anchored multi-agent ma3) exercise their bands across the corpus.
 
 # Calibration thresholds. Tunable knobs, deliberately named here rather than buried inline;
 # v2 may promote them to versioned rubric data (docs/rubric-v2-plan.md, deferred question).
@@ -84,29 +82,36 @@ MIN_OFF_MODE_SHARE = 0.2  # at least a fifth of the corpus must sit off the sing
 
 # Axes with no classified answer that can land near zero, so the middle of the construct is
 # forced off-center (AD-6).
-AXES_WITHOUT_NEUTRAL = {
-    # spec-light-vs-spec-driven removed in rubric 2.0.0: sd1's middle answer "encouraged"
-    # now maps to a true zero (0.0), so a balanced position is expressible (AD-6).
-    "test-optional-vs-test-first": "tf1/tf2 middle answers map to +0.3.",
-    "single-agent-vs-multi-agent": "ma1 is the only classified indicator; middle is +0.3.",
-    "solo-vs-team": "st1/st2 middle answers map to +0.2/+0.3.",
-    "interrogative-vs-opinionated": "io1/io2 offer no near-zero answer.",
+AXES_WITHOUT_NEUTRAL: dict[str, str] = {}
+# Empty as of 3.0.0. test-optional-vs-test-first (tf1 "encouraged" -> 0.0),
+# single-agent-vs-multi-agent (ma1 "some" -> 0.0), solo-vs-team (st1 "partial" -> 0.0), and
+# interrogative-vs-opinionated (io1 "partial" / io2 "guided" -> 0.0) each gained a true-zero
+# middle answer, so a balanced position is expressible on every axis.
+
+# Every axis is converted to the +-1.0 value convention (AD-3): each bipolar indicator's
+# extremes are +-1.0, so the weighted mean reaches +-scale with no engine rescale. As of
+# 3.0.0 that is all 13 axes. An axis absent from this set is treated as a known-unreachable
+# defect (strict xfail), so adding an axis that has not been converted fails loudly here.
+SCALE_REACHED_AXES = {
+    "greenfield-vs-brownfield",
+    "small-scope-vs-large-scope",
+    "prototype-vs-production",
+    "solo-vs-team",
+    "generalist-vs-specialist",
+    "fresh-vs-mature",
+    "interrogative-vs-opinionated",
+    "autonomous-vs-human-in-loop",
+    "spec-light-vs-spec-driven",
+    "test-optional-vs-test-first",
+    "single-agent-vs-multi-agent",
+    "prescriptive-vs-composable",
+    "lightweight-vs-heavyweight",
 }
 
-# Axes converted to the +-1.0 value convention (AD-3), so they reach both poles and their
-# reachability case must pass. spec-light-vs-spec-driven is the first, converted in rubric
-# 2.0.0: every bipolar indicator's extremes are +-1.0, so the weighted mean reaches +-scale
-# with no engine rescale. Later v2 axes join this set as they are converted.
-SCALE_REACHED_AXES = {"spec-light-vs-spec-driven"}
-
-# The remaining axes still do not reach +-scale on both poles (AD-3): an indicator extreme is
-# < +-1.0, or the axis carries a one-directional indicator, so the clamp in scoring.py is dead
-# code for them. Fixed per axis by the +-1.0 value convention (plus the engine rescale for a
-# genuinely one-directional axis).
 UNREACHABLE_SCALE_REASON = (
-    "AD-3: v1 indicator extremes are < +-1.0 (or the axis has a one-directional indicator), "
-    "so the weighted mean cannot reach +-scale. Fixed by the +-1.0 value convention plus the "
-    "engine rescale."
+    "AD-3: this axis is not in SCALE_REACHED_AXES, so it has not been converted to the +-1.0 "
+    "value convention and cannot reach +-scale on both poles. Convert its indicator extremes "
+    "to +-1.0 (redesigning any one-directional indicator to be genuinely bipolar)."
 )
 
 # --- Fixtures -------------------------------------------------------------------------------
@@ -355,18 +360,34 @@ _ANCHOR_DIR = _ROOT / "tests" / "fixtures" / "anchors"
 # fixture name -> {axis_id: expected pole sign (-1 negative, +1 positive)}. Each pairing is
 # verified against the shipped rubric by the fixture's crafted content plus its pinned answers
 # (tests/fixtures/anchors/<name>/ and the sibling <name>.answers.json).
+# Every axis has at least one pole-anchor here except fresh-vs-mature, whose signal is the
+# target's git history: an in-tree fixture would read the enclosing repo's history, not the
+# fixture's, so it cannot be anchored this way. That axis is guarded instead by
+# test_maturity_is_not_a_shallow_clone_artifact and its corpus git spread.
 ANCHORS = {
     "spec-light-minimal": {
+        "greenfield-vs-brownfield": -1,
+        "small-scope-vs-large-scope": -1,
+        "prototype-vs-production": -1,
+        "solo-vs-team": -1,
         "spec-light-vs-spec-driven": -1,
         "lightweight-vs-heavyweight": -1,
         "test-optional-vs-test-first": -1,
         "single-agent-vs-multi-agent": -1,
     },
     "spec-heavy-maximal": {
+        "greenfield-vs-brownfield": +1,
+        "small-scope-vs-large-scope": +1,
+        "prototype-vs-production": +1,
+        "solo-vs-team": +1,
+        "generalist-vs-specialist": +1,
+        "interrogative-vs-opinionated": +1,
+        "autonomous-vs-human-in-loop": -1,
         "spec-light-vs-spec-driven": +1,
-        "lightweight-vs-heavyweight": +1,
         "test-optional-vs-test-first": +1,
         "single-agent-vs-multi-agent": +1,
+        "prescriptive-vs-composable": -1,
+        "lightweight-vs-heavyweight": +1,
     },
     "generalist": {"generalist-vs-specialist": -1},
 }

@@ -61,7 +61,7 @@ dilute a profile rather than sharpen it, so the rest are backlog (see [axes.md](
 
 ## The axis data model (`axis.yaml`)
 
-Worked example, `greenfield-vs-brownfield`:
+Worked example, the shipped `greenfield-vs-brownfield` (a classified-only axis):
 
 ```yaml
 id: greenfield-vs-brownfield
@@ -74,21 +74,31 @@ explain:                        # plain-language meaning shown in the report
   positive: excels working inside an existing, established codebase
 indicators:
   - id: gb1
-    question: "Is the first mandatory step generating a spec or PRD from an idea...?"
+    question: "Does the workflow assume a blank slate (an idea, no code) or an existing codebase?"
     kind: classified
     weight: 3
-    answers: { "yes": -1.0, partial: -0.5, "no": 0.0 }   # answer → value in [-1, 1]
-  - id: gb3
-    question: "Density of brownfield vocabulary across docs and commands."
+    answers: { blank_slate: -1.0, either: 0.0, existing_codebase: 1.0 }   # answer → value in [-1, 1]
+  - id: gb2
+    question: "Does it ship explicit steps for ingesting an existing codebase?"
+    kind: classified
+    weight: 3
+    answers: { "yes": 1.0, partial: 0.4, "no": -1.0 }
+```
+
+A `measured` indicator carries a `signal` instead of `answers`. Here is the shipped `ma3`
+from single-agent-vs-multi-agent, a `path_count` over agent-definition files:
+
+```yaml
+  - id: ma3
+    question: "How many agent-definition files does the tool ship?"
     kind: measured
-    weight: 2
+    weight: 1
     signal:
-      type: vocabulary
-      terms: ["legacy", "migration", "migrate", "refactor", "existing codebase", "brownfield"]
+      type: path_count
+      globs: [".claude/agents/*.md", "agents/*.md", "plugins/*/agents/*.md", "packages/*/agents/*.md"]
       bands:
-        - { max_count: 0, value: -0.8 }
-        - { max_count: 5, value: 0.24 }
-        - { max_count: null, value: 0.8 }    # null = catch-all top band
+        - { max_count: 1, value: -1.0 }    # 0-1 agent files: single-agent
+        - { max_count: null, value: 1.0 }  # 2+ files: multi-agent (null = catch-all top band)
 ```
 
 Field rules the engine relies on:

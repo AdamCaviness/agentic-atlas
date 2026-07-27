@@ -1,7 +1,7 @@
 {
   "target": "spec-kit",
-  "rubric_version": "2.0.0",
-  "engine_version": "0.7.1",
+  "rubric_version": "3.0.0",
+  "engine_version": "1.1.2",
   "target_sha": "93fc533d790f463355763573dbef17e6b109e1eb",
   "target_url": "https://github.com/github/spec-kit",
   "axes": [
@@ -17,7 +17,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": -2.3,
+      "score": -4.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -26,7 +26,7 @@
           "weight": 3.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "yes",
+          "answer": "blank_slate",
           "evidence": "The workflow begins with an idea",
           "source": "agent-team draft 2026-07-22"
         },
@@ -34,21 +34,11 @@
           "indicator_id": "gb2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.5,
+          "value": 0.4,
           "resolved": true,
           "answer": "partial",
           "evidence": "Assess the current codebase against the feature's spec, plan, and tasks",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "gb3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "157",
-          "evidence": "157 occurrences of ['legacy', 'migration', 'migrate', 'refactor', 'existing codebase', 'brownfield'] across the text corpus",
-          "source": "engine"
         },
         {
           "indicator_id": "gb4",
@@ -59,16 +49,6 @@
           "answer": "whole_project",
           "evidence": "Build production-ready applications",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "gb5",
-          "kind": "measured",
-          "weight": 1.0,
-          "value": -0.6,
-          "resolved": true,
-          "answer": "absent",
-          "evidence": "no path matched ['**/brownfield*', '**/*existing*', '**/*legacy*']",
-          "source": "engine"
         }
       ]
     },
@@ -84,14 +64,14 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 6.6,
+      "score": 7.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "sl1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.48,
+          "value": 0.5,
           "resolved": true,
           "answer": "most",
           "evidence": "Start with high-level requirements</li><li>Generate specifications</li><li>Plan implementation steps</li><li>Build production-ready applications",
@@ -101,21 +81,11 @@
           "indicator_id": "sl2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
           "evidence": "the specification \u2192 planning \u2192 tasking workflow",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "sl3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "774",
-          "evidence": "774 occurrences of ['requirements', 'architecture', 'deployment', 'release', 'retrospective', 'epic', 'milestone'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -131,14 +101,14 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 3.1,
+      "score": 1.8,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "pp1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.3,
           "resolved": true,
           "answer": "some",
           "evidence": "Demonstrate mission-critical application development",
@@ -153,16 +123,6 @@
           "answer": "mixed",
           "evidence": "from vibe-coding to AI-native development",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "pp3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "376",
-          "evidence": "376 occurrences of ['production', 'deploy', 'ci', 'security', 'observability', 'rollback', 'monitoring'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -178,14 +138,14 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 4.4,
+      "score": 1.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "st1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.0,
           "resolved": true,
           "answer": "partial",
           "evidence": "Convert generated task lists into GitHub issues for tracking and execution",
@@ -200,26 +160,6 @@
           "answer": "some",
           "evidence": "team-reviewed specifications are expressed and versioned, created in branches, and merged",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "st3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "209",
-          "evidence": "209 occurrences of ['team', 'assign', 'reviewer', 'pull request', 'collaborate', 'stakeholder', 'handoff'] across the text corpus",
-          "source": "engine"
-        },
-        {
-          "indicator_id": "st4",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.6,
-          "resolved": true,
-          "answer": "25",
-          "evidence": "25 files matched ['**/.github/workflows/**', '**/CODEOWNERS', '**/.github/CODEOWNERS', '**/PULL_REQUEST_TEMPLATE*', '**/.github/PULL_REQUEST_TEMPLATE*']",
-          "source": "engine"
         }
       ]
     },
@@ -235,14 +175,14 @@
         "positive": "built specifically for software delivery"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 7.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "gs1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.4,
+          "value": 0.5,
           "resolved": true,
           "answer": "mostly_software",
           "evidence": "product manager, business analyst",
@@ -251,22 +191,12 @@
         {
           "indicator_id": "gs2",
           "kind": "classified",
-          "weight": 1.0,
-          "value": 0.8,
+          "weight": 2.0,
+          "value": 1.0,
           "resolved": true,
           "answer": "no",
           "evidence": "executable specifications that generate code rather than merely guiding it",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "gs3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "1207",
-          "evidence": "1207 occurrences of ['compile', 'deploy', 'unit test', 'pull request', 'refactor', 'api', 'repository'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -282,14 +212,14 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 3.3,
+      "score": 2.5,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.24,
+          "value": 0.0,
           "resolved": true,
           "answer": "334.9",
           "evidence": "git age_days = 334.9",
@@ -299,7 +229,7 @@
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "1521",
           "evidence": "git commit_count = 1521",
@@ -309,7 +239,7 @@
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "262",
           "evidence": "git contributor_count = 262",
@@ -319,20 +249,10 @@
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
-          "answer": "203",
-          "evidence": "git tag_count = 203",
-          "source": "engine"
-        },
-        {
-          "indicator_id": "fm5",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "123479",
-          "evidence": "stars = 123479 for github/spec-kit via GitHub API",
+          "answer": "204",
+          "evidence": "git tag_count = 204",
           "source": "engine"
         },
         {
@@ -359,7 +279,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -0.6,
+      "score": -5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -376,21 +296,11 @@
           "indicator_id": "io2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
+          "value": 0.0,
           "resolved": true,
           "answer": "guided",
           "evidence": "a ready-to-use spec-driven process (or bring your own)",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "io3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "1189",
-          "evidence": "1189 occurrences of ['must', 'always', 'never', 'required', 'enforce', 'mandatory'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -406,7 +316,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -5.8,
+      "score": -5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -428,16 +338,6 @@
           "answer": "some_phases",
           "evidence": "Do you want to proceed with implementation anyway",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "ah3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": -0.8,
-          "resolved": true,
-          "answer": "466",
-          "evidence": "466 occurrences of ['approve', 'confirm', 'review', 'checkpoint', 'wait for', 'your approval'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -500,38 +400,28 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": 4.7,
+      "score": 7.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "tf1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
+          "value": 1.0,
           "resolved": true,
-          "answer": "encouraged",
-          "evidence": "Execute test tasks before their corresponding implementation tasks",
+          "answer": "enforced",
+          "evidence": "The implementation template enforces test-first development:",
           "source": "agent-team draft 2026-07-22"
         },
         {
           "indicator_id": "tf2",
           "kind": "classified",
-          "weight": 1.0,
+          "weight": 2.0,
           "value": 0.3,
           "resolved": true,
           "answer": "present",
           "evidence": "Tests (if requested)",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "tf3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "117",
-          "evidence": "117 occurrences of ['tdd', 'red-green', 'test-first', 'failing test', 'coverage', 'unit test', 'test-driven'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -547,37 +437,27 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 5.2,
+      "score": -2.5,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "ma1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
+          "value": 0.0,
           "resolved": true,
           "answer": "some",
           "evidence": "Generate and dispatch research agents",
           "source": "agent-team draft 2026-07-22"
         },
         {
-          "indicator_id": "ma2",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "26",
-          "evidence": "26 occurrences of ['subagent', 'persona', 'orchestrate', 'delegate', 'specialist agent', 'sub-agent'] across the text corpus",
-          "source": "engine"
-        },
-        {
           "indicator_id": "ma3",
           "kind": "measured",
           "weight": 1.0,
-          "value": 0.6,
+          "value": -1.0,
           "resolved": true,
-          "answer": "present",
-          "evidence": "matched ['docs/reference/agentic-bugfix.md', 'docs/reference/agentic-sdd.md', 'extensions/agent-context/commands/speckit.agent-context.update.md']",
+          "answer": "0",
+          "evidence": "0 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
           "source": "engine"
         }
       ]
@@ -594,7 +474,7 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 1.7,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -616,16 +496,6 @@
           "answer": "mixed",
           "evidence": "Additional commands for enhanced quality and validation",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "pc3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.6,
-          "resolved": true,
-          "answer": "39",
-          "evidence": "39 files matched ['**/skills/**', '**/modules/**', '**/commands/**']",
-          "source": "engine"
         }
       ]
     },
@@ -641,14 +511,14 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": 3.1,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "lw1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.0,
           "resolved": true,
           "answer": "moderate",
           "evidence": "Spec-Driven Development is a structured process that emphasizes",
@@ -663,16 +533,6 @@
           "answer": "moderate",
           "evidence": "It sets up the necessary directory structures, templates, and AI agent integrations",
           "source": "agent-team draft 2026-07-22"
-        },
-        {
-          "indicator_id": "lw3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "1714",
-          "evidence": "1714 occurrences of ['phase', 'gate', 'ceremony', 'role', 'artifact', 'template', 'workflow', 'epic'] across the text corpus",
-          "source": "engine"
         }
       ]
     }

@@ -1,7 +1,7 @@
 {
   "target": "PRPs-agentic-eng",
-  "rubric_version": "2.0.0",
-  "engine_version": "0.7.1",
+  "rubric_version": "3.0.0",
+  "engine_version": "1.1.2",
   "target_sha": "a643e84600c4f740e9d5a52051f6783ee9852567",
   "target_url": "https://github.com/Wirasm/PRPs-agentic-eng",
   "axes": [
@@ -17,7 +17,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 5.5,
+      "score": 6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -26,8 +26,8 @@
           "weight": 3.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "Skip the PRD. Go straight to a plan:",
+          "answer": "either",
+          "evidence": "solutions must fit existing codebase patterns first",
           "source": "agent-team wave2 2026-07-23"
         },
         {
@@ -41,16 +41,6 @@
           "source": "agent-team wave2 2026-07-23"
         },
         {
-          "indicator_id": "gb3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "223",
-          "evidence": "223 occurrences of ['legacy', 'migration', 'migrate', 'refactor', 'existing codebase', 'brownfield'] across the text corpus",
-          "source": "engine"
-        },
-        {
           "indicator_id": "gb4",
           "kind": "classified",
           "weight": 2.0,
@@ -59,16 +49,6 @@
           "answer": "small_diff",
           "evidence": "Each plan should be completable by an AI in one loop",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "gb5",
-          "kind": "measured",
-          "weight": 1.0,
-          "value": -0.6,
-          "resolved": true,
-          "answer": "absent",
-          "evidence": "no path matched ['**/brownfield*', '**/*existing*', '**/*legacy*']",
-          "source": "engine"
         }
       ]
     },
@@ -84,14 +64,14 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 4.3,
+      "score": 3.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "sl1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.48,
+          "value": 0.5,
           "resolved": true,
           "answer": "most",
           "evidence": "Autonomous cyclic pipeline: plan \u2192 implement \u2192 pr \u2192 review",
@@ -106,16 +86,6 @@
           "answer": "mixed",
           "evidence": "Every skill is then available across all your projects as `/prp-core:<name>`",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "sl3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "403",
-          "evidence": "403 occurrences of ['requirements', 'architecture', 'deployment', 'release', 'retrospective', 'epic', 'milestone'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -131,14 +101,14 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 5.8,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "pp1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.3,
           "resolved": true,
           "answer": "some",
           "evidence": "SECURITY: Attack vectors? Data exposure risks? Auth/authz?",
@@ -153,16 +123,6 @@
           "answer": "maintainable_only",
           "evidence": "The minimum viable packet an AI needs to ship production-ready code on the first pass.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "pp3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "421",
-          "evidence": "421 occurrences of ['production', 'deploy', 'ci', 'security', 'observability', 'rollback', 'monitoring'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -178,14 +138,14 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 2.0,
+      "score": 1.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "st1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.0,
           "resolved": true,
           "answer": "partial",
           "evidence": "Map dependencies and conflict risk: predict the files each workstream touches.",
@@ -200,26 +160,6 @@
           "answer": "some",
           "evidence": "Do not launch until the user approves.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "st3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "283",
-          "evidence": "283 occurrences of ['team', 'assign', 'reviewer', 'pull request', 'collaborate', 'stakeholder', 'handoff'] across the text corpus",
-          "source": "engine"
-        },
-        {
-          "indicator_id": "st4",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": -0.5,
-          "resolved": true,
-          "answer": "0",
-          "evidence": "0 files matched ['**/.github/workflows/**', '**/CODEOWNERS', '**/.github/CODEOWNERS', '**/PULL_REQUEST_TEMPLATE*', '**/.github/PULL_REQUEST_TEMPLATE*']",
-          "source": "engine"
         }
       ]
     },
@@ -235,14 +175,14 @@
         "positive": "built specifically for software delivery"
       },
       "scale": 10.0,
-      "score": 8.0,
+      "score": 10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "gs1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.8,
+          "value": 1.0,
           "resolved": true,
           "answer": "software_only",
           "evidence": "A collection of prompts for AI-assisted development with Claude Code.",
@@ -251,22 +191,12 @@
         {
           "indicator_id": "gs2",
           "kind": "classified",
-          "weight": 1.0,
-          "value": 0.8,
+          "weight": 2.0,
+          "value": 1.0,
           "resolved": true,
           "answer": "no",
           "evidence": "an agentic-engineering workflow packaged as Claude Code",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "gs3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "764",
-          "evidence": "764 occurrences of ['compile', 'deploy', 'unit test', 'pull request', 'refactor', 'api', 'repository'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -282,14 +212,14 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 3.9,
+      "score": 1.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "fm1",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.24,
+          "value": 0.0,
           "resolved": true,
           "answer": "400.2",
           "evidence": "git age_days = 400.2",
@@ -299,7 +229,7 @@
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": 0.24,
+          "value": 0.0,
           "resolved": true,
           "answer": "122",
           "evidence": "git commit_count = 122",
@@ -309,7 +239,7 @@
           "indicator_id": "fm3",
           "kind": "measured",
           "weight": 1.0,
-          "value": 0.16,
+          "value": 0.0,
           "resolved": true,
           "answer": "5",
           "evidence": "git contributor_count = 5",
@@ -319,20 +249,10 @@
           "indicator_id": "fm4",
           "kind": "measured",
           "weight": 1.0,
-          "value": -0.8,
+          "value": -1.0,
           "resolved": true,
           "answer": "0",
           "evidence": "git tag_count = 0",
-          "source": "engine"
-        },
-        {
-          "indicator_id": "fm5",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "2225",
-          "evidence": "stars = 2225 for Wirasm/PRPs-agentic-eng via GitHub API",
           "source": "engine"
         },
         {
@@ -359,7 +279,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -0.6,
+      "score": -5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -376,21 +296,11 @@
           "indicator_id": "io2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
+          "value": 0.0,
           "resolved": true,
           "answer": "guided",
           "evidence": "Medium Features: Direct to Plan",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "io3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "1351",
-          "evidence": "1351 occurrences of ['must', 'always', 'never', 'required', 'enforce', 'mandatory'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -406,7 +316,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 1.8,
+      "score": 5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -428,16 +338,6 @@
           "answer": "some_phases",
           "evidence": "Wait for user response before proceeding.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "ah3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": -0.8,
-          "resolved": true,
-          "answer": "842",
-          "evidence": "842 occurrences of ['approve', 'confirm', 'review', 'checkpoint', 'wait for', 'your approval'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -500,7 +400,7 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -1.8,
+      "score": -4.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -516,22 +416,12 @@
         {
           "indicator_id": "tf2",
           "kind": "classified",
-          "weight": 1.0,
+          "weight": 2.0,
           "value": 0.3,
           "resolved": true,
           "answer": "present",
           "evidence": "You MUST write or update tests for new code.",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "tf3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "237",
-          "evidence": "237 occurrences of ['tdd', 'red-green', 'test-first', 'failing test', 'coverage', 'unit test', 'test-driven'] across the text corpus",
-          "source": "engine"
         }
       ]
     },
@@ -547,7 +437,7 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 8.7,
+      "score": 10.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -561,23 +451,13 @@
           "source": "agent-team wave2 2026-07-23"
         },
         {
-          "indicator_id": "ma2",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "130",
-          "evidence": "130 occurrences of ['subagent', 'persona', 'orchestrate', 'delegate', 'specialist agent', 'sub-agent'] across the text corpus",
-          "source": "engine"
-        },
-        {
           "indicator_id": "ma3",
           "kind": "measured",
           "weight": 1.0,
-          "value": 0.6,
+          "value": 1.0,
           "resolved": true,
-          "answer": "present",
-          "evidence": "matched ['.agents/skills/prp-plan/references/agent-prompts.md', '.agents/skills/prp-review/workflows/agents.md', '.claude/agents/code-reviewer.md', '.claude/agents/code-simplifier.md', '.claude/agents/codebase-analyst.md']",
+          "answer": "21",
+          "evidence": "21 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
           "source": "engine"
         }
       ]
@@ -594,7 +474,7 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 2.3,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -616,16 +496,6 @@
           "answer": "mixed",
           "evidence": "ONLY AFTER Phase 2 is complete",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "pc3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "109",
-          "evidence": "109 files matched ['**/skills/**', '**/modules/**', '**/commands/**']",
-          "source": "engine"
         }
       ]
     },
@@ -641,14 +511,14 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": 0.3,
+      "score": -4.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "lw1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.2,
+          "value": 0.0,
           "resolved": true,
           "answer": "moderate",
           "evidence": "PRD + curated codebase intelligence + agent/runbook",
@@ -663,16 +533,6 @@
           "answer": "tiny",
           "evidence": "cp -r /path/to/PRPs-agentic-eng/.claude/skills/prp-plan .claude/skills/",
           "source": "agent-team wave2 2026-07-23"
-        },
-        {
-          "indicator_id": "lw3",
-          "kind": "measured",
-          "weight": 2.0,
-          "value": 0.8,
-          "resolved": true,
-          "answer": "1432",
-          "evidence": "1432 occurrences of ['phase', 'gate', 'ceremony', 'role', 'artifact', 'template', 'workflow', 'epic'] across the text corpus",
-          "source": "engine"
         }
       ]
     }
