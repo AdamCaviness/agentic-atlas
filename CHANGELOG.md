@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v1.1.2...v2.0.0) (2026-07-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **rubric:** recalibrate the remaining 12 axes to full scale, ship rubric 3.0.0
+
+### Features
+
+* **rubric:** recalibrate the remaining 12 axes to full scale, ship rubric 3.0.0 ([7b0cc1a](https://github.com/AdamCaviness/agentic-atlas/commit/7b0cc1a85cc449a52ece9c4739d06399f1b89939))
+
 ## [1.1.2](https://github.com/AdamCaviness/agentic-atlas/compare/v1.1.1...v1.1.2) (2026-07-24)
 
 
