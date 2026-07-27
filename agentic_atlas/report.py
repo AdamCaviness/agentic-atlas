@@ -303,8 +303,6 @@ _HTML_CSS = """
   .score.neg{color:var(--neg)}.score.pos{color:var(--pos)}
   .score.none{color:var(--faint);font-weight:500;font-style:italic;font-size:.9rem}
   .score.zero{color:var(--faint)}
-  .prov-tag{font-family:var(--sans);font-weight:500;font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;
-            color:var(--cov-low);border:1px solid var(--cov-low);border-radius:4px;padding:1px 5px;margin-left:8px;vertical-align:1px}
   .bar-row{display:grid;grid-template-columns:8.5rem 1fr 8.5rem;align-items:center;gap:12px;margin:10px 0 4px}
   .pole{font-size:.78rem;color:var(--muted)}
   .pole.left{text-align:right}.pole.right{text-align:left}
@@ -313,8 +311,6 @@ _HTML_CSS = """
   .fill{position:absolute;top:3px;bottom:3px}
   .fill.neg{right:50%;background:var(--neg);border-radius:4px 0 0 4px}
   .fill.pos{left:50%;background:var(--pos);border-radius:0 4px 4px 0}
-  .fill.prov{opacity:.4;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px);
-             outline:1px dashed var(--faint);outline-offset:-1px}
   .track.empty{background:repeating-linear-gradient(45deg,transparent,transparent 6px,var(--track) 6px,var(--track) 12px);border:1px dashed var(--line)}
   .track.empty .center{background:var(--line)}
   .ni{display:inline-block;font-size:.8rem;color:var(--faint);position:absolute;left:50%;top:50%;
@@ -407,37 +403,33 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
     cov_pct = round(ax.coverage * 100)
     cov_txt = f"detected {m_res}/{m_total} · judged {c_res}/{c_total} · {cov_pct}% evidence"
 
-    if ax.score is None:
-        # Nothing resolved: there is no number to place, so draw no bar and say so.
-        # Only an unreadable target (or a bare run with no answers) reaches this.
-        score_html = '<span class="score none">nothing could be read</span>'
-        bar = (
-            '<div class="track empty"><div class="center"></div>'
-            '<span class="ni">no evidence found</span></div>'
-        )
-    else:
-        # Below the floor the axis still has a number but rests on thin evidence. Unlike the
-        # terminal renderer, which hides it, HTML can fade it: always draw a bar, but a
-        # provisional one, so a sliver of evidence is never mistaken for a confident verdict.
-        provisional = ax.coverage < _COVERAGE_FLOOR
-        tag = (
-            '<span class="prov-tag" title="thin evidence, under 50%">low evidence</span>'
-            if provisional
-            else ""
-        )
-        if ax.score == 0:
-            # Exactly neutral: no lean, no forced sign, no fill, just the centered marker.
-            score_html = f'<span class="score zero">0.0</span>{tag}'
-            bar = '<div class="track"><div class="center"></div></div>'
+    if ax.score is None or ax.coverage < _COVERAGE_FLOOR:
+        # Not enough resolved weight to plot a position: draw no bar and say so, exactly as
+        # the terminal and markdown renderers do. Fading a below-floor bar was tried, but under
+        # the +-1.0 value convention a lone low-weight corroborator resolves to +-scale, so a
+        # faded bar would still land at a pole and read as a confident verdict. A thin reading
+        # is worded differently from a wholly-unread axis, but neither is plotted.
+        if ax.score is None:
+            msg, note = "nothing could be read", "no evidence found"
         else:
-            side = "neg" if ax.score < 0 else "pos"
-            width = abs(ax.score) / ax.scale * 50
-            score_html = f'<span class="score {side}">{ax.score:+.1f}</span>{tag}'
-            fill_cls = f"fill {side}" + (" prov" if provisional else "")
-            bar = (
-                f'<div class="track"><div class="{fill_cls}" style="width:{width:g}%"></div>'
-                '<div class="center"></div></div>'
-            )
+            msg, note = "needs interpretation", "under 50% evidence"
+        score_html = f'<span class="score none">{msg}</span>'
+        bar = (
+            f'<div class="track empty"><div class="center"></div>'
+            f'<span class="ni">{note}</span></div>'
+        )
+    elif ax.score == 0:
+        # Exactly neutral: no lean, no forced sign, no fill, just the centered marker.
+        score_html = '<span class="score zero">0.0</span>'
+        bar = '<div class="track"><div class="center"></div></div>'
+    else:
+        side = "neg" if ax.score < 0 else "pos"
+        width = abs(ax.score) / ax.scale * 50
+        score_html = f'<span class="score {side}">{ax.score:+.1f}</span>'
+        bar = (
+            f'<div class="track"><div class="fill {side}" style="width:{width:g}%"></div>'
+            '<div class="center"></div></div>'
+        )
 
     title = _html_escape(ax.title)
     title_disp = title.replace(" vs ", " <em>vs</em> ")
@@ -836,12 +828,14 @@ def render_html(profile: Profile) -> str:
     timestamps, random ids, or locale-dependent formatting, mirroring the purity of
     ``render_text`` and ``render_markdown``.
 
-    Unlike the terminal renderer, HTML always draws a bar when a score exists: a
-    thinly-covered axis is faded and tagged ("low evidence") rather than hidden,
-    because HTML can show low confidence where a terminal cannot. A bar is omitted
-    only when nothing resolved at all (``score is None``), which reads as "nothing
-    could be read". The user-facing language is plain: the two indicator kinds show
-    as "detected" and "judged", and coverage reads as "evidence".
+    A bar is drawn only for an axis above the coverage floor, matching the terminal
+    and markdown renderers. Below the floor the axis reports "needs interpretation"
+    with no bar (a "score exists but rests on thin evidence" case), and a wholly-unread
+    axis (``score is None``) reads as "nothing could be read"; neither plots a position,
+    because under the +-1.0 value convention a lone low-weight indicator resolves to
+    +-scale, so a faded bar would still land at a pole and read as confident. The
+    user-facing language is plain: the two indicator kinds show as "detected" and
+    "judged", and coverage reads as "evidence".
 
     Beside the cards, in a right rail the same height as them, sits an interactive
     WebGL "profile tower" (see ``_HERO_JS``) that measures the cards and lines its
@@ -865,7 +859,7 @@ def render_html(profile: Profile) -> str:
     {project}
     <div class="stamps">{stamps}</div>
     <p class="note">These results are non-judgmental measurements against the <a href="{_RUBRIC_URL}" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
-    <p class="aside">Scale &plusmn;{scale:g} per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; a faded bar rests on thin evidence. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
+    <p class="aside">Scale &plusmn;{scale:g} per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
       <span><span class="swatch" style="background:var(--neg)"></span><span class="swatch" style="background:var(--pos)"></span>the bar leans toward the end it favors</span>
       <span><span class="swatch" style="background:var(--cov-good)"></span>evidence found</span>
