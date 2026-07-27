@@ -383,8 +383,13 @@ function buildPanel(){
   const box=$("#prefs");
   ORDER.forEach(id=>{const a=AXES.find(x=>x.id===id); if(!a)return;
     const w=document.createElement("div"); w.className="slider off"; w.dataset.axis=id;
-    const tp=esc(a.title).split(' vs ');
-    w.innerHTML=`<div class="prow"><span class="hl">${tp[0]||esc(a.title)}</span>${tp[1]?`<em class="hvs">vs</em><span class="hr">${tp[1]}</span>`:''}</div>
+    // The slider's left end is -10 (the negative pole), its right end +10 (the positive pole).
+    // Order the two title halves by pole so the header always matches the emitted value's sign,
+    // even on an axis whose title happens to list the positive pole first (autonomous-vs-...).
+    const norm=s=>s.toLowerCase().replace(/[\s-]+/g,"_");
+    const parts=a.title.split(" vs ");
+    const tp=(parts.length===2&&norm(parts[0])===a.pos&&norm(parts[1])===a.neg)?[parts[1],parts[0]]:parts;
+    w.innerHTML=`<div class="prow"><span class="hl">${esc(tp[0])||esc(a.title)}</span>${tp[1]?`<em class="hvs">vs</em><span class="hr">${esc(tp[1])}</span>`:''}</div>
       <div class="srange"><input type="range" min="-10" max="10" value="0" step="1"></div>
       <div class="state"><button class="info" type="button" aria-label="What ${esc(a.title)} means">i</button><span class="tip" role="tooltip"><span class="th">${esc(a.title)}</span><span class="pn">${esc(a.neg)}</span>: ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span>: ${esc(a.epos)}</span><span class="np">no preference</span></div>`;
     const inp=$("input",w), st=$(".np",w);
