@@ -5,8 +5,8 @@
 
 ## Prerequisites
 
-- **Python `>= 3.11`** on PATH (the engine requires it; `atlas.sh` probes
-  `python3.13 → 3.12 → 3.11 → python3`).
+- **Python `>= 3.13`** on PATH (the engine requires it; `atlas.sh` probes
+  `python3.13 → python3`).
 - **GNU Make** (all workflows run through it).
 - **git** — the Fresh↔Mature axis reads real git history, so measured runs assume a normal
   (non-shallow) clone.
@@ -87,7 +87,7 @@ When adding a **measured signal type**, extend both `evidence.resolve_measured` 
 
 From [AGENTS.md](../AGENTS.md) (the canonical agent guidance; `CLAUDE.md` is a symlink):
 
-- **Python 3.11+.** Keep the deterministic core (`models.py`, `spec.py`, `scoring.py`)
+- **Python 3.13+.** Keep the deterministic core (`models.py`, `spec.py`, `scoring.py`)
   dependency-light and fully tested.
 - **No `TODO` comments.** Implement it, or record the plan in `docs/`.
 - **Document what the code *is*, not what it was** — git history covers the past.

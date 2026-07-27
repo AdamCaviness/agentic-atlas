@@ -40,7 +40,7 @@ A thin, defensive Bash shim, the only thing between the skill and the engine:
   `agentic_atlas/__init__.py` or dies with a clear message.
 - **Cached venv bootstrap.** `venv_ok()` checks the console script exists *and* the interpreter
   can import `agentic_atlas`, `yaml`, `jsonschema` (catching a half-built venv, not just an
-  absent one). On first run it picks a system Python `>= 3.11` (`python3.13…3.11`), creates
+  absent one). On first run it picks a system Python `>= 3.13` (`python3.13`), creates
   `.venv`, and does an editable install (runtime deps only, no dev extras). Later runs skip
   straight to `exec`.
 - **Clean stdio.** All bootstrap chatter goes to stderr so the engine's stdout (JSON or a

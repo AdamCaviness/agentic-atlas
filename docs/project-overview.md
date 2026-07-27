@@ -48,7 +48,7 @@ that ships the skill to marketplaces.
 
 | Category | Technology | Version | Role |
 |---|---|---|---|
-| Language | Python | >= 3.11 | Whole engine |
+| Language | Python | >= 3.13 | Whole engine |
 | Build backend | Hatchling | (build-system) | Wheel packaging |
 | Runtime dep | PyYAML | >= 6.0 | Parse rubric/axis YAML |
 | Runtime dep | jsonschema | >= 4.0 | Validate rubric + axis files (imported lazily) |

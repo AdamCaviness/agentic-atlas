@@ -56,12 +56,12 @@ ATLAS="$VENV/bin/agentic-atlas"
 PY="$VENV/bin/python"
 
 # --- Pick a system interpreter for bootstrapping ------------------------------
-# The engine requires Python >= 3.11. Only used to CREATE the venv; once the
+# The engine requires Python >= 3.13. Only used to CREATE the venv; once the
 # venv exists this is not consulted again.
 find_python() {
-  for cand in python3.13 python3.12 python3.11 python3 python; do
+  for cand in python3.13 python3 python; do
     if command -v "$cand" >/dev/null 2>&1; then
-      if "$cand" -c 'import sys; raise SystemExit(0 if sys.version_info[:2] >= (3, 11) else 1)' 2>/dev/null; then
+      if "$cand" -c 'import sys; raise SystemExit(0 if sys.version_info[:2] >= (3, 13) else 1)' 2>/dev/null; then
         command -v "$cand"
         return 0
       fi
@@ -84,7 +84,7 @@ if ! venv_ok; then
   # agentic-atlas console script, which is all the skill needs (no dev extras).
   log "bootstrapping engine venv at $VENV (first run)"
   [ -e "$VENV" ] && rm -rf "$VENV"
-  sys_py="$(find_python)" || die "need Python >= 3.11 on PATH to build the engine venv"
+  sys_py="$(find_python)" || die "need Python >= 3.13 on PATH to build the engine venv"
   "$sys_py" -m venv "$VENV" 1>&2
   "$PY" -m pip install -q --upgrade pip 1>&2
   "$PY" -m pip install -q -e "$ENGINE" 1>&2

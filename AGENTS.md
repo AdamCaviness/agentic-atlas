@@ -59,7 +59,7 @@ does not update it until you rebuild, so after any change to `build_site.py` run
 
 ## Conventions
 
-- Python 3.11+. Keep the deterministic core (`models.py`, `spec.py`, `scoring.py`) dependency-light and fully tested.
+- Python 3.13+. Keep the deterministic core (`models.py`, `spec.py`, `scoring.py`) dependency-light and fully tested.
 - No `TODO` comments. Implement it, or record the plan in `docs/`.
 - Document what the code **is**, not what it was. Git history covers the past.
 - Prose in docs uses commas rather than dashes for punctuation.

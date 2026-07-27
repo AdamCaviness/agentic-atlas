@@ -70,6 +70,6 @@ narrow, stable seams rather than shared internals:
 
 ## Shared dependencies
 
-All three parts assume Python `>= 3.11` and the engine's two runtime deps (`pyyaml`,
+All three parts assume Python `>= 3.13` and the engine's two runtime deps (`pyyaml`,
 `jsonschema`). The launcher provisions them into a cached venv; developers get them via
 `make setup`. The rubric and plugin add no dependencies of their own.

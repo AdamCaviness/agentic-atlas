@@ -30,6 +30,21 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           pr_number=$(jq -r '.number' <<< "$RELEASE_PR_JSON")
+
+          # The branch ruleset requires the `ci` check before main can be updated, and
+          # CI has only just started on the freshly-created release PR, so a bare merge
+          # would fail "not mergeable". Wait for the PR's checks to register, then watch
+          # them to completion. `gh pr checks` exit codes: 0 all passed, 8 some pending,
+          # 4 none reported yet. --watch blocks until they finish and --fail-fast aborts
+          # this step the moment one fails, so a red release PR is never merged.
+          for _ in $(seq 1 24); do
+            rc=0
+            gh pr checks "$pr_number" --repo "$REPO" >/dev/null 2>&1 || rc=$?
+            { [ "$rc" -eq 0 ] || [ "$rc" -eq 8 ]; } && break
+            sleep 5
+          done
+          gh pr checks "$pr_number" --watch --fail-fast --repo "$REPO"
+
           gh pr merge "$pr_number" --squash --repo "$REPO"
 
           # Confirm main reflects the squash commit before dispatching, so
