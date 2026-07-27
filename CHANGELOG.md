@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/AdamCaviness/agentic-atlas/compare/v2.0.0...v2.0.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* **report:** hide below-floor axis positions in HTML and the Explorer ([d4b1628](https://github.com/AdamCaviness/agentic-atlas/commit/d4b16288387c56162c1c4d24e27c64683900d72a))
+* **report:** hide below-floor axis positions in HTML and the Explorer ([ca0bbbb](https://github.com/AdamCaviness/agentic-atlas/commit/ca0bbbb17df330218a294d0289c713f756faccf1))
+
 ## [2.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v1.1.2...v2.0.0) (2026-07-27)
 
 
