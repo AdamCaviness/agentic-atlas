@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/AdamCaviness/agentic-atlas/compare/v2.0.1...v2.1.0) (2026-07-27)
+
+
+### Features
+
+* **profiles:** add 5 off-distribution profiles validating rubric 3.0.0 ([#39](https://github.com/AdamCaviness/agentic-atlas/issues/39)) ([cfa43f3](https://github.com/AdamCaviness/agentic-atlas/commit/cfa43f3aa49b145e8b4a90e552ad28c37403240d))
+
+
+### Bug Fixes
+
+* **site:** label Explorer preference sliders by pole, not title order ([#40](https://github.com/AdamCaviness/agentic-atlas/issues/40)) ([c4c6975](https://github.com/AdamCaviness/agentic-atlas/commit/c4c697575514fab3193a20dc2587ef021c318127))
+
 ## [2.0.1](https://github.com/AdamCaviness/agentic-atlas/compare/v2.0.0...v2.0.1) (2026-07-27)
 
 
