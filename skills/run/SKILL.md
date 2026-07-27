@@ -341,7 +341,7 @@ beyond them:
 - **Target is a file, not a directory**: tell the user and stop.
 - **Git clone fails** (bad URL, no network, private repo): report the clone error and stop;
   do not fall back to another target.
-- **Engine venv bootstrap fails** (no network on first run, Python older than 3.11): report
+- **Engine venv bootstrap fails** (no network on first run, Python older than 3.13): report
   the launcher's stderr and stop. Once the venv is built it is cached and later runs need no
   network for the engine itself.
 - **A question is genuinely unanswerable from the target's text corpus**: omit it, but only

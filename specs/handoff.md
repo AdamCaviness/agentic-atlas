@@ -187,7 +187,7 @@ ordering, and the 2D/3D visualization plan).
 
 ## Conventions
 
-- Python 3.11+. Keep `models.py`, `spec.py`, `scoring.py` dependency-light and
+- Python 3.13+. Keep `models.py`, `spec.py`, `scoring.py` dependency-light and
   fully tested. No `TODO` comments (implement or record the plan here). Document
   what the code is, not what it was. Prose uses commas rather than dashes.
 - Never hand-edit the generated block between the markers in an axis README; edit

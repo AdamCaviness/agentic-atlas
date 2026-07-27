@@ -10,7 +10,7 @@ score** — a profile is a vector of independent signed positions.
 ## Project Overview
 
 - **Type:** multi-part repository with 3 parts (engine, rubric, plugin)
-- **Primary language:** Python `>= 3.11` (engine); YAML (rubric); Bash + JSON (plugin)
+- **Primary language:** Python `>= 3.13` (engine); YAML (rubric); Bash + JSON (plugin)
 - **Architecture:** spec + interpreter — a versioned data rubric read by a deterministic
   Python engine, driven from a coding harness by a skill
 - **Engine version:** `0.4.0` · **Rubric version:** `2.0.0`
