@@ -1,0 +1,540 @@
+{
+  "target": "metaswarm",
+  "rubric_version": "3.0.0",
+  "engine_version": "2.0.1",
+  "target_sha": "33d39f776f7fe29098dcf048955756a237e8cb40",
+  "target_url": "https://github.com/dsifry/metaswarm",
+  "axes": [
+    {
+      "axis_id": "greenfield-vs-brownfield",
+      "title": "Greenfield vs Brownfield",
+      "poles": {
+        "negative": "greenfield",
+        "positive": "brownfield"
+      },
+      "explain": {
+        "negative": "excels starting from an idea, with no code yet",
+        "positive": "excels working inside an existing, established codebase"
+      },
+      "scale": 10.0,
+      "score": 3.8,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "gb1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "either",
+          "evidence": "Your prompt (spec with DoD items) or GitHub Issue",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "gb2",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "research the codebase, create an implementation plan",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "gb4",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "decompose into work units",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "small-scope-vs-large-scope",
+      "title": "Small-scope vs Large-scope",
+      "poles": {
+        "negative": "small_scope",
+        "positive": "large_scope"
+      },
+      "explain": {
+        "negative": "one focused task",
+        "positive": "the whole delivery lifecycle, from idea to release"
+      },
+      "scale": 10.0,
+      "score": 10.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "sl1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "full_lifecycle",
+          "evidence": "through a complete software development lifecycle",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "sl2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "multi_stage",
+          "evidence": "A structured 9-phase workflow",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "prototype-vs-production",
+      "title": "Prototype vs Production",
+      "poles": {
+        "negative": "prototype",
+        "positive": "production"
+      },
+      "explain": {
+        "negative": "fast, throwaway output to prove an idea",
+        "positive": "hardened output with tests, CI, security, and maintainability in mind"
+      },
+      "scale": 10.0,
+      "score": 10.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "pp1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "strong",
+          "evidence": "writing production-level code with 100% test coverage, mandatory TDD",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "pp2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "maintainable_only",
+          "evidence": "Quick prototyping or exploratory work",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "solo-vs-team",
+      "title": "Solo vs Team",
+      "poles": {
+        "negative": "solo",
+        "positive": "team"
+      },
+      "explain": {
+        "negative": "built for one developer working alone",
+        "positive": "built for many contributors, with team-safe collaboration and handoffs"
+      },
+      "scale": 10.0,
+      "score": 1.2,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "st1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "multiple Claude Code sessions are active on the same repository",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "st2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 0.3,
+          "resolved": true,
+          "answer": "some",
+          "evidence": "Reports when ready for human approval",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "generalist-vs-specialist",
+      "title": "Generalist vs Specialist",
+      "poles": {
+        "negative": "generalist",
+        "positive": "specialist"
+      },
+      "explain": {
+        "negative": "works across any domain, from writing to business to code",
+        "positive": "built specifically for software delivery"
+      },
+      "scale": 10.0,
+      "score": 10.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "gs1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "software_only",
+          "evidence": "through a complete software development lifecycle",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "gs2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "writing production-level code with 100% test coverage",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "fresh-vs-mature",
+      "title": "Fresh vs Mature",
+      "poles": {
+        "negative": "fresh",
+        "positive": "mature"
+      },
+      "explain": {
+        "negative": "new and moving fast, the newest ideas on a thin track record",
+        "positive": "established and battle tested, stable but slower to change"
+      },
+      "scale": 10.0,
+      "score": 1.2,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "fm1",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "137.6",
+          "evidence": "git age_days = 137.6",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm2",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "117",
+          "evidence": "git commit_count = 117",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm3",
+          "kind": "measured",
+          "weight": 1.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "3",
+          "evidence": "git contributor_count = 3",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm4",
+          "kind": "measured",
+          "weight": 1.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "12",
+          "evidence": "git tag_count = 12",
+          "source": "engine"
+        },
+        {
+          "indicator_id": "fm6",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "stable",
+          "evidence": "proven in the field writing production-level code with 100% test coverage",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "interrogative-vs-opinionated",
+      "title": "Interrogative vs Opinionated",
+      "poles": {
+        "negative": "interrogative",
+        "positive": "opinionated"
+      },
+      "explain": {
+        "negative": "asks questions and defers the decisions to you",
+        "positive": "prescribes a strong default path and drives it"
+      },
+      "scale": 10.0,
+      "score": 5.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "io1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "ask the user to confirm your assessment",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "io2",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "strict",
+          "evidence": "Gates are blocking state transitions, not advisory.",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "autonomous-vs-human-in-loop",
+      "title": "Autonomous vs Human-in-loop",
+      "poles": {
+        "negative": "human_in_loop",
+        "positive": "autonomous"
+      },
+      "explain": {
+        "negative": "pauses for your approval at checkpoints along the way",
+        "positive": "runs end to end on its own, with little intervention"
+      },
+      "scale": 10.0,
+      "score": 5.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "ah1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "coordinates a swarm of specialized AI agents to autonomously handle GitHub Issues from creation to merged PR",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "ah2",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "some_phases",
+          "evidence": "Proactive checkpoints at planned review points",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "spec-light-vs-spec-driven",
+      "title": "Spec-light vs Spec-driven",
+      "poles": {
+        "negative": "spec_light",
+        "positive": "spec_driven"
+      },
+      "explain": {
+        "negative": "jumps straight to implementation, or works from a ticket alone",
+        "positive": "writes and follows a design specification before coding"
+      },
+      "scale": 10.0,
+      "score": 4.3,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "sd1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "Tasks without a written spec or DoD items",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "sd2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "Issues, knowledge, specs all in version control",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "sd3",
+          "kind": "measured",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "0",
+          "evidence": "0 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "test-optional-vs-test-first",
+      "title": "Test-optional vs Test-first",
+      "poles": {
+        "negative": "test_optional",
+        "positive": "test_first"
+      },
+      "explain": {
+        "negative": "testing is incidental, left to your judgment",
+        "positive": "test-first discipline (TDD) is built in and enforced"
+      },
+      "scale": 10.0,
+      "score": 10.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "tf1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "enforced",
+          "evidence": "TDD is mandatory, not optional",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "tf2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "first_class",
+          "evidence": "Test-First Always",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "single-agent-vs-multi-agent",
+      "title": "Single-agent vs Multi-agent",
+      "poles": {
+        "negative": "single_agent",
+        "positive": "multi_agent"
+      },
+      "explain": {
+        "negative": "one agent in one conversation does the work",
+        "positive": "many specialized subagents or personas work together"
+      },
+      "scale": 10.0,
+      "score": 10.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "ma1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "many",
+          "evidence": "18 specialized agent personas",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "ma3",
+          "kind": "measured",
+          "weight": 1.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "19",
+          "evidence": "19 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
+          "source": "engine"
+        }
+      ]
+    },
+    {
+      "axis_id": "prescriptive-vs-composable",
+      "title": "Prescriptive vs Composable",
+      "poles": {
+        "negative": "prescriptive",
+        "positive": "composable"
+      },
+      "explain": {
+        "negative": "a fixed pipeline you follow in order",
+        "positive": "modular parts you pick and combine as you need them"
+      },
+      "scale": 10.0,
+      "score": -10.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "pc1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "fixed_pipeline",
+          "evidence": "A structured 9-phase workflow",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "pc2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "mandatory_ordered",
+          "evidence": "agents cannot skip design review, plan review, or knowledge capture",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    },
+    {
+      "axis_id": "lightweight-vs-heavyweight",
+      "title": "Lightweight vs Heavyweight",
+      "poles": {
+        "negative": "lightweight",
+        "positive": "heavyweight"
+      },
+      "explain": {
+        "negative": "small footprint, few concepts, little to learn before you start",
+        "positive": "many concepts, roles, and steps to take on"
+      },
+      "scale": 10.0,
+      "score": 10.0,
+      "coverage": 1.0,
+      "indicators": [
+        {
+          "indicator_id": "lw1",
+          "kind": "classified",
+          "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "heavy",
+          "evidence": "Coordinate 18 specialized AI agents and 13 orchestration skills",
+          "source": "agentic-atlas:claude-opus-4-8"
+        },
+        {
+          "indicator_id": "lw2",
+          "kind": "classified",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "large",
+          "evidence": "Node.js 18+ (for automation scripts)",
+          "source": "agentic-atlas:claude-opus-4-8"
+        }
+      ]
+    }
+  ]
+}
