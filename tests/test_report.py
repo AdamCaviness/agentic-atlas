@@ -128,9 +128,11 @@ def test_html_draws_a_solid_bar_above_floor():
     assert "nothing could be read" not in out
 
 
-def test_html_always_draws_a_faded_bar_below_floor():
-    # Unlike the terminal renderer, HTML never hides a scored axis: below the floor it
-    # fades and tags the bar rather than dropping it.
+def test_html_hides_position_below_floor():
+    # Consistent with the terminal and markdown renderers: below the coverage floor the axis
+    # reports "needs interpretation" with no bar and no number. A faded bar was tried, but
+    # under the +-1.0 value convention a lone low-weight indicator resolves to +-scale, so a
+    # faded bar would still land at a pole and read as a confident verdict.
     ax = _axis(
         "Thin",
         score=10.0,
@@ -138,10 +140,12 @@ def test_html_always_draws_a_faded_bar_below_floor():
         indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, False)],
     )
     out = render_html(_profile([ax]))
-    assert "fill pos prov" in out  # a bar is still drawn, faded
-    assert "low evidence" in out
-    assert "nothing could be read" not in out
-    assert "+10.0" in out  # the number is shown, just marked provisional
+    assert "needs interpretation" in out
+    assert "under 50% evidence" in out
+    assert 'class="fill' not in out  # no bar drawn
+    assert "+10.0" not in out  # the pole number is never shown for a thin reading
+    assert "low evidence" not in out  # the old provisional tag is gone
+    assert "nothing could be read" not in out  # worded apart from the fully-unread state
 
 
 def test_html_null_state_when_nothing_resolved():

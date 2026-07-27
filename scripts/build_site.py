@@ -111,7 +111,6 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .tk .f{position:absolute;top:0;bottom:0}
 .tk .f.neg{right:50%;background:var(--neg);border-radius:5px 0 0 5px}
 .tk .f.pos{left:50%;background:var(--pos);border-radius:0 5px 5px 0}
-.tk .f.prov{opacity:.45;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px)}
 .pcard .acts{display:flex;gap:8px;margin-top:12px}
 .pcard .fitline{font-size:.78rem;color:var(--muted);margin-top:8px;min-height:1em}
 .verdict{font-family:var(--mono);font-size:.74rem;margin:2px 0}
@@ -256,7 +255,15 @@ let cmpSort="diff",cmpShapeOpen=true,cmpDrillAxis=null,cmpLastFocus=null;
 const prof=s=>DATA.find(d=>d.slug===s);
 const cmpMeta=id=>AXES.find(a=>a.id===id);
 
-function axScore(p,id){const a=p.axes.find(x=>x.axis_id===id);return a?{score:a.score,cov:a.coverage,poles:a.poles}:null;}
+// Coverage floor, matching report.py's _COVERAGE_FLOOR. Below it an axis has too little
+// resolved weight to plot a position: under the +-1.0 value convention a lone low-weight
+// indicator resolves to +-scale, so a faded bar would still land at a pole and read as
+// confident. axVal returns null there so every view treats a thin axis as unread, the same
+// as a wholly-unresolved one. The committed corpus is all above the floor, so this only
+// governs a hypothetical thin profile, never a shipped card.
+const CFLOOR=0.5;
+function axVal(rax){return (rax&&rax.score!=null&&rax.coverage>=CFLOOR)?rax.score:null;}
+function axScore(p,id){const a=p.axes.find(x=>x.axis_id===id);return a?{score:axVal(a),cov:a.coverage,poles:a.poles}:null;}
 // The four axes shown on every card. When the reader sets preferences, show the ones they
 // weight most (by absolute value) so every card lines up on what the reader cares about;
 // otherwise fall back to the first four in the canonical order. Same four on all cards.
@@ -270,9 +277,9 @@ function poleWord(a){return a.score<0?a.poles.negative:a.poles.positive;}
 function esc(s){return (s||"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 // ---- cards ----
-function bar(score,scale,prov){
+function bar(score,scale){
   const cls = score<0?"neg":"pos"; const pct = Math.min(100,Math.abs(score)/scale*50);
-  return `<div class="tk"><div class="c"></div><div class="f ${cls}${prov?' prov':''}" style="${score<0?'right:50%;width':'left:50%;width'}:${pct}%"></div></div>`;
+  return `<div class="tk"><div class="c"></div><div class="f ${cls}" style="${score<0?'right:50%;width':'left:50%;width'}:${pct}%"></div></div>`;
 }
 function covPct(p){return Math.round(p.axes.reduce((s,a)=>s+a.coverage,0)/p.axes.length*100);}
 function renderCards(){
@@ -297,8 +304,8 @@ function renderSignatures(){
     const p=DATA.find(d=>d.slug===box.dataset.sig);
     const rows=ids.map(id=>{
       const a=p.axes.find(x=>x.axis_id===id);
-      if(!a||a.score===null) return `<div class="row"><span class="word">${esc((AXES.find(x=>x.id===id)||{}).title||id)}</span><span class="sc none">no reading</span></div>`;
-      return `<div class="row"><span class="word">${esc(poleWord(a))}</span><span class="sc ${a.score<0?'neg':'pos'}">${a.score>0?'+':''}${a.score.toFixed(1)}</span>${bar(a.score,a.scale,a.coverage<0.5)}</div>`;
+      if(axVal(a)===null) return `<div class="row"><span class="word">${esc((AXES.find(x=>x.id===id)||{}).title||id)}</span><span class="sc none">no reading</span></div>`;
+      return `<div class="row"><span class="word">${esc(poleWord(a))}</span><span class="sc ${a.score<0?'neg':'pos'}">${a.score>0?'+':''}${a.score.toFixed(1)}</span>${bar(a.score,a.scale)}</div>`;
     }).join("");
     box.innerHTML=rows||'<div class="note">partial profile</div>';
   });
@@ -430,10 +437,10 @@ function cmpRenderSummary(){
   const leans=compare.map(s=>{const v=axScore(prof(s),top.id);if(!v||v.score===null)return null;const w=v.score<0?`<span class="pn">${esc(a.neg)}</span>`:`<span class="pp">${esc(a.pos)}</span>`;return `${esc(prof(s).name)} ${w}`;}).filter(Boolean).join(", ");
   box.innerHTML=`<span class="k">Biggest gap</span> &mdash; ${esc(a.title)}: ${leans}.`;
 }
-function cmpBar(score,scale,cov){
+function cmpBar(score,scale){
   if(score===null)return `<div class="tk"><div class="c"></div></div>`;
-  const cls=score<0?"neg":"pos",pct=Math.min(100,Math.abs(score)/scale*50),prov=cov<0.5?" prov":"";
-  return `<div class="tk"><div class="c"></div><div class="f ${cls}${prov}" style="${score<0?'right:50%;width':'left:50%;width'}:${pct}%"></div></div>`;
+  const cls=score<0?"neg":"pos",pct=Math.min(100,Math.abs(score)/scale*50);
+  return `<div class="tk"><div class="c"></div><div class="f ${cls}" style="${score<0?'right:50%;width':'left:50%;width'}:${pct}%"></div></div>`;
 }
 function cmpBarsMatrix(){
   const cols=compare.length,maxSp=Math.max(1,...cmpOrdered().map(id=>cmpSpread(id)));
@@ -441,7 +448,7 @@ function cmpBarsMatrix(){
   const rows=cmpOrdered().map(id=>{
     const a=cmpMeta(id),sp=cmpSpread(id),pipW=6+Math.round(sp/maxSp*46);
     const gut=`<div class="gut"><div class="ax-t">${esc(a.title)}<button class="axtip-btn" type="button" aria-label="What ${esc(a.title)} means">i<span class="axtip"><span class="pn">${esc(a.neg)}</span>: ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span>: ${esc(a.epos)}</span></button></div><div class="ax-p"><span class="pn">${esc(a.neg)}</span> &harr; <span class="pp">${esc(a.pos)}</span></div><div class="ax-spread"><span class="spread-pip" style="width:${pipW}px"></span>${sp>0?sp.toFixed(1)+" apart":"&mdash;"}</div><button class="sig-link" type="button" data-axis="${id}" onclick="cmpDrill('${id}')">signals &rsaquo;</button></div>`;
-    const cells=compare.map(s=>{const rax=prof(s).axes.find(x=>x.axis_id===id),sc=rax?rax.score:null,cov=rax?rax.coverage:0,scale=rax&&rax.scale?rax.scale:10;const numCls=sc===null?"na":(sc<0?"neg":"pos"),num=sc===null?"no reading":(sc>0?"+":"")+sc.toFixed(1);return `<div class="cell">${cmpBar(sc,scale,cov)}<span class="num ${numCls}">${num}</span></div>`;}).join("");
+    const cells=compare.map(s=>{const rax=prof(s).axes.find(x=>x.axis_id===id),sc=axVal(rax),scale=rax&&rax.scale?rax.scale:10;const numCls=sc===null?"na":(sc<0?"neg":"pos"),num=sc===null?"no reading":(sc>0?"+":"")+sc.toFixed(1);return `<div class="cell">${cmpBar(sc,scale)}<span class="num ${numCls}">${num}</span></div>`;}).join("");
     return gut+cells;
   }).join("");
   return `<div class="mxscroll"><div class="mx" style="grid-template-columns:minmax(150px,230px) repeat(${cols},minmax(130px,1fr))">${head}${rows}</div></div>`;
@@ -484,7 +491,7 @@ function cmpRenderCombined(){
 function cmpRenderSignals(id){
   const a=cmpMeta(id),body=$("#cmp-body");
   const cols=compare.map((s,i)=>{
-    const p=prof(s),rax=p.axes.find(x=>x.axis_id===id),sc=rax?rax.score:null;
+    const p=prof(s),rax=p.axes.find(x=>x.axis_id===id),sc=axVal(rax);
     const scCls=sc===null?"na":(sc<0?"neg":"pos"),scTxt=sc===null?"no reading":(sc>0?"+":"")+sc.toFixed(1);
     const inds=(rax&&rax.indicators)?rax.indicators:[];
     const items=inds.length?inds.map(ir=>{const kind=ir.kind==="measured"?"detected":"judged";const v=ir.value,vCls=v==null?"zero":(v<0?"neg":(v>0?"pos":"zero")),vTxt=v==null?"":(v>0?"+":"")+(+v).toFixed(2);const ev=ir.evidence?`<div class="sig-ev">&ldquo;${esc(ir.evidence)}&rdquo;</div>`:`<div class="sig-ev empty">no quote recorded</div>`;const ans=ir.answer&&ir.answer!=="-"?` &middot; ${esc(ir.answer)}`:"";return `<div class="sig-item"><div class="sig-top"><span class="kind ${kind}">${kind}</span><span class="sig-id">${esc(ir.indicator_id)}${ans}</span><span class="sig-v ${vCls}">${vTxt}</span></div>${ev}<div class="sig-src">${esc(ir.source||"")}</div></div>`;}).join(""):`<div class="sig-ev empty">no signals recorded</div>`;
