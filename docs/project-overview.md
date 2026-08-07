@@ -5,8 +5,8 @@
 ## Purpose
 
 Agentic Atlas is an open, versioned profiler for **agentic development methodologies** (the
-plugins, frameworks, and skill collections you run inside a coding harness such as Claude Code
-or Codex, for example Superpowers, BMAD-METHOD, GSD, LFG).
+plugins, frameworks, and skill collections you run inside a coding harness such as Claude Code,
+Cursor, Codex, or Gemini CLI, for example Superpowers, BMAD-METHOD, GSD, LFG).
 It locates each target on **13 signed, diverging axes** on a shared `-10..+10` scale, where
 `0` is neutral and both poles are legitimate.
 
@@ -37,7 +37,7 @@ evolve on their own cadences:
 |---|---|---|---|
 | **Engine** | `agentic_atlas/`, `tests/` | The deterministic Python CLI + importable library that reads a rubric, gathers evidence, resolves indicators, scores axes, and renders reports | CLI / library |
 | **Rubric** | `rubric/v1/` | The versioned measurement standard: a manifest plus one YAML file per axis (13 axes), each defining poles, indicators, and weights | Data (YAML) |
-| **Plugin & skill** | `.claude-plugin/`, `skills/run/`, `gemini-extension.json`, `.codex/` | The distribution surface: the `/agentic-atlas:run` skill and its launcher that drive the engine from a coding harness | Extension / skill |
+| **Plugin & skill** | `.claude-plugin/`, `.cursor-plugin/`, `skills/run/`, `gemini-extension.json`, `.codex/` | The distribution surface: the `/agentic-atlas:run` skill and its launcher that drive the engine from a coding harness | Extension / skill |
 
 The parts are separated because they answer to different authorities: the **engine** follows
 standard software semver, the **rubric** follows a measurement-standard semver (any change

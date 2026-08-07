@@ -95,7 +95,8 @@ def test_skill_hint_shows_when_classified_unanswered():
         indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, False)],
     )
     out = render_text(_profile([ax]))
-    assert "/agentic-atlas skill" in out
+    assert "/agentic-atlas:run" in out
+    assert "Claude Code, Cursor" in out
 
 
 def test_no_skill_hint_when_everything_resolved():
@@ -106,7 +107,7 @@ def test_no_skill_hint_when_everything_resolved():
         indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, True)],
     )
     out = render_text(_profile([ax]))
-    assert "/agentic-atlas skill" not in out
+    assert "/agentic-atlas:run" not in out
 
 
 # --- render_html --------------------------------------------------------------------------
