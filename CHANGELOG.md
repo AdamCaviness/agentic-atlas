@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/AdamCaviness/agentic-atlas/compare/v2.1.0...v2.2.0) (2026-08-07)
+
+
+### Features
+
+* add Cursor plugin manifest and peer docs ([#43](https://github.com/AdamCaviness/agentic-atlas/issues/43)) ([834dd8d](https://github.com/AdamCaviness/agentic-atlas/commit/834dd8df10079df16825e6f9a02f951d89b957ae))
+
 ## [2.1.0](https://github.com/AdamCaviness/agentic-atlas/compare/v2.0.1...v2.1.0) (2026-07-27)
 
 
