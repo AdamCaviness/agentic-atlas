@@ -2,6 +2,8 @@
 
 User-level install for Cursor desktop and CLI (Pro, Hobby, and other non-Teams plans).
 
+Use **one** install path only. Cursor also discovers `~/.agents/skills/` and `~/.cursor/skills/`, so linking there *and* under `~/.cursor/plugins/local/` lists skills twice.
+
 ## Install (copy-paste)
 
 Requires Git. Paste into Terminal:
@@ -27,6 +29,8 @@ Reload the window again.
 
 ```bash
 rm -rf ~/.cursor/plugins/local/agentic-atlas
+rm -f ~/.agents/skills/agentic-atlas
+rm -f ~/.cursor/skills/agentic-atlas
 ```
 
 Reload the window.
@@ -37,6 +41,8 @@ Reload the window.
 mkdir -p ~/.cursor/plugins/local
 ln -sfn /absolute/path/to/agentic-atlas ~/.cursor/plugins/local/agentic-atlas
 ```
+
+Do **not** also symlink `skills/` into `~/.agents/skills/` or `~/.cursor/skills/` while this plugin link exists.
 
 ## Teams / Enterprise
 
