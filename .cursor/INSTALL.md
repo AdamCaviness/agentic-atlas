@@ -1,49 +1,55 @@
 # Installing Agentic Atlas for Cursor
 
-User-level install for Cursor desktop and CLI (Pro, Hobby, and other non-Teams plans).
+Cursor discovers skills from several places. Use **exactly one** of the paths below for this plugin, or skills appear twice in **Customize → Skills** and under `/` in Agents.
 
-Use **one** install path only. Cursor also discovers `~/.agents/skills/` and `~/.cursor/skills/`, so linking there *and* under `~/.cursor/plugins/local/` lists skills twice.
+| Your setup | What to do |
+|---|---|
+| You already use **Claude Code** with this plugin | Install once in Claude Code (path 1). Cursor picks it up automatically. Do **not** also install path 2. |
+| **Cursor only** (Pro / Hobby / individual) | Clone or link into `~/.cursor/plugins/local` (path 2). |
+| **Cursor Teams / Enterprise** admin | Import the marketplace from the web dashboard (path 3). Teammates install from **Customize**. |
 
-## Install (copy-paste)
+Leave **Settings → Rules, Skills, Subagents → Include third-party Plugins, Skills, and other configs** enabled (the default) if you rely on path 1.
 
-Requires Git. Paste into Terminal:
+## 1. Via Claude Code (best if you use both)
+
+In Claude Code:
+
+```bash
+/plugin marketplace add adamcaviness/agentic-marketplace
+/plugin install agentic-atlas@agentic-marketplace
+```
+
+Reload Cursor (**Developer: Reload Window**). Use `/agentic-atlas:run` (and the other atlas skills) in Agents.
+
+Stop here. Do not also clone or symlink into `~/.cursor/plugins/local`, `~/.cursor/skills/`, or `~/.agents/skills/`.
+
+## 2. Cursor only (Pro / individual, no Claude Code install)
 
 ```bash
 mkdir -p ~/.cursor/plugins/local
 git clone https://github.com/adamcaviness/agentic-atlas.git ~/.cursor/plugins/local/agentic-atlas
 ```
 
-Then in Cursor: Command Palette → **Developer: Reload Window** (or quit and reopen Cursor).
-
-Confirm in **Customize → Skills**, or type `/agentic-atlas:run` in Agents.
-
-## Update
-
-```bash
-git -C ~/.cursor/plugins/local/agentic-atlas pull
-```
-
-Reload the window again.
-
-## Uninstall
-
-```bash
-rm -rf ~/.cursor/plugins/local/agentic-atlas
-rm -f ~/.agents/skills/agentic-atlas
-rm -f ~/.cursor/skills/agentic-atlas
-```
-
-Reload the window.
-
-## Already have a clone?
+Or link an existing clone:
 
 ```bash
 mkdir -p ~/.cursor/plugins/local
 ln -sfn /absolute/path/to/agentic-atlas ~/.cursor/plugins/local/agentic-atlas
 ```
 
-Do **not** also symlink `skills/` into `~/.agents/skills/` or `~/.cursor/skills/` while this plugin link exists.
+Reload the window. Confirm in **Customize → Skills**.
 
-## Teams / Enterprise
+Update: `git -C ~/.cursor/plugins/local/agentic-atlas pull`, then reload.
 
-Team Marketplace import is a web admin flow at [cursor.com/dashboard](https://cursor.com/dashboard) → **Plugins**, not a screen in the desktop app. Individuals on Pro should use the install block above.
+Uninstall: `rm -rf ~/.cursor/plugins/local/agentic-atlas`.
+
+## 3. Cursor Teams / Enterprise
+
+**Dashboard** is [cursor.com/dashboard](https://cursor.com/dashboard) (web admin), not the desktop app.
+
+1. Admin: **Dashboard → Plugins → Team Marketplaces** → import `https://github.com/adamcaviness/agentic-marketplace`.
+2. Teammates: install **agentic-atlas** from **Customize**.
+
+## Why skills show up twice
+
+Cursor scans `~/.cursor/plugins/local/`, Claude Code’s `~/.claude/plugins/` (when third-party includes are on), `~/.agents/skills/`, `~/.cursor/skills/`, and Codex roots. One install root only.
