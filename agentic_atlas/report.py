@@ -80,8 +80,9 @@ def _bar(score: float | None, scale: float, color: bool = False) -> str:
 
 _SKILL_HINT = (
     "of {total} axes need interpretation for lack of classified answers. "
-    "Run the /agentic-atlas skill in agentic-toolkit (inside Claude Code) to answer them "
-    "with your coding agent, no API key, and get a complete profile."
+    "Run /agentic-atlas:run from the agentic-atlas plugin (Claude Code, Cursor, "
+    "or another supported harness) to answer them with your coding agent, no "
+    "API key, and get a complete profile."
 )
 
 

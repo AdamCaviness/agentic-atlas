@@ -30,8 +30,8 @@ score** — a profile is a vector of independent signed positions.
 - **Source of truth:** `axes/<id>/axis.yaml` (poles, indicators, weights, signals)
 - All scoring policy lives here; the engine embeds none. Measurement-standard semver.
 
-### Plugin & skill (`.claude-plugin/`, `skills/run/`, `gemini-extension.json`, `.codex/`)
-- **Type:** Claude Code / Gemini / Codex plugin
+### Plugin & skill (`.claude-plugin/`, `.cursor-plugin/`, `skills/run/`, `gemini-extension.json`, `.codex/`)
+- **Type:** Claude Code / Cursor / Gemini / Codex plugin
 - **Entry point:** `/agentic-atlas:run` (`skills/run/SKILL.md`); launcher `skills/run/atlas.sh`
 - Drives the engine via its CLI; the host agent answers the classified questions. No scoring
   logic of its own.

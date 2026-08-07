@@ -7,7 +7,7 @@
 ## Executive summary
 
 The plugin is the packaging that ships the engine's one user-facing workflow, the
-`/agentic-atlas:run` skill, to coding harnesses (Claude Code, Gemini CLI, Codex). It contains
+`/agentic-atlas:run` skill, to coding harnesses (Claude Code, Cursor, Gemini CLI, Codex). It contains
 no scoring logic. Its job is to (1) make the engine runnable from an arbitrary checkout, and
 (2) give the host agent a precise, safe procedure for answering the classified questions and
 rendering a profile. The engine stays deterministic and key-free; the **host agent is the
@@ -16,7 +16,8 @@ model** that supplies the classified answers.
 ## Components
 
 ```
-.claude-plugin/plugin.json     Claude Code plugin manifest (name, version 0.4.0, keywords)
+.claude-plugin/plugin.json     Claude Code plugin manifest (name, version, keywords)
+.cursor-plugin/plugin.json     Cursor plugin manifest (peer of the Claude Code manifest)
 gemini-extension.json          Gemini CLI extension manifest (contextFileName: AGENTS.md)
 .codex/INSTALL.md              Codex install notes
 skills/run/
@@ -25,7 +26,7 @@ skills/run/
 ```
 
 Distribution is via the external `agentic-marketplace`; the manifests here declare the
-plugin/extension so a harness can install it. The plugin version (`0.4.0`) tracks the engine
+plugin/extension so a harness can install it. The plugin version tracks the engine
 release.
 
 ## The launcher (`skills/run/atlas.sh`)

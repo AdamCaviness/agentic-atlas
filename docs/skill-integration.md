@@ -2,7 +2,7 @@
 
 The primary way a human profiles a target is the `run` skill of the `agentic-atlas`
 plugin, which ships in this repo (invoked `/agentic-atlas:run`), running inside their own
-agentic coding harness (Claude Code). This engine is deterministic and needs no API key.
+agentic coding harness (Claude Code, Cursor, Codex, or Gemini CLI). This engine is deterministic and needs no API key.
 It computes the measured indicators and validates classified answers; it never calls a
 model. The skill's host agent (the user's coding agent) is the model that answers the
 classified questions, so the full profile is produced with no key and no extra cost.

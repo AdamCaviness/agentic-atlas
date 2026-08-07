@@ -1,6 +1,6 @@
 # Agent instructions: Agentic Atlas
 
-This file is the canonical guidance for AI agents (Claude Code and others) working in this repository. `CLAUDE.md` is a symlink to this file.
+This file is the canonical guidance for AI agents (Claude Code, Cursor, and others) working in this repository. `CLAUDE.md` is a symlink to this file.
 
 ## What this project is
 

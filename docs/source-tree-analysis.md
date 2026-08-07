@@ -35,6 +35,8 @@ agentic-atlas/
 │       └── atlas.sh          #   ← LAUNCHER: bootstraps the engine venv, forwards args
 ├── .claude-plugin/
 │   └── plugin.json           #   Claude Code plugin manifest (name, version, keywords)
+├── .cursor-plugin/
+│   └── plugin.json           #   Cursor plugin manifest (peer of the Claude Code manifest)
 ├── gemini-extension.json     #   Gemini CLI extension manifest (contextFileName: AGENTS.md)
 ├── .codex/INSTALL.md         #   Codex install notes
 │
@@ -85,7 +87,7 @@ agentic-atlas/
 | Entry point | File | Invoked by |
 |---|---|---|
 | `agentic-atlas` console script | `agentic_atlas/cli.py:main` | Shell, `make` targets, `atlas.sh` |
-| `/agentic-atlas:run` skill | `skills/run/SKILL.md` | Host coding agent (Claude Code) |
+| `/agentic-atlas:run` skill | `skills/run/SKILL.md` | Host coding agent (Claude Code, Cursor, Codex, Gemini) |
 | Engine launcher | `skills/run/atlas.sh` | The skill; also `--repo-root` helper |
 | `make` (default help) | `Makefile` | Developers |
 

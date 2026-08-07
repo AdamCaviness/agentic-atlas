@@ -10,7 +10,7 @@ and the prioritized next steps.
 
 An open, versioned rubric that **profiles** agentic development approaches,
 frameworks, methods, and skill systems (BMAD-METHOD, Superpowers, GSD, LFG, and
-similar) by **locating** each on signed diverging axes. It is for Claude Code and
+similar) by **locating** each on signed diverging axes. It is for Claude Code, Cursor, and
 comparable coding agents.
 
 **Purpose:** to let a person decide, as easily as possible, which approach best
