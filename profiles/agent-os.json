@@ -1,9 +1,10 @@
 {
   "target": "agent-os",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "cae8e664fb59a01869718c3151e0f45b7a06a2fb",
   "target_url": "https://github.com/buildermethods/agent-os",
+  "target_version": "v3.0.0-6-gcae8e66",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

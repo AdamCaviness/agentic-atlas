@@ -1,9 +1,10 @@
 {
   "target": "agentic-toolkit",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "5ef8682281b612500216c6de272da0e5459d9ed6",
   "target_url": "https://github.com/adamcaviness/agentic-toolkit.git",
+  "target_version": "v1.0.0",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -251,8 +252,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "33",
-          "evidence": "git tag_count = 33",
+          "answer": "36",
+          "evidence": "git tag_count = 36",
           "source": "engine"
         },
         {

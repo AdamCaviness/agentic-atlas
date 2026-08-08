@@ -1,9 +1,10 @@
 {
   "target": "ccpm",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697",
   "target_url": "https://github.com/automazeio/ccpm",
+  "target_version": null,
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

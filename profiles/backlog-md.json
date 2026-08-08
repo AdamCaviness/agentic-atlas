@@ -1,9 +1,10 @@
 {
   "target": "Backlog.md",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "babd1d26d3d86a834468b256af9349b7415fda9c",
   "target_url": "https://github.com/MrLesk/Backlog.md",
+  "target_version": "v1.48.0-41-gbabd1d2",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -251,8 +252,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "242",
-          "evidence": "git tag_count = 242",
+          "answer": "246",
+          "evidence": "git tag_count = 246",
           "source": "engine"
         },
         {

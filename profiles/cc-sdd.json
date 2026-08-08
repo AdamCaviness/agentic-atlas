@@ -1,9 +1,10 @@
 {
   "target": "cc-sdd",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "29aee950f4addc36f9aeecb9881c46540e71ecc9",
   "target_url": "https://github.com/gotalab/cc-sdd",
+  "target_version": "v3.0.2-10-g29aee95",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

@@ -1,9 +1,10 @@
 {
   "target": "get-shit-done",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "bdcaab2c752d9a33a1a1ca9acf3a3c81fb991815",
   "target_url": "https://github.com/gsd-build/get-shit-done",
+  "target_version": "v1.43.0-rc2-59-gbdcaab2c",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

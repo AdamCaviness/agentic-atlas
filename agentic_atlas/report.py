@@ -13,9 +13,14 @@ position rests on more of its intended evidence.
 from __future__ import annotations
 
 import json
+import re
 from html import escape as _html_escape
 
 from .models import AxisResult, IndicatorKind, Profile
+
+# git describe --tags past a tag: "<tag>-<n>-g<abbrev>". Parse from the right so tags that
+# contain hyphens (v1.43.0-rc2) remain the tag, not part of the suffix.
+_DESCRIBE_SUFFIX = re.compile(r"^(.*)-([0-9]+)-g([0-9a-f]+)$")
 
 
 def _humanize(pole: str) -> str:
@@ -155,6 +160,7 @@ def render_markdown(profile: Profile) -> str:
         "",
         f"- rubric: `{profile.rubric_version}`",
         f"- engine: `{profile.engine_version}`",
+        f"- target: `{_project_stamp(profile)}`",
         f"- target sha: `{profile.target_sha or 'unknown'}`",
         "",
         "No aggregate score by design. Each axis is an independent position.",
@@ -195,14 +201,18 @@ def render_markdown(profile: Profile) -> str:
 
 
 def render_text(profile: Profile, color: bool = False) -> str:
+    # Atlas versions stay for reproducibility; the project stamp matches HTML so CLI
+    # readers see the same release identity (with distance made explicit when past a tag).
+    parts = [
+        f"rubric {profile.rubric_version}",
+        f"engine {profile.engine_version}",
+        _project_stamp(profile),
+    ]
+    if profile.target_version:
+        parts.append(f"sha {(profile.target_sha or 'unknown')[:12]}")
     lines = [
         f"Profile: {profile.target}",
-        _paint(
-            f"rubric {profile.rubric_version} | engine {profile.engine_version} | "
-            f"sha {(profile.target_sha or 'unknown')[:12]}",
-            _DIM,
-            on=color,
-        ),
+        _paint(" | ".join(parts), _DIM, on=color),
     ]
     if profile.axes:
         # Scale is rubric-wide, so every axis shares it. State it once here.
@@ -834,13 +844,46 @@ def _project_html(url: str | None, name: str) -> str:
 def _html_project_stamps(profile: Profile) -> str:
     """Reader-facing provenance: the project's version at profile time, not Atlas versions.
 
-    Prefer an exact release tag captured as ``target_version``. Fall back to a short commit
-    SHA. Rubric and engine stay in the JSON (and text/markdown reports) for reproducibility.
+    Formats a captured ``target_version`` (exact tag or raw ``git describe``) for readers:
+    exact tags as ``version <tag>``, past-tag describes as ``version <tag> · N commits later``
+    (with SemVer ``+build`` metadata stripped), otherwise ``commit <sha>``. Rubric and engine
+    stay in the JSON (and text/markdown reports) for reproducibility.
     """
-    if profile.target_version:
-        return f"version {_html_escape(profile.target_version)}"
-    sha = (profile.target_sha or "unknown")[:12]
-    return f"commit {_html_escape(sha)}"
+    return _html_escape(_project_stamp(profile))
+
+
+def _parse_git_describe(version: str, target_sha: str | None = None) -> tuple[str, int]:
+    """Split a ``git describe --tags`` string into ``(tag, commits_since_tag)``.
+
+    Exact tags have distance 0. Describe suffixes match ``-<n>-g<abbrev>`` from the right so
+    tags that themselves contain hyphens (``v1.43.0-rc2``) stay intact.
+
+    When ``target_sha`` is known, the abbrev must be a prefix of it; otherwise a tag whose
+    name merely looks like a describe suffix (e.g. ``release-1-gdeadbeef``) is left exact.
+    """
+    m = _DESCRIBE_SUFFIX.match(version)
+    if m:
+        tag, distance, abbrev = m.group(1), int(m.group(2)), m.group(3)
+        if target_sha is None or target_sha.startswith(abbrev):
+            return tag, distance
+    return version, 0
+
+
+def _strip_semver_build(tag: str) -> str:
+    """Drop SemVer build metadata (``+…``). It is not part of version identity."""
+    return tag.split("+", 1)[0]
+
+
+def _project_stamp(profile: Profile) -> str:
+    """Reader-facing project provenance shared by HTML, text, and markdown."""
+    if not profile.target_version:
+        sha = (profile.target_sha or "unknown")[:12]
+        return f"commit {sha}"
+    tag, distance = _parse_git_describe(profile.target_version, profile.target_sha)
+    tag = _strip_semver_build(tag)
+    if distance == 0:
+        return f"version {tag}"
+    return f"version {tag} · {distance} commits later"
 
 
 def render_html(profile: Profile) -> str:

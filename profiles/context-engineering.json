@@ -1,9 +1,10 @@
 {
   "target": "context-engineering-intro",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "a2d84b021cee1e2f4e77ba854bba0be8cb319035",
   "target_url": "https://github.com/coleam00/context-engineering-intro",
+  "target_version": null,
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

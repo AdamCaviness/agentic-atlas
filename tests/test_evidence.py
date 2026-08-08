@@ -234,7 +234,10 @@ def test_git_metrics_resolve_on_full_clone(tmp_path):
     assert target.git_version() == "v1.0.0"
 
 
-def test_git_version_none_when_head_not_on_tag(tmp_path):
+def test_git_version_describe_when_past_tag(tmp_path):
+    # When HEAD is past the nearest ancestor tag, capture the describe-style stamp
+    # (e.g. v1.0.0-1-gabcdef0) so readers see both the last release and that the
+    # measured commit is past it.
     source = tmp_path / "source"
     source.mkdir()
     _git(source, "init", "-q")
@@ -247,6 +250,23 @@ def test_git_version_none_when_head_not_on_tag(tmp_path):
     (source / "b.txt").write_text("two")
     _git(source, "add", "-A")
     _git(source, "commit", "-qm", "second")  # tip is past the tag
+    target = Target.from_path(source)
+    version = target.git_version()
+    assert version is not None
+    assert version.startswith("v1.0.0-")
+    assert "-g" in version
+    assert target.git_sha() is not None
+
+
+def test_git_version_none_when_no_tags(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    _git(source, "init", "-q")
+    _git(source, "config", "user.email", "dev@example.com")
+    _git(source, "config", "user.name", "Dev")
+    (source / "a.txt").write_text("one")
+    _git(source, "add", "-A")
+    _git(source, "commit", "-qm", "first")
     target = Target.from_path(source)
     assert target.git_version() is None
     assert target.git_sha() is not None
