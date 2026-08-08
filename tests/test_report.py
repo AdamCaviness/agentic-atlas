@@ -282,6 +282,8 @@ def test_project_stamp_describe_makes_distance_explicit():
     assert _project_stamp(p) == "version v6.1.1 · 14 commits later"
     far = _profile([], target_version="v0.1.10-957-g93fc533", target_sha="93fc533d790f")
     assert _project_stamp(far) == "version v0.1.10 · 957 commits later"
+    one = _profile([], target_version="v1.1.0-1-g5a3abe4", target_sha="5a3abe452248")
+    assert _project_stamp(one) == "version v1.1.0 · 1 commit later"
 
 
 def test_project_stamp_strips_semver_build_metadata():

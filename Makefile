@@ -24,7 +24,7 @@ _SLUGARG  = $(if $(SLUG),--slug $(SLUG),)
 # is well within rate limits for a corpus this size.
 CORPUS_PY = env -u GH_TOKEN -u GITHUB_TOKEN $(PY) scripts/corpus.py
 
-.PHONY: help setup install test check lint fmt fmt-check format validate docs docs-check profiles profiles-check site-check profile corpus-fetch corpus-rescore corpus-refresh clean
+.PHONY: help setup install test check lint fmt fmt-check format validate docs docs-check profiles profiles-check site-check profile corpus-fetch corpus-rescore corpus-refresh corpus-status clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -85,13 +85,16 @@ profile: setup ## Profile a target: make profile TARGET=/path [ANSWERS=answers.j
 corpus-fetch: setup ## Clone/pull every corpus source repo into .corpus/ (SLUG=one to limit)
 	$(CORPUS_PY) fetch $(_SLUGARG)
 
-corpus-rescore: setup ## Replay answers at each pinned SHA, rewrite JSON, re-render HTML (preview: run scripts/corpus.py rescore without --write)
+corpus-rescore: setup ## Replay answers at each pinned SHA (engine/rubric bump; keeps pins)
 	$(CORPUS_PY) rescore --write $(_SLUGARG)
 	$(MAKE) profiles
 
-corpus-refresh: setup ## Pull each repo to latest HEAD, rescore, rewrite JSON, re-render, list stale quotes to re-answer
+corpus-refresh: setup ## Move pins to origin default-branch HEAD, rewrite JSON+HTML
 	$(CORPUS_PY) refresh --write $(_SLUGARG)
 	$(MAKE) profiles
+
+corpus-status: setup ## Exit 1 if any profile pin is behind origin default-branch HEAD
+	$(CORPUS_PY) status $(_SLUGARG)
 
 clean: ## Remove the venv, caches, and build artifacts
 	rm -rf $(VENV) .pytest_cache .ruff_cache build dist *.egg-info

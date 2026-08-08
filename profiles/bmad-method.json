@@ -1,10 +1,10 @@
 {
-  "target": "BMAD-METHOD",
+  "target": "bmad-method",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "717479bc3f50f38119fd958b9e577a8bde2e0184",
+  "target_sha": "cbb69e64e744ef545f174386ca793144ecbd1cfc",
   "target_url": "https://github.com/bmad-code-org/BMAD-METHOD.git",
-  "target_version": "v6.10.0-18-g717479bc",
+  "target_version": "v6.10.0-60-gcbb69e64",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -29,7 +29,7 @@
           "resolved": true,
           "answer": "either",
           "evidence": "Quick test coverage for a new or existing feature",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb2",
@@ -38,8 +38,8 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "It offers runtime variants that will scan your entire project and document its actual current state.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "It scans your codebase and any docs first (mechanically, via its script and parallel subagents), then asks you in short rounds only about what's genuinely unknowable \u2014 landmines, frozen areas, org requirements.",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb4",
@@ -49,7 +49,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Small, zero-blast-radius changes can go straight to implementation.",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -75,8 +75,8 @@
           "value": 1.0,
           "resolved": true,
           "answer": "full_lifecycle",
-          "evidence": "Full-lifecycle AI agile development: analysis, planning, architecture, implementation",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "across 4 distinct phases - each phase, and multiple workflows optionally within each phase, produce documents that",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sl2",
@@ -85,8 +85,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "in a single workflow. The full four-phase BMad Method is likely overkill.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Clear work can enter `bmad-build` directly. Larger initiatives can first produce a PRD, UX design, architecture, epics, stories, readiness results, and sprint plan.",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -112,8 +112,8 @@
           "value": 0.3,
           "resolved": true,
           "answer": "some",
-          "evidence": "PRD + Architecture + Security + DevOps",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "| NFR Assessment | Evaluate non-functional requirements (performance, security) |",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pp2",
@@ -123,7 +123,7 @@
           "resolved": true,
           "answer": "maintainable_only",
           "evidence": "producing clean working code artifacts that follow the project",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -150,7 +150,7 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "Architecture documentation prevents this by establishing shared standards.",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "st2",
@@ -160,7 +160,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "from autonomous implementation back to human judgment",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -186,8 +186,8 @@
           "value": 0.5,
           "resolved": true,
           "answer": "mostly_software",
-          "evidence": "An AI-driven agile development module for the BMad Method Module Ecosystem",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "**Agile Ai Driven Development \u2014 turn an idea or change request into working software without giving up the thinking.**",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gs2",
@@ -196,8 +196,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Innovation, brainstorming, design thinking",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Creative thinking partners for innovation, design thinking, and storytelling",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "458.2",
-          "evidence": "git age_days = 458.2",
+          "answer": "480.0",
+          "evidence": "git age_days = 480.0",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1979",
-          "evidence": "git commit_count = 1979",
+          "answer": "2021",
+          "evidence": "git commit_count = 2021",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "160",
-          "evidence": "git contributor_count = 160",
+          "answer": "161",
+          "evidence": "git contributor_count = 161",
           "source": "engine"
         },
         {
@@ -263,8 +263,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "The BMad Method is evolving rapidly with optimizations",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Bundles evolve. When you pull a newer version of a bundle, the typical update is to its knowledge files",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -291,7 +291,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Brainstorm Project Ideas with guided facilitation of a brainstorming coach",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "io2",
@@ -300,8 +300,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "Not strictly. Once you learn the flow, you can run workflows directly using the Quick Reference above.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Every workflow below can be run directly with your tool of choice via skill or by loading an agent",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -327,8 +327,8 @@
           "value": 0.3,
           "resolved": true,
           "answer": "partial",
-          "evidence": "designed to keep moving without human interaction",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "**Goal:** Turn intent into a hardened, reviewable artifact, without human interaction.",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ah2",
@@ -337,8 +337,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "Gate check before implementation",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Readiness gate before implementation, then story tracking and status view",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -365,7 +365,7 @@
           "resolved": true,
           "answer": "required",
           "evidence": "missing spec_file before implementation",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd2",
@@ -375,7 +375,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "That spec is the contract between planning, implementation, and review.",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd3",
@@ -412,7 +412,7 @@
           "resolved": true,
           "answer": "enforced",
           "evidence": "Write FAILING tests first for the task/subtask functionality",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "tf2",
@@ -422,7 +422,7 @@
           "resolved": true,
           "answer": "first_class",
           "evidence": "a built-in QA workflow for fast test generation and an installable Test Architect module for enterprise-grade test strategy",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -448,8 +448,8 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "12+ domain experts (PM, Architect, Developer, UX, and more)",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "BMad ships five named agents, each anchored to a phase of the BMad Method:",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ma3",
@@ -486,7 +486,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Every workflow below can be run directly with your tool of choice via skill or by loading an agent",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pc2",
@@ -495,8 +495,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "All workflows in this phase are optional.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "across 4 distinct phases - each phase, and multiple workflows optionally within each phase, produce documents that",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -523,7 +523,7 @@
           "resolved": true,
           "answer": "heavy",
           "evidence": "a full-lifecycle framework with agents and workflows for analysis, planning, architecture, and implementation",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "lw2",
@@ -532,8 +532,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "The installer creates two folders:",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "\u251c\u2500\u2500 _bmad/               # Single installation folder\n\u2502   \u251c\u2500\u2500 _config/         # Your customizations\n\u2502   \u2502   \u2514\u2500\u2500 agents/      # Agent customization files\n\u2502   \u251c\u2500\u2500 core/            # Universal core framework\n\u2502   \u251c\u2500\u2500 bmm/             # BMad Method module\n\u2502   \u251c\u2500\u2500 bmb/             # BMad Builder\n\u2502   \u2514\u2500\u2500 cis/             # Creative Intelligence Suite\n\u2514\u2500\u2500 _bmad-output/        # Output folder (was doc folder in v4)",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     }

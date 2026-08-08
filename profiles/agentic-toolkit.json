@@ -2,9 +2,9 @@
   "target": "agentic-toolkit",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "5ef8682281b612500216c6de272da0e5459d9ed6",
+  "target_sha": "5a3abe45224897d88935ea5ac6298d62d17d6809",
   "target_url": "https://github.com/adamcaviness/agentic-toolkit.git",
-  "target_version": "v1.0.0",
+  "target_version": "v1.1.0-1-g5a3abe4",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -213,7 +213,7 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -1.7,
       "coverage": 0.75,
       "indicators": [
         {
@@ -222,18 +222,18 @@
           "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "101.7",
-          "evidence": "git age_days = 101.7",
+          "answer": "119.0",
+          "evidence": "git age_days = 119.0",
           "source": "engine"
         },
         {
           "indicator_id": "fm2",
           "kind": "measured",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "94",
-          "evidence": "git commit_count = 94",
+          "answer": "102",
+          "evidence": "git commit_count = 102",
           "source": "engine"
         },
         {

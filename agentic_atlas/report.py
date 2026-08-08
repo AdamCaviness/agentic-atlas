@@ -883,7 +883,8 @@ def _project_stamp(profile: Profile) -> str:
     tag = _strip_semver_build(tag)
     if distance == 0:
         return f"version {tag}"
-    return f"version {tag} · {distance} commits later"
+    unit = "commit" if distance == 1 else "commits"
+    return f"version {tag} · {distance} {unit} later"
 
 
 def render_html(profile: Profile) -> str:

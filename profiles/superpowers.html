@@ -142,7 +142,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener" title="Open obra/superpowers on GitHub" aria-label="Open obra/superpowers on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>obra/superpowers</span></a></div>
-    <div class="stamps">version v6.1.1</div>
+    <div class="stamps">version v6.2.0 · 1 commit later</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -400,9 +400,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gb1</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">brainstorming, implementation planning, test-driven development, systematic debugging, parallel execution, code review, and finish-the-branch workflows</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>gb2</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.40</td><td class="evidence">Explore the current structure before proposing changes. Follow existing patterns</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>gb4</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gb1</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">brainstorming, implementation planning, test-driven development, systematic debugging, parallel execution, code review, and finish-the-branch workflows</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>gb2</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.40</td><td class="evidence">Explore the current structure before proposing changes. Follow existing patterns</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>gb4</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -431,8 +431,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sl1</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">Superpowers is a complete software development methodology for your coding agents</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>sl2</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">it launches a *subagent-driven-development* process, having agents work through each engineering task, inspecting and reviewing their work, and continuing forward</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sl1</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">Superpowers is a complete software development methodology for your coding agents</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>sl2</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">it launches a *subagent-driven-development* process, having agents work through each engineering task, inspecting and reviewing their work, and continuing forward</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -461,8 +461,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pp1</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.30</td><td class="evidence">Evidence over claims** - Verify before declaring success</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>pp2</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Working code without real tests is technical debt</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pp1</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.30</td><td class="evidence">Evidence over claims** - Verify before declaring success</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>pp2</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">well-built (clean, tested, maintainable)</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -491,8 +491,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>st1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Push and create a Pull Request</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>st2</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.30</td><td class="evidence">User reviews written spec** — ask user to review the spec file before proceeding</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>st1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Push and create a Pull Request</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>st2</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.30</td><td class="evidence">User reviews written spec** — ask user to review the spec file before proceeding</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -521,8 +521,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gs1</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">a complete software development methodology for your coding agents</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>gs2</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">Superpowers is a complete software development methodology for your coding agents</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>gs1</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">a complete software development methodology for your coding agents</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>gs2</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">Superpowers is a complete software development methodology for your coding agents</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -551,11 +551,11 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>fm1</td><td><span class="kind">detected</span></td><td>2</td><td>266.1</td><td class="val">+0.00</td><td class="evidence">git age_days = 266.1</td><td>engine</td></tr>
-<tr><td>fm2</td><td><span class="kind">detected</span></td><td>2</td><td>628</td><td class="val">+0.00</td><td class="evidence">git commit_count = 628</td><td>engine</td></tr>
-<tr><td>fm3</td><td><span class="kind">detected</span></td><td>1</td><td>45</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 45</td><td>engine</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>fm1</td><td><span class="kind">detected</span></td><td>2</td><td>292.0</td><td class="val">+0.00</td><td class="evidence">git age_days = 292.0</td><td>engine</td></tr>
+<tr><td>fm2</td><td><span class="kind">detected</span></td><td>2</td><td>680</td><td class="val">+0.00</td><td class="evidence">git commit_count = 680</td><td>engine</td></tr>
+<tr><td>fm3</td><td><span class="kind">detected</span></td><td>1</td><td>47</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 47</td><td>engine</td></tr>
 <tr><td>fm4</td><td><span class="kind">detected</span></td><td>1</td><td>33</td><td class="val">+1.00</td><td class="evidence">git tag_count = 33</td><td>engine</td></tr>
-<tr><td>fm6</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Skills evolve. Read current version</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+<tr><td>fm6</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Skills evolve. Read current version</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -584,8 +584,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>io1</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Start by understanding the current project context, then ask questions one at a time to refine the idea</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>io2</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">Mandatory workflows, not suggestions</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>io1</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Start by understanding the current project context, then ask questions one at a time to refine the idea</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>io2</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">Mandatory workflows, not suggestions</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -614,8 +614,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ah1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.30</td><td class="evidence">It&#x27;s not uncommon for your agent to work autonomously for a couple hours at a time without deviating from the plan you put together</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>ah2</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">until you have presented a design and the user has approved it</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ah1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.30</td><td class="evidence">It&#x27;s not uncommon for your agent to work autonomously for a couple hours at a time without deviating from the plan you put together</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>ah2</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">until you have presented a design and the user has approved it</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -644,8 +644,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sd1</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>sd2</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">docs/superpowers/plans/YYYY-MM-DD-&lt;feature-name&gt;.md</td><td>agent-team draft 2026-07-22</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sd1</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>sd2</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">docs/superpowers/plans/YYYY-MM-DD-&lt;feature-name&gt;.md</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
 <tr><td>sd3</td><td><span class="kind">detected</span></td><td>2</td><td>0</td><td class="val">-1.00</td><td class="evidence">0 files matched [&#x27;**/*prd*template*.md&#x27;, &#x27;**/*spec*template*.md&#x27;, &#x27;**/*requirement*template*.md&#x27;, &#x27;**/*design*template*.md&#x27;, &#x27;**/*architecture*template*.md&#x27;, &#x27;**/example_prd*.md&#x27;, &#x27;**/example-prd*.md&#x27;, &#x27;**/templates/prd*.md&#x27;, &#x27;**/templates/spec*.md&#x27;, &#x27;**/templates/requirement*.md&#x27;, &#x27;**/templates/design*.md&#x27;, &#x27;**/templates/architecture*.md&#x27;, &#x27;**/openspec/**&#x27;, &#x27;**/.kiro/**/specs/**&#x27;, &#x27;**/PRPs/templates/**&#x27;, &#x27;**/prps/templates/**&#x27;]</td><td>engine</td></tr></tbody></table></div>
     </dialog>
   </section>
@@ -675,8 +675,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tf1</td><td><span class="kind">judged</span></td><td>3</td><td>enforced</td><td class="val">+1.00</td><td class="evidence">NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>tf2</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">Test-Driven Development** - Write tests first, always</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tf1</td><td><span class="kind">judged</span></td><td>3</td><td>enforced</td><td class="val">+1.00</td><td class="evidence">NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>tf2</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">Test-Driven Development** - Write tests first, always</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -705,7 +705,7 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ma1</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">Execute plan by dispatching a fresh implementer subagent per task, a task review (spec compliance + code quality) after each, and a broad whole-branch review at the end</td><td>agent-team draft 2026-07-22</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ma1</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">Execute plan by dispatching a fresh implementer subagent per task, a task review (spec compliance + code quality) after each, and a broad whole-branch review at the end</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
 <tr><td>ma3</td><td><span class="kind">detected</span></td><td>1</td><td>0</td><td class="val">-1.00</td><td class="evidence">0 files matched [&#x27;.claude/agents/*.md&#x27;, &#x27;agents/*.md&#x27;, &#x27;plugins/*/agents/*.md&#x27;, &#x27;packages/*/agents/*.md&#x27;]</td><td>engine</td></tr></tbody></table></div>
     </dialog>
   </section>
@@ -735,8 +735,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pc1</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">built on top of a set of composable skills and some initial instructions that make sure your agent uses them</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>pc2</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">The ONLY skill you invoke after brainstorming is writing-plans</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pc1</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">built on top of a set of composable skills and some initial instructions that make sure your agent uses them</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>pc2</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">The ONLY skill you invoke after brainstorming is writing-plans</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -765,8 +765,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lw1</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">you don&#x27;t need to do anything special. Your coding agent just has Superpowers</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>lw2</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Superpowers is a zero-dependency plugin by design</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lw1</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">you don&#x27;t need to do anything special. Your coding agent just has Superpowers</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+<tr><td>lw2</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Superpowers is a zero-dependency plugin by design</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

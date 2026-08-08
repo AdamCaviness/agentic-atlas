@@ -2,9 +2,9 @@
   "target": "compound-engineering",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "a9f6d530d4446d805a3100387dedd86268d7e695",
+  "target_sha": "0a2957852e2034d04eb01120fd7da6ed5307dc56",
   "target_url": "https://github.com/EveryInc/compound-engineering-plugin",
-  "target_version": "compound-engineering-v3.20.0-13-ga9f6d530",
+  "target_version": "compound-engineering-v3.21.4",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -29,7 +29,7 @@
           "resolved": true,
           "answer": "either",
           "evidence": "AI skills that make each unit of engineering work easier than the last.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb2",
@@ -39,7 +39,7 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "does the homework first (codebase, past learnings, prior art on the web",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb4",
@@ -49,7 +49,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "make each unit of engineering work easier than the last",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -76,7 +76,7 @@
           "resolved": true,
           "answer": "full_lifecycle",
           "evidence": "plan, implement, review and fix, commit, push a branch, open a PR, and watch CI to green",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sl2",
@@ -86,7 +86,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -113,7 +113,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "watch CI to green",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pp2",
@@ -123,7 +123,7 @@
           "resolved": true,
           "answer": "maintainable_only",
           "evidence": "Keep quality high so future changes are easy",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -150,7 +150,7 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "Commit, push, and open a PR.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "st2",
@@ -160,7 +160,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Review to catch issues and calibrate judgment with",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -187,7 +187,7 @@
           "resolved": true,
           "answer": "mostly_software",
           "evidence": "including software and non-software tasks",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gs2",
@@ -197,7 +197,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "including software and non-software tasks",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "287.9",
-          "evidence": "git age_days = 287.9",
+          "answer": "300.5",
+          "evidence": "git age_days = 300.5",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1084",
-          "evidence": "git commit_count = 1084",
+          "answer": "1131",
+          "evidence": "git commit_count = 1131",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "90",
-          "evidence": "git contributor_count = 90",
+          "answer": "97",
+          "evidence": "git contributor_count = 97",
           "source": "engine"
         },
         {
@@ -264,7 +264,7 @@
           "resolved": true,
           "answer": "evolving",
           "evidence": "Compound Engineering moved to a root-native layout",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -291,7 +291,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "collaborative product framing before planning",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "io2",
@@ -301,7 +301,7 @@
           "resolved": true,
           "answer": "guided",
           "evidence": "80% is in planning and review, 20% is in execution",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -328,7 +328,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ah2",
@@ -338,7 +338,7 @@
           "resolved": true,
           "answer": "some_phases",
           "evidence": "Not for in-the-loop work where the user reviews each step",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -365,7 +365,7 @@
           "resolved": true,
           "answer": "encouraged",
           "evidence": "Plan thoroughly before writing code with",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd2",
@@ -375,7 +375,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "right-sized requirements-only unified plan",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd3",
@@ -412,7 +412,7 @@
           "resolved": true,
           "answer": "no",
           "evidence": "If the user explicitly asks for TDD, test-first",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "tf2",
@@ -422,7 +422,7 @@
           "resolved": true,
           "answer": "present",
           "evidence": "bugs, regressions, tests, and standards",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -438,18 +438,18 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": -2.5,
+      "score": 5.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "ma1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Specialist review, research, and workflow behavior lives inside the owning skills as skill-local prompt assets",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "many",
+          "evidence": "Its core workflows spawn specialist subagents on demand for research, review, planning, and implementation.",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ma3",
@@ -486,7 +486,7 @@
           "resolved": true,
           "answer": "composable",
           "evidence": "AI skills that make each unit of engineering work easier than the last.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pc2",
@@ -496,7 +496,7 @@
           "resolved": true,
           "answer": "optional_reorderable",
           "evidence": "On demand, before you commit",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -523,7 +523,7 @@
           "resolved": true,
           "answer": "moderate",
           "evidence": "The point is not ceremony.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "lw2",
@@ -532,8 +532,8 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "plugin currently ships 32 skills and 0 standalone agents",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "The `compound-engineering` plugin currently ships 32 skills.",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     }

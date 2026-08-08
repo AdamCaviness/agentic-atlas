@@ -2,7 +2,7 @@
   "target": "PRPs-agentic-eng",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "a643e84600c4f740e9d5a52051f6783ee9852567",
+  "target_sha": "08e879274cc8e38c67a6c151a171b51e59723f2f",
   "target_url": "https://github.com/Wirasm/PRPs-agentic-eng",
   "target_version": null,
   "axes": [
@@ -29,7 +29,7 @@
           "resolved": true,
           "answer": "either",
           "evidence": "solutions must fit existing codebase patterns first",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb2",
@@ -39,7 +39,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "CODEBASE FIRST, RESEARCH SECOND. Solutions must fit existing patterns before introducing new ones.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb4",
@@ -49,7 +49,7 @@
           "resolved": true,
           "answer": "small_diff",
           "evidence": "Each plan should be completable by an AI in one loop",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -76,7 +76,7 @@
           "resolved": true,
           "answer": "most",
           "evidence": "Autonomous cyclic pipeline: plan \u2192 implement \u2192 pr \u2192 review",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sl2",
@@ -86,7 +86,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Every skill is then available across all your projects as `/prp-core:<name>`",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -113,7 +113,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "SECURITY: Attack vectors? Data exposure risks? Auth/authz?",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pp2",
@@ -123,7 +123,7 @@
           "resolved": true,
           "answer": "maintainable_only",
           "evidence": "The minimum viable packet an AI needs to ship production-ready code on the first pass.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -150,7 +150,7 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "Map dependencies and conflict risk: predict the files each workstream touches.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "st2",
@@ -160,7 +160,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Do not launch until the user approves.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -187,7 +187,7 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "A collection of prompts for AI-assisted development with Claude Code.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gs2",
@@ -197,7 +197,7 @@
           "resolved": true,
           "answer": "no",
           "evidence": "an agentic-engineering workflow packaged as Claude Code",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "400.2",
-          "evidence": "git age_days = 400.2",
+          "answer": "419.2",
+          "evidence": "git age_days = 419.2",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "122",
-          "evidence": "git commit_count = 122",
+          "answer": "140",
+          "evidence": "git commit_count = 140",
           "source": "engine"
         },
         {
@@ -264,7 +264,7 @@
           "resolved": true,
           "answer": "stable",
           "evidence": "I keep this surface small and stable on purpose.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -291,7 +291,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Asks clarifying questions before assuming",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "io2",
@@ -301,7 +301,7 @@
           "resolved": true,
           "answer": "guided",
           "evidence": "Medium Features: Direct to Plan",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -328,7 +328,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Fully autonomous (`--dangerously-skip-permissions`).",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ah2",
@@ -338,7 +338,7 @@
           "resolved": true,
           "answer": "some_phases",
           "evidence": "Wait for user response before proceeding.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -365,7 +365,7 @@
           "resolved": true,
           "answer": "required",
           "evidence": "Create a plan first: /prp-plan",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd2",
@@ -374,8 +374,8 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "All artifacts are stored in `.claude/PRPs/`:",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "**Output path**: `$PRP_DIR/prds/{kebab-case-name}.prd.md`",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd3",
@@ -412,7 +412,7 @@
           "resolved": true,
           "answer": "no",
           "evidence": "Validation loops catch mistakes early. Run checks after every change.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "tf2",
@@ -422,7 +422,7 @@
           "resolved": true,
           "answer": "present",
           "evidence": "You MUST write or update tests for new code.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -449,7 +449,7 @@
           "resolved": true,
           "answer": "many",
           "evidence": "multi-agent specialist fan-out (comments, tests, errors, types, code, docs, simplify)",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ma3",
@@ -486,7 +486,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Compose skills by name only.",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pc2",
@@ -496,7 +496,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "ONLY AFTER Phase 2 is complete",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -523,7 +523,7 @@
           "resolved": true,
           "answer": "moderate",
           "evidence": "PRD + curated codebase intelligence + agent/runbook",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "lw2",
@@ -533,7 +533,7 @@
           "resolved": true,
           "answer": "tiny",
           "evidence": "cp -r /path/to/PRPs-agentic-eng/.claude/skills/prp-plan .claude/skills/",
-          "source": "agent-team wave2 2026-07-23"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     }

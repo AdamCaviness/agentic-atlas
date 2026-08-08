@@ -2,7 +2,7 @@
   "target": "gstack",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "a3259400a366593e0c909dd9ac3e59752efd2488",
+  "target_sha": "94993f74012782fd94416dd44b8314f6363a13a4",
   "target_url": "https://github.com/garrytan/gstack",
   "target_version": null,
   "axes": [
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "124.7",
-          "evidence": "git age_days = 124.7",
+          "answer": "149.3",
+          "evidence": "git age_days = 149.3",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "360",
-          "evidence": "git commit_count = 360",
+          "answer": "362",
+          "evidence": "git commit_count = 362",
           "source": "engine"
         },
         {

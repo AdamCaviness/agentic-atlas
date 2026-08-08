@@ -8,11 +8,12 @@ corpus reproducible without a model: the answers a fresh engine run needs are re
 straight from the committed JSON, and the engine validates and rescores them, exactly as it
 does for the ``/agentic-atlas:run`` skill. No API key, no model call.
 
-Three commands, layered on one clone-and-rescore core:
+Four commands, layered on one clone-and-rescore core:
 
     python scripts/corpus.py fetch     [--slug S ...]
     python scripts/corpus.py rescore   [--slug S ...] [--write]
     python scripts/corpus.py refresh   [--slug S ...] [--write]
+    python scripts/corpus.py status    [--slug S ...]
 
 ``fetch`` clones or pulls each source repo into ``.corpus/<slug>`` (a full clone, never
 shallow: the Fresh vs Mature axis reads git-history facts that a ``--depth 1`` clone would
@@ -25,18 +26,26 @@ refreshes the ``engine_version`` and ``rubric_version`` stamps (and any score th
 rubric moves for the same evidence) while the evidence itself is unchanged. The one input that
 is not pinned by the SHA is ``github_api`` (stars and the like), which the engine fetches live
 by design and records verbatim, so a rescore also moves those point-in-time metrics to now.
+Use ``rescore`` after an engine or rubric bump when you intentionally keep the same pins.
 
-``refresh`` is the true update: it pulls each clone to its origin's default-branch HEAD and
-reruns the engine. Measured indicators move with the newer tree, and any classified quote that
-the tool's authors have since reworded no longer validates, so that indicator goes unresolved.
-Restoring it faithfully means rereading the repo, which is a model's job, not this script's, so
-``refresh`` reports the ``(slug, indicator)`` pairs that went stale for a follow-up
-``/agentic-atlas:run <url> --save`` rather than guessing.
+``refresh`` is how the corpus stays current. It pulls each clone to its origin default-branch
+HEAD (never onto an older Release tag, which would move pins backwards and drop classified
+quotes). Measured indicators move with the newer tree; ``git describe`` at HEAD names the
+nearest release so project version stamps track what GitHub shows as current. Any classified
+quote the tool's authors have since reworded no longer validates, so that indicator goes
+unresolved. Restoring it faithfully means rereading the repo, which is a model's job, not
+this script's, so ``refresh`` reports the ``(slug, indicator)`` pairs that went stale for a
+follow-up ``/agentic-atlas:run <url> --save`` rather than guessing.
 
-Neither command writes anything without ``--write``; a bare run prints the report only. Because
-``github_api`` and (for ``refresh``) the moving HEAD make the output time-dependent, these are
-maintenance commands, not a CI gate. The CI gate stays ``profiles-check`` (HTML matches JSON).
-After ``--write`` rewrites the JSON, run ``make profiles`` to re-render the HTML from it.
+``status`` compares each committed pin to origin default-branch HEAD (after a fetch). Exit 1
+when any profile is behind, so automation can open a refresh PR before the Explorer shows a
+stale project version.
+
+Neither ``rescore`` nor ``refresh`` writes anything without ``--write``; a bare run prints
+the report only. Because ``github_api`` and (for ``refresh``) moving refs make the output
+time-dependent, these are maintenance commands, not a CI gate. The CI gate stays
+``profiles-check`` (HTML matches JSON). After ``--write`` rewrites the JSON, run
+``make profiles`` to re-render the HTML from it.
 """
 
 from __future__ import annotations
@@ -48,7 +57,11 @@ import subprocess
 from pathlib import Path
 
 from agentic_atlas.classify import classified_questions
-from agentic_atlas.evidence import Target
+from agentic_atlas.evidence import (
+    Target,
+    _fetch_github_latest_release_tag,
+    _parse_github_slug,
+)
 from agentic_atlas.profiler import profile_target
 from agentic_atlas.spec import load_rubric
 
@@ -93,6 +106,8 @@ def _ensure_clone(url: str, dest: Path) -> None:
         return
     dest.parent.mkdir(parents=True, exist_ok=True)
     _git("clone", url, str(dest))
+    # A fresh clone already has tags; fetch again so a partial mirror still gets them.
+    _git("fetch", "--tags", "--prune", "origin", cwd=dest)
 
 
 def _default_ref(dest: Path) -> str:
@@ -105,8 +120,40 @@ def _default_ref(dest: Path) -> str:
     return "origin/" + head.rsplit("/", 1)[-1]
 
 
+def _tag_exists(dest: Path, tag: str) -> bool:
+    out = subprocess.run(
+        ["git", "rev-parse", "--verify", f"refs/tags/{tag}"],
+        cwd=str(dest),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return out.returncode == 0
+
+
+def _refresh_ref(dest: Path, url: str) -> tuple[str, str]:
+    """Choose the checkout ref for ``refresh`` / ``status``.
+
+    Always the origin default-branch tip. That keeps the corpus on current methodology
+    and never moves a pin *backwards* onto an older Release tag (which would drop
+    classified quotes and understate the project). ``git describe`` at HEAD still
+    names the nearest release, so stamps track what GitHub shows as current when the
+    tip is at or near that release.
+
+    Returns ``(ref, reason)``. When a newer published Release exists, reason notes it
+    for the status/refresh report without changing the checkout.
+    """
+    head = _default_ref(dest)
+    slug = _parse_github_slug(url)
+    if slug:
+        tag = _fetch_github_latest_release_tag(*slug)
+        if tag and _tag_exists(dest, tag):
+            return head, f"default-branch (latest release {tag})"
+    return head, "default-branch"
+
+
 def _checkout(dest: Path, ref: str) -> None:
-    """Detach the clone at ``ref`` (a SHA or ``origin/<branch>``), discarding any local state."""
+    """Detach the clone at ``ref`` (a SHA, tag, or ``origin/<branch>``), discarding any local state."""
     _git("checkout", "--quiet", "--force", "--detach", ref, cwd=dest)
 
 
@@ -147,8 +194,9 @@ def _axis_scores(profile: dict) -> dict[str, tuple[float | None, float]]:
 
 
 def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
-    """Fetch, check out (pinned SHA for ``rescore``, latest HEAD for ``refresh``), replay the
-    stored answers, and rescore. Returns a report dict; writes the new JSON only if ``write``."""
+    """Fetch, check out (pinned SHA for ``rescore``, current release/HEAD for ``refresh``),
+    replay the stored answers, and rescore. Returns a report dict; writes the new JSON only
+    if ``write``."""
     slug = path.stem
     old = json.loads(path.read_text())
     url = old.get("target_url")
@@ -157,9 +205,13 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
 
     dest = CORPUS / slug
     _ensure_clone(url, dest)
-    ref = old["target_sha"] if mode == "rescore" else _default_ref(dest)
-    if mode == "rescore" and not ref:
-        return {"slug": slug, "skipped": "no target_sha to pin"}
+    if mode == "rescore":
+        ref = old.get("target_sha")
+        ref_reason = "pinned-sha"
+        if not ref:
+            return {"slug": slug, "skipped": "no target_sha to pin"}
+    else:
+        ref, ref_reason = _refresh_ref(dest, url)
     _checkout(dest, ref)
 
     answers, source = _reconstruct_answers(old)
@@ -197,15 +249,19 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
         "slug": slug,
         "mode": mode,
         "wrote": write,
+        "ref": ref,
+        "ref_reason": ref_reason,
         "old": {
             "rubric": old["rubric_version"],
             "engine": old["engine_version"],
             "sha": old.get("target_sha"),
+            "version": old.get("target_version"),
         },
         "new": {
             "rubric": new["rubric_version"],
             "engine": new["engine_version"],
             "sha": new.get("target_sha"),
+            "version": new.get("target_version"),
         },
         "replayed": len(replayed),
         "went_stale": went_stale,
@@ -232,6 +288,11 @@ def _print_report(reports: list[dict], write: bool) -> int:
             bump.append(f"rubric {o['rubric']}->{n['rubric']}")
         if _fmt_sha(o["sha"]) != _fmt_sha(n["sha"]):
             bump.append(f"sha {_fmt_sha(o['sha'])}->{_fmt_sha(n['sha'])}")
+        if (o.get("version") or None) != (n.get("version") or None):
+            bump.append(f"version {o.get('version')!r}->{n.get('version')!r}")
+        reason = r.get("ref_reason")
+        if reason and r.get("mode") == "refresh":
+            bump.append(f"via {reason}")
         tag = "wrote" if r["wrote"] else "dry-run"
         print(f"  {r['slug']:28} {tag:8} {', '.join(bump) or 'no stamp change'}")
         if r["went_stale"]:
@@ -300,6 +361,47 @@ def _cmd_refresh(args: argparse.Namespace) -> int:
     return _run_rescore("refresh", args)
 
 
+def _cmd_status(args: argparse.Namespace) -> int:
+    """Exit 0 when every pin matches the current refresh ref; otherwise print drift and exit 1."""
+    files = _committed_profiles(args.slug)
+    drifted: list[tuple[str, str, str, str, str]] = []
+    current: list[tuple[str, str]] = []
+    for path in files:
+        old = json.loads(path.read_text())
+        url = old.get("target_url")
+        if not url:
+            print(f"  {path.stem:28} SKIPPED (no target_url)")
+            continue
+        dest = CORPUS / path.stem
+        try:
+            _ensure_clone(url, dest)
+            ref, reason = _refresh_ref(dest, url)
+            desired_sha = _git("rev-parse", ref, cwd=dest)
+        except SystemExit as exc:
+            print(f"  {path.stem:28} SKIPPED ({exc})")
+            continue
+        pinned = old.get("target_sha") or ""
+        if pinned != desired_sha:
+            drifted.append((path.stem, _fmt_sha(pinned), _fmt_sha(desired_sha), ref, reason))
+        else:
+            current.append((path.stem, reason))
+
+    for slug, reason in current:
+        print(f"  {slug:28} current  via {reason}")
+    for slug, pin, want, ref, reason in drifted:
+        print(f"  {slug:28} DRIFT    pin {pin} -> {want} ({ref}, via {reason})")
+
+    print()
+    if drifted:
+        print(
+            f"{len(drifted)} profile(s) behind origin default-branch HEAD. "
+            "Run `make corpus-refresh` (then re-answer any stale classified quotes)."
+        )
+        return 1
+    print(f"all {len(current)} profile(s) match origin default-branch HEAD.")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="corpus", description=__doc__)
     sub = p.add_subparsers(dest="command", required=True)
@@ -313,10 +415,20 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--write", action="store_true", help="rewrite profile JSON (default: dry run)")
     r.set_defaults(func=_cmd_rescore)
 
-    u = sub.add_parser("refresh", help="pull to latest HEAD, rescore, report stale quotes")
+    u = sub.add_parser(
+        "refresh",
+        help="move pins to origin default-branch HEAD, rescore, report stale quotes",
+    )
     u.add_argument("--slug", action="append", help="limit to this slug (repeatable)")
     u.add_argument("--write", action="store_true", help="rewrite profile JSON (default: dry run)")
     u.set_defaults(func=_cmd_refresh)
+
+    s = sub.add_parser(
+        "status",
+        help="exit 1 if any committed pin is behind the current refresh ref",
+    )
+    s.add_argument("--slug", action="append", help="limit to this slug (repeatable)")
+    s.set_defaults(func=_cmd_status)
 
     return p
 
