@@ -278,30 +278,49 @@ def test_project_stamp_exact_tag():
 def test_project_stamp_describe_makes_distance_explicit():
     # Raw git describe stays in JSON; the reader-facing stamp spells out the distance so
     # far-past pins (e.g. 957 commits) cannot be misread as "near" the release.
-    p = _profile([], target_version="v6.1.1-14-gd884ae0")
+    p = _profile([], target_version="v6.1.1-14-gd884ae0", target_sha="d884ae0abcde")
     assert _project_stamp(p) == "version v6.1.1 · 14 commits later"
-    far = _profile([], target_version="v0.1.10-957-g93fc533")
+    far = _profile([], target_version="v0.1.10-957-g93fc533", target_sha="93fc533d790f")
     assert _project_stamp(far) == "version v0.1.10 · 957 commits later"
 
 
 def test_project_stamp_strips_semver_build_metadata():
     # Per-commit tags like autonomous-dev-v3.40.0+504c4e6 keep +build in JSON; display
     # drops it (SemVer: build metadata is not version identity).
-    p = _profile([], target_version="autonomous-dev-v3.40.0+504c4e6-2-gd687b566")
+    p = _profile(
+        [],
+        target_version="autonomous-dev-v3.40.0+504c4e6-2-gd687b566",
+        target_sha="d687b5664a59",
+    )
     assert _project_stamp(p) == "version autonomous-dev-v3.40.0 · 2 commits later"
     exact = _profile([], target_version="autonomous-dev-v3.40.0+504c4e6")
     assert _project_stamp(exact) == "version autonomous-dev-v3.40.0"
 
 
 def test_project_stamp_keeps_npm_and_prefixed_release_tags():
-    npm = _profile([], target_version="task-master-ai@0.43.1-2-gc0c98d36")
+    npm = _profile(
+        [],
+        target_version="task-master-ai@0.43.1-2-gc0c98d36",
+        target_sha="c0c98d367c55",
+    )
     assert _project_stamp(npm) == "version task-master-ai@0.43.1 · 2 commits later"
-    prefixed = _profile([], target_version="compound-engineering-v3.20.0-13-ga9f6d530")
+    prefixed = _profile(
+        [],
+        target_version="compound-engineering-v3.20.0-13-ga9f6d530",
+        target_sha="a9f6d530d444",
+    )
     assert _project_stamp(prefixed) == "version compound-engineering-v3.20.0 · 13 commits later"
-    beta = _profile([], target_version="0.8-beta-2-g7d879d8")
+    beta = _profile([], target_version="0.8-beta-2-g7d879d8", target_sha="7d879d8f5079")
     assert _project_stamp(beta) == "version 0.8-beta · 2 commits later"
-    rc = _profile([], target_version="v1.43.0-rc2-59-gbdcaab2c")
+    rc = _profile([], target_version="v1.43.0-rc2-59-gbdcaab2c", target_sha="bdcaab2c752d")
     assert _project_stamp(rc) == "version v1.43.0-rc2 · 59 commits later"
+
+
+def test_project_stamp_exact_tag_looking_like_describe_stays_exact():
+    # A tag whose name matches -<n>-g<hex> is not a describe stamp when the abbrev is
+    # not a prefix of target_sha.
+    p = _profile([], target_version="release-1-gdeadbeef", target_sha="abc123def456")
+    assert _project_stamp(p) == "version release-1-gdeadbeef"
 
 
 def test_project_stamp_falls_back_to_commit_when_unversioned():

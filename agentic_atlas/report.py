@@ -852,15 +852,20 @@ def _html_project_stamps(profile: Profile) -> str:
     return _html_escape(_project_stamp(profile))
 
 
-def _parse_git_describe(version: str) -> tuple[str, int]:
+def _parse_git_describe(version: str, target_sha: str | None = None) -> tuple[str, int]:
     """Split a ``git describe --tags`` string into ``(tag, commits_since_tag)``.
 
     Exact tags have distance 0. Describe suffixes match ``-<n>-g<abbrev>`` from the right so
     tags that themselves contain hyphens (``v1.43.0-rc2``) stay intact.
+
+    When ``target_sha`` is known, the abbrev must be a prefix of it; otherwise a tag whose
+    name merely looks like a describe suffix (e.g. ``release-1-gdeadbeef``) is left exact.
     """
     m = _DESCRIBE_SUFFIX.match(version)
     if m:
-        return m.group(1), int(m.group(2))
+        tag, distance, abbrev = m.group(1), int(m.group(2)), m.group(3)
+        if target_sha is None or target_sha.startswith(abbrev):
+            return tag, distance
     return version, 0
 
 
@@ -874,7 +879,7 @@ def _project_stamp(profile: Profile) -> str:
     if not profile.target_version:
         sha = (profile.target_sha or "unknown")[:12]
         return f"commit {sha}"
-    tag, distance = _parse_git_describe(profile.target_version)
+    tag, distance = _parse_git_describe(profile.target_version, profile.target_sha)
     tag = _strip_semver_build(tag)
     if distance == 0:
         return f"version {tag}"

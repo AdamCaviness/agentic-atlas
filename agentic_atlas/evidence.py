@@ -155,12 +155,12 @@ class Target:
         return self._run_git("rev-parse", "HEAD") or None
 
     def git_version(self) -> str | None:
-        """The project's release tag at or before HEAD, for the reader-facing stamp.
+        """Raw ``git describe --tags`` at HEAD, stored as ``Profile.target_version``.
 
-        Returns an exact tag when HEAD is tagged, otherwise a ``git describe --tags``
-        stamp (e.g. ``v6.1.1-14-gd884ae0``) naming the nearest ancestor tag and how
-        far past it the measured commit sits. Returns None when the checkout has no
-        tags (or is not a git repo), so callers fall back to the short SHA.
+        Returns an exact tag when HEAD is tagged, otherwise a describe stamp
+        (e.g. ``v6.1.1-14-gd884ae0``) naming the nearest ancestor tag and how far past
+        it the measured commit sits. Returns None when the checkout has no tags (or is
+        not a git repo). Reader-facing formatting lives in ``report._project_stamp``.
         """
         return self._run_git("describe", "--tags", "HEAD") or None
 

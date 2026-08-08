@@ -138,8 +138,9 @@ class Profile:
     # Origin remote URL of the target (provenance + a link on the report); None when the
     # target has no git origin. Optional so it never shifts an axis score.
     target_url: str | None = None
-    # Project release tag at the profiled commit, when HEAD was exactly on a tag. Optional
-    # reader-facing provenance for HTML stamps; absent in older JSON and untagged commits.
+    # Raw ``git describe --tags`` at the profiled commit (exact tag, or tag-N-gSHA when
+    # past a tag), or None when the checkout has no tags. Stored for reproducibility;
+    # reader-facing stamps are formatted in ``report._project_stamp``.
     target_version: str | None = None
 
     def to_dict(self) -> dict:
