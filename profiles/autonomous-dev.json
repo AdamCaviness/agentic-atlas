@@ -2,9 +2,9 @@
   "target": "autonomous-dev",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "b981530fb4def2bba2b3da08db7dff4614031d80",
+  "target_sha": "02ae2a6f1970ff086940cd1a0fdb70407e642f59",
   "target_url": "https://github.com/akaszubski/autonomous-dev",
-  "target_version": "autonomous-dev-v3.40.0+838124b-35-gb981530f",
+  "target_version": "autonomous-dev-v3.40.0+838124b-36-g02ae2a6f",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "293.5",
-          "evidence": "git age_days = 293.5",
+          "answer": "293.7",
+          "evidence": "git age_days = 293.7",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "2050",
-          "evidence": "git commit_count = 2050",
+          "answer": "2051",
+          "evidence": "git commit_count = 2051",
           "source": "engine"
         },
         {
