@@ -1,9 +1,10 @@
 {
   "target": "aidlc-workflows",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "114ef4d0ae6082e63ff0c7d14a910e3195163235",
   "target_url": "https://github.com/awslabs/aidlc-workflows",
+  "target_version": "v1.0.1-5-g114ef4d0",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

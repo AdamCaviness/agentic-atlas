@@ -834,8 +834,9 @@ def _project_html(url: str | None, name: str) -> str:
 def _html_project_stamps(profile: Profile) -> str:
     """Reader-facing provenance: the project's version at profile time, not Atlas versions.
 
-    Prefer an exact release tag captured as ``target_version``. Fall back to a short commit
-    SHA. Rubric and engine stay in the JSON (and text/markdown reports) for reproducibility.
+    Prefer a captured ``target_version`` (exact tag or describe-style nearest ancestor).
+    Fall back to a short commit SHA. Rubric and engine stay in the JSON (and
+    text/markdown reports) for reproducibility.
     """
     if profile.target_version:
         return f"version {_html_escape(profile.target_version)}"

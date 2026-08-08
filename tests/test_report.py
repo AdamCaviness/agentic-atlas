@@ -280,6 +280,23 @@ def test_html_stamps_prefer_project_version_over_commit():
     assert "engine 0.2.0" not in out
 
 
+def test_html_stamps_show_describe_style_version():
+    # Nearest-ancestor describe stamps (HEAD past a tag) still render as version …,
+    # not commit …, so readers see the last release and that the measured commit is past it.
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    profile = Profile(
+        target="/t",
+        rubric_version="1.2.0",
+        engine_version="0.2.0",
+        target_sha="d884ae0abcde",
+        target_version="v6.1.1-14-gd884ae0",
+        axes=(ax,),
+    )
+    out = render_html(profile)
+    assert '<div class="stamps">version v6.1.1-14-gd884ae0</div>' in out
+    assert "commit" not in out.split('<div class="stamps">')[1].split("</div>")[0]
+
+
 def test_html_hero_tower_present_with_axis_data():
     ax = _axis(
         "Greenfield vs Brownfield",

@@ -1,9 +1,10 @@
 {
   "target": "claude-task-master",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "c0c98d367c55296bfe69e65680625b6db437af02",
   "target_url": "https://github.com/eyaltoledano/claude-task-master",
+  "target_version": "task-master-ai@0.43.1-2-gc0c98d36",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

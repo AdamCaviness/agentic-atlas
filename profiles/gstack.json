@@ -1,9 +1,10 @@
 {
   "target": "gstack",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "a3259400a366593e0c909dd9ac3e59752efd2488",
   "target_url": "https://github.com/garrytan/gstack",
+  "target_version": null,
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

@@ -1,9 +1,10 @@
 {
   "target": "metaswarm",
   "rubric_version": "3.0.0",
-  "engine_version": "2.0.1",
+  "engine_version": "2.2.0",
   "target_sha": "33d39f776f7fe29098dcf048955756a237e8cb40",
   "target_url": "https://github.com/dsifry/metaswarm",
+  "target_version": "v0.12.0-2-g33d39f7",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

@@ -1,9 +1,10 @@
 {
   "target": "BMAD-METHOD",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "717479bc3f50f38119fd958b9e577a8bde2e0184",
   "target_url": "https://github.com/bmad-code-org/BMAD-METHOD.git",
+  "target_version": "v6.10.0-18-g717479bc",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

@@ -1,9 +1,10 @@
 {
   "target": "cursor-memory-bank",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "7d879d8f5079ad77d845fdc92ca03903dbbd3a85",
   "target_url": "https://github.com/vanzan01/cursor-memory-bank",
+  "target_version": "0.8-beta-2-g7d879d8",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

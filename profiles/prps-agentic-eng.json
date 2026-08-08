@@ -1,9 +1,10 @@
 {
   "target": "PRPs-agentic-eng",
   "rubric_version": "3.0.0",
-  "engine_version": "1.1.2",
+  "engine_version": "2.2.0",
   "target_sha": "a643e84600c4f740e9d5a52051f6783ee9852567",
   "target_url": "https://github.com/Wirasm/PRPs-agentic-eng",
+  "target_version": null,
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

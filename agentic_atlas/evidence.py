@@ -155,13 +155,14 @@ class Target:
         return self._run_git("rev-parse", "HEAD") or None
 
     def git_version(self) -> str | None:
-        """The project's release tag at HEAD, if HEAD is exactly on a tag.
+        """The project's release tag at or before HEAD, for the reader-facing stamp.
 
-        Used as the reader-facing "based on" version on profile HTML. Returns None when
-        the checkout is not at a tagged commit (or is not a git repo), so callers fall
-        back to the short SHA.
+        Returns an exact tag when HEAD is tagged, otherwise a ``git describe --tags``
+        stamp (e.g. ``v6.1.1-14-gd884ae0``) naming the nearest ancestor tag and how
+        far past it the measured commit sits. Returns None when the checkout has no
+        tags (or is not a git repo), so callers fall back to the short SHA.
         """
-        return self._run_git("describe", "--tags", "--exact-match", "HEAD") or None
+        return self._run_git("describe", "--tags", "HEAD") or None
 
     def is_shallow(self) -> bool:
         """True when the checkout has only partial history (a shallow clone).

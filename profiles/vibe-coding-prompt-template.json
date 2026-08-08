@@ -1,9 +1,10 @@
 {
   "target": "vibe-coding-prompt-template",
   "rubric_version": "3.0.0",
-  "engine_version": "2.0.1",
+  "engine_version": "2.2.0",
   "target_sha": "06d0796222097ea43b9d1ca3efed8f71f295e055",
   "target_url": "https://github.com/KhazP/vibe-coding-prompt-template",
+  "target_version": "v3.0.0",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",

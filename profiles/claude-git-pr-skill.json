@@ -1,9 +1,10 @@
 {
   "target": "claude-git-pr-skill",
   "rubric_version": "3.0.0",
-  "engine_version": "2.0.1",
+  "engine_version": "2.2.0",
   "target_sha": "3660dca92424b91f1eb716b5815b476c3913450e",
   "target_url": "https://github.com/aidankinzett/claude-git-pr-skill",
+  "target_version": "v1.1.1",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
