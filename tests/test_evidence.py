@@ -230,6 +230,30 @@ def test_git_metrics_resolve_on_full_clone(tmp_path):
     assert target.git_metric("commit_count") == 2
     assert target.git_metric("tag_count") == 1
     assert target.git_metric("age_days") == 400.0
+    # HEAD is exactly on v1.0.0 (tagged at the tip), so git_version returns that tag.
+    assert target.git_version() == "v1.0.0"
+
+
+def test_git_version_none_when_head_not_on_tag(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    _git(source, "init", "-q")
+    _git(source, "config", "user.email", "dev@example.com")
+    _git(source, "config", "user.name", "Dev")
+    (source / "a.txt").write_text("one")
+    _git(source, "add", "-A")
+    _git(source, "commit", "-qm", "first")
+    _git(source, "tag", "v1.0.0")
+    (source / "b.txt").write_text("two")
+    _git(source, "add", "-A")
+    _git(source, "commit", "-qm", "second")  # tip is past the tag
+    target = Target.from_path(source)
+    assert target.git_version() is None
+    assert target.git_sha() is not None
+
+
+def test_git_version_none_without_git(tmp_path):
+    assert Target.from_path(tmp_path).git_version() is None
 
 
 @pytest.mark.parametrize(

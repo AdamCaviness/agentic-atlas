@@ -258,7 +258,26 @@ def test_html_header_shows_name_not_full_path():
     # with no upstream remote, the single project visual shows the short name, not the full path
     assert '<span class="pname">superpowers</span>' in out
     assert "/Users/adam/_opensource/superpowers" not in out
-    assert '<div class="stamps">rubric' in out
+    assert '<div class="stamps">commit abc123</div>' in out
+    assert "rubric" not in out.split('<div class="stamps">')[1].split("</div>")[0]
+    assert "engine" not in out.split('<div class="stamps">')[1].split("</div>")[0]
+
+
+def test_html_stamps_prefer_project_version_over_commit():
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    profile = Profile(
+        target="/t",
+        rubric_version="1.2.0",
+        engine_version="0.2.0",
+        target_sha="abc123def456",
+        target_version="v3.2.1",
+        axes=(ax,),
+    )
+    out = render_html(profile)
+    assert '<div class="stamps">version v3.2.1</div>' in out
+    assert "commit" not in out.split('<div class="stamps">')[1].split("</div>")[0]
+    assert "rubric 1.2.0" not in out
+    assert "engine 0.2.0" not in out
 
 
 def test_html_hero_tower_present_with_axis_data():
@@ -326,14 +345,15 @@ def test_text_neutral_score_has_no_forced_sign():
 
 
 def test_html_brand_links_home_as_a_button_not_a_plain_link():
-    # The mark + wordmark are a home link back to the hosted Atlas, styled as a button
-    # (no underline), with a tooltip. "Profile" stays a plain label outside the link.
+    # The mark + wordmark are a home link back to the Explorer, styled as a button
+    # (no underline), with a tooltip. No "Profile" label beside the brand.
     ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
     out = render_html(_profile([ax]))
-    assert 'class="home" href="https://adamcaviness.github.io/agentic-atlas/"' in out
+    assert 'class="home" href="../index.html"' in out
     assert 'title="Back to the Explorer"' in out
+    assert 'aria-label="Back to the Explorer, browse all frameworks"' in out
     assert '<span class="word">Agentic Atlas</span></a>' in out  # wordmark is inside the link
-    assert '</a><span class="ptitle">Profile</span>' in out  # "Profile" is outside it
+    assert 'class="ptitle"' not in out
     assert ".brand .home{" in out  # the button styling ships
     assert "text-decoration:none" in out  # not underlined like a text link
 
@@ -364,8 +384,19 @@ def test_profile_round_trips_through_dict():
         engine_version="0.2.0",
         target_sha="abc123",
         target_url="https://github.com/o/r",
+        target_version="v1.0.0",
         axes=(ax,),
     )
     assert Profile.from_dict(profile.to_dict()) == profile
     # and the reconstruction renders byte-identically to the original
     assert render_html(Profile.from_dict(profile.to_dict())) == render_html(profile)
+    assert '<div class="stamps">version v1.0.0</div>' in render_html(profile)
+
+
+def test_profile_from_dict_tolerates_missing_target_version():
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    data = _profile([ax]).to_dict()
+    del data["target_version"]
+    rebuilt = Profile.from_dict(data)
+    assert rebuilt.target_version is None
+    assert '<div class="stamps">commit abc123</div>' in render_html(rebuilt)

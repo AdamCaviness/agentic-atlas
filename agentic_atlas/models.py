@@ -138,6 +138,9 @@ class Profile:
     # Origin remote URL of the target (provenance + a link on the report); None when the
     # target has no git origin. Optional so it never shifts an axis score.
     target_url: str | None = None
+    # Project release tag at the profiled commit, when HEAD was exactly on a tag. Optional
+    # reader-facing provenance for HTML stamps; absent in older JSON and untagged commits.
+    target_version: str | None = None
 
     def to_dict(self) -> dict:
         return {
@@ -146,6 +149,7 @@ class Profile:
             "engine_version": self.engine_version,
             "target_sha": self.target_sha,
             "target_url": self.target_url,
+            "target_version": self.target_version,
             "axes": [
                 {
                     "axis_id": ax.axis_id,
@@ -187,6 +191,7 @@ class Profile:
             engine_version=data["engine_version"],
             target_sha=data.get("target_sha"),
             target_url=data.get("target_url"),
+            target_version=data.get("target_version"),
             axes=tuple(
                 AxisResult(
                     axis_id=ax["axis_id"],

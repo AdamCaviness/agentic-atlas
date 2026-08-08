@@ -3,41 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agentic Atlas Profile: metaswarm</title>
+<title>Agentic Atlas: metaswarm</title>
 <style>
   :root {
-    --bg:#fff;--fg:#1a1a1a;--muted:#6b7280;--faint:#9ca3af;--card:#f7f7f8;--line:#e5e7eb;--track:#e9eaed;
-    --neg:#0891b2;--pos:#9333ea;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;--accent:#4f46e5;--pill-fg:#fff;
+    --bg:#f6f7f9;--fg:#12141a;--muted:#5b6472;--faint:#8b93a1;--card:#ffffff;--line:#e2e5eb;--track:#eceef2;
+    --neg:#0e7490;--pos:#7c3aed;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;--accent:#4338ca;--pill-fg:#fff;
+    --display:"Avenir Next","Segoe UI",system-ui,sans-serif;
+    --sans:"Avenir Next","Segoe UI",system-ui,sans-serif;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   @media (prefers-color-scheme:dark){:root{
     --bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--faint:#6e7681;--card:#161b22;--line:#30363d;--track:#21262d;
     --neg:#22d3ee;--pos:#c084fc;--cov-good:#3fb950;--cov-mid:#d29922;--cov-low:#f85149;--accent:#818cf8;--pill-fg:#0d1117;
   }}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
-  .wrap{max-width:880px;margin:0 auto;padding:32px 20px 64px}
-  .wrap.wide{max-width:940px}
+  body{margin:0;color:var(--fg);font-family:var(--sans);line-height:1.5;
+    background:
+      radial-gradient(ellipse 80% 50% at 8% -10%,color-mix(in srgb,var(--neg) 9%,transparent),transparent 55%),
+      radial-gradient(ellipse 70% 45% at 92% 0%,color-mix(in srgb,var(--pos) 7%,transparent),transparent 50%),
+      var(--bg)}
+  .wrap{max-width:1100px;margin:0 auto;padding:28px 28px 64px}
+  .wrap.wide{max-width:1240px}
   .layout{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:28px;align-items:start}
   .col-main{grid-column:1;grid-row:1;min-width:0}
   .col-rail{grid-column:2;grid-row:1}
-  @media (max-width:880px){
+  @media (max-width:900px){
+    .wrap,.wrap.wide{padding:20px 16px 64px}
     .layout{grid-template-columns:1fr}
     .col-main,.col-rail{grid-column:1}
     .col-rail{margin-bottom:22px}
   }
+  header.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin:0 0 14px;padding:10px 0;border-bottom:1px solid var(--line);
+    background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
   header h1{font-size:1.5rem;margin:0 0 8px;font-weight:650}
   .target-pill{display:inline-block;font-weight:650;font-size:1.15rem;color:var(--pill-fg);
                background:var(--accent);padding:3px 14px;border-radius:999px;margin:0 0 10px;word-break:break-word}
-  .brand{display:flex;align-items:center;gap:11px;margin:0 0 12px}
+  .brand{display:flex;align-items:center;gap:11px;margin:0}
   .brand .home{display:inline-flex;align-items:center;gap:11px;color:inherit;text-decoration:none;cursor:pointer;
                margin:-6px 0 -6px -8px;padding:6px 8px;border-radius:10px;transition:background .12s ease,box-shadow .12s ease}
   .brand .home:hover{background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.10)}
   .brand .home:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .brand .mark{width:32px;height:33px;flex:none}
-  .brand .word{font-size:1.55rem;font-weight:750;letter-spacing:-.01em;line-height:1;background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .brand .ptitle{font-size:1.55rem;font-weight:400;line-height:1;color:var(--fg)}
+  .brand .word{font-family:var(--display);font-size:1.55rem;font-weight:750;letter-spacing:-.01em;line-height:1;background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .head-meta{margin:0 0 12px}
   .project{margin:0 0 10px;font-size:1.02rem}
   .project a{display:inline-flex;align-items:center;gap:8px;color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 15px}
   .project a:hover{border-color:var(--accent);color:var(--accent)}
@@ -128,10 +137,12 @@
 </head>
 <body>
 <div class="wrap wide">
-  <header>
-    <div class="brand"><a class="home" href="https://adamcaviness.github.io/agentic-atlas/" title="Back to the Explorer" aria-label="Back to the Explorer, browse all profiles"><svg class='mark' viewBox='0 0 30 31' aria-hidden='true'><polygon points='15,1 4,11 15,11' fill='var(--neg)'/><polygon points='15,1 26,11 15,11' fill='var(--pos)'/><polygon points='4,11 15,11 15,30' fill='var(--neg)' opacity='.8'/><polygon points='26,11 15,11 15,30' fill='var(--pos)' opacity='.8'/><polygon points='15,1 4,11 15,30 26,11' fill='none' stroke='var(--accent)' stroke-width='1' opacity='.55'/></svg><span class="word">Agentic Atlas</span></a><span class="ptitle">Profile</span></div>
+  <header class="top">
+    <div class="brand"><a class="home" href="../index.html" title="Back to the Explorer" aria-label="Back to the Explorer, browse all frameworks"><svg class='mark' viewBox='0 0 30 31' aria-hidden='true'><polygon points='15,1 4,11 15,11' fill='var(--neg)'/><polygon points='15,1 26,11 15,11' fill='var(--pos)'/><polygon points='4,11 15,11 15,30' fill='var(--neg)' opacity='.8'/><polygon points='26,11 15,11 15,30' fill='var(--pos)' opacity='.8'/><polygon points='15,1 4,11 15,30 26,11' fill='none' stroke='var(--accent)' stroke-width='1' opacity='.55'/></svg><span class="word">Agentic Atlas</span></a></div>
+  </header>
+  <div class="head-meta">
     <div class="project"><a href="https://github.com/dsifry/metaswarm" target="_blank" rel="noopener" title="Open dsifry/metaswarm on GitHub" aria-label="Open dsifry/metaswarm on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>dsifry/metaswarm</span></a></div>
-    <div class="stamps">rubric 3.0.0 · engine 2.0.1 · sha 33d39f776f7f</div>
+    <div class="stamps">commit 33d39f776f7f</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -139,7 +150,7 @@
       <span><span class="swatch" style="background:var(--cov-good)"></span>evidence found</span>
       <span>open an axis for its poles and signals</span>
     </div>
-  </header>
+  </div>
   <div class="layout">
     <aside class="col-rail">
   <section class="hero3d" id="atlas-hero">
