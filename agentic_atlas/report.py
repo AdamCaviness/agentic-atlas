@@ -229,11 +229,10 @@ _KIND_LABEL = {IndicatorKind.MEASURED: "detected", IndicatorKind.CLASSIFIED: "ju
 # stays valid across rubric versions.
 _RUBRIC_URL = "https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric"
 
-# The hosted Explorer: the interactive map of all published profiles. Every profile page links
-# home to it through the brand mark, so a reader who lands on one profile can step back to the
-# whole set. Absolute so the link resolves the same whether the page is opened from the hosted
-# site, the built local site, or a standalone file.
-_HOME_URL = "https://adamcaviness.github.io/agentic-atlas/"
+# The Explorer map of all published profiles. Every profile page links home through the brand
+# mark. Relative so the same HTML works from the built local site (dist/profiles/) and from
+# GitHub Pages without hard-coding the host.
+_HOME_URL = "../index.html"
 
 
 def _display_name(target: str) -> str:
@@ -249,40 +248,50 @@ def _display_name(target: str) -> str:
 # renders identically from a file:// path in any harness. Two non-judgmental pole hues mirror
 # the terminal renderer (neither pole is "good"); coverage keeps a separate green/amber/red
 # gradient, the one honest quality signal. Theme-aware via prefers-color-scheme.
+# Tokens kept in sync with scripts/build_site.py (Explorer) so landing and profile pages share chrome.
 _HTML_CSS = """
   :root {
-    --bg:#fff;--fg:#1a1a1a;--muted:#6b7280;--faint:#9ca3af;--card:#f7f7f8;--line:#e5e7eb;--track:#e9eaed;
-    --neg:#0891b2;--pos:#9333ea;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;--accent:#4f46e5;--pill-fg:#fff;
+    --bg:#f6f7f9;--fg:#12141a;--muted:#5b6472;--faint:#8b93a1;--card:#ffffff;--line:#e2e5eb;--track:#eceef2;
+    --neg:#0e7490;--pos:#7c3aed;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;--accent:#4338ca;--pill-fg:#fff;
+    --display:"Avenir Next","Segoe UI",system-ui,sans-serif;
+    --sans:"Avenir Next","Segoe UI",system-ui,sans-serif;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   @media (prefers-color-scheme:dark){:root{
     --bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--faint:#6e7681;--card:#161b22;--line:#30363d;--track:#21262d;
     --neg:#22d3ee;--pos:#c084fc;--cov-good:#3fb950;--cov-mid:#d29922;--cov-low:#f85149;--accent:#818cf8;--pill-fg:#0d1117;
   }}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
-  .wrap{max-width:880px;margin:0 auto;padding:32px 20px 64px}
-  .wrap.wide{max-width:940px}
+  body{margin:0;color:var(--fg);font-family:var(--sans);line-height:1.5;
+    background:
+      radial-gradient(ellipse 80% 50% at 8% -10%,color-mix(in srgb,var(--neg) 9%,transparent),transparent 55%),
+      radial-gradient(ellipse 70% 45% at 92% 0%,color-mix(in srgb,var(--pos) 7%,transparent),transparent 50%),
+      var(--bg)}
+  .wrap{max-width:1100px;margin:0 auto;padding:28px 28px 64px}
+  .wrap.wide{max-width:1240px}
   .layout{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:28px;align-items:start}
   .col-main{grid-column:1;grid-row:1;min-width:0}
   .col-rail{grid-column:2;grid-row:1}
-  @media (max-width:880px){
+  @media (max-width:900px){
+    .wrap,.wrap.wide{padding:20px 16px 64px}
     .layout{grid-template-columns:1fr}
     .col-main,.col-rail{grid-column:1}
     .col-rail{margin-bottom:22px}
   }
+  header.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin:0 0 14px;padding:10px 0;border-bottom:1px solid var(--line);
+    background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
   header h1{font-size:1.5rem;margin:0 0 8px;font-weight:650}
   .target-pill{display:inline-block;font-weight:650;font-size:1.15rem;color:var(--pill-fg);
                background:var(--accent);padding:3px 14px;border-radius:999px;margin:0 0 10px;word-break:break-word}
-  .brand{display:flex;align-items:center;gap:11px;margin:0 0 12px}
+  .brand{display:flex;align-items:center;gap:11px;margin:0}
   .brand .home{display:inline-flex;align-items:center;gap:11px;color:inherit;text-decoration:none;cursor:pointer;
                margin:-6px 0 -6px -8px;padding:6px 8px;border-radius:10px;transition:background .12s ease,box-shadow .12s ease}
   .brand .home:hover{background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.10)}
   .brand .home:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .brand .mark{width:32px;height:33px;flex:none}
-  .brand .word{font-size:1.55rem;font-weight:750;letter-spacing:-.01em;line-height:1;background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .brand .ptitle{font-size:1.55rem;font-weight:400;line-height:1;color:var(--fg)}
+  .brand .word{font-family:var(--display);font-size:1.55rem;font-weight:750;letter-spacing:-.01em;line-height:1;background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .head-meta{margin:0 0 12px}
   .project{margin:0 0 10px;font-size:1.02rem}
   .project a{display:inline-flex;align-items:center;gap:8px;color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 15px}
   .project a:hover{border-color:var(--accent);color:var(--accent)}
@@ -822,6 +831,18 @@ def _project_html(url: str | None, name: str) -> str:
     return f'<div class="project"><span class="pname">{_html_escape(name)}</span></div>'
 
 
+def _html_project_stamps(profile: Profile) -> str:
+    """Reader-facing provenance: the project's version at profile time, not Atlas versions.
+
+    Prefer an exact release tag captured as ``target_version``. Fall back to a short commit
+    SHA. Rubric and engine stay in the JSON (and text/markdown reports) for reproducibility.
+    """
+    if profile.target_version:
+        return f"version {_html_escape(profile.target_version)}"
+    sha = (profile.target_sha or "unknown")[:12]
+    return f"commit {_html_escape(sha)}"
+
+
 def render_html(profile: Profile) -> str:
     """Render a Profile to a self-contained HTML page.
 
@@ -848,15 +869,13 @@ def render_html(profile: Profile) -> str:
     scale = profile.axes[0].scale if profile.axes else 10.0
     axes_html = "\n".join(_html_axis(ax, i) for i, ax in enumerate(profile.axes))
     project = _project_html(profile.target_url, _display_name(profile.target))
-    stamps = (
-        f"rubric {_html_escape(profile.rubric_version)} · "
-        f"engine {_html_escape(profile.engine_version)} · "
-        f"sha {_html_escape((profile.target_sha or 'unknown')[:12])}"
-    )
+    stamps = _html_project_stamps(profile)
     hint = _skill_hint(profile)
     hint_html = f'\n  <p class="footer-hint">{_html_escape(hint)}</p>' if hint else ""
-    header = f"""  <header>
-    <div class="brand"><a class="home" href="{_HOME_URL}" title="Back to the Explorer" aria-label="Back to the Explorer, browse all profiles">{_CRYSTAL_MARK}<span class="word">Agentic Atlas</span></a><span class="ptitle">Profile</span></div>
+    header = f"""  <header class="top">
+    <div class="brand"><a class="home" href="{_HOME_URL}" title="Back to the Explorer" aria-label="Back to the Explorer, browse all frameworks">{_CRYSTAL_MARK}<span class="word">Agentic Atlas</span></a></div>
+  </header>
+  <div class="head-meta">
     {project}
     <div class="stamps">{stamps}</div>
     <p class="note">These results are non-judgmental measurements against the <a href="{_RUBRIC_URL}" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
@@ -866,7 +885,7 @@ def render_html(profile: Profile) -> str:
       <span><span class="swatch" style="background:var(--cov-good)"></span>evidence found</span>
       <span>open an axis for its poles and signals</span>
     </div>
-  </header>"""
+  </div>"""
     hero = _hero_html(profile)
     cards = f"{axes_html}{hint_html}"
     if hero:
@@ -891,7 +910,7 @@ def render_html(profile: Profile) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agentic Atlas Profile: {_html_escape(_display_name(profile.target))}</title>
+<title>Agentic Atlas: {_html_escape(_display_name(profile.target))}</title>
 <style>{_HTML_CSS}</style>
 </head>
 <body>

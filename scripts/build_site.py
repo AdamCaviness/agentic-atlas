@@ -22,35 +22,68 @@ OUT = os.path.join(REPO, "dist")
 
 # Report design tokens (kept in sync with agentic_atlas/report.py _HTML_CSS).
 CSS = """
-:root{--bg:#fff;--fg:#1a1a1a;--muted:#6b7280;--faint:#9ca3af;--card:#f7f7f8;--line:#e5e7eb;--track:#e9eaed;
---neg:#0891b2;--pos:#9333ea;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;--accent:#4f46e5;--pill-fg:#fff;
---t1:#4f46e5;--t2:#b45309;--t3:#be123c;--scrim:rgba(17,20,28,.46);
---mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
---sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+:root{--bg:#f6f7f9;--fg:#12141a;--muted:#5b6472;--faint:#8b93a1;--card:#ffffff;--line:#e2e5eb;--track:#eceef2;
+--neg:#0e7490;--pos:#7c3aed;--cov-good:#16a34a;--cov-mid:#d97706;--cov-low:#dc2626;
+--accent:#4338ca;--pill-fg:#fff;--scrim:rgba(17,20,28,.46);
+--t1:#4338ca;--t2:#b45309;--t3:#be123c;
+--shell-max:1520px;
+--display:"Avenir Next","Segoe UI",system-ui,sans-serif;
+--sans:"Avenir Next","Segoe UI",system-ui,sans-serif;
+--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 @media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--faint:#6e7681;--card:#161b22;
 --line:#30363d;--track:#21262d;--neg:#22d3ee;--pos:#c084fc;--cov-good:#3fb950;--cov-mid:#d29922;--cov-low:#f85149;
 --accent:#818cf8;--pill-fg:#0d1117;--t1:#818cf8;--t2:#f59e0b;--t3:#fb7185;--scrim:rgba(1,4,9,.62)}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
+body{margin:0;color:var(--fg);font-family:var(--sans);line-height:1.5;
+  background:
+    radial-gradient(ellipse 80% 50% at 8% -10%,color-mix(in srgb,var(--neg) 9%,transparent),transparent 55%),
+    radial-gradient(ellipse 70% 45% at 92% 0%,color-mix(in srgb,var(--pos) 7%,transparent),transparent 50%),
+    var(--bg)}
+body.sheet-open{overflow:hidden}
 a{color:var(--accent)}
-.wrap{max-width:1200px;margin:0 auto;padding:20px 22px 60px}
-header.top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:18px}
-header.top h1{font-size:1.15rem;margin:0}
-header.top .tag{color:var(--muted);font-size:.85rem}
-header.top .spacer{flex:1}
+.wrap{max-width:var(--shell-max);margin:0 auto;padding:0 28px 72px}
+header.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px 16px;flex-wrap:wrap;
+  padding:12px 0;margin:0 0 14px;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
+header.top .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+header.top .meta .pill{border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--card);font-variant-numeric:tabular-nums}
+header.top .nav{display:flex;align-items:center;gap:10px;margin-left:auto}
+header.top .nav a{font-size:.82rem;color:var(--muted);text-decoration:none}
+header.top .nav a:hover{color:var(--accent)}
 header.top a.repo{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;color:var(--muted);border:1px solid var(--line);border-radius:50%}
 header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
-.hero{margin:0 0 22px}
-.hero .lead{font-size:1.08rem;margin:0 0 8px}
-.hero .sub2{color:var(--muted);font-size:.9rem;margin:0 0 8px}
-.hero .principle{font-size:.82rem;color:var(--faint);margin:0;font-style:italic}
+header.top .search{position:relative;min-width:min(220px,100%)}
+header.top .search input{width:100%;font:inherit;font-size:.84rem;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:7px 11px}
+header.top .search input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.hero{margin:0 0 14px}
+.hero .lead{font-size:1.12rem;font-weight:650;margin:0;letter-spacing:-.01em;line-height:1.35;text-wrap:balance}
+.hero .start{font-size:.88rem;color:var(--fg);margin:10px 0 0;padding:8px 12px;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--card));border-radius:0 8px 8px 0}
+.hero .start.is-hidden{display:none}
+header.top .nav button.about{font:inherit;font-size:.82rem;color:var(--muted);background:none;border:none;padding:0;cursor:pointer}
+header.top .nav button.about:hover{color:var(--accent)}
+.about-scrim{position:fixed;inset:0;background:var(--scrim);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:18px;z-index:70}
+.about-scrim.on{display:flex}
+.about{background:var(--bg);border:1px solid var(--line);border-radius:16px;width:min(520px,94vw);max-height:90vh;overflow:auto;padding:20px 22px 22px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.about-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0 0 12px}
+.about-hd h2{font-size:1.05rem;margin:0;font-weight:700}
+.about-x{flex:none;width:32px;height:32px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--muted);cursor:pointer;font-size:1.1rem;line-height:1}
+.about-x:hover{border-color:var(--cov-low);color:var(--cov-low)}
+.about p{margin:0 0 12px;font-size:.9rem;line-height:1.5;color:var(--fg)}
+.about p:last-child{margin-bottom:0}
+.about .muted{color:var(--muted)}
+.about .stance{padding:10px 12px;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--card));border-radius:0 8px 8px 0;font-size:.88rem}
+.about ul{margin:0 0 12px;padding:0 0 0 1.15rem;font-size:.88rem;color:var(--muted);line-height:1.45}
+.about ul li{margin:0 0 6px}
+.about .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.about .links a{font-size:.86rem}
 .brand{display:flex;align-items:center;gap:11px}
 .brand .mark{width:30px;height:31px;flex:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.14))}
-.brand .word{font-size:1.4rem;font-weight:750;letter-spacing:-.01em;line-height:1;
+.brand .word{font-family:var(--display);font-size:1.4rem;font-weight:750;letter-spacing:-.01em;line-height:1;
   background:linear-gradient(100deg,var(--neg),var(--accent) 52%,var(--pos));
   -webkit-background-clip:text;background-clip:text;color:transparent}
-.layout{display:grid;grid-template-columns:280px 1fr;gap:22px}
-@media (max-width:860px){.layout{grid-template-columns:1fr}}
+.layout{display:grid;grid-template-columns:minmax(260px,300px) minmax(0,1fr);gap:22px;align-items:start}
+.layout > main{grid-column:2;grid-row:1;min-width:0}
+.layout > aside{grid-column:1;grid-row:1;align-self:start;position:sticky;top:64px;max-height:calc(100vh - 80px);overflow-y:auto}
 .panel{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
 .panel h2{font-size:.9rem;margin:0}
 .phead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}
@@ -59,6 +92,9 @@ header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .panel .sub{color:var(--muted);font-size:.8rem;margin:0 0 12px}
 .group{margin:0 0 6px;border-top:1px solid var(--line);padding-top:8px}
 .group>summary{cursor:pointer;font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.more-axes{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+.more-axes>summary{cursor:pointer;font-size:.82rem;font-weight:600;color:var(--accent);list-style:none}
+.more-axes>summary::-webkit-details-marker{display:none}
 .slider{margin:12px 0}
 .prow{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;gap:8px;font-size:.82rem;color:var(--fg);margin-bottom:3px}
 .prow .hl{font-weight:600;text-align:left}
@@ -75,28 +111,33 @@ header.top a.repo:hover{border-color:var(--accent);color:var(--accent)}
 .info:hover ~ .tip,.info:focus ~ .tip,.tip.show{display:block}
 .srange{position:relative}
 .srange input[type=range]{width:100%;display:block;accent-color:var(--accent)}
-/* center tick shows only while the slider is active (thumb is off-center); at rest the thumb marks center */
 .srange::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:2px;height:12px;background:var(--faint);pointer-events:none;display:none}
 .slider:not(.off) .srange::before{display:block}
 .slider.off .srange input[type=range]{filter:grayscale(1);opacity:.5}
 .btnrow{display:flex;gap:8px;margin-top:10px}
 button.act{font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
 button.act:hover{border-color:var(--accent);color:var(--accent)}
-#plot{width:100%;height:380px;border:1px solid var(--line);border-radius:12px;background:var(--card);display:block;margin:0 0 22px}
+.sheet-actions{display:none;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+#plot{display:none;width:100%;height:220px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:0 0 14px}
+#plot.is-on{display:block}
+@media (max-width:900px){#plot{height:180px}}
 .tline{cursor:pointer}
 .tline:hover{opacity:1 !important;stroke-width:2.5}
 .hint{color:var(--muted);font-size:.8rem;margin:8px 0 0}
 .dot{cursor:pointer}
-.matches{margin:14px 0 0}
-.matches h3{font-size:.85rem;margin:0 0 6px}
-.matches .mcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px 14px;margin:0 0 10px}
-.matches .mname{display:block;font-weight:650;font-size:.95rem}
-.matches .msum{font-size:.72rem;color:var(--muted);margin:1px 0 8px}
+.rankstrip{margin:0 0 14px;min-height:0}
+.rankstrip:empty{display:none}
+.rankstrip .rlabel{font-size:.78rem;color:var(--muted);margin:0 0 6px}
+.rankstrip .rtop{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rankstrip .rtop .rlbl{font-size:.8rem;font-weight:650;margin-right:2px}
+.rankstrip a.rtag{font-size:.82rem;color:var(--fg);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:5px 10px}
+.rankstrip a.rtag:hover{border-color:var(--accent);color:var(--accent)}
+.rankstrip a.rtag .rn{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-right:5px}
+.gstatus{font-size:.8rem;color:var(--muted);margin:0 0 10px}
+.gstatus:empty{display:none;margin:0}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px}
-/* The card title IS the link to the profile (no separate "open profile" control). Same
-   button feel as the profile page's home mark: no underline, a subtle lift on hover. On the
-   card's own --card surface the hover tint steps to --track so it stays visible. */
+.pcard{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:14px 16px;scroll-margin-top:80px;transition:box-shadow .15s ease,border-color .15s ease}
+.pcard.focus-flash{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent)}
 .pcard .nm{display:inline-flex;align-items:center;max-width:100%;font-weight:650;font-size:.98rem;line-height:1.2;color:inherit;text-decoration:none;cursor:pointer;margin:-5px -8px 1px;padding:5px 8px;border-radius:9px;transition:background .12s ease,box-shadow .12s ease,color .12s ease}
 .pcard .nm:hover{background:var(--track);box-shadow:0 1px 4px rgba(0,0,0,.10);color:var(--accent)}
 .pcard .nm:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -112,12 +153,13 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .tk .f.neg{right:50%;background:var(--neg);border-radius:5px 0 0 5px}
 .tk .f.pos{left:50%;background:var(--pos);border-radius:0 5px 5px 0}
 .pcard .acts{display:flex;gap:8px;margin-top:12px}
-.pcard .fitline{font-size:.78rem;color:var(--muted);margin-top:8px;min-height:1em}
+.pcard .fitline{font-size:.78rem;color:var(--muted);margin-top:8px}
+.pcard .fitline:empty{display:none}
 .verdict{font-family:var(--mono);font-size:.74rem;margin:2px 0}
 .v-match::before{content:"✓ ";color:var(--accent);font-weight:700}
 .v-close::before{content:"~ ";color:var(--faint)}
 .v-counter::before{content:"✗ ";color:var(--cov-mid)}
-.tray{display:none;position:sticky;bottom:12px;margin-top:22px;border:1.5px solid var(--accent);border-radius:12px;background:var(--card);padding:12px 16px;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 10px 34px rgba(0,0,0,.24)}
+.tray{display:none;position:sticky;bottom:12px;margin-top:22px;border:1.5px solid var(--accent);border-radius:12px;background:var(--card);padding:12px 16px;gap:10px;align-items:center;flex-wrap:wrap;box-shadow:0 10px 34px rgba(0,0,0,.24);z-index:35}
 .tray.active{display:flex}
 .tray .traylbl{font-weight:650;font-size:.82rem;margin-right:2px}
 .tray .chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.8rem;display:inline-flex;gap:6px;align-items:center}
@@ -126,6 +168,41 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .tray .cbtn:hover{filter:brightness(1.08)}
 .act.added{border-color:var(--accent);color:var(--accent);font-weight:600}
 .note{font-size:.78rem;color:var(--muted)}
+.empty{color:var(--muted);font-size:.9rem;padding:30px 6px;text-align:center}
+
+/* mobile prefs FAB + bottom sheet */
+.prefs-fab{display:none;position:fixed;z-index:45;left:50%;transform:translateX(-50%);bottom:18px;
+  font:inherit;font-size:.88rem;font-weight:650;color:var(--pill-fg);background:var(--accent);
+  border:none;border-radius:999px;padding:12px 20px;cursor:pointer;
+  box-shadow:0 8px 28px rgba(0,0,0,.28);align-items:center;gap:8px}
+.prefs-fab .badge{display:none;min-width:1.35em;height:1.35em;padding:0 5px;border-radius:999px;background:var(--pill-fg);color:var(--accent);font-size:.72rem;font-weight:700;line-height:1.35em;text-align:center}
+.prefs-fab .badge.on{display:inline-block}
+.prefs-scrim{display:none;position:fixed;inset:0;background:var(--scrim);z-index:50}
+.prefs-scrim.on{display:block}
+@media (max-width:900px){
+  .wrap{padding:0 16px 96px}
+  header.top{gap:10px;padding:10px 0}
+  header.top .search{flex:1 1 100%;order:5}
+  header.top .nav{margin-left:0}
+  .layout{grid-template-columns:1fr}
+  .layout > main{grid-column:1;grid-row:1}
+  .layout > aside{
+    position:fixed;left:0;right:0;bottom:0;top:auto;z-index:55;
+    max-height:min(88vh,720px);margin:0;border-radius:16px 16px 0 0;
+    transform:translateY(110%);transition:transform .22s ease;
+    box-shadow:0 -12px 40px rgba(0,0,0,.28);overflow-y:auto;
+    grid-column:unset;grid-row:unset}
+  .layout > aside.open{transform:translateY(0)}
+  .sheet-actions{display:flex}
+  .prefs-fab{display:inline-flex}
+  .phead .sheet-close{display:inline-flex}
+}
+.phead .sheet-close{display:none;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--muted);cursor:pointer;font-size:1.15rem;line-height:1}
+.phead .sheet-close:hover{border-color:var(--cov-low);color:var(--cov-low)}
+@media (min-width:901px){
+  .prefs-scrim,.prefs-fab{display:none !important}
+  .layout > aside{transform:none !important}
+}
 
 /* ---- compare modal ---- */
 .scrim{position:fixed;inset:0;background:var(--scrim);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}
@@ -195,7 +272,8 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .cmp-body.dback{animation:drillBack .19s ease both}
 @keyframes drillIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
 @keyframes drillBack{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.cmp-body.din,.cmp-body.dback{animation:none}}
+@media(prefers-reduced-motion:reduce){.cmp-body.din,.cmp-body.dback{animation:none}
+  .layout > aside{transition:none}}
 .drill-h{margin:0 0 4px;font-size:1.05rem;font-weight:700}
 .drill-sub{margin:0 0 16px;font-size:.82rem;color:var(--muted);max-width:70ch}
 .drill-sub .pn{color:var(--neg);font-weight:600}.drill-sub .pp{color:var(--pos);font-weight:600}
@@ -223,7 +301,6 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .cmp-ft .evi{font-size:.74rem;color:var(--muted);margin:0;display:inline-flex;align-items:center;gap:7px}
 .cmp-ft .swatch{width:22px;height:12px;border-radius:3px;background:var(--track);position:relative;overflow:hidden}
 .cmp-ft .swatch::after{content:"";position:absolute;inset:0;left:40%;background:var(--pos);opacity:.45;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px)}
-.empty{color:var(--muted);font-size:.9rem;padding:30px 6px;text-align:center}
 .cmp :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (max-width:640px){
   .cmp{max-height:94vh;width:100%}
@@ -247,11 +324,15 @@ const ORDER = [
   "fresh-vs-mature","interrogative-vs-opinionated","single-agent-vs-multi-agent",
   "lightweight-vs-heavyweight",
 ];
+const PRIMARY_N = 6;
 const prefs = {}; // axisId -> {value:-10..10, active:bool}
 AXES.forEach(a=>prefs[a.id]={value:0,active:false});
 const compare = [];
 const TCOL=["--t1","--t2","--t3"];
 let cmpSort="diff",cmpShapeOpen=true,cmpDrillAxis=null,cmpLastFocus=null;
+let searchQ="";
+let prefsSheetOpen=false;
+let prefsLastFocus=null;
 const prof=s=>DATA.find(d=>d.slug===s);
 const cmpMeta=id=>AXES.find(a=>a.id===id);
 
@@ -276,17 +357,61 @@ function sharedAxes(){
 function poleWord(a){return a.score<0?a.poles.negative:a.poles.positive;}
 function esc(s){return (s||"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
+// ---- ranking / search ----
+function activePrefs(){return AXES.filter(a=>prefs[a.id].active).map(a=>({id:a.id,v:prefs[a.id].value}));}
+function activePrefCount(){return activePrefs().length;}
+function scoredList(){
+  let list=DATA.slice();
+  const q=searchQ.trim().toLowerCase();
+  if(q) list=list.filter(p=>(p.name||"").toLowerCase().includes(q)||(p.slug||"").toLowerCase().includes(q));
+  const ap=activePrefs();
+  if(!ap.length) return list.map(p=>({p,f:null}));
+  return list.map(p=>({p,f:fitFor(p)})).sort((a,b)=>{
+    const fa=a.f,fb=b.f;
+    if(!fa&&!fb) return 0;
+    if(!fa) return 1;
+    if(!fb) return -1;
+    return fb.aligned-fa.aligned||fb.strong-fa.strong||fa.dist-fb.dist;
+  });
+}
+
 // ---- cards ----
 function bar(score,scale){
   const cls = score<0?"neg":"pos"; const pct = Math.min(100,Math.abs(score)/scale*50);
   return `<div class="tk"><div class="c"></div><div class="f ${cls}" style="${score<0?'right:50%;width':'left:50%;width'}:${pct}%"></div></div>`;
 }
 function covPct(p){return Math.round(p.axes.reduce((s,a)=>s+a.coverage,0)/p.axes.length*100);}
+function fitLineText(f){
+  if(!f||!f.total) return "";
+  const opposed=f.rows.filter(r=>r.verdict==="counter").length;
+  const unread=f.rows.filter(r=>r.verdict===null).length;
+  const parts=[];
+  if(f.aligned) parts.push(`aligned on ${f.aligned}`);
+  if(opposed) parts.push(`opposed on ${opposed}`);
+  if(unread) parts.push(`no reading on ${unread}`);
+  if(!parts.length) return `no reading on the ${f.total} you set`;
+  return parts.join(" · ");
+}
 function renderCards(){
-  const g = $("#gallery"); g.innerHTML="";
-  DATA.forEach(p=>{
-    const el = document.createElement("div"); el.className="pcard";
-    el.innerHTML = `<a class="nm" href="profiles/${p.slug}.html" title="Open the ${esc(p.name)} profile">${esc(p.name)}</a>
+  const g=$("#gallery"), st=$("#gstatus");
+  g.innerHTML="";
+  const scored=scoredList();
+  const ap=activePrefs();
+  if(st){
+    if(!scored.length) st.textContent=searchQ.trim()?"No frameworks match that search.":(ap.length?"No frameworks to show.":"");
+    else if(ap.length) st.textContent=`Sorted by your preferences · ${scored.length} shown`;
+    else if(searchQ.trim()) st.textContent=`${scored.length} match${scored.length===1?"":"es"}`;
+    else st.textContent="";
+  }
+  if(!scored.length){
+    g.innerHTML=`<div class="empty">${searchQ.trim()?"No frameworks match that search. Try another name.":"No frameworks to show."}</div>`;
+    renderRankStrip();
+    syncCompareButtons();
+    return;
+  }
+  scored.forEach(({p})=>{
+    const el=document.createElement("div"); el.className="pcard"; el.dataset.slug=p.slug; el.id="card-"+p.slug;
+    el.innerHTML=`<a class="nm" href="profiles/${p.slug}.html" title="Open ${esc(p.name)}">${esc(p.name)}</a>
       <div class="cov2">${covPct(p)}% evidence</div>
       <div class="sig" data-sig="${p.slug}"></div>
       <div class="fitline" data-fit="${p.slug}"></div>
@@ -295,6 +420,8 @@ function renderCards(){
   });
   renderSignatures();
   renderFitLines();
+  renderRankStrip();
+  syncCompareButtons();
 }
 // Fill every card's signature block with the shared four axes, each showing where that tool
 // sits. Re-run on preference change so the cards track what the reader cares about.
@@ -307,12 +434,11 @@ function renderSignatures(){
       if(axVal(a)===null) return `<div class="row"><span class="word">${esc((AXES.find(x=>x.id===id)||{}).title||id)}</span><span class="sc none">no reading</span></div>`;
       return `<div class="row"><span class="word">${esc(poleWord(a))}</span><span class="sc ${a.score<0?'neg':'pos'}">${a.score>0?'+':''}${a.score.toFixed(1)}</span>${bar(a.score,a.scale)}</div>`;
     }).join("");
-    box.innerHTML=rows||'<div class="note">partial profile</div>';
+    box.innerHTML=rows||'<div class="note">partial reading</div>';
   });
 }
 
 // ---- fit ----
-function activePrefs(){return AXES.filter(a=>prefs[a.id].active).map(a=>({id:a.id,v:prefs[a.id].value}));}
 // Direction is what matters: same side = aligned. Magnitude only refines the label.
 function verdict(userV, toolScore){
   if(toolScore===null) return null;
@@ -330,80 +456,135 @@ function fitFor(p){
   return {rows,aligned,strong,total:ap.length,dist};
 }
 function renderFitLines(){
-  const ap=activePrefs();
   $$(".fitline").forEach(el=>{
     const p=DATA.find(d=>d.slug===el.dataset.fit); const f=fitFor(p);
-    el.textContent = f? `leans your way on ${f.aligned} of the ${f.total} you set` : "";
+    el.textContent=fitLineText(f);
   });
-  renderMatches();
 }
-function renderMatches(){
-  const box=$("#matches"); const ap=activePrefs();
+function renderRankStrip(){
+  const box=$("#rankstrip"); if(!box) return;
+  const ap=activePrefs();
   if(!ap.length){box.innerHTML="";return;}
-  const scored=DATA.map(p=>({p,f:fitFor(p)})).filter(x=>x.f).sort((a,b)=>b.f.aligned-a.f.aligned||b.f.strong-a.f.strong||a.f.dist-b.f.dist);
-  const axName=id=>AXES.find(a=>a.id===id);
-  box.innerHTML = `<h3>Best matches for your preferences</h3>` + scored.slice(0,6).map(({p,f})=>{
-    const ord={match:0,close:1,counter:2};
-    const vs=[...f.rows].sort((x,y)=>(ord[x.verdict]??9)-(ord[y.verdict]??9)).map(r=>{const ax=axName(r.id);const cls=r.verdict==="match"?"v-match":r.verdict==="close"?"v-close":"v-counter";
-      const word = r.v<0?ax.neg:ax.pos;
-      return `<div class="verdict ${cls}">${esc(ax.title)}: you want ${esc(word)}${r.tool!==null?`, this is ${r.tool>0?'+':''}${r.tool.toFixed(1)}`:', no reading'}</div>`;}).join("");
-    return `<div class="mcard"><a class="mname" href="profiles/${p.slug}.html">${esc(p.name)}</a><div class="msum">leans your way on ${f.aligned} of ${f.total}</div>${vs}</div>`;
-  }).join("");
+  const scored=scoredList().filter(x=>x.f);
+  const top=scored.slice(0,3);
+  if(!top.length){box.innerHTML="";return;}
+  box.innerHTML=`<p class="rlabel">Sorted by your preferences</p><div class="rtop"><span class="rlbl">Top matches</span>`+
+    top.map(({p,f},i)=>`<a class="rtag" href="#card-${p.slug}" data-jump="${p.slug}"><span class="rn">${i+1}</span>${esc(p.name)}${f?` · ${f.aligned}/${f.total}`:""}</a>`).join("")+
+    `</div>`;
+  $$("a.rtag",box).forEach(a=>a.addEventListener("click",e=>{
+    e.preventDefault();
+    const slug=a.dataset.jump, card=$("#card-"+slug);
+    if(!card) return;
+    card.scrollIntoView({behavior:"smooth",block:"center"});
+    card.classList.add("focus-flash");
+    setTimeout(()=>card.classList.remove("focus-flash"),1200);
+    const nm=$(".nm",card); if(nm) nm.focus({preventScroll:true});
+  }));
 }
 
 // ---- parallel-coordinates plot: one vertical axis per preference you set ----
 function renderPlot(){
   const svg=$("#plot");
   const axs=ORDER.filter(id=>prefs[id]&&prefs[id].active).map(id=>AXES.find(a=>a.id===id));
-  if(!axs.length){svg.style.display="none";svg.innerHTML="";return;}
-  svg.style.display="block";
-  const W=svg.clientWidth||760,H=380,padX=64,padT=30,padB=30,scale=10;
+  if(axs.length<2){svg.classList.remove("is-on");svg.innerHTML="";return;}
+  svg.classList.add("is-on");
+  // Height comes from CSS (220 desktop / 180 mobile); fall back if not laid out yet.
+  const W=svg.clientWidth||760,H=svg.clientHeight||220,padX=Math.max(36,Math.min(64,W*0.08)),padT=30,padB=30,scale=10;
   const xF=i=>axs.length===1?W/2:padX+i*(W-2*padX)/(axs.length-1);
   const yF=v=>padT+(scale-v)/(2*scale)*(H-padT-padB);
   let s="";
   axs.forEach((a,i)=>{const x=xF(i);
     s+=`<line x1='${x}' y1='${padT}' x2='${x}' y2='${H-padB}' stroke='var(--line)' stroke-width='1'/>`;
     s+=`<line x1='${x-5}' y1='${yF(0)}' x2='${x+5}' y2='${yF(0)}' stroke='var(--faint)'/>`;
-    s+=`<text x='${x}' y='${padT-8}' text-anchor='middle' font-size='10' fill='var(--pos)' font-family='var(--sans)'>${esc(a.pos)}</text>`;
-    s+=`<text x='${x}' y='${H-padB+15}' text-anchor='middle' font-size='10' fill='var(--neg)' font-family='var(--sans)'>${esc(a.neg)}</text>`;});
+    s+=`<text x='${x}' y='${padT-10}' text-anchor='middle' font-size='13' font-weight='650' fill='var(--pos)' font-family='var(--sans)'>${esc(a.pos)}</text>`;
+    s+=`<text x='${x}' y='${H-padB+18}' text-anchor='middle' font-size='13' font-weight='650' fill='var(--neg)' font-family='var(--sans)'>${esc(a.neg)}</text>`;});
   DATA.map(p=>({p,f:fitFor(p)})).filter(o=>o.f).forEach(({p,f})=>{
     const pts=axs.map((a,i)=>{const v=axScore(p,a.id);return (v&&v.score!==null)?`${xF(i)},${yF(v.score).toFixed(1)}`:null;}).filter(Boolean);
     if(!pts.length)return;
     const r=f.aligned/f.total,op=(0.1+0.55*r).toFixed(2),col=r>=1?"var(--accent)":"var(--muted)";
-    s+=`<polyline class="tline" data-slug='${p.slug}' points='${pts.join(' ')}' fill='none' stroke='${col}' stroke-width='1.5' opacity='${op}'><title>${esc(p.name)}, leans your way on ${f.aligned}/${f.total}</title></polyline>`;});
+    s+=`<polyline class="tline" data-slug='${p.slug}' points='${pts.join(' ')}' fill='none' stroke='${col}' stroke-width='1.5' opacity='${op}'><title>${esc(p.name)}, ${fitLineText(f)}</title></polyline>`;});
   const ypts=axs.map((a,i)=>`${xF(i)},${yF(prefs[a.id].value).toFixed(1)}`).join(' ');
   s+=`<polyline points='${ypts}' fill='none' stroke='var(--accent)' stroke-width='3'/>`;
   axs.forEach((a,i)=>{s+=`<circle cx='${xF(i)}' cy='${yF(prefs[a.id].value).toFixed(1)}' r='4' fill='var(--accent)'/>`;});
-  s+=`<text x='${xF(0)+7}' y='${(yF(prefs[axs[0].id].value)-8).toFixed(1)}' font-size='11' font-weight='700' fill='var(--accent)' font-family='var(--sans)'>You</text>`;
+  s+=`<text x='${xF(0)+8}' y='${(yF(prefs[axs[0].id].value)-10).toFixed(1)}' font-size='13' font-weight='700' fill='var(--accent)' font-family='var(--sans)'>You</text>`;
   svg.innerHTML=s;
 }
 
 // ---- preference panel ----
+function makeSlider(id){
+  const a=AXES.find(x=>x.id===id); if(!a) return null;
+  const w=document.createElement("div"); w.className="slider off"; w.dataset.axis=id;
+  const norm=s=>s.toLowerCase().replace(/[\s-]+/g,"_");
+  const parts=a.title.split(" vs ");
+  const tp=(parts.length===2&&norm(parts[0])===a.pos&&norm(parts[1])===a.neg)?[parts[1],parts[0]]:parts;
+  w.innerHTML=`<div class="prow"><span class="hl">${esc(tp[0])||esc(a.title)}</span>${tp[1]?`<em class="hvs">vs</em><span class="hr">${esc(tp[1])}</span>`:''}</div>
+    <div class="srange"><input type="range" min="-10" max="10" value="0" step="1"></div>
+    <div class="state"><button class="info" type="button" aria-label="What ${esc(a.title)} means">i</button><span class="tip" role="tooltip"><span class="th">${esc(a.title)}</span><span class="pn">${esc(a.neg)}</span>: ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span>: ${esc(a.epos)}</span><span class="np">no preference</span></div>`;
+  const inp=$("input",w), st=$(".np",w);
+  inp.addEventListener("input",()=>{const v=+inp.value;
+    if(v===0){prefs[id]={value:0,active:false};w.classList.add("off");st.textContent="no preference";inp.style.accentColor="";}
+    else{prefs[id]={value:v,active:true};w.classList.remove("off");st.textContent=`${v<0?a.neg:a.pos} ${v>0?'+':''}${v}`;inp.style.accentColor=v<0?"var(--neg)":"var(--pos)";}
+    update();});
+  inp.addEventListener("dblclick",()=>{prefs[id]={value:0,active:false};inp.value=0;w.classList.add("off");st.textContent="no preference";inp.style.accentColor="";update();});
+  const info=$(".info",w), tip=$(".tip",w);
+  info.addEventListener("click",e=>{e.stopPropagation();tip.classList.toggle("show");});
+  return w;
+}
 function buildPanel(){
   const box=$("#prefs");
-  ORDER.forEach(id=>{const a=AXES.find(x=>x.id===id); if(!a)return;
-    const w=document.createElement("div"); w.className="slider off"; w.dataset.axis=id;
-    // The slider's left end is -10 (the negative pole), its right end +10 (the positive pole).
-    // Order the two title halves by pole so the header always matches the emitted value's sign,
-    // even on an axis whose title happens to list the positive pole first (autonomous-vs-...).
-    const norm=s=>s.toLowerCase().replace(/[\s-]+/g,"_");
-    const parts=a.title.split(" vs ");
-    const tp=(parts.length===2&&norm(parts[0])===a.pos&&norm(parts[1])===a.neg)?[parts[1],parts[0]]:parts;
-    w.innerHTML=`<div class="prow"><span class="hl">${esc(tp[0])||esc(a.title)}</span>${tp[1]?`<em class="hvs">vs</em><span class="hr">${esc(tp[1])}</span>`:''}</div>
-      <div class="srange"><input type="range" min="-10" max="10" value="0" step="1"></div>
-      <div class="state"><button class="info" type="button" aria-label="What ${esc(a.title)} means">i</button><span class="tip" role="tooltip"><span class="th">${esc(a.title)}</span><span class="pn">${esc(a.neg)}</span>: ${esc(a.eneg)}<br><span class="pp">${esc(a.pos)}</span>: ${esc(a.epos)}</span><span class="np">no preference</span></div>`;
-    const inp=$("input",w), st=$(".np",w);
-    inp.addEventListener("input",()=>{const v=+inp.value;
-      if(v===0){prefs[id]={value:0,active:false};w.classList.add("off");st.textContent="no preference";inp.style.accentColor="";}
-      else{prefs[id]={value:v,active:true};w.classList.remove("off");st.textContent=`${v<0?a.neg:a.pos} ${v>0?'+':''}${v}`;inp.style.accentColor=v<0?"var(--neg)":"var(--pos)";}
-      update();});
-    inp.addEventListener("dblclick",()=>{prefs[id]={value:0,active:false};inp.value=0;w.classList.add("off");st.textContent="no preference";inp.style.accentColor="";update();});
-    const info=$(".info",w), tip=$(".tip",w);
-    info.addEventListener("click",e=>{e.stopPropagation();tip.classList.toggle("show");});
-    box.appendChild(w);
-  });
+  const primary=ORDER.slice(0,PRIMARY_N);
+  const rest=ORDER.slice(PRIMARY_N);
+  primary.forEach(id=>{const w=makeSlider(id); if(w) box.appendChild(w);});
+  if(rest.length){
+    const det=document.createElement("details"); det.className="more-axes";
+    det.innerHTML=`<summary>More axes (${rest.length})</summary>`;
+    const wrap=document.createElement("div");
+    rest.forEach(id=>{const w=makeSlider(id); if(w) wrap.appendChild(w);});
+    det.appendChild(wrap);
+    box.appendChild(det);
+  }
 }
 function clearAll(){AXES.forEach(a=>prefs[a.id]={value:0,active:false});$$("#prefs .slider").forEach(w=>{w.classList.add("off");const i=$("input",w);i.value=0;i.style.accentColor="";$(".np",w).textContent="no preference";});update();}
+function updatePrefsBadge(){
+  const n=activePrefCount();
+  const b=$("#prefs-badge");
+  if(b){b.textContent=String(n);b.classList.toggle("on",n>0);}
+  const fab=$("#prefs-fab");
+  if(fab) fab.setAttribute("aria-label",n?`Preferences, ${n} active`:"Preferences");
+}
+
+// ---- mobile prefs sheet ----
+function prefsFocusables(){
+  const sheet=$("#prefs-sheet");
+  return $$('button, a[href], input, summary, [tabindex]:not([tabindex="-1"])',sheet).filter(el=>!el.disabled&&el.offsetParent!==null);
+}
+function prefsKey(e){
+  if(e.key==="Escape"){closePrefsSheet();return;}
+  if(e.key==="Tab"){
+    const f=prefsFocusables(); if(!f.length) return;
+    const first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+}
+function openPrefsSheet(){
+  if(window.matchMedia("(min-width:901px)").matches) return;
+  prefsLastFocus=document.activeElement;
+  prefsSheetOpen=true;
+  $("#prefs-sheet").classList.add("open");
+  $("#prefs-scrim").classList.add("on");
+  document.body.classList.add("sheet-open");
+  document.addEventListener("keydown",prefsKey);
+  const closeBtn=$("#prefs-close"); if(closeBtn) closeBtn.focus();
+}
+function closePrefsSheet(){
+  prefsSheetOpen=false;
+  $("#prefs-sheet").classList.remove("open");
+  $("#prefs-scrim").classList.remove("on");
+  document.body.classList.remove("sheet-open");
+  document.removeEventListener("keydown",prefsKey);
+  if(prefsLastFocus) prefsLastFocus.focus();
+}
 
 // ---- compare ----
 function syncCompareButtons(){$$(".cmpbtn").forEach(b=>{const on=compare.includes(b.dataset.slug);b.classList.toggle("added",on);b.textContent=on?"✓ added":"+ compare";});}
@@ -514,12 +695,42 @@ function cmpRender(){
   cmpRenderCombined();
 }
 
-function update(){renderPlot();renderSignatures();renderFitLines();}
+function syncStartHint(){
+  const el=$("#start-hint");
+  if(el) el.classList.toggle("is-hidden",activePrefCount()>0);
+}
+let aboutLastFocus=null;
+function openAbout(){
+  aboutLastFocus=document.activeElement;
+  $("#aboutscrim").classList.add("on");
+  document.addEventListener("keydown",aboutKey);
+  const x=$("#about-x"); if(x) x.focus();
+}
+function closeAbout(){
+  $("#aboutscrim").classList.remove("on");
+  document.removeEventListener("keydown",aboutKey);
+  if(aboutLastFocus) aboutLastFocus.focus();
+}
+function aboutKey(e){
+  if(e.key==="Escape"){e.preventDefault();closeAbout();}
+}
+
+function update(){renderCards();renderPlot();updatePrefsBadge();syncStartHint();}
 document.addEventListener("DOMContentLoaded",()=>{
-  buildPanel();renderCards();renderPlot();renderTray();syncCompareButtons();
+  buildPanel();renderCards();renderPlot();renderTray();syncCompareButtons();updatePrefsBadge();syncStartHint();
   $("#plot").addEventListener("click",e=>{const t=e.target.closest("[data-slug]");if(t)location.href="profiles/"+t.dataset.slug+".html";});
   document.addEventListener("click",()=>$$(".tip.show").forEach(t=>t.classList.remove("show")));
-  window.addEventListener("resize",renderPlot);
+  window.addEventListener("resize",()=>{renderPlot();if(prefsSheetOpen&&window.matchMedia("(min-width:901px)").matches)closePrefsSheet();});
+  const search=$("#search");
+  if(search) search.addEventListener("input",()=>{searchQ=search.value||"";renderCards();});
+  $("#prefs-fab").addEventListener("click",openPrefsSheet);
+  $("#prefs-close").addEventListener("click",closePrefsSheet);
+  $("#prefs-done").addEventListener("click",closePrefsSheet);
+  $("#prefs-scrim").addEventListener("click",closePrefsSheet);
+  const aboutBtn=$("#about-open");
+  if(aboutBtn) aboutBtn.addEventListener("click",openAbout);
+  $("#about-x").onclick=closeAbout;
+  $("#aboutscrim").addEventListener("click",e=>{if(e.target===$("#aboutscrim"))closeAbout();});
   $("#cmp-x").onclick=closeCmp;
   $("#cmpscrim").addEventListener("click",e=>{if(e.target===$("#cmpscrim"))closeCmp();});
   window.addEventListener("resize",()=>{if($("#cmpscrim").classList.contains("on")&&cmpShapeOpen&&!cmpDrillAxis&&$("#cmpplot"))cmpDrawPlot();});
@@ -575,22 +786,60 @@ def build():
         src = os.path.join(PROFILES, p["slug"] + ".html")
         if os.path.exists(src):
             shutil.copy(src, os.path.join(OUT, "profiles", p["slug"] + ".html"))
+    n_profiles = len(data)
+    rubric_ver = data[0].get("rubric_version") or "—"
+    corpus_label = f"{n_profiles} framework{'s' if n_profiles != 1 else ''}"
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agentic Atlas, find your fit</title><style>{CSS}</style></head><body><div class="wrap">
-<header class="top"><div class="brand"><svg class="mark" viewBox="0 0 30 31" aria-hidden="true"><polygon points="15,1 4,11 15,11" fill="var(--neg)"/><polygon points="15,1 26,11 15,11" fill="var(--pos)"/><polygon points="4,11 15,11 15,30" fill="var(--neg)" opacity=".8"/><polygon points="26,11 15,11 15,30" fill="var(--pos)" opacity=".8"/><polygon points="15,1 4,11 15,30 26,11" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".55"/></svg><span class="word">Agentic Atlas</span></div><span class="spacer"></span><a class="repo" href="https://github.com/AdamCaviness/agentic-atlas" target="_blank" rel="noopener" aria-label="Open agentic-atlas on GitHub (opens in a new tab)" title="Open agentic-atlas on GitHub">{GH_MARK}</a></header>
+<header class="top">
+  <div class="brand"><svg class="mark" viewBox="0 0 30 31" aria-hidden="true"><polygon points="15,1 4,11 15,11" fill="var(--neg)"/><polygon points="15,1 26,11 15,11" fill="var(--pos)"/><polygon points="4,11 15,11 15,30" fill="var(--neg)" opacity=".8"/><polygon points="26,11 15,11 15,30" fill="var(--pos)" opacity=".8"/><polygon points="15,1 4,11 15,30 26,11" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".55"/></svg><span class="word">Agentic Atlas</span></div>
+  <div class="meta"><span class="pill">{corpus_label}</span><span class="pill">rubric {rubric_ver}</span></div>
+  <nav class="nav" aria-label="Site">
+    <button type="button" class="about" id="about-open">What is this?</button>
+    <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">Rubric</a>
+    <a href="https://github.com/AdamCaviness/agentic-atlas#readme" target="_blank" rel="noopener">Docs</a>
+    <a class="repo" href="https://github.com/AdamCaviness/agentic-atlas" target="_blank" rel="noopener" aria-label="Open agentic-atlas on GitHub (opens in a new tab)" title="Open agentic-atlas on GitHub">{GH_MARK}</a>
+  </nav>
+  <div class="search"><label class="visually-hidden" for="search" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search frameworks</label><input id="search" type="search" placeholder="Search frameworks" autocomplete="off" spellcheck="false"></div>
+</header>
 <section class="hero">
-<p class="lead">Profile agentic development methodologies, frameworks, and skill collections on shared axes, and see if one fits you and your projects.</p>
-<p class="sub2">A deterministic engine over an open, versioned, community-driven rubric. Hosted profiles of popular tools, run it yourself and help improve it.</p>
-<p class="principle">There's no right or wrong, and these aren't judgments, just measurements based on our community-driven rubric.</p>
+<p class="lead">Find the agentic framework or methodology that works for you and your projects.</p>
+<p class="start" id="start-hint">Set 1–2 preferences to re-rank the frameworks</p>
 </section>
 <div class="layout">
-  <aside class="panel"><div class="phead"><h2>Your preferences</h2><button class="clr" onclick="clearAll()" title="Clear all preferences" aria-label="Clear all preferences">{BROOM}</button></div><p class="sub">Set only what matters. Untouched sliders mean no preference.</p><div id="prefs"></div><div id="matches" class="matches"></div></aside>
   <main>
-  <svg id="plot" style="display:none"></svg>
+  <div id="rankstrip" class="rankstrip" aria-live="polite"></div>
+  <svg id="plot"></svg>
+  <p id="gstatus" class="gstatus" aria-live="polite"></p>
   <div id="gallery" class="gallery"></div>
   <div id="tray" class="tray"></div></main>
+  <aside class="panel" id="prefs-sheet" aria-label="Your preferences">
+    <div class="phead"><h2>Your preferences</h2><div style="display:flex;gap:6px;align-items:center"><button class="clr" onclick="clearAll()" title="Clear all preferences" aria-label="Clear all preferences">{BROOM}</button><button class="sheet-close" id="prefs-close" type="button" aria-label="Close preferences">&times;</button></div></div>
+    <p class="sub">Set only what matters. Untouched sliders mean no preference.</p>
+    <div id="prefs"></div>
+    <div class="sheet-actions btnrow"><button class="act" type="button" onclick="clearAll()">Clear</button><button class="act" type="button" id="prefs-done" style="background:var(--accent);color:var(--pill-fg);border-color:var(--accent)">Done</button></div>
+  </aside>
 </div></div>
+<button type="button" class="prefs-fab" id="prefs-fab" aria-haspopup="dialog">Preferences <span class="badge" id="prefs-badge">0</span></button>
+<div class="prefs-scrim" id="prefs-scrim"></div>
+<div class="about-scrim" id="aboutscrim" role="dialog" aria-modal="true" aria-labelledby="about-title">
+  <div class="about" id="aboutbox">
+    <div class="about-hd"><h2 id="about-title">What is this?</h2><button class="about-x" id="about-x" aria-label="Close">&times;</button></div>
+    <p>Agentic Atlas places frameworks, methodologies, and skill collections on shared axes so you can see which ones fit you and your projects.</p>
+    <p class="stance">There's no right or wrong, and these aren't judgments, just measurements based on our community-driven rubric. There is no aggregate score.</p>
+    <p class="muted">A deterministic engine reads an open, versioned rubric. Popular tools are already measured here; the source and setup live on GitHub if you want to score a tool yourself or help improve the rubric.</p>
+    <ul>
+      <li>Bars lean toward the pole they favor. Near 0 means neither side clearly.</li>
+      <li>Evidence % shows how much of the intended signal was found.</li>
+      <li>Set preferences to re-rank the frameworks toward how you work.</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">Open the rubric</a>
+      <a href="https://github.com/AdamCaviness/agentic-atlas#readme" target="_blank" rel="noopener">Read the docs</a>
+    </div>
+  </div>
+</div>
 <div class="scrim" id="cmpscrim" role="dialog" aria-modal="true" aria-labelledby="cmp-title">
   <div class="cmp" id="cmpbox">
     <div class="cmp-hd"><h2 id="cmp-title">Compare</h2><div class="cmp-tools" id="cmp-tools"></div><button class="cmp-x" id="cmp-x" aria-label="Close compare">&times;</button></div>

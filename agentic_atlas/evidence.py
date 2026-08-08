@@ -154,6 +154,15 @@ class Target:
     def git_sha(self) -> str | None:
         return self._run_git("rev-parse", "HEAD") or None
 
+    def git_version(self) -> str | None:
+        """The project's release tag at HEAD, if HEAD is exactly on a tag.
+
+        Used as the reader-facing "based on" version on profile HTML. Returns None when
+        the checkout is not at a tagged commit (or is not a git repo), so callers fall
+        back to the short SHA.
+        """
+        return self._run_git("describe", "--tags", "--exact-match", "HEAD") or None
+
     def is_shallow(self) -> bool:
         """True when the checkout has only partial history (a shallow clone).
 

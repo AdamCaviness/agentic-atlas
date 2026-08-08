@@ -40,5 +40,6 @@ def profile_target(
         engine_version=__version__,
         target_sha=target.git_sha(),
         target_url=target.git_origin(),
+        target_version=target.git_version(),
         axis_results=axis_results,
     )

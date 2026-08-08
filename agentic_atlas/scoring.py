@@ -48,6 +48,7 @@ def score_profile(
     target_sha: str | None,
     axis_results: list[AxisResult],
     target_url: str | None = None,
+    target_version: str | None = None,
 ) -> Profile:
     return Profile(
         target=target,
@@ -56,6 +57,7 @@ def score_profile(
         target_sha=target_sha,
         axes=tuple(axis_results),
         target_url=target_url,
+        target_version=target_version,
     )
 
 
