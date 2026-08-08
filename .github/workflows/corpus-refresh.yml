@@ -1,0 +1,101 @@
+# Keep the committed profile corpus on each source repo's current default-branch tip.
+#
+# Weekly (and on demand): if any pin is behind origin HEAD, open a PR that runs
+# `make corpus-refresh`. Reviewers re-answer any classified quotes the report marks stale
+# before merge.
+#
+# Does not block the CI gate on main: freshness is a maintenance loop, not a merge check.
+name: Corpus refresh
+
+on:
+  schedule:
+    # Mondays 14:00 UTC
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: corpus-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install (editable, with dev deps)
+        run: pip install -e ".[dev]"
+
+      - name: Detect pin drift
+        id: status
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if python scripts/corpus.py status; then
+            echo "drift=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "drift=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Refresh corpus pins
+        if: steps.status.outputs.drift == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: make corpus-refresh
+
+      - name: Open or update pull request
+        if: steps.status.outputs.drift == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then
+            echo "status reported drift but refresh produced no diff; nothing to PR"
+            exit 0
+          fi
+          branch="chore/corpus-refresh-auto"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add profiles
+          git commit -m "$(cat <<'EOF'
+          chore: refresh corpus pins to origin default-branch HEAD
+
+          Automated weekly corpus refresh. Re-answer any classified quotes listed as
+          stale in the workflow log before merging.
+          EOF
+          )"
+          git push -u origin "$branch" --force
+          existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
+          body="$(cat <<'EOF'
+          ## Summary
+          Automated corpus refresh: move each profile pin to origin default-branch HEAD,
+          rescore, and re-render HTML. Version stamps come from `git describe` at that tip.
+
+          ## Before merge
+          - [ ] Read the workflow log for **stale quotes** and re-answer via
+                `/agentic-atlas:run <url> --save` where needed
+          - [ ] Spot-check a few profile stamps against the project's current tip/release
+          - [ ] `make check` is green on this branch
+
+          EOF
+          )"
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" --body "$body"
+            echo "updated PR #$existing"
+          else
+            gh pr create --title "chore: refresh corpus pins to current HEAD" --body "$body"
+          fi

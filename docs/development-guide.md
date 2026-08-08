@@ -36,11 +36,29 @@ make validate              # validate rubric/v1 against its schemas (RUBRIC=... 
 make docs                  # regenerate axis README scoring blocks from axis.yaml
 make docs-check            # fail if any axis README block is stale (part of make check)
 make profile TARGET=/path/to/methodology [ANSWERS=answers.json FORMAT=text|md|json|html]
+make corpus-status         # fail if any committed pin is behind origin HEAD
+make corpus-refresh        # move pins to origin default-branch HEAD, rewrite JSON+HTML
+make corpus-rescore        # replay answers at the *existing* pins (engine/rubric bump only)
 make clean                 # remove venv, caches, build artifacts
 ```
 
 Ruff is configured in `pyproject.toml`: line length 100, target `py311`. Pytest's
 `testpaths = ["tests"]`.
+
+## Keeping the profile corpus current
+
+Each committed profile pins a `target_sha` and stamps `target_version` from that commit
+(`git describe --tags`). Visitors expect that stamp to reflect the project's current
+default branch (at or near the GitHub Release they see), not an old measurement SHA.
+
+- **`make corpus-refresh`** — the maintenance path. Fetches every source repo, checks out
+  origin default-branch HEAD (never an older Release tag), replays classified answers,
+  rewrites `profiles/*.json`, and re-renders HTML. Re-answer any quotes the report marks
+  stale with `/agentic-atlas:run <url> --save`.
+- **`make corpus-rescore`** — replay at the *current* pins only (after an engine or rubric
+  change). Does not move SHAs.
+- **`make corpus-status`** — exit 1 when any pin is behind origin HEAD. A weekly GitHub
+  Action runs this and opens a refresh PR when drift appears.
 
 ## Using the CLI directly
 

@@ -2,9 +2,9 @@
   "target": "OpenSpec",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "e2f748c64f05efaeac720f83c71fb6f1b6f6e18d",
+  "target_sha": "e50bd0983dc8dc48250e3181f36e28450542f2ab",
   "target_url": "https://github.com/Fission-AI/OpenSpec",
-  "target_version": "v1.6.0-55-ge2f748c",
+  "target_version": "v1.8.0-1-ge50bd09",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "351.6",
-          "evidence": "git age_days = 351.6",
+          "answer": "367.3",
+          "evidence": "git age_days = 367.3",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "682",
-          "evidence": "git commit_count = 682",
+          "answer": "753",
+          "evidence": "git commit_count = 753",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "79",
-          "evidence": "git contributor_count = 79",
+          "answer": "93",
+          "evidence": "git contributor_count = 93",
           "source": "engine"
         },
         {
@@ -383,8 +383,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "579",
-          "evidence": "579 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
+          "answer": "609",
+          "evidence": "609 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
           "source": "engine"
         }
       ]

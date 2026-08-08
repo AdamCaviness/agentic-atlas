@@ -2,9 +2,9 @@
   "target": "superpowers",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "d884ae04edebef577e82ff7c4e143debd0bbec99",
+  "target_sha": "44c9b2d6e889982ac18c27d05a19fefe335194e1",
   "target_url": "https://github.com/obra/superpowers.git",
-  "target_version": "v6.1.1",
+  "target_version": "v6.2.0-1-g44c9b2d",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -29,7 +29,7 @@
           "resolved": true,
           "answer": "either",
           "evidence": "brainstorming, implementation planning, test-driven development, systematic debugging, parallel execution, code review, and finish-the-branch workflows",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb2",
@@ -39,7 +39,7 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "Explore the current structure before proposing changes. Follow existing patterns",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gb4",
@@ -49,7 +49,7 @@
           "resolved": true,
           "answer": "small_diff",
           "evidence": "Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -76,7 +76,7 @@
           "resolved": true,
           "answer": "full_lifecycle",
           "evidence": "Superpowers is a complete software development methodology for your coding agents",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sl2",
@@ -86,7 +86,7 @@
           "resolved": true,
           "answer": "multi_stage",
           "evidence": "it launches a *subagent-driven-development* process, having agents work through each engineering task, inspecting and reviewing their work, and continuing forward",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -113,7 +113,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Evidence over claims** - Verify before declaring success",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pp2",
@@ -122,8 +122,8 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "Working code without real tests is technical debt",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "well-built (clean, tested, maintainable)",
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -150,7 +150,7 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "Push and create a Pull Request",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "st2",
@@ -160,7 +160,7 @@
           "resolved": true,
           "answer": "some",
           "evidence": "User reviews written spec** \u2014 ask user to review the spec file before proceeding",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -187,7 +187,7 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "a complete software development methodology for your coding agents",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "gs2",
@@ -197,7 +197,7 @@
           "resolved": true,
           "answer": "no",
           "evidence": "Superpowers is a complete software development methodology for your coding agents",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "266.1",
-          "evidence": "git age_days = 266.1",
+          "answer": "292.0",
+          "evidence": "git age_days = 292.0",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "628",
-          "evidence": "git commit_count = 628",
+          "answer": "680",
+          "evidence": "git commit_count = 680",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "45",
-          "evidence": "git contributor_count = 45",
+          "answer": "47",
+          "evidence": "git contributor_count = 47",
           "source": "engine"
         },
         {
@@ -264,7 +264,7 @@
           "resolved": true,
           "answer": "evolving",
           "evidence": "Skills evolve. Read current version",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -291,7 +291,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Start by understanding the current project context, then ask questions one at a time to refine the idea",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "io2",
@@ -301,7 +301,7 @@
           "resolved": true,
           "answer": "strict",
           "evidence": "Mandatory workflows, not suggestions",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -328,7 +328,7 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "It's not uncommon for your agent to work autonomously for a couple hours at a time without deviating from the plan you put together",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ah2",
@@ -338,7 +338,7 @@
           "resolved": true,
           "answer": "some_phases",
           "evidence": "until you have presented a design and the user has approved it",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -365,7 +365,7 @@
           "resolved": true,
           "answer": "required",
           "evidence": "Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd2",
@@ -375,7 +375,7 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "sd3",
@@ -412,7 +412,7 @@
           "resolved": true,
           "answer": "enforced",
           "evidence": "NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "tf2",
@@ -422,7 +422,7 @@
           "resolved": true,
           "answer": "first_class",
           "evidence": "Test-Driven Development** - Write tests first, always",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -449,7 +449,7 @@
           "resolved": true,
           "answer": "many",
           "evidence": "Execute plan by dispatching a fresh implementer subagent per task, a task review (spec compliance + code quality) after each, and a broad whole-branch review at the end",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "ma3",
@@ -486,7 +486,7 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "built on top of a set of composable skills and some initial instructions that make sure your agent uses them",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "pc2",
@@ -496,7 +496,7 @@
           "resolved": true,
           "answer": "mandatory_ordered",
           "evidence": "The ONLY skill you invoke after brainstorming is writing-plans",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     },
@@ -523,7 +523,7 @@
           "resolved": true,
           "answer": "minimal",
           "evidence": "you don't need to do anything special. Your coding agent just has Superpowers",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         },
         {
           "indicator_id": "lw2",
@@ -533,7 +533,7 @@
           "resolved": true,
           "answer": "tiny",
           "evidence": "Superpowers is a zero-dependency plugin by design",
-          "source": "agent-team draft 2026-07-22"
+          "source": "agentic-atlas:corpus-refresh-reanswer"
         }
       ]
     }

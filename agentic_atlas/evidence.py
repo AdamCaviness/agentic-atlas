@@ -407,8 +407,26 @@ def _fetch_github_repo(owner: str, repo: str) -> dict | None:
     on missing network, non-200, timeout, or malformed JSON so callers degrade to
     an unresolved indicator rather than raising.
     """
+    return _github_api_json(f"https://api.github.com/repos/{owner}/{repo}")
+
+
+@lru_cache(maxsize=64)
+def _fetch_github_latest_release_tag(owner: str, repo: str) -> str | None:
+    """The latest published (non-draft, non-prerelease) GitHub Release tag, or None.
+
+    Matches what visitors see as the current version on the repo's Releases page.
+    """
+    data = _github_api_json(f"https://api.github.com/repos/{owner}/{repo}/releases/latest")
+    if not data:
+        return None
+    tag = data.get("tag_name")
+    return tag if isinstance(tag, str) and tag else None
+
+
+def _github_api_json(url: str) -> dict | None:
+    """GET a GitHub API URL and return parsed JSON, or None on any failure."""
     request = urllib.request.Request(
-        f"https://api.github.com/repos/{owner}/{repo}",
+        url,
         headers={
             "Accept": "application/vnd.github+json",
             "User-Agent": "agentic-atlas",

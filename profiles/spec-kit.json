@@ -2,9 +2,9 @@
   "target": "spec-kit",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "93fc533d790f463355763573dbef17e6b109e1eb",
+  "target_sha": "684b3d8e05263a7c1948d3d0699ab1cb4f77c3d5",
   "target_url": "https://github.com/github/spec-kit",
-  "target_version": "v0.1.10-957-g93fc533",
+  "target_version": "v0.1.10-1171-g684b3d8",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "334.9",
-          "evidence": "git age_days = 334.9",
+          "answer": "350.8",
+          "evidence": "git age_days = 350.8",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1521",
-          "evidence": "git commit_count = 1521",
+          "answer": "1735",
+          "evidence": "git commit_count = 1735",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "262",
-          "evidence": "git contributor_count = 262",
+          "answer": "277",
+          "evidence": "git contributor_count = 277",
           "source": "engine"
         },
         {
