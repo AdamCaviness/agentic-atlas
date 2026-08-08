@@ -844,10 +844,11 @@ def _project_html(url: str | None, name: str) -> str:
 def _html_project_stamps(profile: Profile) -> str:
     """Reader-facing provenance: the project's version at profile time, not Atlas versions.
 
-    Formats a captured ``target_version`` (exact tag or raw ``git describe``) for readers:
-    exact tags as ``version <tag>``, past-tag describes as ``version <tag> · N commits later``
-    (with SemVer ``+build`` metadata stripped), otherwise ``commit <sha>``. Rubric and engine
-    stay in the JSON (and text/markdown reports) for reproducibility.
+    Formats a captured ``target_version`` (exact tag or raw ``git describe``) as
+    ``version <tag>`` for readers, stripping SemVer ``+build`` metadata and any describe
+    distance suffix. Distance stays in the JSON describe string for reproducibility.
+    Untagged checkouts fall back to ``commit <sha>``. Rubric and engine stay in the JSON
+    (and text/markdown reports).
     """
     return _html_escape(_project_stamp(profile))
 
@@ -875,16 +876,16 @@ def _strip_semver_build(tag: str) -> str:
 
 
 def _project_stamp(profile: Profile) -> str:
-    """Reader-facing project provenance shared by HTML, text, and markdown."""
+    """Reader-facing project provenance shared by HTML, text, and markdown.
+
+    Shows the nearest release tag (what a visitor expects from GitHub Releases), not the
+    raw describe distance. Full describe remains in ``Profile.target_version``.
+    """
     if not profile.target_version:
         sha = (profile.target_sha or "unknown")[:12]
         return f"commit {sha}"
-    tag, distance = _parse_git_describe(profile.target_version, profile.target_sha)
-    tag = _strip_semver_build(tag)
-    if distance == 0:
-        return f"version {tag}"
-    unit = "commit" if distance == 1 else "commits"
-    return f"version {tag} · {distance} {unit} later"
+    tag, _distance = _parse_git_describe(profile.target_version, profile.target_sha)
+    return f"version {_strip_semver_build(tag)}"
 
 
 def render_html(profile: Profile) -> str:
