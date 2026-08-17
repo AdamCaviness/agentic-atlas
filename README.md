@@ -77,13 +77,44 @@ agentic-atlas compare bmad-method superpowers gsd                   # (planned) 
 
 The engine is deterministic and needs no API key. A bare `profile` run resolves the **measured** indicators, the ones the engine computes directly from the repository, and reports how much of each axis that covers. The **classified** indicators, the ones that need the repository read and interpreted, are unlocked by supplying answers: `questions` lists them, an agent answers each with a value from its fixed set and a quote from the target, and `profile --answers` validates every answer (the quote must appear verbatim, the value must be one of the declared options) and scores the ones that pass. The engine never calls a model; it validates.
 
-The intended answerer is the `run` skill of the `agentic-atlas` plugin, which now ships in this repo (invoked `/agentic-atlas:run`). Install via [agentic-marketplace](https://github.com/adamcaviness/agentic-marketplace) for Claude Code (Cursor reuses that install if you use both), or see [.cursor/INSTALL.md](.cursor/INSTALL.md) for Cursor-only and Teams options. Its host agent is already a capable model with repo access, so it answers the classified questions and feeds them back, no key required. Running the engine raw gives you the deterministic measured axes; running it through the skill unlocks the rest.
+The intended answerer is the `run` skill of the `agentic-atlas` plugin. Its host agent is already a capable model with repo access, so it answers the classified questions and feeds them back, no key required. Running the engine raw gives you the deterministic measured axes; running it through the skill unlocks the rest.
 
-The plugin ships three skills:
+## Plugin installation
+
+The plugin ships three skills. Install from [agentic-marketplace](https://github.com/adamcaviness/agentic-marketplace); pick **one** path per harness.
 
 - `/agentic-atlas:run [path-or-git-url]` profiles a target and unlocks the classified axes (the flow described above).
 - `/agentic-atlas:open-explorer` opens the hosted **Explorer** at <https://adamcaviness.github.io/agentic-atlas/>, where ready-made profiles of popular methodologies let you browse and find your fit without running anything yourself.
 - `/agentic-atlas:explain [question]` explains the method and helps you read a profile, grounded in these docs and the rubric, upholding the no-ranking, no-aggregate-score stance.
+
+<details>
+<summary>Claude Code</summary>
+
+```bash
+/plugin marketplace add adamcaviness/agentic-marketplace
+/plugin install agentic-atlas@agentic-marketplace
+```
+
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+See [.cursor/INSTALL.md](.cursor/INSTALL.md). If you already installed via Claude Code, stop there. Cursor-only: clone into `~/.cursor/plugins/local/agentic-atlas`. Teams admins import the marketplace from [cursor.com/dashboard](https://cursor.com/dashboard).
+
+</details>
+
+<details>
+<summary>Codex / ChatGPT desktop</summary>
+
+See [.codex/INSTALL.md](.codex/INSTALL.md). In ChatGPT desktop: **Plugins → Add plugin marketplace**. Source `adamcaviness/agentic-marketplace`, Git ref `main`, Sparse paths empty. Then install **agentic-atlas**.
+
+```bash
+codex plugin marketplace add adamcaviness/agentic-marketplace --ref main
+codex plugin add agentic-atlas@agentic-marketplace
+```
+
+</details>
 
 ## Reproducibility and fairness
 
