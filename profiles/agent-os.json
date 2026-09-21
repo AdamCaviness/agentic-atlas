@@ -2,9 +2,9 @@
   "target": "agent-os",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "cae8e664fb59a01869718c3151e0f45b7a06a2fb",
+  "target_sha": "475b0cac4c7c5cf2336ad5a663b691a6d3415e05",
   "target_url": "https://github.com/buildermethods/agent-os",
-  "target_version": "v3.0.0-6-gcae8e66",
+  "target_version": "v3.0.0-7-g475b0ca",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "292.3",
-          "evidence": "git age_days = 292.3",
+          "answer": "408.7",
+          "evidence": "git age_days = 408.7",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "130",
-          "evidence": "git commit_count = 130",
+          "answer": "131",
+          "evidence": "git commit_count = 131",
           "source": "engine"
         },
         {

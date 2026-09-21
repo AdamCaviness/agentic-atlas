@@ -2,9 +2,9 @@
   "target": "aidlc-workflows",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "114ef4d0ae6082e63ff0c7d14a910e3195163235",
+  "target_sha": "3e614b6e55963a2d2390c4d8b0877c5a8a33bb2f",
   "target_url": "https://github.com/awslabs/aidlc-workflows",
-  "target_version": "v1.0.1-5-g114ef4d0",
+  "target_version": "v2.9.1-preview.20260920.1-9-g3e614b6e",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,38 +18,38 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 3.8,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "gb1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "either",
-          "evidence": "Greenfield vs brownfield, existing documentation",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "gb2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "yes",
-          "evidence": "Analyze existing codebase and generate comprehensive design artifacts",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "gb4",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "Complex changes get comprehensive treatment, simple changes stay efficient",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -65,28 +65,28 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 7.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "sl1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.5,
-          "resolved": true,
-          "answer": "most",
-          "evidence": "AI-DLC follows a structured three-phase approach that adapts to your project's complexity",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sl2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "multi_stage",
-          "evidence": "The CONSTRUCTION phase contains 7 stages",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -102,28 +102,28 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 5.8,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "pp1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
-          "resolved": true,
-          "answer": "some",
-          "evidence": "Baseline security rules",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "pp2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "maintains quality standards",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -139,28 +139,28 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 4.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "st1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "partial",
-          "evidence": "creating units of work for parallel development",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "st2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "many",
-          "evidence": "involve relevant stakeholders for each phase",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -176,28 +176,28 @@
         "positive": "built specifically for software delivery"
       },
       "scale": 10.0,
-      "score": 10.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "gs1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "software_only",
-          "evidence": "AI-DLC is an intelligent software development workflow",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "gs2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "no",
-          "evidence": "When user requests software development",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -213,8 +213,8 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 5.0,
-      "coverage": 1.0,
+      "score": 3.3,
+      "coverage": 0.75,
       "indicators": [
         {
           "indicator_id": "fm1",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "250.5",
-          "evidence": "git age_days = 250.5",
+          "answer": "311.6",
+          "evidence": "git age_days = 311.6",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "205",
-          "evidence": "git commit_count = 205",
+          "answer": "546",
+          "evidence": "git commit_count = 546",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "32",
-          "evidence": "git contributor_count = 32",
+          "answer": "68",
+          "evidence": "git contributor_count = 68",
           "source": "engine"
         },
         {
@@ -252,19 +252,19 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "20",
-          "evidence": "git tag_count = 20",
+          "answer": "29",
+          "evidence": "git tag_count = 29",
           "source": "engine"
         },
         {
           "indicator_id": "fm6",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "stable",
-          "evidence": "general availability of AI-DLC Workflows",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -280,28 +280,28 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "io1",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "yes",
-          "evidence": "Structured multiple-choice questions in files",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "io2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "guided",
-          "evidence": "The workflow adapts to the work, not the other way around.",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -317,28 +317,28 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -3.5,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "ah1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
-          "resolved": true,
-          "answer": "partial",
-          "evidence": "makes autonomous software development practical",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "ah2",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "every_phase",
-          "evidence": "Review execution plans and approve each phase",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -354,37 +354,37 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 4.3,
-      "coverage": 1.0,
+      "score": 3.0,
+      "coverage": 0.2857,
       "indicators": [
         {
           "indicator_id": "sd1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "required",
-          "evidence": "Requirements Analysis (ALWAYS EXECUTE - Adaptive Depth)",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sd2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "yes",
-          "evidence": "All the artifacts will be generated in the",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sd3",
           "kind": "measured",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.3,
           "resolved": true,
-          "answer": "0",
-          "evidence": "0 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
+          "answer": "1",
+          "evidence": "1 files matched ['**/*prd*template*.md', '**/*spec*template*.md', '**/*requirement*template*.md', '**/*design*template*.md', '**/*architecture*template*.md', '**/example_prd*.md', '**/example-prd*.md', '**/templates/prd*.md', '**/templates/spec*.md', '**/templates/requirement*.md', '**/templates/design*.md', '**/templates/architecture*.md', '**/openspec/**', '**/.kiro/**/specs/**', '**/PRPs/templates/**', '**/prps/templates/**']",
           "source": "engine"
         }
       ]
@@ -401,28 +401,28 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -2.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "tf1",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "no",
-          "evidence": "Already generated per unit during code generation",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "tf2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "first_class",
-          "evidence": "Build and Test (ALWAYS EXECUTE)",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -439,17 +439,17 @@
       },
       "scale": 10.0,
       "score": -10.0,
-      "coverage": 1.0,
+      "coverage": 0.25,
       "indicators": [
         {
           "indicator_id": "ma1",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "single",
-          "evidence": "The AI model intelligently assesses what stages are needed",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "ma3",
@@ -457,8 +457,8 @@
           "weight": 1.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "0",
-          "evidence": "0 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
+          "answer": "1",
+          "evidence": "1 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
           "source": "engine"
         }
       ]
@@ -475,28 +475,28 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 0.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "pc1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "Stages execute in the order that makes sense for your specific task",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "pc2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "All other stages are conditional",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -512,28 +512,28 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": -4.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "lw1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "moderate",
-          "evidence": "Answer structured questions that AI-DLC asks you",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "lw2",
           "kind": "classified",
           "weight": 2.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "tiny",
-          "evidence": "shouldn't need to install anything to get started",
-          "source": "agent-team wave2 2026-07-23"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     }

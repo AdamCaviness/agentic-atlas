@@ -2,9 +2,9 @@
   "target": "superpowers",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "44c9b2d6e889982ac18c27d05a19fefe335194e1",
+  "target_sha": "5bf4e78011075bcfc0dc295f0724994cd123ee71",
   "target_url": "https://github.com/obra/superpowers.git",
-  "target_version": "v6.2.0-1-g44c9b2d",
+  "target_version": "v6.4.1",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "292.0",
-          "evidence": "git age_days = 292.0",
+          "answer": "344.2",
+          "evidence": "git age_days = 344.2",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "680",
-          "evidence": "git commit_count = 680",
+          "answer": "682",
+          "evidence": "git commit_count = 682",
           "source": "engine"
         },
         {
@@ -252,8 +252,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "33",
-          "evidence": "git tag_count = 33",
+          "answer": "35",
+          "evidence": "git tag_count = 35",
           "source": "engine"
         },
         {
@@ -280,18 +280,18 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 0.0,
-      "coverage": 1.0,
+      "score": 10.0,
+      "coverage": 0.5,
       "indicators": [
         {
           "indicator_id": "io1",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "yes",
-          "evidence": "Start by understanding the current project context, then ask questions one at a time to refine the idea",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "io2",
@@ -317,8 +317,8 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 1.5,
-      "coverage": 1.0,
+      "score": 3.0,
+      "coverage": 0.5,
       "indicators": [
         {
           "indicator_id": "ah1",
@@ -334,11 +334,11 @@
           "indicator_id": "ah2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "some_phases",
-          "evidence": "until you have presented a design and the user has approved it",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -354,18 +354,18 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 4.3,
-      "coverage": 1.0,
+      "score": 0.0,
+      "coverage": 0.5714,
       "indicators": [
         {
           "indicator_id": "sd1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "required",
-          "evidence": "Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sd2",

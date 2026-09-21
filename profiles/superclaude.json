@@ -2,9 +2,9 @@
   "target": "SuperClaude_Framework",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "10be75032e249d2dd5c5175e9853c2566874ddd3",
+  "target_sha": "2d0fda08f2eed9951794dc9c54a6289454961075",
   "target_url": "https://github.com/SuperClaude-Org/SuperClaude_Framework",
-  "target_version": "v4.3.0-2-g10be750",
+  "target_version": "v4.3.0-4-g2d0fda0",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "372.7",
-          "evidence": "git age_days = 372.7",
+          "answer": "427.6",
+          "evidence": "git age_days = 427.6",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "346",
-          "evidence": "git commit_count = 346",
+          "answer": "348",
+          "evidence": "git commit_count = 348",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "46",
-          "evidence": "git contributor_count = 46",
+          "answer": "48",
+          "evidence": "git contributor_count = 48",
           "source": "engine"
         },
         {

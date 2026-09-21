@@ -2,9 +2,9 @@
   "target": "autonomous-dev",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "02ae2a6f1970ff086940cd1a0fdb70407e642f59",
+  "target_sha": "34311ec486ff6b585ef6f5bd5d03996da985ff13",
   "target_url": "https://github.com/akaszubski/autonomous-dev",
-  "target_version": "autonomous-dev-v3.40.0+838124b-36-g02ae2a6f",
+  "target_version": "autonomous-dev-v3.40.0+fbaa032-174-g34311ec4",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "293.7",
-          "evidence": "git age_days = 293.7",
+          "answer": "329.7",
+          "evidence": "git age_days = 329.7",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "2051",
-          "evidence": "git commit_count = 2051",
+          "answer": "2851",
+          "evidence": "git commit_count = 2851",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "43",
-          "evidence": "git contributor_count = 43",
+          "answer": "49",
+          "evidence": "git contributor_count = 49",
           "source": "engine"
         },
         {
@@ -252,8 +252,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "43",
-          "evidence": "git tag_count = 43",
+          "answer": "118",
+          "evidence": "git tag_count = 118",
           "source": "engine"
         },
         {
@@ -457,8 +457,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "16",
-          "evidence": "16 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
+          "answer": "17",
+          "evidence": "17 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
           "source": "engine"
         }
       ]

@@ -2,9 +2,9 @@
   "target": "compound-engineering",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "0a2957852e2034d04eb01120fd7da6ed5307dc56",
+  "target_sha": "be14bfe28b2679e3c3b958c409cb23626d47d714",
   "target_url": "https://github.com/EveryInc/compound-engineering-plugin",
-  "target_version": "compound-engineering-v3.21.4",
+  "target_version": "compound-engineering-v3.27.0-3-gbe14bfe2",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,8 +18,8 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 1.5,
-      "coverage": 1.0,
+      "score": 0.0,
+      "coverage": 0.625,
       "indicators": [
         {
           "indicator_id": "gb1",
@@ -35,11 +35,11 @@
           "indicator_id": "gb2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.4,
-          "resolved": true,
-          "answer": "partial",
-          "evidence": "does the homework first (codebase, past learnings, prior art on the web",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "gb4",
@@ -65,28 +65,28 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 6.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "sl1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "full_lifecycle",
-          "evidence": "plan, implement, review and fix, commit, push a branch, open a PR, and watch CI to green",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sl2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -102,18 +102,18 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 5.8,
-      "coverage": 1.0,
+      "score": 10.0,
+      "coverage": 0.4,
       "indicators": [
         {
           "indicator_id": "pp1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
-          "resolved": true,
-          "answer": "some",
-          "evidence": "watch CI to green",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "pp2",
@@ -213,8 +213,8 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 5.0,
-      "coverage": 1.0,
+      "score": 6.7,
+      "coverage": 0.75,
       "indicators": [
         {
           "indicator_id": "fm1",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "300.5",
-          "evidence": "git age_days = 300.5",
+          "answer": "346.3",
+          "evidence": "git age_days = 346.3",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1131",
-          "evidence": "git commit_count = 1131",
+          "answer": "1385",
+          "evidence": "git commit_count = 1385",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "97",
-          "evidence": "git contributor_count = 97",
+          "answer": "113",
+          "evidence": "git contributor_count = 113",
           "source": "engine"
         },
         {
@@ -252,19 +252,19 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "199",
-          "evidence": "git tag_count = 199",
+          "answer": "216",
+          "evidence": "git tag_count = 216",
           "source": "engine"
         },
         {
           "indicator_id": "fm6",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "evolving",
-          "evidence": "Compound Engineering moved to a root-native layout",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -280,18 +280,18 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
-      "coverage": 1.0,
+      "score": 0.0,
+      "coverage": 0.5,
       "indicators": [
         {
           "indicator_id": "io1",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "yes",
-          "evidence": "collaborative product framing before planning",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "io2",
@@ -317,28 +317,28 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 5.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "ah1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "yes",
-          "evidence": "Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "ah2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "some_phases",
-          "evidence": "Not for in-the-loop work where the user reviews each step",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -438,18 +438,18 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 5.0,
-      "coverage": 1.0,
+      "score": -10.0,
+      "coverage": 0.25,
       "indicators": [
         {
           "indicator_id": "ma1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "many",
-          "evidence": "Its core workflows spawn specialist subagents on demand for research, review, planning, and implementation.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "ma3",
@@ -476,7 +476,7 @@
       },
       "scale": 10.0,
       "score": 10.0,
-      "coverage": 1.0,
+      "coverage": 0.6,
       "indicators": [
         {
           "indicator_id": "pc1",
@@ -492,11 +492,11 @@
           "indicator_id": "pc2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "optional_reorderable",
-          "evidence": "On demand, before you commit",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -512,28 +512,28 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": 0.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "lw1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "moderate",
-          "evidence": "The point is not ceremony.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "lw2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "moderate",
-          "evidence": "The `compound-engineering` plugin currently ships 32 skills.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     }

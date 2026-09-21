@@ -142,7 +142,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener" title="Open obra/superpowers on GitHub" aria-label="Open obra/superpowers on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>obra/superpowers</span></a></div>
-    <div class="stamps">version v6.2.0</div>
+    <div class="stamps">version v6.4.1</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -163,7 +163,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 4.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 5.8, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 1.2, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 0.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 1.5, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 4.3, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 5.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -4.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 4.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 5.8, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 1.2, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 10.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 3.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 0.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 5.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -4.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -551,23 +551,23 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>fm1</td><td><span class="kind">detected</span></td><td>2</td><td>292.0</td><td class="val">+0.00</td><td class="evidence">git age_days = 292.0</td><td>engine</td></tr>
-<tr><td>fm2</td><td><span class="kind">detected</span></td><td>2</td><td>680</td><td class="val">+0.00</td><td class="evidence">git commit_count = 680</td><td>engine</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>fm1</td><td><span class="kind">detected</span></td><td>2</td><td>344.2</td><td class="val">+0.00</td><td class="evidence">git age_days = 344.2</td><td>engine</td></tr>
+<tr><td>fm2</td><td><span class="kind">detected</span></td><td>2</td><td>682</td><td class="val">+0.00</td><td class="evidence">git commit_count = 682</td><td>engine</td></tr>
 <tr><td>fm3</td><td><span class="kind">detected</span></td><td>1</td><td>47</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 47</td><td>engine</td></tr>
-<tr><td>fm4</td><td><span class="kind">detected</span></td><td>1</td><td>33</td><td class="val">+1.00</td><td class="evidence">git tag_count = 33</td><td>engine</td></tr>
+<tr><td>fm4</td><td><span class="kind">detected</span></td><td>1</td><td>35</td><td class="val">+1.00</td><td class="evidence">git tag_count = 35</td><td>engine</td></tr>
 <tr><td>fm6</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Skills evolve. Read current version</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
-      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <div class="cov-meter"><div class="cov-fill cov-mid" style="width:50%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 0/0 · judged 1/2 · 50% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -584,20 +584,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>io1</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Start by understanding the current project context, then ask questions one at a time to refine the idea</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>io1</td><td><span class="kind">judged</span></td><td>3</td><td>-</td><td class="val"></td><td class="evidence">evidence quote was not found verbatim in the target</td><td>-</td></tr>
 <tr><td>io2</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">Mandatory workflows, not suggestions</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+1.5</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.0</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill pos" style="width:7.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:15%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
-      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <div class="cov-meter"><div class="cov-fill cov-mid" style="width:50%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 0/0 · judged 1/2 · 50% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -615,19 +615,19 @@
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
       <p class="modal-sub">2 signals behind this position</p>
       <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>ah1</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.30</td><td class="evidence">It&#x27;s not uncommon for your agent to work autonomously for a couple hours at a time without deviating from the plan you put together</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>ah2</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">until you have presented a design and the user has approved it</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+<tr><td>ah2</td><td><span class="kind">judged</span></td><td>3</td><td>-</td><td class="val"></td><td class="evidence">evidence quote was not found verbatim in the target</td><td>-</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.3</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:21.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-8" title="show the 3 signals behind this">
-      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 1/1 · judged 2/2 · 100% evidence</span>
+      <div class="cov-meter"><div class="cov-fill cov-mid" style="width:57%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 1/1 · judged 1/2 · 57% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -644,7 +644,7 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sd1</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>sd1</td><td><span class="kind">judged</span></td><td>3</td><td>-</td><td class="val"></td><td class="evidence">evidence quote was not found verbatim in the target</td><td>-</td></tr>
 <tr><td>sd2</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">docs/superpowers/plans/YYYY-MM-DD-&lt;feature-name&gt;.md</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
 <tr><td>sd3</td><td><span class="kind">detected</span></td><td>2</td><td>0</td><td class="val">-1.00</td><td class="evidence">0 files matched [&#x27;**/*prd*template*.md&#x27;, &#x27;**/*spec*template*.md&#x27;, &#x27;**/*requirement*template*.md&#x27;, &#x27;**/*design*template*.md&#x27;, &#x27;**/*architecture*template*.md&#x27;, &#x27;**/example_prd*.md&#x27;, &#x27;**/example-prd*.md&#x27;, &#x27;**/templates/prd*.md&#x27;, &#x27;**/templates/spec*.md&#x27;, &#x27;**/templates/requirement*.md&#x27;, &#x27;**/templates/design*.md&#x27;, &#x27;**/templates/architecture*.md&#x27;, &#x27;**/openspec/**&#x27;, &#x27;**/.kiro/**/specs/**&#x27;, &#x27;**/PRPs/templates/**&#x27;, &#x27;**/prps/templates/**&#x27;]</td><td>engine</td></tr></tbody></table></div>
     </dialog>

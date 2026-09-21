@@ -2,9 +2,9 @@
   "target": "agentic-toolkit",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "5a3abe45224897d88935ea5ac6298d62d17d6809",
+  "target_sha": "8f1c036d8cc0a348892c9ad19e4756da3c195997",
   "target_url": "https://github.com/adamcaviness/agentic-toolkit.git",
-  "target_version": "v1.1.0-1-g5a3abe4",
+  "target_version": "v1.2.10",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -65,28 +65,28 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": -1.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "sl1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.5,
-          "resolved": true,
-          "answer": "most",
-          "evidence": "Format, lint, test, commit, push, and create a pull request.",
-          "source": "agent draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sl2",
           "kind": "classified",
           "weight": 2.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "single",
-          "evidence": "The single \"I'm done\" command.",
-          "source": "agent draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "119.0",
-          "evidence": "git age_days = 119.0",
+          "answer": "141.5",
+          "evidence": "git age_days = 141.5",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "102",
-          "evidence": "git commit_count = 102",
+          "answer": "124",
+          "evidence": "git commit_count = 124",
           "source": "engine"
         },
         {
@@ -252,8 +252,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "36",
-          "evidence": "git tag_count = 36",
+          "answer": "47",
+          "evidence": "git tag_count = 47",
           "source": "engine"
         },
         {
@@ -355,7 +355,7 @@
       },
       "scale": 10.0,
       "score": -10.0,
-      "coverage": 1.0,
+      "coverage": 0.7143,
       "indicators": [
         {
           "indicator_id": "sd1",
@@ -371,11 +371,11 @@
           "indicator_id": "sd2",
           "kind": "classified",
           "weight": 2.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "no",
-          "evidence": "and files one world-class ticket.",
-          "source": "agent draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sd3",
@@ -475,18 +475,18 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 6.0,
-      "coverage": 1.0,
+      "score": 0.0,
+      "coverage": 0.4,
       "indicators": [
         {
           "indicator_id": "pc1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "composable",
-          "evidence": "A collection of skills for agentic coding tools: next-ticket, get-it-right, code-review, apply-review, pr, ship, convert-worktree, triage-bugs, triage-product, triage-architecture, update-deps, compress-markdown",
-          "source": "agent draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "pc2",
@@ -513,17 +513,17 @@
       },
       "scale": 10.0,
       "score": -10.0,
-      "coverage": 1.0,
+      "coverage": 0.4,
       "indicators": [
         {
           "indicator_id": "lw1",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "minimal",
-          "evidence": "Single command to go from \"I'm done\" to \"PR is open.\"",
-          "source": "agent draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "lw2",

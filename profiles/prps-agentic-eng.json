@@ -2,7 +2,7 @@
   "target": "PRPs-agentic-eng",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "08e879274cc8e38c67a6c151a171b51e59723f2f",
+  "target_sha": "d62c3ae4e9e241e24591be64e6dff20b0c1354d8",
   "target_url": "https://github.com/Wirasm/PRPs-agentic-eng",
   "target_version": null,
   "axes": [
@@ -18,28 +18,28 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 6.2,
-      "coverage": 1.0,
+      "score": 10.0,
+      "coverage": 0.25,
       "indicators": [
         {
           "indicator_id": "gb1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "either",
-          "evidence": "solutions must fit existing codebase patterns first",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "gb2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "yes",
-          "evidence": "CODEBASE FIRST, RESEARCH SECOND. Solutions must fit existing patterns before introducing new ones.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "gb4",
@@ -65,18 +65,18 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 3.0,
-      "coverage": 1.0,
+      "score": 0.0,
+      "coverage": 0.4,
       "indicators": [
         {
           "indicator_id": "sl1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.5,
-          "resolved": true,
-          "answer": "most",
-          "evidence": "Autonomous cyclic pipeline: plan \u2192 implement \u2192 pr \u2192 review",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sl2",
@@ -102,18 +102,18 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 5.8,
-      "coverage": 1.0,
+      "score": 10.0,
+      "coverage": 0.4,
       "indicators": [
         {
           "indicator_id": "pp1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.3,
-          "resolved": true,
-          "answer": "some",
-          "evidence": "SECURITY: Attack vectors? Data exposure risks? Auth/authz?",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "pp2",
@@ -139,28 +139,28 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 1.2,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "st1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "partial",
-          "evidence": "Map dependencies and conflict risk: predict the files each workstream touches.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "st2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.3,
-          "resolved": true,
-          "answer": "some",
-          "evidence": "Do not launch until the user approves.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "419.2",
-          "evidence": "git age_days = 419.2",
+          "answer": "454.1",
+          "evidence": "git age_days = 454.1",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "140",
-          "evidence": "git commit_count = 140",
+          "answer": "253",
+          "evidence": "git commit_count = 253",
           "source": "engine"
         },
         {
@@ -355,17 +355,17 @@
       },
       "scale": 10.0,
       "score": 10.0,
-      "coverage": 1.0,
+      "coverage": 0.5714,
       "indicators": [
         {
           "indicator_id": "sd1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "required",
-          "evidence": "Create a plan first: /prp-plan",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "sd2",
@@ -401,28 +401,28 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -4.8,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "tf1",
           "kind": "classified",
           "weight": 3.0,
-          "value": -1.0,
-          "resolved": true,
-          "answer": "no",
-          "evidence": "Validation loops catch mistakes early. Run checks after every change.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "tf2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.3,
-          "resolved": true,
-          "answer": "present",
-          "evidence": "You MUST write or update tests for new code.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -439,17 +439,17 @@
       },
       "scale": 10.0,
       "score": 10.0,
-      "coverage": 1.0,
+      "coverage": 0.25,
       "indicators": [
         {
           "indicator_id": "ma1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 1.0,
-          "resolved": true,
-          "answer": "many",
-          "evidence": "multi-agent specialist fan-out (comments, tests, errors, types, code, docs, simplify)",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "ma3",
@@ -457,8 +457,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "21",
-          "evidence": "21 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
+          "answer": "23",
+          "evidence": "23 files matched ['.claude/agents/*.md', 'agents/*.md', 'plugins/*/agents/*.md', 'packages/*/agents/*.md']",
           "source": "engine"
         }
       ]
@@ -475,28 +475,28 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 0.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "pc1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "Compose skills by name only.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "pc2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "ONLY AFTER Phase 2 is complete",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },

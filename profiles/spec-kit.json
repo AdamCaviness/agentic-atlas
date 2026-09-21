@@ -2,9 +2,9 @@
   "target": "spec-kit",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "684b3d8e05263a7c1948d3d0699ab1cb4f77c3d5",
+  "target_sha": "0aae991b805a6e5d467051f55071612b05beee47",
   "target_url": "https://github.com/github/spec-kit",
-  "target_version": "v0.1.10-1171-g684b3d8",
+  "target_version": "v0.1.10-1453-g0aae991b",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -139,18 +139,18 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 1.2,
-      "coverage": 1.0,
+      "score": 3.0,
+      "coverage": 0.4,
       "indicators": [
         {
           "indicator_id": "st1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "partial",
-          "evidence": "Convert generated task lists into GitHub issues for tracking and execution",
-          "source": "agent-team draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "st2",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "350.8",
-          "evidence": "git age_days = 350.8",
+          "answer": "395.7",
+          "evidence": "git age_days = 395.7",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1735",
-          "evidence": "git commit_count = 1735",
+          "answer": "2017",
+          "evidence": "git commit_count = 2017",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "277",
-          "evidence": "git contributor_count = 277",
+          "answer": "311",
+          "evidence": "git contributor_count = 311",
           "source": "engine"
         },
         {
@@ -252,8 +252,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "211",
-          "evidence": "git tag_count = 211",
+          "answer": "225",
+          "evidence": "git tag_count = 225",
           "source": "engine"
         },
         {
@@ -280,8 +280,8 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
-      "coverage": 1.0,
+      "score": -10.0,
+      "coverage": 0.5,
       "indicators": [
         {
           "indicator_id": "io1",
@@ -297,11 +297,11 @@
           "indicator_id": "io2",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "guided",
-          "evidence": "a ready-to-use spec-driven process (or bring your own)",
-          "source": "agent-team draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },
@@ -475,28 +475,28 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 0.0,
-      "coverage": 1.0,
+      "score": null,
+      "coverage": 0.0,
       "indicators": [
         {
           "indicator_id": "pc1",
           "kind": "classified",
           "weight": 3.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "endlessly extensible, community-driven",
-          "source": "agent-team draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         },
         {
           "indicator_id": "pc2",
           "kind": "classified",
           "weight": 2.0,
-          "value": 0.0,
-          "resolved": true,
-          "answer": "mixed",
-          "evidence": "Additional commands for enhanced quality and validation",
-          "source": "agent-team draft 2026-07-22"
+          "value": null,
+          "resolved": false,
+          "answer": null,
+          "evidence": "evidence quote was not found verbatim in the target",
+          "source": null
         }
       ]
     },

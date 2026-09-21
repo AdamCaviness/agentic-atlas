@@ -2,9 +2,9 @@
   "target": "Backlog.md",
   "rubric_version": "3.0.0",
   "engine_version": "2.2.0",
-  "target_sha": "2f747cd70d30b7147a023a15427757980b5276b2",
+  "target_sha": "26c897d41e7862809495ce2419de93db6215b703",
   "target_url": "https://github.com/MrLesk/Backlog.md",
-  "target_version": "v1.49.3-51-g2f747cd",
+  "target_version": "v1.52.0-4-g26c897d4",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -222,8 +222,8 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "428.0",
-          "evidence": "git age_days = 428.0",
+          "answer": "469.2",
+          "evidence": "git age_days = 469.2",
           "source": "engine"
         },
         {
@@ -232,8 +232,8 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1205",
-          "evidence": "git commit_count = 1205",
+          "answer": "1376",
+          "evidence": "git commit_count = 1376",
           "source": "engine"
         },
         {
@@ -242,8 +242,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "55",
-          "evidence": "git contributor_count = 55",
+          "answer": "62",
+          "evidence": "git contributor_count = 62",
           "source": "engine"
         },
         {
@@ -252,8 +252,8 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "246",
-          "evidence": "git tag_count = 246",
+          "answer": "250",
+          "evidence": "git tag_count = 250",
           "source": "engine"
         },
         {
