@@ -73,8 +73,9 @@ target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
       (engine only)     (engine)   (validated from supplied answers)
 ```
 
-- **measured** indicators: computed from the repo (vocabulary density, path presence, path
-  count, git stats, GitHub API), fully deterministic.
+- **measured** indicators: computed from the repo with no model, fully deterministic.
+  Rubric 3.0.0 uses git stats and path counts; the engine also supports vocabulary, path
+  presence, and GitHub API signals that 3.0.0 does not use.
 - **classified** indicators: a bounded answer plus a verbatim quote, produced by an external
   agent and *validated* (never generated) by the engine.
 

@@ -25,12 +25,25 @@ from __future__ import annotations
 
 import re
 
-from .evidence import Target
+from .evidence import TEXT_SUFFIXES, Target
 from .models import Indicator, IndicatorKind, IndicatorResult, Rubric
 
 # A quote must be at least this many characters to count as evidence, so a one-word or
 # punctuation "match" cannot pass the verbatim check.
-_MIN_QUOTE_CHARS = 12
+MIN_QUOTE_CHARS = 12
+
+# The answering contract printed on every `questions` payload, so a caller that is not the
+# run skill gets the same rules. Built from the constants validation uses, so it cannot drift.
+ANSWER_INSTRUCTIONS = (
+    "Answer each question from the target repository only. Return an object keyed by "
+    'indicator id: {"answer": <one allowed value>, "evidence": <a quote copied verbatim '
+    "from the target>}. Feed the result back with `agentic-atlas profile --answers`. "
+    f"The quote must appear in a file with one of these extensions: {', '.join(TEXT_SUFFIXES)}. "
+    "Quotes from source files such as .py, .js, .ts, or .sh are not in the corpus and will "
+    f"not match. The quote must be at least {MIN_QUOTE_CHARS} characters. Matching collapses "
+    "whitespace and ignores case. A quote that is present in those files but does not "
+    "represent the method will still be accepted."
+)
 
 
 def classified_questions(rubric: Rubric) -> list[dict]:
@@ -55,7 +68,7 @@ def _normalize(text: str) -> str:
 
 def _quote_found(quote: str, corpus: str) -> bool:
     stripped = quote.strip()
-    if len(stripped) < _MIN_QUOTE_CHARS:
+    if len(stripped) < MIN_QUOTE_CHARS:
         return False
     return _normalize(stripped) in _normalize(corpus)
 

@@ -90,7 +90,8 @@ def _count_terms(corpus: str, terms: list[str]) -> int:
 
 
 # File extensions that make up a methodology's readable surface.
-_TEXT_SUFFIXES = {".md", ".markdown", ".txt", ".yaml", ".yml", ".json", ".toml"}
+# A tuple so the classified-answer instructions list them in a stable, readable order.
+TEXT_SUFFIXES = (".md", ".markdown", ".txt", ".yaml", ".yml", ".json", ".toml")
 _MAX_FILE_BYTES = 512_000
 # Directories that never hold the methodology's own authored content: VCS internals, build
 # artifacts and virtualenvs, and vendored third-party dependencies. A project's methodology
@@ -241,7 +242,7 @@ class Target:
         if "raw" not in self._corpus:
             chunks: list[str] = []
             for p in self._files():
-                if p.suffix.lower() not in _TEXT_SUFFIXES:
+                if p.suffix.lower() not in TEXT_SUFFIXES:
                     continue
                 try:
                     if p.stat().st_size > _MAX_FILE_BYTES:

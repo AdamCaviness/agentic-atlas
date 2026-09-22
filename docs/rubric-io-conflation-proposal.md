@@ -1,11 +1,12 @@
 # Decision-ready proposal: the io1 conflation on Interrogative vs Opinionated
 
-Status: proposal, awaiting a maintainer decision. Audience: rubric authors. This documents a
+Status: closed. Maintainer decision: keep 3.0.0 `io1` (Reading 1). Reopen only with new
+evidence, not a new opinion. Audience: rubric authors. This documents a
 construct-validity nuance found while validating rubric 3.0.0 by profiling five new tools. It is
 NOT a defect that forces a change: the opinionated pole is reachable by real tools (see below),
 the calibration harness is green, and the current axis is a defensible construct. It is a
 judgment call about what "opinionated" should mean, presented with the exact change, the targets
-that move, the version implications, and a recommendation.
+that move, the version implications, and the accepted recommendation.
 
 ## The finding
 
@@ -107,14 +108,14 @@ entry, re-answering `io1` for all 23 corpus targets with fresh cited quotes, reg
 README (`make docs`) and the profile corpus (`make profiles`), and a green harness plus adversarial
 review, exactly the bar 3.0.0 met.
 
-## Recommendation
+## Recommendation (accepted)
 
-**Keep the axis as-is (Reading 1) for now, and record the nuance.** Rationale: (1) the opinionated
+**Keep the axis as-is (Reading 1).** This is the maintainer decision. Rationale: (1) the opinionated
 pole is reachable by real tools, so nothing is broken; (2) the current construct ("elicits and
 defers" vs "prescribes and drives") is defensible and the 0.0 placements are fair summaries of
 tools that do both; (3) a MAJOR bump and a full re-answer for a construct-definition preference is
-not warranted without a clear maintainer intent that "opinionated" should mean path-prescription
-specifically. If the maintainer's intent is Reading 2, the change above is ready to implement to
+not warranted without new evidence that "opinionated" should mean path-prescription
+specifically. If that evidence appears, the change above is ready to implement to
 the 3.0.0 bar. Do not adopt the reweight or value-shrink shortcuts.
 
 One related honest population fact (not a defect): the interrogative extreme (−10) is currently

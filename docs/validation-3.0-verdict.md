@@ -81,15 +81,14 @@ ai-dev-tasks) and the wider corpus.
 
 ## Findings and resolutions
 
-**Finding O (io1/io2 conflation) — RESOLVED as a decision-ready proposal.** The pre-validation
+**Finding O (io1/io2 conflation) — CLOSED. Maintainer decision: keep 3.0.0 `io1` (Reading 1).** The pre-validation
 worry was that the opinionated pole might be unreachable by design because io1 ("runs a questioning
 phase") is near-universal. Profiling REFUTES the reachability worry: autonomous-dev reaches +10
 opinionated (and metaswarm, claude-git-pr-skill, task-master reach +5). It CONFIRMS a narrower
 construct nuance: a tool that elicits requirements (io1=yes) is capped at 0.0 no matter how strictly
 it prescribes the path (superpowers and ccpm, both io2=strict, sit at exactly 0.0). Whether that is correct depends on what "opinionated" should
-mean, a construct-definition judgment call, so it is written up as a decision-ready proposal with
-the exact reword, the targets that move, and a recommendation (keep as-is; the pole is reachable
-and the current construct is defensible) in `docs/rubric-io-conflation-proposal.md`. Not forced,
+mean, a construct-definition judgment call, written up in `docs/rubric-io-conflation-proposal.md`.
+That proposal is closed: keep 3.0.0 `io1`. Reopen only with new evidence, not a new opinion. Not forced,
 because nothing is broken.
 
 **Finding P (prototype pole under-populated) — RESOLVED as thinly-reachable, with reason.** The

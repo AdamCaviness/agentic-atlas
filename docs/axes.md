@@ -14,7 +14,7 @@ Do not score the axis directly. An axis is a **weighted scoring system over N me
 axis_position = scale * sum(weight_i * measurement_i) / sum(weight_i)
 ```
 
-The crafting of the axis is choosing the indicators and their weights. That craft lives entirely in the rubric, the engine only executes the arithmetic. A well built axis has enough indicators that no single one dominates, and enough `measured` indicators that a meaningful position exists even before any classification.
+The crafting of the axis is choosing the indicators and their weights. That craft lives entirely in the rubric, the engine only executes the arithmetic. A well built axis has enough indicators that no single one dominates. A `measured` indicator is used only when the count is structure the methodology itself ships, not the target repository's own engineering. When no such signal exists, the axis is classified-only: the skill answers with a cited quote. Measured indicators corroborate and must not dominate the axis (see the calibration note below).
 
 ## Worked example: Greenfield vs Brownfield
 
@@ -36,8 +36,8 @@ The working catalog of candidate axes, grouped by the decision each helps a read
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Interrogative ↔ Opinionated** **[v1]** | Elicits and asks vs prescribes a strong default path | brainstorming phase present, directive vocabulary density, fixed pipeline enforced |
-| **Human-in-loop ↔ Autonomous** **[v1]** | Frequent checkpoints vs unattended autopilot | approval-between-phases, autopilot mode advertised, checkpoint vocabulary density |
+| **Interrogative ↔ Opinionated** **[v1]** | Elicits and asks vs prescribes a strong default path | brainstorming phase present, fixed pipeline enforced |
+| **Human-in-loop ↔ Autonomous** **[v1]** | Frequent checkpoints vs unattended autopilot | approval-between-phases, autopilot mode advertised |
 | **Conversational ↔ Command-driven** | Free chat vs slash commands and structured invocation | command/skill count, ratio of prose docs to command specs |
 | **Permissive ↔ Guardrailed** | Runs freely vs guards destructive actions | confirmation gates on destructive ops, safety language, dry-run defaults |
 | **Magic ↔ Mechanical** | Hides steps for low cognitive load vs exposes every step for control and auditability | visibility of intermediate artifacts, explicit phase logs, hidden automation |
@@ -46,12 +46,12 @@ The working catalog of candidate axes, grouped by the decision each helps a read
 
 | Axis | Meaning: negative ↔ positive | Example indicators |
 |---|---|---|
-| **Greenfield ↔ Brownfield** **[v1]** | Excels from an idea vs excels inside an existing codebase | spec-from-idea first step, codebase-ingestion steps, brownfield vocabulary, small-diff default |
+| **Greenfield ↔ Brownfield** **[v1]** | Excels from an idea vs excels inside an existing codebase | starting assumption (blank slate vs existing codebase), codebase-ingestion steps, small-diff default |
 | **Small-scope ↔ Large-scope** **[v1]** | One task vs the whole delivery lifecycle | phases covered (idea to release), single-command vs multi-stage, role coverage |
 | **Prototype ↔ Production** **[v1]** | Fast throwaway output vs production hardening | testing and review emphasis, CI/deploy awareness, "vibe" vs "production" language |
 | **Solo ↔ Team** **[v1]** | Single developer vs multi-contributor and team-safe | claim/assignment safety, shared state, review handoffs, role personas |
 | **Generalist ↔ Specialist** **[v1]** | Any domain vs software delivery specifically | domain-agnostic framing vs code-specific tooling and vocabulary |
-| **Fresh ↔ Mature** **[v1]** | New, fast-moving, cutting-edge vs established, stable, battle-tested | repository age, commit count, contributor count, release-tag cadence, stars |
+| **Fresh ↔ Mature** **[v1]** | New, fast-moving, cutting-edge vs established, stable, battle-tested | repository age, commit count, contributor count, release-tag cadence |
 
 ### C. Process and methodology (how it works)
 
@@ -91,7 +91,7 @@ The working catalog of candidate axes, grouped by the decision each helps a read
 
 `rubric/v1/axes/*/axis.yaml` is the authoritative source for the shipped axes, this catalog is the map.
 
-Some axes need evidence collectors beyond the defaults. Fresh↔Mature, for example, uses the `git_stats` (age, commit count) and `github_api` (stars) collectors that were added for it. Adding a collector is an engine change, and it only affects scores once a rubric actually uses it.
+Some axes need evidence collectors beyond the defaults. Fresh↔Mature uses `git_stats` (age, commit count, contributor count, tag count). The engine also has `github_api` (stars); rubric 3.0.0 does not use it, because popularity is not maturity. Adding a collector is an engine change, and it only affects scores once a rubric actually uses it.
 
 ## Authoring checklist
 

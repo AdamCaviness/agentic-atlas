@@ -20,7 +20,7 @@ An axis is a signed spectrum (negative/positive float) between two named poles, 
 
 You never score an axis directly. It decomposes into indicators, each a narrow question with a bounded answer mapping to a value in `[-1, 1]` signed toward one pole. Two kinds:
 
-- **measured**: computed by the engine from the repository, no model (vocabulary density, file presence, git statistics, GitHub stars). Same input, same output.
+- **measured**: computed by the engine from the repository, no model. Rubric 3.0.0 uses git history (age, commits, authors, tags) and counts of spec-template files and agent-definition files. Same input, same output.
 - **classified**: a model reads the repository and picks from a fixed answer set, backing the choice with a quote copied verbatim from the target. The engine rejects any answer whose quote it can't find, so nothing rests on an unverified claim.
 
 The score is then arithmetic, over resolved indicators, clamped to `[-scale, +scale]`:
@@ -124,7 +124,7 @@ I also maintain [agentic-toolkit](https://github.com/adamcaviness/agentic-toolki
 
 ## Status
 
-Early scaffold, actively developed. Working today: the per-axis rubric with schema validation, the deterministic scoring core, evidence collectors (vocabulary, path presence, git stats, GitHub API), the classified-indicator seam (a `questions` worklist plus a quote-verified `--answers` path, no API key), text/markdown/JSON/HTML reports, the `agentic-atlas docs` generator kept in sync by `make docs-check`, the three plugin skills (`run`, `open-explorer`, `explain`), a committed corpus of 18 profiles under `profiles/`, and the hosted **Explorer** built from that corpus by `scripts/build_site.py` and deployed to GitHub Pages. Next: the `compare` overlay and a wider corpus. See `docs/` and `specs/handoff.md`.
+Early scaffold, actively developed. Working today: the per-axis rubric with schema validation, the deterministic scoring core, evidence collectors (rubric 3.0.0 uses `git_stats` and `path_count`), the classified-indicator seam (a `questions` worklist plus a quote-verified `--answers` path, no API key), text/markdown/JSON/HTML reports, the `agentic-atlas docs` generator kept in sync by `make docs-check`, the three plugin skills (`run`, `open-explorer`, `explain`), a committed corpus of 23 profiles under `profiles/`, and the hosted **Explorer** built from that corpus by `scripts/build_site.py` and deployed to GitHub Pages. Next: the `compare` overlay and a wider corpus. See `docs/` and `specs/handoff.md`.
 
 ## License
 

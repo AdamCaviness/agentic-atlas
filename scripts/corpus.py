@@ -25,7 +25,8 @@ tree is the exact one the answers were written against, every quote revalidates.
 refreshes the ``engine_version`` and ``rubric_version`` stamps (and any score the current
 rubric moves for the same evidence) while the evidence itself is unchanged. The one input that
 is not pinned by the SHA is ``github_api`` (stars and the like), which the engine fetches live
-by design and records verbatim, so a rescore also moves those point-in-time metrics to now.
+by design and records verbatim, so for a rubric that uses it a rescore also moves those
+point-in-time metrics to now. Rubric 3.0.0 uses no ``github_api`` indicator.
 Use ``rescore`` after an engine or rubric bump when you intentionally keep the same pins.
 
 ``refresh`` is how the corpus stays current. It pulls each clone to its origin default-branch
@@ -42,7 +43,7 @@ when any profile is behind, so automation can open a refresh PR before the Explo
 stale project version.
 
 Neither ``rescore`` nor ``refresh`` writes anything without ``--write``; a bare run prints
-the report only. Because ``github_api`` and (for ``refresh``) moving refs make the output
+the report only. Because ``github_api`` (when a rubric uses it) and moving refs (for ``refresh``) make the output
 time-dependent, these are maintenance commands, not a CI gate. The CI gate stays
 ``profiles-check`` (HTML matches JSON). After ``--write`` rewrites the JSON, run
 ``make profiles`` to re-render the HTML from it.

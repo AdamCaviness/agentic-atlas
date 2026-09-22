@@ -26,9 +26,10 @@ fit for their own context.
 The `agentic-atlas` engine in this repo is deterministic and needs no API key. It scores each
 axis from **indicators** of two kinds:
 
-- **measured**: the engine computes these directly from the target (vocabulary density, path
-  presence, git-history stats, GitHub stars). A bare engine run resolves only these, so most
-  axes come back `needs interpretation`.
+- **measured**: the engine computes these directly from the target. Rubric 3.0.0 uses
+  `git_stats` (repository age, commit count, contributor count, tag count) and
+  `path_count` (spec-template files, agent-definition files in fixed locations). A bare
+  engine run resolves only these, so most axes come back `needs interpretation`.
 - **classified**: narrow, bounded questions that require the repository to be read and
   interpreted (for example "Is a written spec required before implementation?"). The engine
   cannot answer these; it only validates and scores answers supplied from outside.
@@ -126,9 +127,8 @@ the engine another way.
   SHA the engine stamps comes from the clone's HEAD.
 
   Any git host works, not just GitHub (`git clone` is host-agnostic: GitLab, Bitbucket,
-  self-hosted, HTTPS or SSH). The engine's GitHub-stars indicator only resolves for a GitHub
-  origin remote, so a non-GitHub target leaves that single measured indicator unresolved
-  while its git-history indicators still resolve.
+  self-hosted, HTTPS or SSH). Rubric 3.0.0 has no GitHub-stars indicator. Git-history
+  indicators still resolve for any host.
 
 Derive `TARGET_NAME` from the final path segment of the target (the repo or directory name),
 for use in `--save` and in the printed summary.
@@ -205,6 +205,13 @@ wrapping do not matter and you may quote a span that crosses a line break. Every
 must match exactly, including punctuation and the words present. Prefer a contiguous run of
 plain prose; if you include markdown syntax (list markers, table pipes, backticks) it must
 match the file exactly.
+
+**Quote the required rule, not an optional extra.** For `tf1`, `sd1`, `io2`, and `ah2`,
+the question asks whether a rule is enforced, required, or the default. The quote must be
+about that required or default rule. Do not cite a quote about an extra command the user
+may skip. If two quotes in the allowed file types disagree, use the quote from a skill,
+command, constitution, or workflow file, not from the product README. This does not change
+`ah1`. `ah1` asks whether an autopilot mode is advertised.
 
 ### Step 5: Assemble the answers object
 

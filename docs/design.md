@@ -37,7 +37,7 @@ target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
 
 The hard part is getting a deterministic result out of a subjective axis. It resolves by decomposing each axis into indicators of two kinds.
 
-- **`measured`** indicators are computed by the engine directly from the repository, with no model. Current signal types: `vocabulary` (term density across docs and commands, bucketed into bands), `path_presence` (glob matches to a value), `git_stats` (repository facts like age and commit count), and `github_api` (host facts like stars). These are deterministic given their input.
+- **`measured`** indicators are computed by the engine directly from the repository, with no model. The engine can resolve `vocabulary`, `path_presence`, `path_count`, `git_stats`, and `github_api`. Rubric 3.0.0 uses only `git_stats` (age, commits, authors, tags) and `path_count` (spec templates, anchored agent files). `vocabulary`, `path_presence`, and `github_api` are unused in 3.0.0. These are deterministic given their input.
 - **`classified`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model picks the answer and must cite a quote copied **verbatim from the target**; the engine discards any answer whose quote it cannot find, and the bounded, anchored answer set keeps independent runs consistent.
 
 The scoring step treats both kinds identically: each resolved indicator yields a value in `[-1, 1]` and a weight. The axis score is:
