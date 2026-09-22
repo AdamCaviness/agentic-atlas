@@ -3,7 +3,9 @@ the `render` command: re-emitting a saved profile JSON without re-running the en
 
 import json
 
-from agentic_atlas.cli import main
+from agentic_atlas.classify import ANSWER_INSTRUCTIONS, MIN_QUOTE_CHARS
+from agentic_atlas.cli import _DEFAULT_RUBRIC, main
+from agentic_atlas.evidence import TEXT_SUFFIXES
 from agentic_atlas.models import (
     AxisResult,
     Explain,
@@ -13,6 +15,7 @@ from agentic_atlas.models import (
     Profile,
 )
 from agentic_atlas.report import render_html
+from agentic_atlas.spec import load_rubric
 
 
 def _profile() -> Profile:
@@ -54,6 +57,23 @@ def test_render_reemits_saved_profile_json_as_html(tmp_path, capsys):
 
     assert main(["render", str(path), "--format", "html"]) == 0
     assert capsys.readouterr().out == render_html(profile) + "\n"
+
+
+def test_answer_instructions_state_the_validation_contract():
+    # Non-skill callers only see this string. It must name every corpus suffix and the
+    # quote floor that validation enforces, and that a real-but-unrepresentative quote scores.
+    for suffix in TEXT_SUFFIXES:
+        assert suffix in ANSWER_INSTRUCTIONS
+    assert f"{MIN_QUOTE_CHARS} characters" in ANSWER_INSTRUCTIONS
+    assert "will still be accepted" in ANSWER_INSTRUCTIONS
+
+
+def test_questions_emits_the_contract_instructions(tmp_path, capsys):
+    (tmp_path / "README.md").write_text("a target with a text corpus")
+    assert main(["questions", str(tmp_path)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["instructions"] == ANSWER_INSTRUCTIONS
+    assert payload["rubric_version"] == load_rubric(_DEFAULT_RUBRIC).rubric_version
 
 
 def test_render_bad_path_exits_nonzero(capsys):

@@ -28,16 +28,20 @@ This file is the contract the skill targets. It is stable engine surface.
 
    ```json
    {
-     "rubric_version": "1.2.0",
+     "rubric_version": "3.0.0",
      "target": "/abs/path",
      "instructions": "...",
      "questions": [
        {"id": "sd1", "axis": "spec-light-vs-spec-driven",
-        "question": "Is a written spec, PRD, or plan required before implementation?",
+        "question": "Is a written design specification (a PRD, design doc, or written plan, not merely a ticket or work item) required before implementation begins?",
         "answers": ["encouraged", "none", "required"]}
      ]
    }
    ```
+
+   The `instructions` string is the answering contract for any caller, not only the
+   skill. `classify.ANSWER_INSTRUCTIONS` builds it from the same constants validation
+   uses, and it restates the rules under "What the engine guarantees" below.
 
 3. **The host agent answers each question** from the target repository only, choosing one
    value from `answers` and citing a quote copied verbatim from the target.
@@ -63,10 +67,28 @@ This file is the contract the skill targets. It is stable engine surface.
 
 - **Validation, not trust.** Every supplied answer must name one of the indicator's
   declared values and cite a quote found verbatim in the target. A missing or failing
-  answer leaves the indicator unresolved and out of the score. Validation stops a
-  fabricated citation; it cannot catch a real-but-cherry-picked one, so the answers file
-  is a reviewable artifact and its provenance (`source`) is stamped on the profile.
+  answer leaves the indicator unresolved and out of the score. The quote must appear in
+  a `.md`, `.markdown`, `.txt`, `.yaml`, `.yml`, `.json`, or `.toml` file, must be at
+  least 12 characters, and is matched after collapsing whitespace and ignoring case.
+  Validation stops a fabricated citation; it cannot catch a real-but-unrepresentative
+  quote, so the answers file is a reviewable artifact and its provenance (`source`) is
+  stamped on the profile.
 - **Determinism.** Given the same answers, the score is identical. Measured values the
   engine derives; classified values are inputs it validates and scores.
 - **Reproducibility.** An answers file can be committed next to a published profile, so a
   classified-complete profile is reproducible without re-running any model.
+
+## Corpus admission
+
+This applies when adding or replacing a committed profile under `profiles/`. It does not
+apply to a local `/agentic-atlas:run` print. It does not require re-answering the
+existing 23 profiles.
+
+- A second model or a human must answer the classified questions independently of the
+  first answerer.
+- If the two answerers disagree on an indicator, leave that indicator **unresolved**.
+  Do not pick one answer, do not average them, do not invent a third value. Unresolved
+  indicators are excluded from the axis score and reduce coverage.
+- The pull request that adds or changes `profiles/*.json` must include both `source`
+  stamps or a written review of the classified rows that records agreement or
+  disagreement per indicator.

@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 from . import docs
-from .classify import classified_questions
+from .classify import ANSWER_INSTRUCTIONS, classified_questions
 from .evidence import Target
 from .models import Profile
 from .profiler import profile_target
@@ -57,12 +57,7 @@ def _cmd_questions(args: argparse.Namespace) -> int:
             {
                 "rubric_version": rubric.rubric_version,
                 "target": str(target.root),
-                "instructions": (
-                    "Answer each question from the target repository only. Return an "
-                    'object keyed by indicator id: {"answer": <one allowed value>, '
-                    '"evidence": <a quote copied verbatim from the target>}. Feed the '
-                    "result back with `agentic-atlas profile --answers`."
-                ),
+                "instructions": ANSWER_INSTRUCTIONS,
                 "questions": classified_questions(rubric),
             },
             indent=2,
