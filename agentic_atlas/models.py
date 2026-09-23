@@ -65,6 +65,9 @@ class Rubric:
     title: str
     axes: tuple[Axis, ...]
     description: str = ""
+    # Globs for files a judged answer may not cite as evidence (rubric data, interpreted by
+    # ``agentic_atlas.judged``). Empty means every corpus text file is admissible.
+    evidence_exclude: tuple[str, ...] = ()
 
     def axis(self, axis_id: str) -> Axis:
         for a in self.axes:
@@ -90,6 +93,10 @@ class IndicatorResult:
     answer: str | None = None
     evidence: str | None = None
     source: str | None = None  # "engine" for detected, answer-file provenance for judged
+    # For a resolved judged indicator: the file, relative to the target root, that holds the
+    # evidence quote. None for detected indicators, unresolved ones, and profiles written
+    # before rubric 5.0.0 made the path part of every judged answer.
+    path: str | None = None
 
     @classmethod
     def unresolved(
@@ -176,6 +183,7 @@ class Profile:
                             "resolved": ir.resolved,
                             "answer": ir.answer,
                             "evidence": ir.evidence,
+                            "path": ir.path,
                             "source": ir.source,
                         }
                         for ir in ax.indicators
@@ -219,6 +227,7 @@ class Profile:
                             answer=ir.get("answer"),
                             evidence=ir.get("evidence"),
                             source=ir.get("source"),
+                            path=ir.get("path"),
                         )
                         for ir in ax["indicators"]
                     ),

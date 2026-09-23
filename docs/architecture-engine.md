@@ -41,8 +41,10 @@ because the axis is decomposed into small indicators and the scoring is pure ari
 ### `models.py` — data holders (invariant: no score-moving behaviour)
 Frozen dataclasses only. `IndicatorKind` (DETECTED / JUDGED), `Poles`, `Explain`,
 `Indicator` (id, question, kind, weight, `answers` map for judged, `signal` dict for
-detected), `Axis`, `Rubric` (with an `axis(id)` lookup). On the result side: `IndicatorResult`
-(value, resolved flag, answer, evidence, source; plus an `unresolved(...)` classmethod shared
+detected), `Axis`, `Rubric` (with an `axis(id)` lookup and the manifest's `evidence_exclude`
+globs). On the result side: `IndicatorResult`
+(value, resolved flag, answer, evidence, source, and for a resolved judged indicator the `path`
+of the file its quote came from; plus an `unresolved(...)` classmethod shared
 by both resolvers), `AxisResult` (score `None` when nothing resolved, plus `coverage`), and
 `Profile` with `to_dict()`. `Profile` deliberately has **no aggregate field** — it is a vector
 of axis positions, never a single number.
@@ -68,7 +70,8 @@ over resolved indicators only. `score_profile` assembles the `Profile`. This mod
 first one tested and must never drift.
 
 ### `evidence.py` — detected indicators (deterministic, from the repo)
-Defines `Target` (a resolved directory; caches its text corpus once) and
+Defines `Target` (a resolved directory; reads its text files once, keyed by root-relative
+POSIX path, and joins them into the text corpus), the rubric's one glob dialect `glob_match`, and
 `resolve_detected(indicator, target)`, which dispatches on `signal.type`:
 
 | Signal type | Reads | Bands / mapping |
@@ -93,11 +96,14 @@ point-in-time host fact, not pinned by SHA).
 ### `judged.py` — judged indicators (validate, never generate)
 `judged_questions(rubric)` emits the worklist (one entry per judged indicator: id,
 axis, question, sorted allowed answers). `resolve_judged(indicator, target, answers,
-source)` validates a supplied answer: it must be one of the indicator's declared values, and
-the cited quote must appear **verbatim** in the target's text corpus. The verbatim check
-(`_quote_found`) normalizes whitespace and casefolds so reflow/case don't matter, and requires
-at least 12 characters so a trivial match cannot pass. Any missing/invalid/unfound answer
-yields an unresolved result with the reason in `evidence`. This is symmetric with
+source, exclude=...)` validates a supplied `{"answer", "evidence", "path"}`: the answer must be
+one of the indicator's declared values, the path must name a file in the target's text corpus
+that matches none of the rubric's `evidence_exclude` globs, and the quote must appear
+**verbatim** inside that one file. The verbatim check (`_quote_found`) normalizes whitespace
+and casefolds so reflow/case don't matter, and requires at least 12 characters so a trivial
+match cannot pass. Any missing/invalid/unfound answer yields an unresolved result with the
+reason in `evidence`; a reason about the path or quote also names any other file that holds
+the quote, so a retry can cite the right one. A resolved result records the normalized path. This is symmetric with
 `resolve_detected`: one computes, one validates, both return an `IndicatorResult`.
 
 ### `profiler.py` — the single orchestration path

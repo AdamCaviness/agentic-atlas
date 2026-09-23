@@ -94,7 +94,7 @@ discovery with `AGENTIC_ATLAS_ENGINE=/path/to/repo` when testing.
 
 `pytest`, deterministic core first. Files: `test_scoring.py` (the arithmetic — must never
 drift), `test_spec.py` (loading + validation), `test_evidence.py` (detected signals + honest
-coverage guards), `test_judged.py` (answer + verbatim-quote validation),
+coverage guards), `test_judged.py` (answer, evidence-path, and verbatim-quote validation),
 `test_profiler.py` (full pipeline), `test_report.py` (renderers), `test_docs.py` (README
 sync). Run `make test`, or the full gate with `make check`.
 

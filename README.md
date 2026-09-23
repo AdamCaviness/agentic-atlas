@@ -21,7 +21,7 @@ An axis is a signed spectrum (negative/positive float) between two named poles, 
 You never score an axis directly. It decomposes into indicators, each a narrow question with a bounded answer mapping to a value in `[-1, 1]` signed toward one pole. Two kinds:
 
 - **detected**: computed by the engine from the repository, no model. The rubric uses git history (age, commits, people, release tags) on the Fresh vs Mature axis. Same input, same output.
-- **judged**: a model reads the repository and picks from a fixed answer set, backing the choice with a quote copied verbatim from the target. The engine rejects any answer whose quote it can't find, so nothing rests on an unverified claim.
+- **judged**: a model reads the repository and picks from a fixed answer set, backing the choice with a quote copied verbatim from a named file in the target. The engine rejects any answer whose quote it can't find in that file, or whose file the rubric excludes as evidence (release history, tests, examples, the tool's own planning folders and contributor files), so nothing rests on an unverified claim.
 
 The score is then arithmetic, over resolved indicators, clamped to `[-scale, +scale]`:
 

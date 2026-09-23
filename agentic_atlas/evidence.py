@@ -70,7 +70,10 @@ def _glob_regex(pattern: str) -> re.Pattern:
     return re.compile(f"^{out}$", re.DOTALL)
 
 
-def _matches(path: str, pattern: str) -> bool:
+def glob_match(path: str, pattern: str) -> bool:
+    """True when ``path`` (POSIX, relative to the target root) matches the rubric glob
+    ``pattern``. The one glob dialect of the rubric: path signals and the judged-evidence
+    exclusions both match through here, case-sensitively."""
     return _glob_regex(pattern).match(path) is not None
 
 
@@ -168,8 +171,9 @@ class Target:
     """A profiling target: a local directory, optionally a git checkout."""
 
     root: Path
-    # The text corpus is read from disk once and reused: both the detected vocabulary
-    # signals and the judged verbatim-quote check ask for it, once per indicator.
+    # Text files are read from disk once and reused: the detected vocabulary signals ask for
+    # the joined corpus and the judged verbatim-quote check asks for one file, per indicator.
+    _text: dict[str, str] | None = field(default=None, repr=False, compare=False)
     _corpus: dict[str, str] = field(default_factory=dict, repr=False, compare=False)
 
     @classmethod
@@ -285,19 +289,29 @@ class Target:
             files.append(p)
         return files
 
-    def text_corpus(self, *, lower: bool = True) -> str:
-        if "raw" not in self._corpus:
-            chunks: list[str] = []
+    def text_files(self) -> dict[str, str]:
+        """The raw text of every file in the text corpus, keyed by POSIX path relative to
+        the root, in sorted path order. A file is in the corpus when its extension is in
+        ``TEXT_SUFFIXES``, it sits outside the ignored directories, and it is at most
+        ``_MAX_FILE_BYTES``; everything else is not readable evidence."""
+        if self._text is None:
+            files: dict[str, str] = {}
             for p in self._files():
                 if p.suffix.lower() not in TEXT_SUFFIXES:
                     continue
                 try:
                     if p.stat().st_size > _MAX_FILE_BYTES:
                         continue
-                    chunks.append(p.read_text(encoding="utf-8", errors="ignore"))
+                    text = p.read_text(encoding="utf-8", errors="ignore")
                 except OSError:
                     continue
-            self._corpus["raw"] = "\n".join(chunks)
+                files[p.relative_to(self.root).as_posix()] = text
+            self._text = files
+        return self._text
+
+    def text_corpus(self, *, lower: bool = True) -> str:
+        if "raw" not in self._corpus:
+            self._corpus["raw"] = "\n".join(self.text_files().values())
         if not lower:
             return self._corpus["raw"]
         if "lower" not in self._corpus:
@@ -305,7 +319,7 @@ class Target:
         return self._corpus["lower"]
 
     def relative_paths(self) -> list[str]:
-        return [str(p.relative_to(self.root)) for p in self._files()]
+        return [p.relative_to(self.root).as_posix() for p in self._files()]
 
 
 def resolve_detected(indicator: Indicator, target: Target) -> IndicatorResult:
@@ -370,7 +384,7 @@ def _resolve_path_presence(indicator: Indicator, target: Target, signal: dict) -
         # No files to look at. "absent" among real files is a signal; "absent" from an
         # empty target is not, so it stays unresolved rather than reading as the absent pole.
         return _unresolved_detected(indicator, "target has no files")
-    matched = [p for p in paths if any(_matches(p, g) for g in signal["globs"])]
+    matched = [p for p in paths if any(glob_match(p, g) for g in signal["globs"])]
     present = bool(matched)
     value = float(signal["present"]) if present else float(signal["absent"])
     evidence = f"matched {matched[:5]}" if present else f"no path matched {signal['globs']}"
@@ -393,7 +407,7 @@ def _resolve_path_count(indicator: Indicator, target: Target, signal: dict) -> I
         # matched", but there are no files at all, so it stays unresolved rather than
         # banding an empty target to the low pole. Same guard as path_presence.
         return _unresolved_detected(indicator, "target has no files")
-    count = sum(1 for p in paths if any(_matches(p, g) for g in signal["globs"]))
+    count = sum(1 for p in paths if any(glob_match(p, g) for g in signal["globs"]))
     value = _band_value(count, signal["bands"])
     return IndicatorResult(
         indicator_id=indicator.id,

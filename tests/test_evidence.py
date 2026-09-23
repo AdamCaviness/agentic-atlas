@@ -10,8 +10,8 @@ from agentic_atlas.evidence import (
     Target,
     _contributor_count,
     _count_terms,
-    _matches,
     _parse_github_slug,
+    glob_match,
     resolve_detected,
 )
 from agentic_atlas.models import Indicator, IndicatorKind
@@ -31,8 +31,8 @@ from agentic_atlas.models import Indicator, IndicatorKind
         ("brownfield-guide.md", "**/brownfield*", True),
     ],
 )
-def test_matches(path, pattern, expected):
-    assert _matches(path, pattern) is expected
+def test_glob_match(path, pattern, expected):
+    assert glob_match(path, pattern) is expected
 
 
 def test_count_terms_matches_whole_tokens_only():
@@ -94,6 +94,21 @@ def test_ignore_vendored_and_build_dirs(tmp_path):
     corpus = target.text_corpus(lower=False)
     assert "real content here" in corpus
     assert "vendored spec plan test agent content" not in corpus
+
+
+def test_text_files_keys_corpus_files_by_relative_posix_path(tmp_path):
+    # The judged check reads one cited file, so text_files must hold exactly the corpus files
+    # (text extension, not ignored, not oversize) under the path an answer would cite.
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "guide.md").write_text("guide text")
+    (tmp_path / "README.md").write_text("readme text")
+    (tmp_path / "tool.py").write_text("print('source code is not corpus')")
+    (tmp_path / "node_modules").mkdir()
+    (tmp_path / "node_modules" / "dep.md").write_text("dependency text")
+    (tmp_path / "big.md").write_text("x" * (evidence._MAX_FILE_BYTES + 1))
+    target = Target.from_path(tmp_path)
+    assert target.text_files() == {"README.md": "readme text", "docs/guide.md": "guide text"}
+    assert target.text_corpus(lower=False) == "readme text\nguide text"
 
 
 def _git(root, *args, when=None):

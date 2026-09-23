@@ -35,7 +35,7 @@ narrow, stable seams rather than shared internals:
 |---|---|---|---|
 | Plugin (`atlas.sh`) | Engine | Subprocess `exec`, args forwarded unchanged | Launcher bootstraps a cached `.venv`, then `exec "$ATLAS" "$@"` |
 | Plugin (skill) | Engine | CLI commands + stdout parsing | `questions <target>` → worklist JSON; `profile <target> --answers - --format json/html/text` → profile; `atlas.sh --repo-root` → engine root for `--save` |
-| Host agent (model) | Engine | `--answers` JSON (file or stdin `-`) | `{ "source": "agentic-atlas:<model>", "answers": { "<id>": {"answer","evidence"} } }`; engine validates value ∈ allowed set and quote verbatim in corpus |
+| Host agent (model) | Engine | `--answers` JSON (file or stdin `-`) | `{ "source": "agentic-atlas:<model>", "answers": { "<id>": {"answer","evidence","path"} } }`; engine validates value ∈ allowed set, path admissible under the rubric's `evidence_exclude`, and quote verbatim in that file |
 | Engine | Rubric | `spec.load_rubric(dir)` | Reads `rubric.yaml` + `axes/<id>/axis.yaml`; validates against `rubric.schema.json` and `axis.schema.json`; scale + axis order from the manifest |
 | Engine | Rubric READMEs | `docs.sync` | Regenerates each axis README's scoring block from its `axis.yaml`; `make docs-check` fails on drift |
 | Engine | Filesystem/network | `evidence.Target` | Reads the target's text corpus, git history (`subprocess git`), and GitHub API (`urllib`) for detected indicators |
@@ -46,7 +46,8 @@ narrow, stable seams rather than shared internals:
    the engine venv and forwards to the `agentic-atlas` CLI.
 2. `agentic-atlas questions <target>` → engine loads+validates `rubric/v1`, emits the
    judged worklist (id, axis, question, allowed answers) as JSON.
-3. The host agent reads the target and answers each question with a value + a verbatim quote,
+3. The host agent reads the target and answers each question with a value, a verbatim quote,
+   and the path of the file the quote is in,
    assembling the answers JSON.
 4. `agentic-atlas profile <target> --answers - --format json` → `profiler.profile_target`
    resolves detected indicators from the target and validates the supplied judged answers,

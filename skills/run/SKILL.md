@@ -166,9 +166,10 @@ output stays honest.
 bash "$SKILL_DIR/atlas.sh" questions "<abs-target-path>"
 ```
 
-This prints JSON: `rubric_version`, `target`, `instructions`, and `questions[]`. Each
-question is `{"id", "axis", "question", "answers": [<allowed values>]}`. There are 25
-judged questions across the axes. Read the whole list before answering.
+This prints JSON: `rubric_version`, `target`, `instructions`, `evidence_exclude`, and
+`questions[]`. Each question is `{"id", "axis", "question", "answers": [<allowed values>]}`.
+There are 25 judged questions across the axes. `evidence_exclude` lists the globs of files
+you may not cite (see Step 4). Read the whole list before answering.
 
 ### Step 4: Read the target, then answer each question
 
@@ -182,22 +183,48 @@ Then answer every question in the worklist. For each one:
 2. **Cite `evidence`: a quote copied verbatim from the target**, character-for-character,
    at least a full phrase (the engine requires at least 12 characters). No paraphrase, no
    ellipsis, no reformatting, no stitching two passages together.
-3. If the behavior is **absent**, do not omit the question when the answer set has a value
+3. **Cite `path`: the file the quote is in**, relative to the target root, spelled exactly
+   as the repository lists it (for example `docs/workflow.md`; matching is case-sensitive).
+   The engine checks the quote inside that one file only, so a quote that exists elsewhere
+   in the repository still fails if the path names the wrong file.
+4. If the behavior is **absent**, do not omit the question when the answer set has a value
    that represents that absence (a neutral middle like `evolving`, or a `none`/`no` option).
    Choose that value and quote the most relevant passage where the behavior would appear.
    Omitting drops the indicator from the axis entirely (it is excluded from the weighted
    mean, not scored as neutral), so a fitting absent value keeps the axis at full coverage
    and is almost always the more honest, more complete answer.
-4. Before submitting, **self-verify** each quote is literally present in the file you took
-   it from.
+5. Before submitting, **self-verify** each quote is literally present in the file its `path`
+   names, and that the path matches no glob in `evidence_exclude`.
 
 **Where evidence must come from.** The engine builds its text corpus only from files with
 these extensions: `.md`, `.markdown`, `.txt`, `.yaml`, `.yml`, `.json`, `.toml`. It ignores
-`.git`, `node_modules`, `__pycache__`, `.venv`, `venv`, `dist`, `build`, and files over
-512 KB. Quotes taken from source code (`.py`, `.js`, `.ts`, `.go`, `.rs`, `.sh`, and the
-like) are NOT in the corpus and will fail validation. When a behavior lives only in code,
-cite the documentation or configuration passage that describes it, or, if nothing describes
-it, treat it as unevidenced for that indicator and pick the value its absence supports.
+`.git`, `node_modules`, `__pycache__`, `.venv`, `venv`, `dist`, `build`, `vendor`,
+`vendored`, `third_party`, `third-party`, and files over 512 KB. Quotes taken from source
+code (`.py`, `.js`, `.ts`, `.go`, `.rs`, `.sh`, and the like) are NOT in the corpus and will
+fail validation. When a behavior lives only in code, cite the documentation or configuration
+passage that describes it, or, if nothing describes it, treat it as unevidenced for that
+indicator and pick the value its absence supports.
+
+**Which files are admissible.** Evidence must describe the method the tool ships to its
+users today. The rubric's `evidence_exclude` globs (printed in the Step 3 payload) reject five
+kinds of file, and the engine refuses any answer whose `path` matches one:
+
+- release history (changelogs, release notes, changesets), which records past changes;
+- tests and fixtures, which exercise the tool rather than instruct its users;
+- example and use-case projects, which are built with the tool rather than part of it;
+- the tool's own working folders and design records (task boards, change proposals, plans,
+  specs, design notes, and research written while developing the tool, such as
+  `.taskmaster/`, `openspec/changes/`, `docs/plans/`, `docs/adr/`), plus anything under an
+  `archived/` folder, which can describe work that never shipped or no longer ships;
+- the tool's own repository process (`CONTRIBUTING.md`, `.github/workflows/`,
+  `.github/ISSUE_TEMPLATE/`), which describes developing the tool, not using it.
+
+The globs are a floor, not the whole rule. Apply the same test to any file they miss: a
+maintainer's notes, a roadmap, or agent instructions for working on the tool's own repository
+(for example `.github/copilot-instructions.md` in a tool that does not ship it) describe the
+tool's development, so do not cite them. Cite the README, docs, and the skill, command, agent,
+template, and configuration files the tool installs or tells users to use. If the only passage supporting an answer sits in an
+excluded file, the answer is unevidenced: choose the value its absence supports.
 
 **How the verbatim check works.** The engine normalizes whitespace (any run of spaces,
 tabs, or newlines collapses to one space) and casefolds before matching, so case and line
@@ -221,8 +248,8 @@ Write a single JSON file (to a temp path) in exactly this shape:
 {
   "source": "agentic-atlas:<your-model-id>",
   "answers": {
-    "starting-point": {"answer": "existing_codebase", "evidence": "a verbatim quote from the target"},
-    "spec-required": {"answer": "required", "evidence": "another verbatim quote from the target"}
+    "starting-point": {"answer": "existing_codebase", "evidence": "a verbatim quote from the target", "path": "README.md"},
+    "spec-required": {"answer": "required", "evidence": "another verbatim quote from the target", "path": "docs/workflow.md"}
   }
 }
 ```
@@ -246,15 +273,30 @@ Parse the JSON. Indicators are nested per axis under `axes[].indicators[]`, each
 `resolved` field. An indicator with `resolved: false` carries the reason in its `evidence`
 field:
 
-- `"evidence quote was not found verbatim in the target"`: the quote did not match.
+- `"evidence quote was not found verbatim in '<path>'"`: the quote is not in the file you
+  named. When it exists in another admissible file, the reason ends `; the quote appears in
+  '<other path>'`; when it exists only in excluded files, it ends `; the quote appears only
+  in excluded files: ...`.
+- `"evidence path '<path>' is excluded as evidence (matches '<glob>')"`: the file is one of
+  the kinds listed under "Which files are admissible".
+- `"evidence path '<path>' does not exist in the target"`, `"... is outside the target"`, or
+  `"... is not in the text corpus (...)"`: the path is misspelled, absolute, climbs above the
+  root, or names a file the engine does not read (wrong extension, ignored directory, or too
+  large).
+- `"no evidence path supplied"`: the answer has no `path`.
 - `"answer '<x>' is not one of [...]"`: the value was not in the allowed set.
 
 ### Step 7: Retry failed quotes once
 
 For each answer that failed in Step 6, fix it and re-submit **once**:
 
-- Quote not found: re-open the file, copy an exact contiguous span from a corpus-eligible
-  file (see Step 4), and replace the `evidence` string.
+- Quote not in the named file: if the reason says the quote appears in another admissible
+  file, set `path` to that file. Otherwise re-open the file, copy an exact contiguous span,
+  and replace the `evidence` string (and `path`, if you now quote a different file).
+- Path excluded, or the quote appears only in excluded files: find a passage in an
+  admissible file that supports the answer. If none exists, change `answer` to the value its
+  absence supports and quote the most relevant admissible passage.
+- Path missing or not in the corpus: correct `path` to the file's exact relative path.
 - Value not allowed: replace `answer` with one of the question's declared values.
 
 Rewrite the answers file with the corrections and re-run the `profile ... --format json`

@@ -1,4 +1,4 @@
-rubric_version: 4.0.0
+rubric_version: 5.0.0
 title: Agentic Atlas Rubric
 description: >
   An opinionated, versioned rubric for locating agentic development approaches on
@@ -12,6 +12,52 @@ description: >
 # wide constant, not a per-axis knob. It is a display multiplier on the normalized
 # weighted mean and does not change any relative position.
 scale: 10
+
+# Files a judged answer may not cite as evidence. A judged quote must describe the method
+# the tool ships today, so these globs exclude text that describes something else. Matched
+# against the answer's path relative to the target root, case-sensitively, with the same
+# glob syntax as path signals (`**` spans directories, `*` stays within one segment).
+evidence_exclude:
+  # Release history records what changed in the past, not what the tool does now.
+  - "**/CHANGELOG.*"
+  - "**/HISTORY.md"
+  - "**/RELEASE-NOTES*"
+  - "**/RELEASE_NOTES*"
+  - "**/RELEASE-v*"
+  - "**/.changeset/**"
+  # Tests and fixtures exercise the tool; they do not instruct its users.
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/__tests__/**"
+  - "**/fixtures/**"
+  # Example and use-case projects are built with the tool, not part of its method.
+  - "examples/**"
+  - "use-cases/**"
+  # The tool's own working folders and design records: task boards, change proposals,
+  # plans, specs, design notes, and research written while developing the tool, which can
+  # describe work that never shipped, plus archived material the tool no longer ships.
+  - ".taskmaster/**"
+  - "openspec/changes/**"
+  - "openspec/work/**"
+  - "openspec/initiatives/**"
+  - "openspec/explorations/**"
+  - "docs/plans/**"
+  - ".plans/**"
+  - "docs/superpowers/plans/**"
+  - "docs/superpowers/specs/**"
+  - ".kiro/specs/**"
+  - ".claude/PRPs/**"
+  - "backlog/**"
+  - "docs/brainstorms/**"
+  - "docs/adr/**"
+  - "docs/designs/**"
+  - "docs/research/**"
+  - "**/archived/**"
+  # How the tool's own repository is run: contributor guides, CI, and issue templates
+  # describe developing the tool, not using it.
+  - "**/CONTRIBUTING.md"
+  - ".github/workflows/**"
+  - ".github/ISSUE_TEMPLATE/**"
 
 # Active axes, in display order (grouped: context, style, process, architecture,
 # footprint). Each id maps to axes/<id>/axis.yaml.

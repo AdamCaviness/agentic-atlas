@@ -6,7 +6,7 @@ Two independent version lines. Do not conflate them.
 
 Declared as `rubric_version` inside the manifest (`rubric/v1/rubric.yaml`), which is the authoritative version of the measurement standard; the rubric source lives under `rubric/v1/`. The guiding question for a bump is: **would this change move the score for identical evidence?**
 
-- **MAJOR** (`x.0.0`): any change that can move an existing axis score given the same evidence. This includes adding or removing an indicator, changing a weight, changing the scoring formula, changing an answer-to-value mapping, or redefining a pole. After a MAJOR bump, profiles from earlier MAJOR versions are no longer comparable.
+- **MAJOR** (`x.0.0`): any change that can move an existing axis score given the same evidence. This includes adding or removing an indicator, changing a weight, changing the scoring formula, changing an answer-to-value mapping, redefining a pole, or changing which files are admissible as judged evidence (`evidence_exclude`). After a MAJOR bump, profiles from earlier MAJOR versions are no longer comparable.
 - **MINOR** (`1.x.0`): add a whole new axis, or add optional metadata, such that every existing axis produces an identical score for identical evidence.
 - **PATCH** (`1.0.x`): wording changes that cannot change any indicator value. Typos, clearer examples, expanded rationale.
 

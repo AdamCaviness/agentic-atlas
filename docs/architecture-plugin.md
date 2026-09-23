@@ -61,13 +61,16 @@ on the 13 axes. Its 9-step procedure:
    Then a soft gate: confirm the target actually looks like an *agentic methodology* (SKILL.md,
    `skills/`, `agents/`, `.claude/`, AGENTS.md, agentic vocabulary) before spending effort.
 3. **Get the worklist** — `atlas.sh questions <target>` prints the judged questions.
-4. **Read the target, then answer** — pick one allowed value per question and cite a quote
+4. **Read the target, then answer** — pick one allowed value per question, cite a quote
    copied **verbatim** from a corpus-eligible file (`.md .txt .yaml .yml .json .toml`; source
-   code is *not* in the corpus). Prefer an absent/neutral value over omission to keep coverage.
+   code is *not* in the corpus), and give that file's `path`. The file must match none of the
+   rubric's `evidence_exclude` globs. Prefer an absent/neutral value over omission to keep
+   coverage.
 5. **Assemble the answers object** — `{ "source": "agentic-atlas:<model-id>", "answers": {…} }`.
 6. **Score** — `atlas.sh profile <target> --answers <file> --format json`, then check each
    indicator's `resolved` flag.
-7. **Retry failed quotes once** — fix an unfound quote or an out-of-set value, re-run once.
+7. **Retry failed quotes once** — fix an unfound quote, a wrong or excluded path, or an
+   out-of-set value, re-run once.
 8. **Render, open, summarize** — write the HTML report to a per-user cache (never inside any
    repo), open it, print the text fallback, and summarize confident/provisional/unread axes.
 9. **Save + clean up** — with `--save`, write `answers.json` + `profile.json` under

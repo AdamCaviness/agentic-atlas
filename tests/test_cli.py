@@ -66,6 +66,9 @@ def test_answer_instructions_state_the_validation_contract():
         assert suffix in ANSWER_INSTRUCTIONS
     assert f"{MIN_QUOTE_CHARS} characters" in ANSWER_INSTRUCTIONS
     assert "will still be accepted" in ANSWER_INSTRUCTIONS
+    # Every answer names the file its quote is in, and that file must pass the exclusions.
+    assert '"path"' in ANSWER_INSTRUCTIONS
+    assert "evidence_exclude" in ANSWER_INSTRUCTIONS
 
 
 def test_questions_emits_the_contract_instructions(tmp_path, capsys):
@@ -73,7 +76,10 @@ def test_questions_emits_the_contract_instructions(tmp_path, capsys):
     assert main(["questions", str(tmp_path)]) == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["instructions"] == ANSWER_INSTRUCTIONS
-    assert payload["rubric_version"] == load_rubric(_DEFAULT_RUBRIC).rubric_version
+    rubric = load_rubric(_DEFAULT_RUBRIC)
+    assert payload["rubric_version"] == rubric.rubric_version
+    # The answerer sees the rubric's exclusions up front, not only through rejections.
+    assert payload["evidence_exclude"] == list(rubric.evidence_exclude)
 
 
 def test_render_bad_path_exits_nonzero(capsys):

@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import re
 from html import escape as _html_escape
+from urllib.parse import quote as _url_quote
 
 from .models import AxisResult, IndicatorKind, Profile
 
@@ -184,14 +185,15 @@ def render_markdown(profile: Profile) -> str:
             lines.append(f"- **{pos}** (+): {ax.explain.positive}")
             lines.append(f"- **near 0**: {_MIDDLE_NOTE}")
         lines.append("")
-        lines.append("| indicator | kind | weight | answer | value | evidence | source |")
-        lines.append("|---|---|---|---|---|---|---|")
+        lines.append("| indicator | kind | weight | answer | value | evidence | file | source |")
+        lines.append("|---|---|---|---|---|---|---|---|")
         for ir in ax.indicators:
             val = "" if ir.value is None else f"{ir.value:+.2f}"
             ev = (ir.evidence or "").replace("|", "\\|")[:80]
+            file = "`" + ir.path.replace("|", "\\|") + "`" if ir.path else "-"
             lines.append(
                 f"| {ir.indicator_id} | {ir.kind.value} | {ir.weight:g} | "
-                f"{ir.answer or '-'} | {val} | {ev} | {ir.source or '-'} |"
+                f"{ir.answer or '-'} | {val} | {ev} | {file} | {ir.source or '-'} |"
             )
         lines.append("")
     hint = _skill_hint(profile)
@@ -364,6 +366,9 @@ _HTML_CSS = """
   th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
   th{color:var(--muted);font-weight:600;white-space:nowrap}
   td.evidence{color:var(--muted);font-family:var(--mono);font-size:.72rem;min-width:16rem}
+  .ev-path{display:block;margin-top:3px;color:var(--faint);font-size:.66rem;word-break:break-all}
+  .ev-path a{color:var(--accent);text-decoration:none}
+  .ev-path a:hover{text-decoration:underline}
   .kind{font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
   .val{font-family:var(--mono)}
   .footer-hint{margin-top:22px;padding:12px 14px;border-left:3px solid var(--cov-mid);background:var(--card);
@@ -394,7 +399,29 @@ def _coverage_class(coverage: float) -> str:
     return "cov-low"
 
 
-def _html_indicator_rows(ax: AxisResult) -> str:
+def _blob_base(profile: Profile) -> str | None:
+    """The GitHub URL prefix for a file at the profiled commit, or None when the target is not
+    a GitHub checkout with a known SHA. A cited evidence path appended to it opens the exact
+    file the quote was verified in."""
+    slug = _github_slug(profile.target_url)
+    if not slug or not profile.target_sha:
+        return None
+    owner, repo = slug
+    return f"https://github.com/{owner}/{repo}/blob/{profile.target_sha}/"
+
+
+def _html_ev_path(path: str | None, blob_base: str | None) -> str:
+    """The file a judged quote came from, shown under the quote, linked when the host is known."""
+    if not path:
+        return ""
+    label = _html_escape(path)
+    if blob_base:
+        href = _html_escape(blob_base + _url_quote(path))
+        label = f'<a href="{href}" target="_blank" rel="noopener">{label}</a>'
+    return f'<span class="ev-path">{label}</span>'
+
+
+def _html_indicator_rows(ax: AxisResult, blob_base: str | None) -> str:
     rows = []
     for ir in ax.indicators:
         val = "" if ir.value is None else f"{ir.value:+.2f}"
@@ -405,14 +432,15 @@ def _html_indicator_rows(ax: AxisResult) -> str:
             f"<td>{ir.weight:g}</td>"
             f"<td>{_html_escape(ir.answer or '-')}</td>"
             f'<td class="val">{val}</td>'
-            f'<td class="evidence">{_html_escape(ir.evidence or "")}</td>'
+            f'<td class="evidence">{_html_escape(ir.evidence or "")}'
+            f"{_html_ev_path(ir.path, blob_base)}</td>"
             f"<td>{_html_escape(ir.source or '-')}</td>"
             "</tr>"
         )
     return "\n".join(rows)
 
 
-def _html_axis(ax: AxisResult, idx: int) -> str:
+def _html_axis(ax: AxisResult, idx: int, blob_base: str | None) -> str:
     d_res, d_total, j_res, j_total = _kind_counts(ax)
     cov_pct = round(ax.coverage * 100)
     cov_txt = f"detected {d_res}/{d_total} · judged {j_res}/{j_total} · {cov_pct}% evidence"
@@ -479,7 +507,7 @@ def _html_axis(ax: AxisResult, idx: int) -> str:
         '      <div class="table-scroll"><table>'
         "<thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th>"
         "<th>value</th><th>evidence</th><th>source</th></tr></thead>"
-        f"<tbody>{_html_indicator_rows(ax)}</tbody></table></div>\n"
+        f"<tbody>{_html_indicator_rows(ax, blob_base)}</tbody></table></div>\n"
         "    </dialog>"
     )
     dialogs_html = "\n".join(dialogs)
@@ -906,7 +934,8 @@ def render_html(profile: Profile) -> str:
     the emitted bytes stay a deterministic function of the Profile.
     """
     scale = profile.axes[0].scale if profile.axes else 10.0
-    axes_html = "\n".join(_html_axis(ax, i) for i, ax in enumerate(profile.axes))
+    blob_base = _blob_base(profile)
+    axes_html = "\n".join(_html_axis(ax, i, blob_base) for i, ax in enumerate(profile.axes))
     project = _project_html(profile.target_url, _display_name(profile.target))
     stamps = _html_project_stamps(profile)
     hint = _skill_hint(profile)

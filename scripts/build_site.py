@@ -296,6 +296,8 @@ button.act:hover{border-color:var(--accent);color:var(--accent)}
 .sig-ev{font-size:.76rem;color:var(--fg);opacity:.88;line-height:1.42}
 .sig-ev.empty{color:var(--faint);font-style:italic;opacity:1}
 .sig-src{font-size:.64rem;color:var(--faint);margin-top:3px;font-family:var(--mono)}
+.sig-path{font-size:.64rem;color:var(--faint);margin-top:3px;font-family:var(--mono);word-break:break-all}
+.sig-path a{text-decoration:none}.sig-path a:hover{text-decoration:underline}
 .cmp-ft{padding:12px 18px;border-top:1px solid var(--line);background:var(--card);display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .cmp-ft .principle{font-size:.78rem;color:var(--faint);font-style:italic;margin:0}
 .cmp-ft .evi{font-size:.74rem;color:var(--muted);margin:0;display:inline-flex;align-items:center;gap:7px}
@@ -334,6 +336,8 @@ let searchQ="";
 let prefsSheetOpen=false;
 let prefsLastFocus=null;
 const prof=s=>DATA.find(d=>d.slug===s);
+// The file a judged quote was verified in, linked at the profiled commit when the origin is GitHub.
+function evPath(p,path){if(!path)return "";const m=/github\.com[:\/]+([^\/]+)\/([^\/]+?)(?:\.git)?\/?$/.exec(p.target_url||"");const label=esc(path);const href=m&&p.target_sha?`https://github.com/${m[1]}/${m[2]}/blob/${p.target_sha}/${path.split("/").map(encodeURIComponent).join("/")}`:"";return `<div class="sig-path">${href?`<a href="${esc(href)}" target="_blank" rel="noopener">${label}</a>`:label}</div>`;}
 const cmpMeta=id=>AXES.find(a=>a.id===id);
 
 // Coverage floor, matching report.py's _COVERAGE_FLOOR. Below it an axis has too little
@@ -680,7 +684,7 @@ function cmpRenderSignals(id){
     const p=prof(s),rax=p.axes.find(x=>x.axis_id===id),sc=axVal(rax);
     const scCls=sc===null?"na":(sc<0?"neg":"pos"),scTxt=sc===null?"no reading":(sc>0?"+":"")+sc.toFixed(1);
     const inds=(rax&&rax.indicators)?rax.indicators:[];
-    const items=inds.length?inds.map(ir=>{const kind=ir.kind;const v=ir.value,vCls=v==null?"zero":(v<0?"neg":(v>0?"pos":"zero")),vTxt=v==null?"":(v>0?"+":"")+(+v).toFixed(2);const ev=ir.evidence?`<div class="sig-ev">&ldquo;${esc(ir.evidence)}&rdquo;</div>`:`<div class="sig-ev empty">no quote recorded</div>`;const ans=ir.answer&&ir.answer!=="-"?` &middot; ${esc(ir.answer)}`:"";return `<div class="sig-item"><div class="sig-top"><span class="kind ${kind}">${kind}</span><span class="sig-id">${esc(ir.indicator_id)}${ans}</span><span class="sig-v ${vCls}">${vTxt}</span></div>${ev}<div class="sig-src">${esc(ir.source||"")}</div></div>`;}).join(""):`<div class="sig-ev empty">no signals recorded</div>`;
+    const items=inds.length?inds.map(ir=>{const kind=ir.kind;const v=ir.value,vCls=v==null?"zero":(v<0?"neg":(v>0?"pos":"zero")),vTxt=v==null?"":(v>0?"+":"")+(+v).toFixed(2);const ev=ir.evidence?`<div class="sig-ev">&ldquo;${esc(ir.evidence)}&rdquo;</div>`:`<div class="sig-ev empty">no quote recorded</div>`;const ans=ir.answer&&ir.answer!=="-"?` &middot; ${esc(ir.answer)}`:"";return `<div class="sig-item"><div class="sig-top"><span class="kind ${kind}">${kind}</span><span class="sig-id">${esc(ir.indicator_id)}${ans}</span><span class="sig-v ${vCls}">${vTxt}</span></div>${ev}${evPath(p,ir.path)}<div class="sig-src">${esc(ir.source||"")}</div></div>`;}).join(""):`<div class="sig-ev empty">no signals recorded</div>`;
     return `<div class="sig-tool"><div class="sh"><span class="stname"><span class="tdot" style="background:var(${TCOL[i]})"></span>${esc(p.name)}</span><span class="stsc ${scCls}">${scTxt}</span></div>${items}</div>`;
   }).join("");
   body.innerHTML=`<button class="drill-back" type="button" onclick="cmpUndrill()"><span class="chev" aria-hidden="true">&lsaquo;</span> Back to compare</button><h3 class="drill-h">${esc(a.title)}</h3><p class="drill-sub"><span class="pn">${esc(a.neg)}</span> &harr; <span class="pp">${esc(a.pos)}</span> &middot; the signals behind each position, <b>detected</b> by the engine or <b>judged</b> by a reviewer reading the repo.</p><div class="sig-cols">${cols}</div>`;

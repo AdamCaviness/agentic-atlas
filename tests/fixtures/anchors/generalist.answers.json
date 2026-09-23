@@ -1,7 +1,7 @@
 {
   "source": "anchor:generalist",
   "answers": {
-    "domain-focus": {"answer": "any_domain", "evidence": "A general assistant for any kind of work, not limited to software."},
-    "non-code-claims": {"answer": "yes_broad", "evidence": "It helps with writing, research, analysis, and everyday tasks across any"}
+    "domain-focus": {"answer": "any_domain", "evidence": "A general assistant for any kind of work, not limited to software.", "path": "README.md"},
+    "non-code-claims": {"answer": "yes_broad", "evidence": "It helps with writing, research, analysis, and everyday tasks across any", "path": "README.md"}
   }
 }

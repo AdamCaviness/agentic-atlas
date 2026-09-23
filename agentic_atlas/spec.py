@@ -115,4 +115,5 @@ def load_rubric(path: str | Path, *, validate: bool = True) -> Rubric:
         title=manifest["title"],
         axes=tuple(axes),
         description=manifest.get("description", ""),
+        evidence_exclude=tuple(manifest.get("evidence_exclude", ())),
     )

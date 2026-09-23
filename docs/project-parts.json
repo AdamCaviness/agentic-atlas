@@ -63,7 +63,7 @@
       "from": "host-agent",
       "to": "engine",
       "type": "answers JSON",
-      "details": "supplied judged answers validated by the engine (value in allowed set, quote verbatim in corpus)"
+      "details": "supplied judged answers validated by the engine (value in allowed set, cited path admissible under evidence_exclude, quote verbatim in that file)"
     },
     {
       "from": "engine",

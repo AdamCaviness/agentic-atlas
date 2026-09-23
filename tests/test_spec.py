@@ -31,8 +31,42 @@ _EXPECTED_AXES = [
 
 def test_shipped_rubric_validates_and_parses():
     r = load_rubric(_RUBRIC, validate=True)
-    assert r.rubric_version == "4.0.0"
+    assert r.rubric_version == "5.0.0"
     assert {a.id for a in r.axes} == set(_EXPECTED_AXES)
+
+
+def test_evidence_exclude_is_loaded_from_the_manifest(tmp_path):
+    # Which files a judged answer may cite is rubric data. The shipped manifest lists globs,
+    # and a manifest without the key admits every corpus file (the engine adds none).
+    import shutil
+
+    import yaml
+
+    shipped = load_rubric(_RUBRIC).evidence_exclude
+    assert shipped and all(isinstance(g, str) and g for g in shipped)
+
+    dst = tmp_path / "v1"
+    shutil.copytree(_RUBRIC, dst)
+    manifest_path = dst / "rubric.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text())
+    del manifest["evidence_exclude"]
+    manifest_path.write_text(yaml.safe_dump(manifest))
+    assert load_rubric(dst).evidence_exclude == ()
+
+
+def test_schema_rejects_a_non_string_evidence_exclude_glob(tmp_path):
+    import shutil
+
+    import yaml
+
+    dst = tmp_path / "v1"
+    shutil.copytree(_RUBRIC, dst)
+    manifest_path = dst / "rubric.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text())
+    manifest["evidence_exclude"] = ["**/CHANGELOG*", 3]
+    manifest_path.write_text(yaml.safe_dump(manifest))
+    with pytest.raises(jsonschema.ValidationError):
+        load_rubric(dst)
 
 
 def test_manifest_order_is_preserved():
