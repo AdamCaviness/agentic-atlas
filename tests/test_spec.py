@@ -1,6 +1,10 @@
 """Tests that the shipped rubric loads and validates."""
 
+import json
 from pathlib import Path
+
+import jsonschema
+import pytest
 
 from agentic_atlas.models import IndicatorKind
 from agentic_atlas.spec import load_rubric
@@ -27,7 +31,7 @@ _EXPECTED_AXES = [
 
 def test_shipped_rubric_validates_and_parses():
     r = load_rubric(_RUBRIC, validate=True)
-    assert r.rubric_version == "3.0.0"
+    assert r.rubric_version == "4.0.0"
     assert {a.id for a in r.axes} == set(_EXPECTED_AXES)
 
 
@@ -55,14 +59,14 @@ def test_manifest_scale_propagates_to_every_axis(tmp_path):
     assert all(a.scale == 7 for a in r.axes)
 
 
-def test_classified_indicators_have_answers():
+def test_judged_indicators_have_answers():
     r = load_rubric(_RUBRIC)
     for axis in r.axes:
         for ind in axis.indicators:
-            if ind.kind is IndicatorKind.CLASSIFIED:
-                assert ind.answers, f"{ind.id} classified but has no answers"
+            if ind.kind is IndicatorKind.JUDGED:
+                assert ind.answers, f"{ind.id} judged but has no answers"
             else:
-                assert ind.signal, f"{ind.id} measured but has no signal"
+                assert ind.signal, f"{ind.id} detected but has no signal"
 
 
 def test_answer_values_in_range():
@@ -80,3 +84,33 @@ def test_every_axis_has_plain_language_pole_meanings():
     for axis in r.axes:
         assert axis.explain.negative, f"{axis.id} is missing a negative pole meaning"
         assert axis.explain.positive, f"{axis.id} is missing a positive pole meaning"
+
+
+def test_schema_rejects_exclude_authors_outside_contributor_count():
+    # The engine only applies exclude_authors to contributor_count, so the schema rejects it
+    # elsewhere and a misconfigured rubric fails at validation, not mid-profile.
+
+    schema = json.loads((_RUBRIC / "axis.schema.json").read_text())
+    axis = {
+        "id": "a",
+        "title": "A",
+        "poles": {"negative": "n", "positive": "p"},
+        "indicators": [
+            {
+                "id": "x",
+                "question": "q",
+                "kind": "detected",
+                "weight": 1,
+                "signal": {
+                    "type": "git_stats",
+                    "metric": "commit_count",
+                    "exclude_authors": ["bot"],
+                    "bands": [{"max_count": None, "value": 1.0}],
+                },
+            }
+        ],
+    }
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(axis, schema)
+    axis["indicators"][0]["signal"]["metric"] = "contributor_count"
+    jsonschema.validate(axis, schema)

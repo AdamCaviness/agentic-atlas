@@ -20,8 +20,8 @@ An axis is a signed spectrum (negative/positive float) between two named poles, 
 
 You never score an axis directly. It decomposes into indicators, each a narrow question with a bounded answer mapping to a value in `[-1, 1]` signed toward one pole. Two kinds:
 
-- **measured**: computed by the engine from the repository, no model. Rubric 3.0.0 uses git history (age, commits, authors, tags) and counts of spec-template files and agent-definition files. Same input, same output.
-- **classified**: a model reads the repository and picks from a fixed answer set, backing the choice with a quote copied verbatim from the target. The engine rejects any answer whose quote it can't find, so nothing rests on an unverified claim.
+- **detected**: computed by the engine from the repository, no model. The rubric uses git history (age, commits, people, release tags) on the Fresh vs Mature axis. Same input, same output.
+- **judged**: a model reads the repository and picks from a fixed answer set, backing the choice with a quote copied verbatim from the target. The engine rejects any answer whose quote it can't find, so nothing rests on an unverified claim.
 
 The score is then arithmetic, over resolved indicators, clamped to `[-scale, +scale]`:
 
@@ -69,21 +69,21 @@ The `agentic-atlas` CLI is available inside the venv:
 ```bash
 agentic-atlas validate rubric/v1                                    # check against the schema
 agentic-atlas docs rubric/v1                                        # regenerate axis README scoring blocks
-agentic-atlas profile /path/to/methodology                             # measured indicators, deterministic, no key
-agentic-atlas questions /path/to/methodology                           # emit the classified questions to answer
-agentic-atlas profile /path/to/methodology --answers answers.json      # unlock classified indicators from answers
+agentic-atlas profile /path/to/methodology                             # detected indicators, deterministic, no key
+agentic-atlas questions /path/to/methodology                           # emit the judged questions to answer
+agentic-atlas profile /path/to/methodology --answers answers.json      # unlock judged indicators from answers
 agentic-atlas compare bmad-method superpowers gsd                   # (planned) overlay tools on the same axes
 ```
 
-The engine is deterministic and needs no API key. A bare `profile` run resolves the **measured** indicators, the ones the engine computes directly from the repository, and reports how much of each axis that covers. The **classified** indicators, the ones that need the repository read and interpreted, are unlocked by supplying answers: `questions` lists them, an agent answers each with a value from its fixed set and a quote from the target, and `profile --answers` validates every answer (the quote must appear verbatim, the value must be one of the declared options) and scores the ones that pass. The engine never calls a model; it validates.
+The engine is deterministic and needs no API key. A bare `profile` run resolves the **detected** indicators, the ones the engine computes directly from the repository, and reports how much of each axis that covers. The **judged** indicators, the ones that need the repository read and interpreted, are unlocked by supplying answers: `questions` lists them, an agent answers each with a value from its fixed set and a quote from the target, and `profile --answers` validates every answer (the quote must appear verbatim, the value must be one of the declared options) and scores the ones that pass. The engine never calls a model; it validates.
 
-The intended answerer is the `run` skill of the `agentic-atlas` plugin. Its host agent is already a capable model with repo access, so it answers the classified questions and feeds them back, no key required. Running the engine raw gives you the deterministic measured axes; running it through the skill unlocks the rest.
+The intended answerer is the `run` skill of the `agentic-atlas` plugin. Its host agent is already a capable model with repo access, so it answers the judged questions and feeds them back, no key required. Running the engine raw gives you the deterministic detected axes; running it through the skill unlocks the rest.
 
 ## Plugin installation
 
 The plugin ships three skills. Install from [agentic-marketplace](https://github.com/adamcaviness/agentic-marketplace); pick **one** path per harness.
 
-- `/agentic-atlas:run [path-or-git-url]` profiles a target and unlocks the classified axes (the flow described above).
+- `/agentic-atlas:run [path-or-git-url]` profiles a target and unlocks the judged axes (the flow described above).
 - `/agentic-atlas:open-explorer` opens the hosted **Explorer** at <https://adamcaviness.github.io/agentic-atlas/>, where ready-made profiles of popular methodologies let you browse and find your fit without running anything yourself.
 - `/agentic-atlas:explain [question]` explains the method and helps you read a profile, grounded in these docs and the rubric, upholding the no-ranking, no-aggregate-score stance.
 
@@ -118,13 +118,13 @@ codex plugin add agentic-atlas@agentic-marketplace
 
 ## Reproducibility and fairness
 
-The rubric (`rubric/`) is versioned data (axes, poles, indicators, weights) and the engine (`agentic_atlas/`) is the code that reads it, each under its own semver. See [`docs/versioning.md`](docs/versioning.md). Every profile stamps the rubric version, engine version, target commit SHA, and, for classified indicators, the source of each supplied answer, so any profile is reproducible and arguable.
+The rubric (`rubric/`) is versioned data (axes, poles, indicators, weights) and the engine (`agentic_atlas/`) is the code that reads it, each under its own semver. See [`docs/versioning.md`](docs/versioning.md). Every profile stamps the rubric version, engine version, target commit SHA, and, for judged indicators, the source of each supplied answer, so any profile is reproducible and arguable.
 
 I also maintain [agentic-toolkit](https://github.com/adamcaviness/agentic-toolkit), which is itself a target and gets profiled with the same rubric and engine as everything else, no special treatment. I built this tool specifically so I could evaluate my own work and get a picture on where it best fits.
 
 ## Status
 
-Early scaffold, actively developed. Working today: the per-axis rubric with schema validation, the deterministic scoring core, evidence collectors (rubric 3.0.0 uses `git_stats` and `path_count`), the classified-indicator seam (a `questions` worklist plus a quote-verified `--answers` path, no API key), text/markdown/JSON/HTML reports, the `agentic-atlas docs` generator kept in sync by `make docs-check`, the three plugin skills (`run`, `open-explorer`, `explain`), a committed corpus of 23 profiles under `profiles/`, and the hosted **Explorer** built from that corpus by `scripts/build_site.py` and deployed to GitHub Pages. Next: the `compare` overlay and a wider corpus. See `docs/` and `specs/handoff.md`.
+Early scaffold, actively developed. Working today: the per-axis rubric with schema validation, the deterministic scoring core, evidence collectors (the rubric uses `git_stats`), the judged-indicator seam (a `questions` worklist plus a quote-verified `--answers` path, no API key), text/markdown/JSON/HTML reports, the `agentic-atlas docs` generator kept in sync by `make docs-check`, the three plugin skills (`run`, `open-explorer`, `explain`), a committed corpus of 23 profiles under `profiles/`, and the hosted **Explorer** built from that corpus by `scripts/build_site.py` and deployed to GitHub Pages. Next: the `compare` overlay and a wider corpus. See `docs/` and `specs/handoff.md`.
 
 ## License
 

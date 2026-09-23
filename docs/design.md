@@ -29,7 +29,7 @@ This per-axis layout makes each axis a self-contained, contestable unit: a dispu
 ```
 target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
              │              │      │
-        measured       measured  classified
+        detected       detected  judged
       (engine only)   (engine)   (model or human, cited)
 ```
 
@@ -37,8 +37,8 @@ target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
 
 The hard part is getting a deterministic result out of a subjective axis. It resolves by decomposing each axis into indicators of two kinds.
 
-- **`measured`** indicators are computed by the engine directly from the repository, with no model. The engine can resolve `vocabulary`, `path_presence`, `path_count`, `git_stats`, and `github_api`. Rubric 3.0.0 uses only `git_stats` (age, commits, authors, tags) and `path_count` (spec templates, anchored agent files). `vocabulary`, `path_presence`, and `github_api` are unused in 3.0.0. These are deterministic given their input.
-- **`classified`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model picks the answer and must cite a quote copied **verbatim from the target**; the engine discards any answer whose quote it cannot find, and the bounded, anchored answer set keeps independent runs consistent.
+- **`detected`** indicators are computed by the engine directly from the repository, with no model. The engine can resolve `vocabulary`, `path_presence`, `path_count`, `git_stats`, and `github_api`. The rubric uses only `git_stats` (age, commits, people, release tags). The other signal types are unused by the rubric. These are deterministic given their input.
+- **`judged`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model picks the answer and must cite a quote copied **verbatim from the target**; the engine discards any answer whose quote it cannot find, and the bounded, anchored answer set keeps independent runs consistent.
 
 The scoring step treats both kinds identically: each resolved indicator yields a value in `[-1, 1]` and a weight. The axis score is:
 
@@ -46,11 +46,11 @@ The scoring step treats both kinds identically: each resolved indicator yields a
 axis_score = scale * sum(weight_i * value_i) / sum(weight_i)
 ```
 
-clamped to `[-scale, +scale]` and rounded. Indicators that cannot be resolved (for example classified indicators with no answers supplied) are excluded, and the profile reports coverage so a partial profile is never mistaken for a complete one.
+clamped to `[-scale, +scale]` and rounded. Indicators that cannot be resolved (for example judged indicators with no answers supplied) are excluded, and the profile reports coverage so a partial profile is never mistaken for a complete one.
 
 ## Where judgment lives, and how it is constrained
 
-The judgment call is narrower than "score this axis from -10 to 10." It becomes "answer indicator gb1 with yes, partial, or no, and cite the line that proves it." The answer is produced outside the engine (by the agentic-toolkit skill's host agent), and the engine validates it. Constraints that keep this reproducible:
+The judgment call is narrower than "score this axis from -10 to 10." It becomes "answer indicator starting-point with yes, partial, or no, and cite the line that proves it." The answer is produced outside the engine (by the agentic-toolkit skill's host agent), and the engine validates it. Constraints that keep this reproducible:
 
 - Bounded answer sets with anchored definitions in the rubric.
 - The engine rejects any answer outside an indicator's declared value set.

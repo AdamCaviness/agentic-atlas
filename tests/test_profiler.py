@@ -1,6 +1,6 @@
-"""End-to-end profiler tests: measured-only, deterministic, no model or network.
+"""End-to-end profiler tests: detected-only, deterministic, no model or network.
 
-These exercise the whole pipeline (evidence -> classify -> scoring) against the shipped
+These exercise the whole pipeline (evidence -> judged answers -> scoring) against the shipped
 v1 rubric on a synthetic target, with no answers supplied.
 """
 
@@ -22,7 +22,7 @@ def _synthetic_target(tmp_path) -> Target:
     return Target.from_path(tmp_path)
 
 
-def test_profile_measured_only_is_well_formed(tmp_path):
+def test_profile_detected_only_is_well_formed(tmp_path):
     rubric = load_rubric(_RUBRIC)
     profile = profile_target(rubric, _synthetic_target(tmp_path))
 
@@ -32,9 +32,9 @@ def test_profile_measured_only_is_well_formed(tmp_path):
 
     for ax in profile.axes:
         assert 0.0 <= ax.coverage <= 1.0
-        # measured-only run: no classified indicator resolves
-        classified = [i for i in ax.indicators if i.kind is IndicatorKind.CLASSIFIED]
-        assert all(not i.resolved for i in classified)
+        # detected-only run: no judged indicator resolves
+        judged = [i for i in ax.indicators if i.kind is IndicatorKind.JUDGED]
+        assert all(not i.resolved for i in judged)
         # a resolved score stays within the axis scale; otherwise it is None
         if ax.score is not None:
             assert -ax.scale <= ax.score <= ax.scale

@@ -6,7 +6,7 @@
     agentic-atlas render <profile.json> [--format text|md|json|html]
 
 The engine is deterministic and needs no API key. A bare ``profile`` run resolves the
-measured indicators only. The classified indicators are unlocked by supplying answers
+detected indicators only. The judged indicators are unlocked by supplying answers
 (``--answers``) produced outside the engine, the intended producer being the
 agentic-toolkit skill, whose host agent reads the repo and answers each question from
 ``questions``. The engine validates those answers, it never calls a model.
@@ -21,8 +21,8 @@ import sys
 from pathlib import Path
 
 from . import docs
-from .classify import ANSWER_INSTRUCTIONS, classified_questions
 from .evidence import Target
+from .judged import ANSWER_INSTRUCTIONS, judged_questions
 from .models import Profile
 from .profiler import profile_target
 from .report import render_html, render_markdown, render_text
@@ -58,7 +58,7 @@ def _cmd_questions(args: argparse.Namespace) -> int:
                 "rubric_version": rubric.rubric_version,
                 "target": str(target.root),
                 "instructions": ANSWER_INSTRUCTIONS,
-                "questions": classified_questions(rubric),
+                "questions": judged_questions(rubric),
             },
             indent=2,
         )
@@ -100,7 +100,10 @@ def _cmd_profile(args: argparse.Namespace) -> int:
     rubric = load_rubric(args.rubric, validate=True)
     target = Target.from_path(args.target)
     answers, source = _load_answers(args.answers) if args.answers else (None, "supplied")
-    profile = profile_target(rubric, target, answers=answers, answers_source=source)
+    try:
+        profile = profile_target(rubric, target, answers=answers, answers_source=source)
+    except ValueError as exc:
+        raise SystemExit(str(exc))
     _emit(profile, args.format)
     return 0
 
@@ -114,7 +117,17 @@ def _cmd_render(args: argparse.Namespace) -> int:
         data = json.loads(raw)
     except (OSError, ValueError) as exc:
         raise SystemExit(f"cannot read profile file {args.profile!r}: {exc}")
-    _emit(Profile.from_dict(data), args.format)
+    try:
+        profile = Profile.from_dict(data)
+    except (ValueError, KeyError, TypeError) as exc:
+        # A profile saved under an older rubric MAJOR can use retired field values (for
+        # example the pre-4.0 kinds "measured"/"classified"). It is not comparable to the
+        # current rubric anyway, so say so instead of guessing a translation.
+        raise SystemExit(
+            f"cannot load profile {args.profile!r} (rubric {data.get('rubric_version')!r}): "
+            f"{exc}. Re-run `agentic-atlas profile` to regenerate it under the current rubric."
+        )
+    _emit(profile, args.format)
     return 0
 
 
@@ -136,16 +149,14 @@ def build_parser() -> argparse.ArgumentParser:
     pr.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
     pr.add_argument(
         "--answers",
-        help="JSON file of classified answers (from the agentic-toolkit skill) to "
+        help="JSON file of judged answers (from the agentic-toolkit skill) to "
         "validate and score, or '-' to read them from stdin; without it the profile "
-        "is measured-only",
+        "is detected-only",
     )
     pr.add_argument("--format", choices=["text", "md", "json", "html"], default="text")
     pr.set_defaults(func=_cmd_profile)
 
-    q = sub.add_parser(
-        "questions", help="emit the classified questions to answer for a target (JSON)"
-    )
+    q = sub.add_parser("questions", help="emit the judged questions to answer for a target (JSON)")
     q.add_argument("target", help="path to the target methodology/framework directory")
     q.add_argument("--rubric", default=str(_DEFAULT_RUBRIC))
     q.set_defaults(func=_cmd_questions)

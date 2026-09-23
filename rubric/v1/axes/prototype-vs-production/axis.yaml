@@ -4,23 +4,23 @@ poles:
   negative: prototype
   positive: production
 description: >
-  What kind of output the approach optimizes for. Negative means fast, throwaway,
-  proof-of-concept output. Positive means production hardening: tests, CI, security,
-  and maintainability. pp1 weighs how much production hardening is emphasized, pp2
-  whether throwaway output is acceptable or maintainable code is insisted on.
+  What kind of output the approach optimizes for. Negative means fast, throwaway, proof-
+  of-concept output. Positive means production hardening: tests, CI, security, and
+  maintainability.
 explain:
   negative: fast, throwaway output to prove an idea
   positive: hardened output with tests, CI, security, and maintainability in mind
 indicators:
-  - id: pp1
+  - id: production-hardening
     question: "How much emphasis on production hardening (CI, deployment, security, observability)?"
-    kind: classified
+    kind: judged
     weight: 3
-    # "some" is an argued lean toward production, not a defaulted middle; the true zero for
-    # this axis is pp2's "mixed" (AD-6). Extremes are +-1.0 (AD-3).
-    answers: { none: -1.0, some: 0.3, strong: 1.0 }
-  - id: pp2
+    # Extremes are +-1.0 (AD-3).
+    # True zero (AD-6): the middle answer sits halfway between the two poles, so it maps to
+    # 0.0. A tilt away from zero needs a written argument, and none exists for this one.
+    answers: { none: -1.0, some: 0.0, strong: 1.0 }
+  - id: throwaway-tolerance
     question: "Is throwaway or vibe output acceptable, or does it insist on maintainable code?"
-    kind: classified
+    kind: judged
     weight: 2
     answers: { throwaway_ok: -1.0, mixed: 0.0, maintainable_only: 1.0 }

@@ -24,18 +24,27 @@ _RATIONALE_PLACEHOLDER = (
 
 
 def _maps_to(axis_indicator) -> str:
-    if axis_indicator.kind is IndicatorKind.CLASSIFIED:
+    if axis_indicator.kind is IndicatorKind.JUDGED:
         return ", ".join(f"{k} {v:+g}" for k, v in axis_indicator.answers.items())
     signal = axis_indicator.signal or {}
-    if signal.get("type") == "vocabulary":
-        return f"{len(signal['terms'])} terms, banded by count"
     if signal.get("type") == "path_presence":
         return f"present {signal['present']:+g}, absent {signal['absent']:+g}"
-    if signal.get("type") == "git_stats":
-        return f"git {signal['metric']}, banded by count"
-    if signal.get("type") == "github_api":
-        return f"{signal['metric']} via GitHub API, banded by count"
-    return ""
+    source = {
+        "vocabulary": f"{len(signal.get('terms', []))} terms",
+        "path_count": "matching files",
+        "git_stats": f"git {signal.get('metric')}",
+        "github_api": f"{signal.get('metric')} via GitHub API",
+    }.get(signal.get("type"), "")
+    return f"{source}: {_bands_text(signal.get('bands', []))}" if source else ""
+
+
+def _bands_text(bands: list[dict]) -> str:
+    """Render bands as plain ranges, e.g. ``<= 2: -1, <= 10: +0, more: +1``."""
+    parts = []
+    for band in bands:
+        limit = band.get("max_count")
+        parts.append(f"{'more' if limit is None else f'<= {limit}'}: {band['value']:+g}")
+    return ", ".join(parts)
 
 
 def generate_block(axis: Axis) -> str:
@@ -47,7 +56,10 @@ def generate_block(axis: Axis) -> str:
             f"Scale ±{axis.scale:g}."
         ),
         "",
-        f"Position is a weighted mean of {len(axis.indicators)} indicator measurements:",
+        (
+            f"Position is a weighted mean of {len(axis.indicators)} indicator "
+            f"measurement{'s' if len(axis.indicators) != 1 else ''}:"
+        ),
         "",
         "```",
         f"axis_position = {axis.scale:g} * sum(weight * measurement) / sum(weight)",

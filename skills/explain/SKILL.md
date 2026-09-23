@@ -26,8 +26,8 @@ must hold that line.
   reframe it as fit for their own context.
 - **Both poles are legitimate.** Neither end of any axis is good or bad on its own. A negative
   or positive score is a location, not a grade.
-- **Measured vs classified.** Keep the two indicator kinds distinct. Measured indicators are
-  computed by the engine with no model; classified indicators need the repo read and a
+- **Detected vs judged.** Keep the two indicator kinds distinct. Detected indicators are
+  computed by the engine with no model; judged indicators need the repo read and a
   bounded, quote-cited answer. Do not blur them.
 - **Reproducible and arguable.** A profile stamps rubric version, engine version, target SHA,
   and the source of each supplied answer. Positions are meant to be traced to indicators and
@@ -79,7 +79,7 @@ for each explain the position in words:
   scale.
 - A score near 0: leans neither way, which can mean the tool serves both ends well or neither.
 - A faded, low-evidence axis: a position resting on thin evidence; call it provisional.
-- `needs interpretation` or nothing read: the classified answers were not supplied. The axis
+- `needs interpretation` or nothing read: the judged answers were not supplied. The axis
   is not a zero, it is unresolved.
 
 Never total the axes or declare a winner. If asked to compare two profiles, compare them axis

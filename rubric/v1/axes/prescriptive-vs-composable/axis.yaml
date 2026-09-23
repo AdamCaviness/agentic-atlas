@@ -5,20 +5,18 @@ poles:
   positive: composable
 description: >
   How rigidly the approach's parts are arranged. Negative means a fixed pipeline you
-  follow in order. Positive means modular parts you pick and combine as needed. pc1
-  weighs whether it is a fixed pipeline or modular parts, pc2 whether steps are
-  mandatory and ordered or optional and reorderable.
+  follow in order. Positive means modular parts you pick and combine as needed.
 explain:
   negative: a fixed pipeline you follow in order
   positive: modular parts you pick and combine as you need them
 indicators:
-  - id: pc1
+  - id: pipeline-or-parts
     question: "Is it a fixed pipeline you follow, or modular parts you compose?"
-    kind: classified
+    kind: judged
     weight: 3
     answers: { fixed_pipeline: -1.0, mixed: 0.0, composable: 1.0 }
-  - id: pc2
+  - id: step-order
     question: "Are steps mandatory and ordered, or optional and reorderable?"
-    kind: classified
+    kind: judged
     weight: 2
     answers: { mandatory_ordered: -1.0, mixed: 0.0, optional_reorderable: 1.0 }

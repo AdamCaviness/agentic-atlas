@@ -11,8 +11,8 @@ def _axis(scale=10.0):
         poles=Poles(negative="left", positive="right"),
         scale=scale,
         indicators=(
-            Indicator("i1", "?", IndicatorKind.CLASSIFIED, weight=3, answers={"x": -1.0}),
-            Indicator("i2", "?", IndicatorKind.MEASURED, weight=1, signal={}),
+            Indicator("i1", "?", IndicatorKind.JUDGED, weight=3, answers={"x": -1.0}),
+            Indicator("i2", "?", IndicatorKind.DETECTED, weight=1, signal={}),
         ),
     )
 
@@ -20,7 +20,7 @@ def _axis(scale=10.0):
 def _res(iid, weight, value, resolved=True):
     return IndicatorResult(
         indicator_id=iid,
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=weight,
         value=value,
         resolved=resolved,

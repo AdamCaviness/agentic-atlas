@@ -24,7 +24,7 @@ narrow, stable seams rather than shared internals:
 │  cli → profiler → scoring    │
 │  stdout: JSON | text | md | html
 └─────────────────────────────┘
-        ▲   classified answers (JSON: source + answers{})
+        ▲   judged answers (JSON: source + answers{})
         │   host agent produces these; engine only validates
         └── the /agentic-atlas:run host model
 ```
@@ -38,18 +38,18 @@ narrow, stable seams rather than shared internals:
 | Host agent (model) | Engine | `--answers` JSON (file or stdin `-`) | `{ "source": "agentic-atlas:<model>", "answers": { "<id>": {"answer","evidence"} } }`; engine validates value ∈ allowed set and quote verbatim in corpus |
 | Engine | Rubric | `spec.load_rubric(dir)` | Reads `rubric.yaml` + `axes/<id>/axis.yaml`; validates against `rubric.schema.json` and `axis.schema.json`; scale + axis order from the manifest |
 | Engine | Rubric READMEs | `docs.sync` | Regenerates each axis README's scoring block from its `axis.yaml`; `make docs-check` fails on drift |
-| Engine | Filesystem/network | `evidence.Target` | Reads the target's text corpus, git history (`subprocess git`), and GitHub API (`urllib`) for measured indicators |
+| Engine | Filesystem/network | `evidence.Target` | Reads the target's text corpus, git history (`subprocess git`), and GitHub API (`urllib`) for detected indicators |
 
 ## Data flow: a full profile run
 
 1. Host agent invokes `/agentic-atlas:run <target>`; the skill calls `atlas.sh` which ensures
    the engine venv and forwards to the `agentic-atlas` CLI.
 2. `agentic-atlas questions <target>` → engine loads+validates `rubric/v1`, emits the
-   classified worklist (id, axis, question, allowed answers) as JSON.
+   judged worklist (id, axis, question, allowed answers) as JSON.
 3. The host agent reads the target and answers each question with a value + a verbatim quote,
    assembling the answers JSON.
 4. `agentic-atlas profile <target> --answers - --format json` → `profiler.profile_target`
-   resolves measured indicators from the target and validates the supplied classified answers,
+   resolves detected indicators from the target and validates the supplied judged answers,
    scores each axis, and stamps the `Profile` (rubric version, engine version, target SHA,
    answer source).
 5. `report.render_html` produces the self-contained profile; the skill writes it to a per-user

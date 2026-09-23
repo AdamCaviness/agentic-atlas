@@ -680,7 +680,7 @@ function cmpRenderSignals(id){
     const p=prof(s),rax=p.axes.find(x=>x.axis_id===id),sc=axVal(rax);
     const scCls=sc===null?"na":(sc<0?"neg":"pos"),scTxt=sc===null?"no reading":(sc>0?"+":"")+sc.toFixed(1);
     const inds=(rax&&rax.indicators)?rax.indicators:[];
-    const items=inds.length?inds.map(ir=>{const kind=ir.kind==="measured"?"detected":"judged";const v=ir.value,vCls=v==null?"zero":(v<0?"neg":(v>0?"pos":"zero")),vTxt=v==null?"":(v>0?"+":"")+(+v).toFixed(2);const ev=ir.evidence?`<div class="sig-ev">&ldquo;${esc(ir.evidence)}&rdquo;</div>`:`<div class="sig-ev empty">no quote recorded</div>`;const ans=ir.answer&&ir.answer!=="-"?` &middot; ${esc(ir.answer)}`:"";return `<div class="sig-item"><div class="sig-top"><span class="kind ${kind}">${kind}</span><span class="sig-id">${esc(ir.indicator_id)}${ans}</span><span class="sig-v ${vCls}">${vTxt}</span></div>${ev}<div class="sig-src">${esc(ir.source||"")}</div></div>`;}).join(""):`<div class="sig-ev empty">no signals recorded</div>`;
+    const items=inds.length?inds.map(ir=>{const kind=ir.kind;const v=ir.value,vCls=v==null?"zero":(v<0?"neg":(v>0?"pos":"zero")),vTxt=v==null?"":(v>0?"+":"")+(+v).toFixed(2);const ev=ir.evidence?`<div class="sig-ev">&ldquo;${esc(ir.evidence)}&rdquo;</div>`:`<div class="sig-ev empty">no quote recorded</div>`;const ans=ir.answer&&ir.answer!=="-"?` &middot; ${esc(ir.answer)}`:"";return `<div class="sig-item"><div class="sig-top"><span class="kind ${kind}">${kind}</span><span class="sig-id">${esc(ir.indicator_id)}${ans}</span><span class="sig-v ${vCls}">${vTxt}</span></div>${ev}<div class="sig-src">${esc(ir.source||"")}</div></div>`;}).join(""):`<div class="sig-ev empty">no signals recorded</div>`;
     return `<div class="sig-tool"><div class="sh"><span class="stname"><span class="tdot" style="background:var(${TCOL[i]})"></span>${esc(p.name)}</span><span class="stsc ${scCls}">${scTxt}</span></div>${items}</div>`;
   }).join("");
   body.innerHTML=`<button class="drill-back" type="button" onclick="cmpUndrill()"><span class="chev" aria-hidden="true">&lsaquo;</span> Back to compare</button><h3 class="drill-h">${esc(a.title)}</h3><p class="drill-sub"><span class="pn">${esc(a.neg)}</span> &harr; <span class="pp">${esc(a.pos)}</span> &middot; the signals behind each position, <b>detected</b> by the engine or <b>judged</b> by a reviewer reading the repo.</p><div class="sig-cols">${cols}</div>`;
@@ -828,7 +828,7 @@ def build():
     <div class="about-hd"><h2 id="about-title">What is this?</h2><button class="about-x" id="about-x" aria-label="Close">&times;</button></div>
     <p>Agentic Atlas places frameworks, methodologies, and skill collections on shared axes so you can see which ones fit you and your projects.</p>
     <p class="stance">There's no right or wrong, and these aren't judgments, just measurements based on our community-driven rubric. There is no aggregate score.</p>
-    <p class="muted">A deterministic engine reads an open, versioned rubric. Popular tools are already measured here; the source and setup live on GitHub if you want to score a tool yourself or help improve the rubric.</p>
+    <p class="muted">A deterministic engine reads an open, versioned rubric. Popular tools are already profiled here; the source and setup live on GitHub if you want to score a tool yourself or help improve the rubric.</p>
     <ul>
       <li>Bars lean toward the pole they favor. Near 0 means neither side clearly.</li>
       <li>Evidence % shows how much of the intended signal was found.</li>

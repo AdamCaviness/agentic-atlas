@@ -2,6 +2,48 @@
 
 All changes to the measurement standard are recorded here, newest first. The authoritative version is `rubric_version` in `rubric/v1/rubric.yaml`; bump rules are in `docs/versioning.md`. A change that moves a score for identical evidence is a MAJOR bump, and profiles are comparable only within the same MAJOR.
 
+## 4.0.0
+
+An accuracy pass over the whole rubric. It moves scores for identical evidence on 8 of 13 axes (85 of the 299 corpus positions), so profiles scored under 3.x are not comparable to 4.0.0. It also renames the indicator kinds and every indicator id to plain language, which moves no score but breaks every answers file written for 3.x.
+
+Motivation: an audit of the 23 committed profiles against their pinned source repositories found five defects that made positions inaccurate. An adversarial review then re-derived the numbers and checked the proposed fixes against the corpus before anything changed.
+
+Changes that move scores:
+
+- **Removed `spec-templates` (spec-light-vs-spec-driven) and `agent-files` (single-agent-vs-multi-agent).** Both counted shipped files and gave a full −1.0 vote when none were found. When files were present, the count agreed with the judged answers 12 of 14 times. When absent, it contradicted them 18 of 32 times. Tools write specs at runtime from prompts (superpowers, ccpm, ai-dev-tasks) and keep subagents inside skills or spawn them at runtime (bmad-method, compound-engineering, ccpm), so absence of a file is weak evidence at best, and a full pole vote at 25 to 29% of the axis weight overstated it. Wider globs could not fix the problem: several tools ship no such file anywhere, and wider spec globs matched the tools' own development documents. The present side of `spec-templates` was also unreliable: 603 of OpenSpec's 609 matches were its own project folders. Both axes are now judged-only. Seven tools that require and produce specs move from +4.3 to +10 on spec-driven, and six tools that orchestrate many agents move from +5.0 to +10 on multi-agent.
+- **`contributor-count` counts people, not email addresses.** The engine now merges identities that share a name, an email, or a GitHub noreply login (read through `.mailmap`), and drops authors matching the new `exclude_authors` regex list in the axis file (bots, GitHub Actions, Copilot, and AI authors whose display name starts with Claude; matching is never by email domain, so people who commit from an @anthropic.com address still count). autonomous-dev read 43 addresses for about one human; it now reads 7. Five tools change band.
+- **`release-tags` counts only tags reachable from the profiled commit** (`git tag --merged HEAD`, previously `git tag --list`). The old count included tags created after the pinned commit and tags on other branches, so a later fetch changed the value for the same commit (spec-kit read 226 tags where 111 are in its history), which broke reproducibility.
+- **Five middle answers reset to a true 0.0.** Each was labelled an argued lean but had no written argument: production-hardening "some" (+0.3), human-handoffs "some" (+0.3), autopilot-mode "partial" (+0.3), testing-phase "present" (+0.3), and maps-existing-code "partial" (+0.4). The tilt alone put 13 tools at +1.2 on solo-vs-team and 14 at +5.8 on prototype-vs-production. Middles that have a written construct argument keep their value: domain-focus "mostly_software" (+0.5), lifecycle-coverage "few"/"most", and spec-documents "some" (+0.3).
+
+Changes that move no score:
+
+- **Indicator kinds renamed:** `measured` is now `detected` (the engine computes it from the repository) and `classified` is now `judged` (an agent reads the repository and picks an answer backed by a verbatim quote). The report and Explorer already used these words.
+- **Indicator ids renamed** from two-letter codes to plain kebab-case, verified to move zero scores across the corpus before any score-moving change was applied:
+
+| 3.x | 4.0.0 | 3.x | 4.0.0 |
+|---|---|---|---|
+| `gb1` | `starting-point` | `io1` | `asks-before-coding` |
+| `gb2` | `maps-existing-code` | `io2` | `path-strictness` |
+| `gb4` | `unit-of-work` | `ah1` | `autopilot-mode` |
+| `sl1` | `lifecycle-coverage` | `ah2` | `approval-gates` |
+| `sl2` | `pipeline-stages` | `sd1` | `spec-required` |
+| `pp1` | `production-hardening` | `sd2` | `spec-documents` |
+| `pp2` | `throwaway-tolerance` | `sd3` | removed |
+| `st1` | `team-coordination` | `tf1` | `tests-first` |
+| `st2` | `human-handoffs` | `tf2` | `testing-phase` |
+| `gs1` | `domain-focus` | `ma1` | `specialist-agents` |
+| `gs2` | `non-code-claims` | `ma3` | removed |
+| `fm1` | `repo-age` | `pc1` | `pipeline-or-parts` |
+| `fm2` | `commit-count` | `pc2` | `step-order` |
+| `fm3` | `contributor-count` | `lw1` | `learning-curve` |
+| `fm4` | `release-tags` | `lw2` | `install-footprint` |
+| `fm6` | `stated-stability` | | |
+
+- **The engine rejects answers keyed by an unknown id** instead of ignoring them, so a 3.x answers file, or a typo, fails loudly rather than silently lowering coverage.
+- Axis descriptions no longer restate each indicator; the generated scoring block in each axis README lists them.
+
+Re-answering: none. Every change is a value remap, a removal, or a git-history recount, so the corpus was replayed from its stored answers at the pinned commits (`make corpus-rescore`) and every quote revalidated.
+
 ## 3.0.0
 
 Recalibrated the other twelve axes to the standard 2.0.0 set for spec-light-vs-spec-driven, completing the v2 remediation of the whole rubric. This moves scores for identical evidence on every axis, so profiles scored under 2.x are not comparable to 3.0.0.

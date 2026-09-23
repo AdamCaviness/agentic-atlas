@@ -4,24 +4,22 @@ poles:
   negative: generalist
   positive: specialist
 description: >
-  How domain-focused the approach is. Negative means it targets any domain, from
-  writing to business to wellness. Positive means it specializes in software delivery.
-  gs1 weighs whether it is framed for any domain or for software engineering, gs2
-  whether it explicitly claims applicability beyond code.
+  How domain-focused the approach is. Negative means it targets any domain, from writing
+  to business to wellness. Positive means it specializes in software delivery.
 explain:
   negative: works across any domain, from writing to business to code
   positive: built specifically for software delivery
 indicators:
-  - id: gs1
+  - id: domain-focus
     question: "Is it framed for any domain, or specifically for software engineering?"
-    kind: classified
+    kind: judged
     weight: 3
     # Extremes +-1.0 (AD-3): any-domain is generalist, software-only is specialist.
     # "mostly_software" leans specialist by argued construct distance (AD-6).
     answers: { any_domain: -1.0, mostly_software: 0.5, software_only: 1.0 }
-  - id: gs2
+  - id: non-code-claims
     question: "Does it explicitly claim applicability beyond code (business, writing, wellness)?"
-    kind: classified
+    kind: judged
     weight: 2
     # True zero (AD-6): "some" cross-domain framing without a broad claim sits at neutral.
     answers: { yes_broad: -1.0, some: 0.0, "no": 1.0 }

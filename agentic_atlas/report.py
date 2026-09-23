@@ -40,7 +40,7 @@ _MIDDLE_NOTE = (
 _BAR_HALF = 20  # characters on each side of the neutral center
 
 # Below this fraction of resolved weight, an axis has too little evidence to plot a
-# position. It reports "needs interpretation" instead of a bar so a sliver of measured
+# position. It reports "needs interpretation" instead of a bar so a sliver of detected
 # evidence is never dressed up as a confident, clamped verdict. Tunable, presentation
 # only: the score and coverage are still emitted verbatim in the JSON.
 _COVERAGE_FLOOR = 0.5
@@ -84,7 +84,7 @@ def _bar(score: float | None, scale: float, color: bool = False) -> str:
 
 
 _SKILL_HINT = (
-    "of {total} axes need interpretation for lack of classified answers. "
+    "of {total} axes need interpretation for lack of judged answers. "
     "Run /agentic-atlas:run from the agentic-atlas plugin (Claude Code, Cursor, "
     "or another supported harness) to answer them with your coding agent, no "
     "API key, and get a complete profile."
@@ -98,39 +98,39 @@ def _needs_interpretation(ax: AxisResult) -> bool:
 def _skill_hint(profile: Profile) -> str | None:
     """The opinionated first-run pointer: how to resolve the unplottable axes.
 
-    Shown only when axes are unplottable *because classified answers are missing*, which
+    Shown only when axes are unplottable *because judged answers are missing*, which
     is the bare deterministic run. Once the skill supplies answers there is nothing to
     nudge toward, so the hint disappears.
     """
     pending = [ax for ax in profile.axes if _needs_interpretation(ax)]
-    has_unanswered_classified = any(
-        ir.kind is IndicatorKind.CLASSIFIED and not ir.resolved
+    has_unanswered_judged = any(
+        ir.kind is IndicatorKind.JUDGED and not ir.resolved
         for ax in pending
         for ir in ax.indicators
     )
-    if not pending or not has_unanswered_classified:
+    if not pending or not has_unanswered_judged:
         return None
     return f"{len(pending)} " + _SKILL_HINT.format(total=len(profile.axes))
 
 
 def _kind_counts(ax: AxisResult) -> tuple[int, int, int, int]:
-    """Resolved/total indicator counts split by kind: (m_resolved, m_total, c_resolved, c_total)."""
-    m_total = m_res = c_total = c_res = 0
+    """Resolved/total indicator counts split by kind: (d_resolved, d_total, j_resolved, j_total)."""
+    d_total = d_res = j_total = j_res = 0
     for ir in ax.indicators:
-        if ir.kind is IndicatorKind.MEASURED:
-            m_total += 1
-            m_res += ir.resolved
+        if ir.kind is IndicatorKind.DETECTED:
+            d_total += 1
+            d_res += ir.resolved
         else:
-            c_total += 1
-            c_res += ir.resolved
-    return m_res, m_total, c_res, c_total
+            j_total += 1
+            j_res += ir.resolved
+    return d_res, d_total, j_res, j_total
 
 
 def _coverage_detail(ax: AxisResult, color: bool = False) -> str:
-    # Split coverage by kind so a keyless run reads as "you ran the measured half," not
-    # a broken percentage. Classified indicators need answers from the toolkit skill.
-    m_res, m_total, c_res, c_total = _kind_counts(ax)
-    text = f"measured {m_res}/{m_total} · classified {c_res}/{c_total}"
+    # Split coverage by kind so a keyless run reads as "you ran the detected half," not
+    # a broken percentage. Judged indicators need answers from the toolkit skill.
+    d_res, d_total, j_res, j_total = _kind_counts(ax)
+    text = f"detected {d_res}/{d_total} · judged {j_res}/{j_total}"
     return _paint(text, _coverage_code(ax.coverage), on=color)
 
 
@@ -171,12 +171,12 @@ def render_markdown(profile: Profile) -> str:
             score = "needs interpretation"
         else:
             score = f"{ax.score:+.1f} (±{ax.scale:g})"
-        m_res, m_total, c_res, c_total = _kind_counts(ax)
+        d_res, d_total, j_res, j_total = _kind_counts(ax)
         neg, pos = _humanize(ax.poles.negative), _humanize(ax.poles.positive)
         lines.append(f"## {ax.title}: {score}")
         lines.append(
             f"Poles: `{neg}` (-) ↔ `{pos}` (+). "
-            f"Coverage: measured {m_res}/{m_total}, classified {c_res}/{c_total}."
+            f"Coverage: detected {d_res}/{d_total}, judged {j_res}/{j_total}."
         )
         if ax.explain.negative or ax.explain.positive:
             lines.append("")
@@ -227,12 +227,6 @@ def render_text(profile: Profile, color: bool = False) -> str:
         lines.append(_paint(f"→ {hint}", _BOLD, on=color))
     return "\n".join(lines)
 
-
-# Plain, self-explanatory labels for the two indicator kinds. The JSON keeps the precise
-# vocabulary (measured/classified); the HTML view never shows it, because those words mean
-# nothing to a first-time reader. "detected" = the engine found it; "judged" = a reviewer
-# read the repo and decided.
-_KIND_LABEL = {IndicatorKind.MEASURED: "detected", IndicatorKind.CLASSIFIED: "judged"}
 
 # The rubric is the whole point: a profile is only meaningful relative to it, so the page
 # links there. Points at the rubric root, which lists the versioned major directories, so it
@@ -407,7 +401,7 @@ def _html_indicator_rows(ax: AxisResult) -> str:
         rows.append(
             "<tr>"
             f"<td>{_html_escape(ir.indicator_id)}</td>"
-            f'<td><span class="kind">{_KIND_LABEL[ir.kind]}</span></td>'
+            f'<td><span class="kind">{ir.kind.value}</span></td>'
             f"<td>{ir.weight:g}</td>"
             f"<td>{_html_escape(ir.answer or '-')}</td>"
             f'<td class="val">{val}</td>'
@@ -419,9 +413,9 @@ def _html_indicator_rows(ax: AxisResult) -> str:
 
 
 def _html_axis(ax: AxisResult, idx: int) -> str:
-    m_res, m_total, c_res, c_total = _kind_counts(ax)
+    d_res, d_total, j_res, j_total = _kind_counts(ax)
     cov_pct = round(ax.coverage * 100)
-    cov_txt = f"detected {m_res}/{m_total} · judged {c_res}/{c_total} · {cov_pct}% evidence"
+    cov_txt = f"detected {d_res}/{d_total} · judged {j_res}/{j_total} · {cov_pct}% evidence"
 
     if ax.score is None or ax.coverage < _COVERAGE_FLOOR:
         # Not enough resolved weight to plot a position: draw no bar and say so, exactly as

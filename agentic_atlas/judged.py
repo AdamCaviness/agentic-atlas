@@ -1,18 +1,18 @@
-"""Resolve classified indicators from answers supplied by an external agent.
+"""Resolve judged indicators from answers supplied by an external agent.
 
-A classified indicator is a narrow question about the target that measurement cannot
+A judged indicator is a narrow question about the target that measurement cannot
 answer: it needs the repository read and interpreted, then reduced to one bounded answer
 backed by a quote taken verbatim from the target. The engine never calls a model and
 needs no API key. Answering is done outside the engine (by the agentic-toolkit skill,
 whose host agent is already an LLM with repo access); the answers are handed back as data
 and this module's job is to *validate* them, deterministically.
 
-``resolve_classified`` mirrors ``evidence.resolve_measured``: both take an indicator and a
+``resolve_judged`` mirrors ``evidence.resolve_detected``: both take an indicator and a
 target and return an ``IndicatorResult``, one computing from the repository, one
-validating supplied data. With no answer supplied, a classified indicator is unresolved,
-which is the measured-only profile a bare run produces.
+validating supplied data. With no answer supplied, a judged indicator is unresolved,
+which is the detected-only profile a bare run produces.
 
-Validation is what makes a classified answer defensible, and it is identical regardless of
+Validation is what makes a judged answer defensible, and it is identical regardless of
 who produced the answer: the answer must be one of the indicator's declared values, and
 the cited quote must be found verbatim in the target material. A missing or failing answer
 leaves the indicator unresolved, so the engine never records a guess or an ungrounded
@@ -46,8 +46,8 @@ ANSWER_INSTRUCTIONS = (
 )
 
 
-def classified_questions(rubric: Rubric) -> list[dict]:
-    """The worklist an external answerer fills in: one entry per classified indicator."""
+def judged_questions(rubric: Rubric) -> list[dict]:
+    """The worklist an external answerer fills in: one entry per judged indicator."""
     return [
         {
             "id": ind.id,
@@ -57,8 +57,26 @@ def classified_questions(rubric: Rubric) -> list[dict]:
         }
         for axis in rubric.axes
         for ind in axis.indicators
-        if ind.kind is IndicatorKind.CLASSIFIED
+        if ind.kind is IndicatorKind.JUDGED
     ]
+
+
+def judged_ids(rubric: Rubric) -> set[str]:
+    """The ids of every judged indicator in ``rubric``, the keys an answers file may use."""
+    return {q["id"] for q in judged_questions(rubric)}
+
+
+def check_answer_ids(rubric: Rubric, answers: dict[str, dict] | None) -> None:
+    """Reject answers keyed by an id that is not a judged indicator in ``rubric``.
+
+    An unknown id would otherwise be ignored and its indicator left unresolved, so a typo
+    or an answers file written for another rubric version would quietly lower coverage."""
+    unknown = sorted(set(answers or {}) - judged_ids(rubric))
+    if unknown:
+        raise ValueError(
+            f"answers name ids that are not judged indicators in rubric "
+            f"{rubric.rubric_version}: {', '.join(unknown)}"
+        )
 
 
 def _normalize(text: str) -> str:
@@ -73,38 +91,38 @@ def _quote_found(quote: str, corpus: str) -> bool:
     return _normalize(stripped) in _normalize(corpus)
 
 
-def resolve_classified(
+def resolve_judged(
     indicator: Indicator,
     target: Target,
     answers: dict[str, dict] | None,
     source: str = "supplied",
 ) -> IndicatorResult:
-    """Validate a supplied answer for one classified indicator and score it, or leave it
+    """Validate a supplied answer for one judged indicator and score it, or leave it
     unresolved. ``answers`` maps indicator id to ``{"answer": ..., "evidence": ...}``."""
     entry = (answers or {}).get(indicator.id)
     if not isinstance(entry, dict):
-        return IndicatorResult.unresolved(indicator, IndicatorKind.CLASSIFIED, "no answer supplied")
+        return IndicatorResult.unresolved(indicator, IndicatorKind.JUDGED, "no answer supplied")
     answer = entry.get("answer")
     if answer not in indicator.answers:
         return IndicatorResult.unresolved(
             indicator,
-            IndicatorKind.CLASSIFIED,
+            IndicatorKind.JUDGED,
             f"answer {answer!r} is not one of {sorted(indicator.answers)}",
         )
     evidence = entry.get("evidence")
     if not isinstance(evidence, str) or not evidence.strip():
         return IndicatorResult.unresolved(
-            indicator, IndicatorKind.CLASSIFIED, "no evidence quote supplied"
+            indicator, IndicatorKind.JUDGED, "no evidence quote supplied"
         )
     if not _quote_found(evidence, target.text_corpus(lower=False)):
         return IndicatorResult.unresolved(
             indicator,
-            IndicatorKind.CLASSIFIED,
+            IndicatorKind.JUDGED,
             "evidence quote was not found verbatim in the target",
         )
     return IndicatorResult(
         indicator_id=indicator.id,
-        kind=IndicatorKind.CLASSIFIED,
+        kind=IndicatorKind.JUDGED,
         weight=indicator.weight,
         value=indicator.answers[answer],
         resolved=True,

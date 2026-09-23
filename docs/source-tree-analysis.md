@@ -12,8 +12,8 @@ agentic-atlas/
 │   ├── models.py             #   ★ frozen dataclasses: Rubric/Axis/Indicator, *Result, Profile
 │   ├── spec.py               #   load + jsonschema-validate a rubric dir into typed models
 │   ├── scoring.py            #   ★ pure-arithmetic scoring core (no I/O, no model)
-│   ├── evidence.py           #   Target + resolve_measured: the 5 measured signal types
-│   ├── classify.py           #   resolve_classified: validate supplied answers + verbatim quote
+│   ├── evidence.py           #   Target + resolve_detected: the 5 detected signal types
+│   ├── judged.py           #   resolve_judged: validate supplied answers + verbatim quote
 │   ├── profiler.py           #   profile_target: the single orchestration path
 │   ├── report.py             #   render_text / render_markdown / render_html (3D crystal)
 │   ├── docs.py               #   generate axis README scoring blocks (make docs / --check)
@@ -51,8 +51,8 @@ agentic-atlas/
 ├── tests/                    # pytest suite, deterministic core covered first (69 tests)
 │   ├── test_scoring.py       #   the arithmetic core (must never drift)
 │   ├── test_spec.py          #   rubric loading + validation
-│   ├── test_evidence.py      #   measured signal resolution (23 tests)
-│   ├── test_classify.py      #   classified answer validation
+│   ├── test_evidence.py      #   detected signal resolution (23 tests)
+│   ├── test_judged.py      #   judged answer validation
 │   ├── test_profiler.py      #   full-pipeline orchestration
 │   ├── test_report.py        #   renderers (23 tests)
 │   └── test_docs.py          #   README scoring-block sync
@@ -72,7 +72,7 @@ agentic-atlas/
 
 - **`agentic_atlas/`** — the engine package. The three files that carry the core invariants
   are `models.py` (data only, no score-moving behaviour), `scoring.py` (pure arithmetic), and
-  `spec.py` (loads and validates the rubric). `evidence.py` and `classify.py` are the two
+  `spec.py` (loads and validates the rubric). `evidence.py` and `judged.py` are the two
   symmetric indicator resolvers; `profiler.py` is the single code path that wires them
   together; `report.py` and `docs.py` are output surfaces; `cli.py` is the only entry point.
 - **`rubric/v1/axes/<id>/`** — each axis lives in its own directory so a dispute over an

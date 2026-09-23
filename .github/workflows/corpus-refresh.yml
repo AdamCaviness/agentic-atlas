@@ -1,7 +1,7 @@
 # Keep the committed profile corpus on each source repo's current default-branch tip.
 #
 # Weekly (and on demand): if any pin is behind origin HEAD, open a PR that runs
-# `make corpus-refresh`. Reviewers re-answer any classified quotes the report marks stale
+# `make corpus-refresh`. Reviewers re-answer any judged quotes the report marks stale
 # before merge.
 #
 # Does not block the CI gate on main: freshness is a maintenance loop, not a merge check.
@@ -74,7 +74,7 @@ jobs:
           git commit -m "$(cat <<'EOF'
           chore: refresh corpus pins to origin default-branch HEAD
 
-          Automated weekly corpus refresh. Re-answer any classified quotes listed as
+          Automated weekly corpus refresh. Re-answer any judged quotes listed as
           stale in the workflow log before merging.
           EOF
           )"

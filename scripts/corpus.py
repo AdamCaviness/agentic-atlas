@@ -2,7 +2,7 @@
 """Refresh the committed profile corpus from its source repositories.
 
 Every ``profiles/<slug>.json`` is self-describing: it stamps the target's ``target_url``
-and ``target_sha``, and it embeds the full classified answer set (each classified indicator
+and ``target_sha``, and it embeds the full judged answer set (each judged indicator
 carries its ``answer``, ``evidence`` quote, and a single uniform ``source``). That makes the
 corpus reproducible without a model: the answers a fresh engine run needs are reconstructed
 straight from the committed JSON, and the engine validates and rescores them, exactly as it
@@ -20,19 +20,19 @@ shallow: the Fresh vs Mature axis reads git-history facts that a ``--depth 1`` c
 silently flatten). ``.corpus`` is git-ignored.
 
 ``rescore`` is the deterministic replay: it checks each clone out at the stored ``target_sha``,
-reconstructs the classified answers from the committed JSON, and reruns the engine. Because the
+reconstructs the judged answers from the committed JSON, and reruns the engine. Because the
 tree is the exact one the answers were written against, every quote revalidates. The result
 refreshes the ``engine_version`` and ``rubric_version`` stamps (and any score the current
 rubric moves for the same evidence) while the evidence itself is unchanged. The one input that
 is not pinned by the SHA is ``github_api`` (stars and the like), which the engine fetches live
 by design and records verbatim, so for a rubric that uses it a rescore also moves those
-point-in-time metrics to now. Rubric 3.0.0 uses no ``github_api`` indicator.
+point-in-time metrics to now. The rubric uses no ``github_api`` indicator.
 Use ``rescore`` after an engine or rubric bump when you intentionally keep the same pins.
 
 ``refresh`` is how the corpus stays current. It pulls each clone to its origin default-branch
-HEAD (never onto an older Release tag, which would move pins backwards and drop classified
-quotes). Measured indicators move with the newer tree; ``git describe`` at HEAD names the
-nearest release so project version stamps track what GitHub shows as current. Any classified
+HEAD (never onto an older Release tag, which would move pins backwards and drop judged
+quotes). Detected indicators move with the newer tree; ``git describe`` at HEAD names the
+nearest release so project version stamps track what GitHub shows as current. Any judged
 quote the tool's authors have since reworded no longer validates, so that indicator goes
 unresolved. Restoring it faithfully means rereading the repo, which is a model's job, not
 this script's, so ``refresh`` reports the ``(slug, indicator)`` pairs that went stale for a
@@ -57,12 +57,12 @@ import os
 import subprocess
 from pathlib import Path
 
-from agentic_atlas.classify import classified_questions
 from agentic_atlas.evidence import (
     Target,
     _fetch_github_latest_release_tag,
     _parse_github_slug,
 )
+from agentic_atlas.judged import judged_ids
 from agentic_atlas.profiler import profile_target
 from agentic_atlas.spec import load_rubric
 
@@ -137,7 +137,7 @@ def _refresh_ref(dest: Path, url: str) -> tuple[str, str]:
 
     Always the origin default-branch tip. That keeps the corpus on current methodology
     and never moves a pin *backwards* onto an older Release tag (which would drop
-    classified quotes and understate the project). ``git describe`` at HEAD still
+    judged quotes and understate the project). ``git describe`` at HEAD still
     names the nearest release, so stamps track what GitHub shows as current when the
     tip is at or near that release.
 
@@ -159,27 +159,23 @@ def _checkout(dest: Path, ref: str) -> None:
 
 
 def _reconstruct_answers(profile: dict) -> tuple[dict[str, dict], str]:
-    """Rebuild the ``--answers`` payload from a committed profile's resolved classified
+    """Rebuild the ``--answers`` payload from a committed profile's resolved judged
     indicators. Returns ``(answers, source)`` in the shape the engine validates: a map from
     indicator id to ``{"answer", "evidence"}``, plus the single source stamped on them."""
     answers: dict[str, dict] = {}
     sources: set[str] = set()
     for axis in profile["axes"]:
         for ind in axis["indicators"]:
-            if ind["kind"] != "classified" or not ind.get("resolved"):
+            if ind["kind"] != "judged" or not ind.get("resolved"):
                 continue
             answers[ind["indicator_id"]] = {"answer": ind["answer"], "evidence": ind["evidence"]}
             if ind.get("source"):
                 sources.add(ind["source"])
     if len(sources) > 1:
-        # The answers file carries one source stamp; a profile whose classified indicators
+        # The answers file carries one source stamp; a profile whose judged indicators
         # disagree on provenance cannot round-trip through it without losing that distinction.
-        raise SystemExit(f"profile has multiple classified sources, cannot replay: {sources}")
+        raise SystemExit(f"profile has multiple judged sources, cannot replay: {sources}")
     return answers, (sources.pop() if sources else "corpus-replay")
-
-
-def _classified_ids(rubric) -> set[str]:
-    return {q["id"] for q in classified_questions(rubric)}
 
 
 def _resolved_by_id(profile: dict) -> dict[str, bool]:
@@ -216,6 +212,11 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
     _checkout(dest, ref)
 
     answers, source = _reconstruct_answers(old)
+    # Answers for indicators the current rubric removed cannot be replayed (the engine rejects
+    # unknown ids). Drop them and report them, the same way new indicators are reported.
+    removed_indicators = sorted(set(answers) - judged_ids(rubric))
+    for iid in removed_indicators:
+        del answers[iid]
     target = Target.from_path(dest)
     new_profile = profile_target(rubric, target, answers=answers, answers_source=source)
     new = new_profile.to_dict()
@@ -226,9 +227,9 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
     old_res, new_res = _resolved_by_id(old), _resolved_by_id(new)
     replayed = set(answers)
     went_stale = sorted(i for i in replayed if old_res.get(i) and not new_res.get(i))
-    # Classified indicators the current rubric defines that this profile never carried:
+    # Judged indicators the current rubric defines that this profile never carried:
     # the rubric grew since it was written, so they need a fresh answer, not a replay.
-    new_indicators = sorted(_classified_ids(rubric) - set(old_res))
+    new_indicators = sorted(judged_ids(rubric) - set(old_res))
 
     old_ax, new_ax = _axis_scores(old), _axis_scores(new)
     axis_deltas = [
@@ -267,6 +268,7 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
         "replayed": len(replayed),
         "went_stale": went_stale,
         "new_indicators": new_indicators,
+        "removed_indicators": removed_indicators,
         "axis_deltas": axis_deltas,
     }
 
@@ -303,6 +305,8 @@ def _print_report(reports: list[dict], write: bool) -> int:
             )
         if r["new_indicators"]:
             print(f"      rubric added, never answered here: {', '.join(r['new_indicators'])}")
+        if r["removed_indicators"]:
+            print(f"      rubric removed, answer dropped: {', '.join(r['removed_indicators'])}")
         if r["axis_deltas"]:
             for d in r["axis_deltas"]:
                 os_, ns = d["old_score"], d["new_score"]
@@ -313,7 +317,7 @@ def _print_report(reports: list[dict], write: bool) -> int:
     print()
     if stale_total:
         print(
-            f"{stale_total} classified quote(s) went stale across the corpus. Their axes lost "
+            f"{stale_total} judged quote(s) went stale across the corpus. Their axes lost "
             "coverage. Re-run /agentic-atlas:run <url> --save on each affected repo to re-answer."
         )
     if not write:
@@ -396,7 +400,7 @@ def _cmd_status(args: argparse.Namespace) -> int:
     if drifted:
         print(
             f"{len(drifted)} profile(s) behind origin default-branch HEAD. "
-            "Run `make corpus-refresh` (then re-answer any stale classified quotes)."
+            "Run `make corpus-refresh` (then re-answer any stale judged quotes)."
         )
         return 1
     print(f"all {len(current)} profile(s) match origin default-branch HEAD.")
