@@ -1,5 +1,21 @@
 # Changelog
 
+## [4.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v3.0.0...v4.0.0) (2026-09-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **rubric:** judged answers must include "path". An answers file without it leaves every judged indicator unresolved.
+
+### Features
+
+* **rubric:** require an evidence path on judged answers and exclude non-method files ([4b214d1](https://github.com/AdamCaviness/agentic-atlas/commit/4b214d13431c39fa96b5047a1f1f003720c96c2e))
+
+
+### Bug Fixes
+
+* **ci:** dispatch CI on the release PR so the required check reports ([#61](https://github.com/AdamCaviness/agentic-atlas/issues/61)) ([35f6b3c](https://github.com/AdamCaviness/agentic-atlas/commit/35f6b3c156399a91281c315e68cb0753d28a9a54))
+
 ## [3.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v2.2.0...v3.0.0) (2026-09-23)
 
 
