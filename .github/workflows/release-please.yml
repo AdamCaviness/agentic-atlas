@@ -30,14 +30,21 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           pr_number=$(jq -r '.number' <<< "$RELEASE_PR_JSON")
-          pr_branch=$(jq -r '.headBranchName' <<< "$RELEASE_PR_JSON")
+          pr_sha=$(gh pr view "$pr_number" --repo "$REPO" --json headRefOid --jq '.headRefOid')
 
-          # The release PR is opened with GITHUB_TOKEN, so GitHub holds its `pull_request`
-          # CI run for approval and the `ci` check never reports on its own. Dispatch CI on
-          # the release branch instead: workflow_dispatch is the documented exception for
-          # GITHUB_TOKEN, and its `ci` check run lands on the PR's head commit, which is
-          # what the ruleset and `gh pr checks` read.
-          gh workflow run ci.yml --repo "$REPO" --ref "$pr_branch"
+          # The release PR is opened by github-actions[bot], so GitHub holds its
+          # `pull_request` CI run as `action_required` and the `ci` check never reports.
+          # Approve that held run. A workflow_dispatch run on the branch does not work: its
+          # check is not linked to the PR, so the ruleset still reads the PR as blocked.
+          for _ in $(seq 1 24); do
+            run_id=$(gh api "repos/$REPO/actions/workflows/ci.yml/runs?event=pull_request&head_sha=$pr_sha" \
+              --jq '[.workflow_runs[] | select(.conclusion == "action_required")][0].id // empty')
+            [ -n "$run_id" ] && break
+            sleep 5
+          done
+          if [ -n "$run_id" ]; then
+            gh api -X POST "repos/$REPO/actions/runs/$run_id/approve"
+          fi
 
           # The branch ruleset requires the `ci` check before main can be updated, and
           # CI has only just started on the freshly-created release PR, so a bare merge
