@@ -35,11 +35,11 @@ a verdict ("this is best").
   `axis_position = scale * sum(weight_i * measurement_i) / sum(weight_i)`.
   The "craft" of an axis is choosing its indicators and weights; that lives
   entirely in the rubric. The engine only executes the arithmetic.
-- **Two indicator kinds.** `measured` = computed deterministically by the engine
+- **Two indicator kinds.** `detected` = computed deterministically by the engine
   from the repository, no model (today: `vocabulary` term-density bands and
-  `path_presence` globs). `classified` = a bounded answer chosen by a model or
+  `path_presence` globs). `judged` = a bounded answer chosen by a model or
   human, recorded with a cited quote. Keep them strictly separate; never let a
-  classified indicator masquerade as measured.
+  judged indicator masquerade as detected.
 - **Opinionated but contestable.** The rubric is admittedly subjective, but it is
   transparent, versioned under semver, and contestable at the level of a single
   indicator (a dispute is a PR against one axis directory). Not perfect, but
@@ -56,7 +56,7 @@ a verdict ("this is best").
 - **Spec + interpreter, two version lines.** The rubric is data (versioned under
   its own semver), the engine is code (versioned in `pyproject.toml`). Every
   profile stamps rubric version, engine version, target commit SHA, and model id
-  (for classified), so any profile is reproducible and arguable.
+  (for judged), so any profile is reproducible and arguable.
 - **Per-axis directory layout, with a generated README block.** Each axis is a
   self-contained, contestable unit. `axis.yaml` is the source of truth; the
   README's scoring block is generated from it by `agentic-atlas docs` and a drift check
@@ -90,11 +90,11 @@ standard software semver. See `docs/versioning.md`.
   contributor count, age in days, tag count) and `github_api` (stars, forks,
   watchers, open issues) which resolve to unresolved (counted against coverage)
   when there is no git history, no origin remote, or no network.
-- Indicator resolution is two symmetric functions: `evidence.resolve_measured` (computed
-  from the repository) and `classify.resolve_classified` (`agentic_atlas/classify.py`),
-  which validates classified answers supplied as data by an external agent; the answer must
+- Indicator resolution is two symmetric functions: `evidence.resolve_detected` (computed
+  from the repository) and `judged.resolve_judged` (`agentic_atlas/judged.py`),
+  which validates judged answers supplied as data by an external agent; the answer must
   be a declared value and the cited quote must appear verbatim in the target, else the
-  indicator is left unresolved. With no answers, classified indicators stay unresolved. The
+  indicator is left unresolved. With no answers, judged indicators stay unresolved. The
   engine calls no model and needs no API key; answering happens in the agentic-toolkit
   skill, validation happens here.
 - Orchestration (`agentic_atlas/profiler.py`), reports text/markdown/JSON (`agentic_atlas/report.py`).
@@ -109,10 +109,10 @@ standard software semver. See `docs/versioning.md`.
 
 Verify with: `cd ~/_opensource/agentic-atlas && make check`
 
-Note on measured-only profiles: they saturate toward the poles at low coverage
-(only 1-2 measured indicators resolve per axis). This is correct, not a bug. The
+Note on detected-only profiles: they saturate toward the poles at low coverage
+(only 1-2 detected indicators resolve per axis). This is correct, not a bug. The
 reported coverage percentage is the honesty signal; full positions need the
-classified indicators answered.
+judged indicators answered.
 
 ## The v1 axis set (13, curated)
 
@@ -140,21 +140,21 @@ Sign conventions and weights are a first proposal and are meant to be contested 
 1. **[DONE, rubric 1.1.0]** `git_stats` + `github_api` collectors and the
    **fresh-vs-mature** axis. Schema extended with both signal types (a shared
    `bands` def), evidence collectors added, 12 new tests (git via a temp repo,
-   GitHub via a mocked fetch), axis authored with 5 measured + 1 classified
-   indicators so it scores meaningfully measured-only. Smoke-tested live against
+   GitHub via a mocked fetch), axis authored with 5 detected + 1 judged
+   indicators so it scores meaningfully detected-only. Smoke-tested live against
    agentic-toolkit (stars fetched, all git metrics resolved).
-2. **[DONE]** Classified indicators are unlocked without an API key. The engine calls no
-   model: `agentic-atlas questions <target>` emits the classified worklist (id, axis,
+2. **[DONE]** Judged indicators are unlocked without an API key. The engine calls no
+   model: `agentic-atlas questions <target>` emits the judged worklist (id, axis,
    question, allowed answers) as JSON, an external agent answers each, and
-   `agentic-atlas profile --answers <file>` feeds them to `classify.resolve_classified`, which
+   `agentic-atlas profile --answers <file>` feeds them to `judged.resolve_judged`, which
    validates each deterministically (the answer must be a declared value; the cited quote
    must appear verbatim in the target) and scores the ones that pass. Provenance is stamped
    from the answer file's `source`. Validation stops fabrication but not a real-but-cherry
    picked quote, so the answer file's review is the remaining defense; this is the same
-   grounding rationale that keeps a bare hand-authored path untrusted. `tests/test_classify.py`
+   grounding rationale that keeps a bare hand-authored path untrusted. `tests/test_judged.py`
    covers verbatim-quote acceptance, whitespace-reflow tolerance, fabricated-quote
    rejection, out-of-enum rejection, short-quote rejection, missing-answer handling, and the
-   classified-question worklist.
+   judged-question worklist.
 3. **Add `agentic-atlas compare`.** Overlay 2-3 profiles on the same axes (text radar or
    markdown table), the primary intended use of the tool.
 4. **Build the `/agentic-atlas` skill in agentic-toolkit.** It shells out to this engine,
@@ -168,7 +168,7 @@ Sign conventions and weights are a first proposal and are meant to be contested 
    Full design in `specs/personas-correlation-ordering.md`.
 
 Related design notes: `specs/personas-correlation-ordering.md` (personas as a
-layer above the rubric, axis correlation as a measured hypothesis, output
+layer above the rubric, axis correlation as a detected hypothesis, output
 ordering, and the 2D/3D visualization plan).
 
 ## Open decisions to raise with the user

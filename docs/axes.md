@@ -14,7 +14,7 @@ Do not score the axis directly. An axis is a **weighted scoring system over N me
 axis_position = scale * sum(weight_i * measurement_i) / sum(weight_i)
 ```
 
-The crafting of the axis is choosing the indicators and their weights. That craft lives entirely in the rubric, the engine only executes the arithmetic. A well built axis has enough indicators that no single one dominates. A `measured` indicator is used only when the count is structure the methodology itself ships, not the target repository's own engineering. When no such signal exists, the axis is classified-only: the skill answers with a cited quote. Measured indicators corroborate and must not dominate the axis (see the calibration note below).
+The crafting of the axis is choosing the indicators and their weights. That craft lives entirely in the rubric, the engine only executes the arithmetic. A well built axis has enough indicators that no single one dominates. A `detected` indicator is used only when the count is structure the methodology itself ships, not the target repository's own engineering. When no such signal exists, the axis is judged-only: the skill answers with a cited quote. Detected indicators corroborate and must not dominate the axis (see the calibration note below).
 
 ## Worked example: Greenfield vs Brownfield
 
@@ -22,11 +22,11 @@ Sign convention: negative pole = greenfield, positive pole = brownfield. A metho
 
 | id  | question                                                        | kind       | weight | maps to |
 |-----|-----------------------------------------------------------------|------------|--------|---------|
-| gb1 | Starting assumption: a blank slate (idea, no code) vs an existing codebase? | classified | 3 | blank_slate -1.0, either 0.0, existing_codebase +1.0 |
-| gb2 | Ships explicit steps/agents for ingesting an existing codebase? | classified | 3      | yes +1.0, partial +0.4, no -1.0 |
-| gb4 | Default unit of work: whole-project generation vs small diff    | classified | 2      | whole_project -1.0, mixed 0.0, small_diff +1.0 |
+| starting-point | Starting assumption: a blank slate (idea, no code) vs an existing codebase? | judged | 3 | blank_slate -1.0, either 0.0, existing_codebase +1.0 |
+| maps-existing-code | Ships explicit steps/agents for ingesting an existing codebase? | judged | 3      | yes +1.0, partial 0.0, no -1.0 |
+| unit-of-work | Default unit of work: whole-project generation vs small diff    | judged | 2      | whole_project -1.0, mixed 0.0, small_diff +1.0 |
 
-The full machine-readable form of this axis is in `rubric/v1/axes/greenfield-vs-brownfield/axis.yaml`, and its generated scoring block is in the sibling `README.md`. This axis is classified-only: the corpus mixes prompt methodologies with full software projects, so a structural count of greenfield or brownfield artifacts would measure the target's own repository rather than the methodology it teaches (see the calibration note below).
+The full machine-readable form of this axis is in `rubric/v1/axes/greenfield-vs-brownfield/axis.yaml`, and its generated scoring block is in the sibling `README.md`. This axis is judged-only: the corpus mixes prompt methodologies with full software projects, so a structural count of greenfield or brownfield artifacts would measure the target's own repository rather than the methodology it teaches (see the calibration note below).
 
 ## The axis catalog
 
@@ -91,34 +91,40 @@ The working catalog of candidate axes, grouped by the decision each helps a read
 
 `rubric/v1/axes/*/axis.yaml` is the authoritative source for the shipped axes, this catalog is the map.
 
-Some axes need evidence collectors beyond the defaults. Fresh↔Mature uses `git_stats` (age, commit count, contributor count, tag count). The engine also has `github_api` (stars); rubric 3.0.0 does not use it, because popularity is not maturity. Adding a collector is an engine change, and it only affects scores once a rubric actually uses it.
+Some axes need evidence collectors beyond the defaults. Fresh↔Mature uses `git_stats` (age, commit count, contributor count, tag count). The engine also has `github_api` (stars); the rubric does not use it, because popularity is not maturity. Adding a collector is an engine change, and it only affects scores once a rubric actually uses it.
 
 ## Authoring checklist
 
 - Both poles are legitimate, neither is framed as the failure mode.
 - Both poles have a plain-language `explain` meaning (one sharp sentence each), so the report can teach a reader what the pole words mean. The neutral middle is explained once by the renderer, not per axis, because it means the same thing on every axis.
-- A `measured` indicator where one is *valid*: it must read structure the methodology itself produces or ships, not the target repository's own engineering (its tests, CI, or source layout), which measures the wrong thing on a corpus that mixes prompt methodologies with full software projects. Where no valid structural signal exists, the axis is classified-only and the skill carries the construct with cited quotes. A vocabulary word-count is not a valid measured indicator (it measures talk, not practice). See the calibration note below.
-- Every `classified` indicator has a small, mutually exclusive, defined answer set.
+- A `detected` indicator where one is *valid*: it must read structure the methodology itself produces or ships, not the target repository's own engineering (its tests, CI, or source layout), which measures the wrong thing on a corpus that mixes prompt methodologies with full software projects. Where no valid structural signal exists, the axis is judged-only and the skill carries the construct with cited quotes. A vocabulary word-count is not a valid detected indicator (it measures talk, not practice). See the calibration note below.
+- Every `judged` indicator has a small, mutually exclusive, defined answer set.
 - Weights are integers and their intent is documented in the rubric `description`.
 - Adding or reweighting an indicator triggers a MAJOR rubric bump. See `docs/versioning.md`.
 
 ## Calibration: why vocabulary word-counts are gone
 
-Every axis once leaned on a `vocabulary` word-count as a measured indicator. A word-count
+Every axis once leaned on a `vocabulary` word-count as a detected indicator. A word-count
 measures how much a project *talks about* a topic, not whether it *practices* it, so it
 over-fires on meta-tooling whose content is itself about agentic process. The clearest case was
-spec-light-vs-spec-driven's `sd3`, which scored agentic-toolkit maximally spec-driven off 121
+spec-light-vs-spec-driven's `spec-templates`, which scored agentic-toolkit maximally spec-driven off 121
 mentions of `plan`/`spec` while the project ships no specification documents. Rubric `2.0.0`
 converted it to a structural `path_count`, and `3.0.0` removed the word-count from the other ten
 axes it appeared on, plus the GitHub-stars signal on fresh-vs-mature (popularity is not maturity).
 
-The replacement rule, applied per axis: keep a `measured` indicator only where the count is
-itself the construct and cannot name the wrong pole. On this corpus that holds for exactly three
-signals: fresh-vs-mature's git-history facts, spec-driven's `sd3` template count, and
-single-vs-multi-agent's anchored `ma3` agent-file count. It does **not** hold for the structural
+The replacement rule, applied per axis: keep a `detected` indicator only where the count is
+itself the construct and cannot name the wrong pole. On this corpus that holds only for
+fresh-vs-mature's git-history facts. It does **not** hold for a count of shipped files whose
+absence proves nothing. Rubric `4.0.0` removed the two that remained: spec-driven's
+`spec-templates` template count and single-vs-multi-agent's `agent-files` agent-file count. When
+files were present they agreed with the judged answers, but when absent they cast a full
+negative vote that contradicted the judged answers for 18 of 32 readings. Tools write specs at
+runtime from prompts and keep subagent personas inside skill folders, so "no template file"
+is not evidence of "no spec". A detected signal with a negative band must be one whose low
+value is itself evidence for the negative pole. It does **not** hold for the structural
 proxies the earlier plan imagined (test-first → test directories, production → CI/deploy config):
 the corpus mixes pure-prompt methodologies with full software projects, so those count the
 target's own repository engineering rather than the methodology it teaches, and sign-flip (a
 heavily-tested CLI reads test-first while its methodology is task management). Where no valid
-structural signal exists, the judgment lives in a `classified` indicator the skill answers with a
+structural signal exists, the judgment lives in a `judged` indicator the skill answers with a
 cited quote. This is a score-moving change recorded in `rubric/v1/CHANGELOG.md` (`3.0.0`).

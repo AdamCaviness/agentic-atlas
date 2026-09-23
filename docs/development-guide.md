@@ -8,9 +8,9 @@
 - **Python `>= 3.13`** on PATH (the engine requires it; `atlas.sh` probes
   `python3.13 → python3`).
 - **GNU Make** (all workflows run through it).
-- **git** — the Fresh↔Mature axis reads real git history, so measured runs assume a normal
+- **git** — the Fresh↔Mature axis reads real git history, so detected runs assume a normal
   (non-shallow) clone.
-- Network + optionally `GITHUB_TOKEN`/`GH_TOKEN` are only needed for the `github_api` measured
+- Network + optionally `GITHUB_TOKEN`/`GH_TOKEN` are only needed for the `github_api` detected
   signal; everything else works offline.
 
 ## Setup
@@ -52,7 +52,7 @@ Each committed profile pins a `target_sha` and stamps `target_version` from that
 default branch (at or near the GitHub Release they see), not an old measurement SHA.
 
 - **`make corpus-refresh`** — the maintenance path. Fetches every source repo, checks out
-  origin default-branch HEAD (never an older Release tag), replays classified answers,
+  origin default-branch HEAD (never an older Release tag), replays judged answers,
   rewrites `profiles/*.json`, and re-renders HTML. Re-answer any quotes the report marks
   stale with `/agentic-atlas:run <url> --save`.
 - **`make corpus-rescore`** — replay at the *current* pins only (after an engine or rubric
@@ -65,15 +65,15 @@ default branch (at or near the GitHub Release they see), not an old measurement 
 ```bash
 agentic-atlas validate rubric/v1                                # schema check
 agentic-atlas docs rubric/v1 [--check]                          # regenerate / verify README blocks
-agentic-atlas profile /path/to/methodology                         # measured indicators only (no key)
-agentic-atlas questions /path/to/methodology                       # emit classified worklist (JSON)
-agentic-atlas profile /path/to/methodology --answers answers.json  # unlock classified indicators
+agentic-atlas profile /path/to/methodology                         # detected indicators only (no key)
+agentic-atlas questions /path/to/methodology                       # emit judged worklist (JSON)
+agentic-atlas profile /path/to/methodology --answers answers.json  # unlock judged indicators
 agentic-atlas profile /path/to/methodology --answers - --format json  # answers from stdin
 ```
 
-A bare `profile` resolves only the measured indicators and reports the rest as needing
+A bare `profile` resolves only the detected indicators and reports the rest as needing
 interpretation. Supply `--answers` (a `{ "source": ..., "answers": {...} }` JSON, file or
-stdin `-`) to score the classified indicators. See [skill-integration.md](./skill-integration.md).
+stdin `-`) to score the judged indicators. See [skill-integration.md](./skill-integration.md).
 
 ## Running through the skill
 
@@ -93,12 +93,12 @@ discovery with `AGENTIC_ATLAS_ENGINE=/path/to/repo` when testing.
 ## Testing approach
 
 `pytest`, deterministic core first. Files: `test_scoring.py` (the arithmetic — must never
-drift), `test_spec.py` (loading + validation), `test_evidence.py` (measured signals + honest
-coverage guards), `test_classify.py` (answer + verbatim-quote validation),
+drift), `test_spec.py` (loading + validation), `test_evidence.py` (detected signals + honest
+coverage guards), `test_judged.py` (answer + verbatim-quote validation),
 `test_profiler.py` (full pipeline), `test_report.py` (renderers), `test_docs.py` (README
 sync). Run `make test`, or the full gate with `make check`.
 
-When adding a **measured signal type**, extend both `evidence.resolve_measured` and
+When adding a **detected signal type**, extend both `evidence.resolve_detected` and
 `axis.schema.json`, and cover it in `test_evidence.py`.
 
 ## Contribution conventions
@@ -130,5 +130,5 @@ packages the `agentic_atlas` module). The engine version is stamped onto every p
 - **Rubric version** — `rubric/v1/rubric.yaml` (`rubric_version: 2.0.0`), measurement-standard
   semver where any change that can move a score for identical evidence is MAJOR.
 
-Every profile stamps both, plus the target commit SHA and (for classified indicators) the
+Every profile stamps both, plus the target commit SHA and (for judged indicators) the
 answer source, so any profile is reproducible.

@@ -1,7 +1,7 @@
 # Personas, axis correlation, and output ordering
 
 Status: **design proposal**. The persona ranges and axis correlations below are
-**hypotheses**, not measured data. Nothing here is implemented. The point of the
+**hypotheses**, not detected data. Nothing here is implemented. The point of the
 note is to fix the shape of the idea and the sequence that would ground it in
 data, so it is not lost or re-litigated. See `specs/handoff.md` for project state.
 
@@ -13,7 +13,7 @@ relationship could inform how axes are ordered in output (text, 2D, 3D) and coul
 power a "which approach fits me" feature.
 
 Short answer: yes, personas map to coherent regions and axes visibly co-move, but
-the correlations must be **measured** across a real corpus before we bake them in,
+the correlations must be **detected** across a real corpus before we bake them in,
 or we build a circular design that discovers only what it assumed.
 
 ## A persona is a region in axis-space
@@ -128,7 +128,7 @@ make the 3D instinct pay off. See the 2D-first, 3D-signature-toggle plan in
 
 Do not build viz or personas from intuition. The unlock is a real corpus of
 profiles, because it converts every downstream decision (merges, ordering,
-personas, 3D) from guesswork into measurement. Concretely: get the classified-answer
+personas, 3D) from guesswork into measurement. Concretely: get the judged-answer
 path (`questions` then `profile --answers`) working end to end through the skill,
 profile 10 to 15 real approaches into `profiles/`, and compute
 the correlation matrix. That single artifact answers "how related are the axes"

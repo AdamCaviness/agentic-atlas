@@ -4,24 +4,22 @@ poles:
   negative: interrogative
   positive: opinionated
 description: >
-  How the approach reaches decisions. Negative means it elicits, asks questions,
-  and defers to the user. Positive means it prescribes a strong default path. io1
-  weighs whether it opens by eliciting or by proceeding on its own default, io2
-  whether it enforces a fixed prescribed pipeline.
+  How the approach reaches decisions. Negative means it elicits, asks questions, and
+  defers to the user. Positive means it prescribes a strong default path.
 explain:
   negative: asks questions and defers the decisions to you
   positive: prescribes a strong default path and drives it
 indicators:
-  - id: io1
+  - id: asks-before-coding
     question: "Does it run a questioning or brainstorming phase before writing code, or proceed on its own default plan?"
-    kind: classified
+    kind: judged
     weight: 3
     # Extremes +-1.0 (AD-3): a real elicitation phase is interrogative, proceeding with no
     # questions is opinionated. True zero (AD-6): "partial" (a light check-in) is the middle.
     answers: { "yes": -1.0, partial: 0.0, "no": 1.0 }
-  - id: io2
+  - id: path-strictness
     question: "Does it enforce a fixed prescribed pipeline the user is expected to follow?"
-    kind: classified
+    kind: judged
     weight: 3
     # True zero (AD-6): a "guided" but not strictly enforced path is the balanced middle.
     answers: { strict: 1.0, guided: 0.0, loose: -1.0 }

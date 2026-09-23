@@ -1,27 +1,21 @@
-"""Corpus calibration harness: the acceptance instrument for rubric v2.
+"""Corpus calibration harness: the acceptance instrument for the rubric.
 
 This suite runs the shipped rubric over the frozen reference corpus (the committed
 profiles under ``profiles/``) and asserts the health properties a well-calibrated rubric
-must have: no indicator is constant across the corpus, multi-band measured indicators
+must have: no indicator is constant across the corpus, multi-band detected indicators
 actually use their bands, every axis can reach both poles, the maturity axis is not a
 shallow-clone artifact, and every axis offers a near-zero answer. See
 ``docs/rubric-v2-plan.md`` for the invariant spine (AD-1..AD-7) these checks enforce.
 
-The v1 rubric fails many of these by design of its defects. Each known failure ships as a
-strict ``xfail`` keyed to the v2 solution that removes it, so:
+Known defects ship as strict ``xfail`` entries in the registries below, so the CI gate stays
+green while the live defect list stays explicit, and a fix flips the entry to an xpass
+failure, which is the signal to delete it.
 
-- the CI gate stays green while the live defect list stays explicit, and
-- when a v2 change fixes a case, the strict xfail turns into a failure (xpass), which is the
-  signal to delete that entry from the registry below.
-
-The registries are the single source of truth for "what v1 gets wrong". Editing the rubric
-and watching entries flip is the red-to-green loop for the v2 pass.
-
-Coverage: this harness enforces AD-2 (no saturating measured indicator), AD-3 (both poles
+Coverage: this harness enforces AD-2 (no saturating detected indicator), AD-3 (both poles
 reachable), and AD-6 (a near-zero answer exists) mechanically, and detects the AD-7 maturity
-artifact. AD-1 (reproducibility), AD-4 (measured does not dominate), and AD-5 (no conflation)
+artifact. AD-1 (reproducibility), AD-4 (detected does not dominate), and AD-5 (no conflation)
 are authoring constraints checked at review or by schema, not by a corpus statistic. Spread is
-not validity: an indicator can discriminate these 18 tools and still measure the wrong thing,
+not validity: an indicator can discriminate the corpus and still measure the wrong thing,
 so ``test_anchor_placement`` is the load-bearing validity check. It profiles crafted anchor
 fixtures with known poles (tests/fixtures/anchors/) and asserts each lands on the expected
 side, so an axis that cannot place a clear-cut target is caught even when the corpus happens
@@ -50,47 +44,36 @@ _RUBRIC_DIR = _ROOT / "rubric" / "v1"
 
 
 # --- Calibration defect registries. -------------------------------------------------------
-# These held the known v1 defects, each keyed to the v2 solution that removed it, as strict
-# xfails so the CI gate stayed green while the live defect list stayed explicit. As of rubric
-# 3.0.0 the v2 recalibration is complete and all three are empty: every axis reaches +-scale,
-# no measured indicator saturates, and every axis offers a near-zero answer. A regression
-# re-adds an entry here (and this file documents the expected failure), rather than silently
-# flipping a shipped health property.
+# Each registry lists known defects as strict xfails, keyed to the fix that removes them, so
+# the CI gate stays green while the live defect list stays explicit. All are empty: every
+# axis reaches +-scale, no detected indicator is constant or saturates, and every axis offers
+# a near-zero answer. A regression re-adds an entry here, rather than silently flipping a
+# shipped health property.
 
 CONSTANT_INDICATORS: dict[str, str] = {}
-# Empty as of 3.0.0. The last constant indicator, sl3 (lifecycle vocabulary), was removed
-# when small-scope-vs-large-scope dropped its vocabulary signal. (sd2/sd3 were fixed in 2.0.0.)
 
-# Measured indicators whose signal defines >= 3 bands but that collapse to < 3 distinct
-# values across the corpus: the bands are never exercised (AD-2). The git_stats indicators
-# are not listed: profiled from full clones they exercise their bands across the corpus, so
-# their spread is a band-design non-issue (see the maturity regression guard below).
+# Detected indicators whose signal defines >= 3 bands but that collapse to < 3 distinct
+# values across the corpus: the bands are never exercised (AD-2). git_stats indicators are
+# exempt: their band edges are set from the construct (how old, how many people), and a
+# young field legitimately leaves the top age band empty (see the maturity guard below).
+# Detected signals must read structure a tool ships, not the tool's own engineering or a
+# file count whose absence proves nothing, so the only detected indicators left are the
+# git-history facts on fresh-vs-mature; everything else is judged with a cited quote.
 COLLAPSED_BANDS: dict[str, str] = {}
-# Empty as of 3.0.0. Every saturating vocabulary word-count (gb3, gs3, io3, lw3, ma2, ah3,
-# sl3, and the discriminating-but-invalid tf3/pp3/st3) was removed, and the github_api stars
-# indicator (fm5) was dropped because popularity is not maturity. The corpus mixes pure-prompt
-# methodologies with full software projects, so a structural count of most methodology
-# artifacts measures the tool's own repo rather than the methodology it teaches and can
-# sign-flip; those judgments moved to classified indicators the skill answers with a cited
-# quote. The three structural measured signals that survive (fresh-vs-mature git_stats,
-# spec-driven sd3, and the anchored multi-agent ma3) exercise their bands across the corpus.
 
 # Calibration thresholds. Tunable knobs, deliberately named here rather than buried inline;
 # v2 may promote them to versioned rubric data (docs/rubric-v2-plan.md, deferred question).
 MIN_DISTINCT_BANDS = 3  # a >=3-band signal must exercise at least three of its bands
 MIN_OFF_MODE_SHARE = 0.2  # at least a fifth of the corpus must sit off the single top band
 
-# Axes with no classified answer that can land near zero, so the middle of the construct is
+# Axes with no judged answer that can land near zero, so the middle of the construct is
 # forced off-center (AD-6).
 AXES_WITHOUT_NEUTRAL: dict[str, str] = {}
-# Empty as of 3.0.0. test-optional-vs-test-first (tf1 "encouraged" -> 0.0),
-# single-agent-vs-multi-agent (ma1 "some" -> 0.0), solo-vs-team (st1 "partial" -> 0.0), and
-# interrogative-vs-opinionated (io1 "partial" / io2 "guided" -> 0.0) each gained a true-zero
-# middle answer, so a balanced position is expressible on every axis.
+# Empty: every axis has a judged answer that maps to 0.0.
 
 # Every axis is converted to the +-1.0 value convention (AD-3): each bipolar indicator's
-# extremes are +-1.0, so the weighted mean reaches +-scale with no engine rescale. As of
-# 3.0.0 that is all 13 axes. An axis absent from this set is treated as a known-unreachable
+# extremes are +-1.0, so the weighted mean reaches +-scale with no engine rescale. That is
+# all 13 axes. An axis absent from this set is treated as a known-unreachable
 # defect (strict xfail), so adding an axis that has not been converted fails loudly here.
 SCALE_REACHED_AXES = {
     "greenfield-vs-brownfield",
@@ -191,13 +174,13 @@ def _all_indicators():
     return [(ax.id, ind) for ax in RUBRIC.axes for ind in ax.indicators]
 
 
-def _multiband_measured():
-    """Measured indicators with >= 3 bands, excluding git_stats (whose collapse is a data
+def _multiband_detected():
+    """Detected indicators with >= 3 bands, excluding git_stats (whose collapse is a data
     artifact tracked separately)."""
     out = []
     for ax in RUBRIC.axes:
         for ind in ax.indicators:
-            if ind.kind is not IndicatorKind.MEASURED:
+            if ind.kind is not IndicatorKind.DETECTED:
                 continue
             sig = ind.signal or {}
             if sig.get("type") == "git_stats":
@@ -208,17 +191,15 @@ def _multiband_measured():
 
 
 # --- Constancy, split by kind because the two kinds mean different things ---------------------
-# A constant *measured* indicator is a discrimination failure (the engine computes the same
-# value everywhere). A constant *classified* indicator is a degenerate-question signal (every
+# A constant *detected* indicator is a discrimination failure (the engine computes the same
+# value everywhere). A constant *judged* indicator is a degenerate-question signal (every
 # answerer picked the same option across varied targets). Same numeric check, different fault,
 # so they are separate tests with separate messages rather than one bar over both kinds.
 
-_MEASURED_IDS = [
-    (aid, ind.id) for aid, ind in _all_indicators() if ind.kind is IndicatorKind.MEASURED
+_DETECTED_IDS = [
+    (aid, ind.id) for aid, ind in _all_indicators() if ind.kind is IndicatorKind.DETECTED
 ]
-_CLASSIFIED_IDS = [
-    (aid, ind.id) for aid, ind in _all_indicators() if ind.kind is IndicatorKind.CLASSIFIED
-]
+_JUDGED_IDS = [(aid, ind.id) for aid, ind in _all_indicators() if ind.kind is IndicatorKind.JUDGED]
 
 
 def _maybe_xfail(aid: str, iid: str, registry: dict):
@@ -228,9 +209,9 @@ def _maybe_xfail(aid: str, iid: str, registry: dict):
 
 
 @pytest.mark.parametrize(
-    "axis_id,indicator_id", [_maybe_xfail(a, i, CONSTANT_INDICATORS) for a, i in _MEASURED_IDS]
+    "axis_id,indicator_id", [_maybe_xfail(a, i, CONSTANT_INDICATORS) for a, i in _DETECTED_IDS]
 )
-def test_measured_indicator_discriminates(axis_id, indicator_id):
+def test_detected_indicator_discriminates(axis_id, indicator_id):
     values = _indicator_values(axis_id, indicator_id)
     assert len(set(values)) >= 2, (
         f"{axis_id}/{indicator_id} is constant across the corpus "
@@ -239,12 +220,12 @@ def test_measured_indicator_discriminates(axis_id, indicator_id):
 
 
 @pytest.mark.parametrize(
-    "axis_id,indicator_id", [_maybe_xfail(a, i, CONSTANT_INDICATORS) for a, i in _CLASSIFIED_IDS]
+    "axis_id,indicator_id", [_maybe_xfail(a, i, CONSTANT_INDICATORS) for a, i in _JUDGED_IDS]
 )
-def test_classified_question_is_not_degenerate(axis_id, indicator_id):
+def test_judged_question_is_not_degenerate(axis_id, indicator_id):
     # Variance here is not proof the question is sound (answerers may just differ), but a
-    # classified indicator constant across 18 varied targets signals a degenerate question or
-    # answer set, e.g. sd2 where every tool resolves to "yes".
+    # judged indicator constant across 18 varied targets signals a degenerate question or
+    # answer set, e.g. spec-documents where every tool resolves to "yes".
     values = _indicator_values(axis_id, indicator_id)
     assert len(set(values)) >= 2, (
         f"{axis_id}/{indicator_id} drew the same answer for all {len(values)} targets; the "
@@ -252,7 +233,7 @@ def test_classified_question_is_not_degenerate(axis_id, indicator_id):
     )
 
 
-# --- AD-2: multi-band measured indicators actually use their bands --------------------------
+# --- AD-2: multi-band detected indicators actually use their bands --------------------------
 
 
 @pytest.mark.parametrize(
@@ -265,7 +246,7 @@ def test_classified_question_is_not_degenerate(axis_id, indicator_id):
         )
         if iid in COLLAPSED_BANDS
         else (aid, iid)
-        for aid, iid in _multiband_measured()
+        for aid, iid in _multiband_detected()
     ],
 )
 def test_multiband_indicator_uses_its_bands(axis_id, indicator_id):
@@ -321,7 +302,7 @@ def test_axis_offers_a_neutral_answer(axis_id):
     axis = RUBRIC.axis(axis_id)
     values = [v for ind in axis.indicators for v in ind.answers.values()]
     assert any(abs(v) <= 0.1 for v in values), (
-        f"{axis_id} has no classified answer within [-0.1, 0.1]: the construct has no way to "
+        f"{axis_id} has no judged answer within [-0.1, 0.1]: the construct has no way to "
         f"express a neutral or balanced position, so the middle is forced off-center."
     )
 
@@ -333,12 +314,12 @@ def test_axis_offers_a_neutral_answer(axis_id):
 
 
 def test_maturity_is_not_a_shallow_clone_artifact():
-    commits = [int(a) for a in _indicator_answers("fresh-vs-mature", "fm2")]
-    ages = [float(a) for a in _indicator_answers("fresh-vs-mature", "fm1")]
+    commits = [int(a) for a in _indicator_answers("fresh-vs-mature", "commit-count")]
+    ages = [float(a) for a in _indicator_answers("fresh-vs-mature", "repo-age")]
     # Every target has git history in the corpus, so a shrunk denominator would itself be a
     # signal something is off; require the full corpus before judging the ratio.
     assert len(commits) == len(CORPUS) and len(ages) == len(CORPUS), (
-        "fm1/fm2 did not resolve for the whole corpus; cannot assess the shallow-clone artifact."
+        "repo-age/commit-count did not resolve for the whole corpus; cannot assess the shallow-clone artifact."
     )
     shallow = sum(1 for c, a in zip(commits, ages) if c <= 1 or a == 0.0)
     assert shallow <= len(CORPUS) // 2, (
@@ -408,7 +389,7 @@ def test_anchor_placement(anchor, axis_id, expected_sign):
     from agentic_atlas.profiler import profile_target
 
     # Answers live in a sibling file, not inside the profiled tree, so they never leak into
-    # the target's text corpus and skew the measured indicators or self-satisfy a quote check.
+    # the target's text corpus and skew the detected indicators or self-satisfy a quote check.
     answers_path = _ANCHOR_DIR / f"{anchor}.answers.json"
     answers = (
         json.loads(answers_path.read_text()).get("answers") if answers_path.is_file() else None

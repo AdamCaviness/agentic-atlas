@@ -1,6 +1,6 @@
-"""Gather evidence from a target and resolve measured indicators.
+"""Gather evidence from a target and resolve detected indicators.
 
-Measured indicators are deterministic given their input: the engine computes them
+Detected indicators are deterministic given their input: the engine computes them
 directly from the repository with no model. Signal types supported today:
 
 - ``vocabulary``    term density across the text corpus, banded by count.
@@ -21,7 +21,7 @@ profile. ``github_api`` is point-in-time and not pinned by the target SHA, so th
 fetched value is recorded verbatim as evidence, which is the honesty signal for a
 mutable host fact.
 
-Adding a signal type means extending ``resolve_measured`` and the schema, and is a
+Adding a signal type means extending ``resolve_detected`` and the schema, and is a
 rubric-affecting change only if an existing rubric starts using it.
 """
 
@@ -90,7 +90,7 @@ def _count_terms(corpus: str, terms: list[str]) -> int:
 
 
 # File extensions that make up a methodology's readable surface.
-# A tuple so the classified-answer instructions list them in a stable, readable order.
+# A tuple so the judged-answer instructions list them in a stable, readable order.
 TEXT_SUFFIXES = (".md", ".markdown", ".txt", ".yaml", ".yml", ".json", ".toml")
 _MAX_FILE_BYTES = 512_000
 # Directories that never hold the methodology's own authored content: VCS internals, build
@@ -123,13 +123,53 @@ _SHALLOW_SENSITIVE_METRICS = frozenset(
 )
 
 
+_NOREPLY = re.compile(r"^(?:\d+\+)?([^@]+)@users\.noreply\.github\.com$")
+
+
+def _contributor_count(authors: list[tuple[str, str]], exclude_authors: tuple[str, ...]) -> int:
+    """Count distinct people among commit ``(name, email)`` pairs.
+
+    One person often commits under several identities (a work and a personal email, a
+    GitHub noreply address, a renamed display name). Identities that share a normalized
+    name, an email, or a GitHub noreply login are merged into one person. Identities
+    matching any ``exclude_authors`` regex (tested against ``"name <email>"``, ignoring
+    case) are automation or AI authors, not people, and are dropped before merging.
+    """
+    excluded = [re.compile(p, re.IGNORECASE) for p in exclude_authors]
+    parent: dict[str, str] = {}
+
+    def find(k: str) -> str:
+        while parent.setdefault(k, k) != k:
+            parent[k] = parent[parent[k]]
+            k = parent[k]
+        return k
+
+    people: set[str] = set()
+    for name, email in set(authors):
+        name, email = name.strip(), email.strip().lower()
+        if any(rx.search(f"{name} <{email}>") for rx in excluded):
+            continue
+        keys = [f"email:{email}"] if email else []
+        if name:
+            keys.append("name:" + " ".join(name.casefold().split()))
+        login = _NOREPLY.match(email)
+        if login:
+            keys.append("name:" + login.group(1).casefold())
+        if not keys:
+            continue
+        for k in keys[1:]:
+            parent[find(k)] = find(keys[0])
+        people.add(keys[0])
+    return len({find(k) for k in people})
+
+
 @dataclass
 class Target:
     """A profiling target: a local directory, optionally a git checkout."""
 
     root: Path
-    # The text corpus is read from disk once and reused: both the measured vocabulary
-    # signals and the classified verbatim-quote check ask for it, once per indicator.
+    # The text corpus is read from disk once and reused: both the detected vocabulary
+    # signals and the judged verbatim-quote check ask for it, once per indicator.
     _corpus: dict[str, str] = field(default_factory=dict, repr=False, compare=False)
 
     @classmethod
@@ -160,10 +200,12 @@ class Target:
 
         Returns an exact tag when HEAD is tagged, otherwise a describe stamp
         (e.g. ``v6.1.1-14-gd884ae0``) naming the nearest ancestor tag and how far past
-        it the measured commit sits. Returns None when the checkout has no tags (or is
+        it the profiled commit sits. Returns None when the checkout has no tags (or is
         not a git repo). Reader-facing formatting lives in ``report._project_stamp``.
         """
-        return self._run_git("describe", "--tags", "HEAD") or None
+        # A fixed abbreviation length keeps the stamp stable: git's default grows with the
+        # object count, so a later fetch would otherwise change the stamp for the same commit.
+        return self._run_git("describe", "--tags", "--abbrev=12", "HEAD") or None
 
     def is_shallow(self) -> bool:
         """True when the checkout has only partial history (a shallow clone).
@@ -181,11 +223,15 @@ class Target:
         """The target's origin remote URL, or None (no git checkout, or no origin remote)."""
         return self._run_git("remote", "get-url", "origin") or None
 
-    def git_metric(self, metric: str) -> int | float | None:
+    def git_metric(self, metric: str, exclude_authors: tuple[str, ...] = ()) -> int | float | None:
         """Return a deterministic git-history metric, or None if unavailable.
 
         ``age_days`` spans the first commit to HEAD (git log lists newest first),
         so it is a function of the checked-out history, not of wall-clock now.
+        ``contributor_count`` counts people, see ``_contributor_count``; the rubric
+        supplies ``exclude_authors`` so the engine embeds no list of automation names.
+        ``tag_count`` counts only tags reachable from HEAD, so a later fetch of newer
+        tags or tags on other branches cannot change the value for the same commit.
 
         A shallow checkout truncates history, so the history-derived metrics return
         None (unresolved) rather than a false "fresh" floor. See ``is_shallow``.
@@ -196,17 +242,18 @@ class Target:
             out = self._run_git("rev-list", "--count", "HEAD")
             return int(out) if out and out.isdigit() else None
         if metric == "contributor_count":
-            out = self._run_git("log", "--format=%ae")
+            out = self._run_git("log", "--use-mailmap", "--format=%aN%x00%aE")
             if not out:
                 return None
-            return len({line.strip() for line in out.splitlines() if line.strip()})
+            authors = [tuple(line.split("\0", 1)) for line in out.splitlines() if "\0" in line]
+            return _contributor_count(authors, exclude_authors)
         if metric == "tag_count":
             # `git tag --list` succeeds with empty output on a repo with no commits,
             # which would read as a real "0 tags" (fresh) signal. Require a commit first
             # so a history-less target leaves this unresolved like the other git metrics.
             if self.git_sha() is None:
                 return None
-            out = self._run_git("tag", "--list")
+            out = self._run_git("tag", "--merged", "HEAD")
             if out is None:
                 return None
             return len([line for line in out.splitlines() if line.strip()])
@@ -261,7 +308,7 @@ class Target:
         return [str(p.relative_to(self.root)) for p in self._files()]
 
 
-def resolve_measured(indicator: Indicator, target: Target) -> IndicatorResult:
+def resolve_detected(indicator: Indicator, target: Target) -> IndicatorResult:
     signal = indicator.signal or {}
     stype = signal.get("type")
     if stype == "vocabulary":
@@ -274,16 +321,16 @@ def resolve_measured(indicator: Indicator, target: Target) -> IndicatorResult:
         return _resolve_git_stats(indicator, target, signal)
     if stype == "github_api":
         return _resolve_github_api(indicator, target, signal)
-    raise ValueError(f"unknown measured signal type {stype!r} for indicator {indicator.id}")
+    raise ValueError(f"unknown detected signal type {stype!r} for indicator {indicator.id}")
 
 
-def _unresolved_measured(indicator: Indicator, reason: str) -> IndicatorResult:
-    """A measured indicator the engine could not compute (missing git/network).
+def _unresolved_detected(indicator: Indicator, reason: str) -> IndicatorResult:
+    """A detected indicator the engine could not compute (missing git/network).
 
     Marked unresolved so it is excluded from scoring and counted against coverage,
-    exactly like an unanswered classified indicator.
+    exactly like an unanswered judged indicator.
     """
-    return IndicatorResult.unresolved(indicator, IndicatorKind.MEASURED, reason, source="engine")
+    return IndicatorResult.unresolved(indicator, IndicatorKind.DETECTED, reason, source="engine")
 
 
 def _resolve_vocabulary(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
@@ -293,12 +340,12 @@ def _resolve_vocabulary(indicator: Indicator, target: Target, signal: dict) -> I
         # vocabulary is genuinely absent", but there is no repo text at all, so banding
         # it would slam the axis to the absent pole at a confident-looking value.
         # Leave it unresolved so an unreadable target stays off the score.
-        return _unresolved_measured(indicator, "no readable text corpus in target")
+        return _unresolved_detected(indicator, "no readable text corpus in target")
     count = _count_terms(corpus, signal["terms"])
     value = _band_value(count, signal["bands"])
     return IndicatorResult(
         indicator_id=indicator.id,
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=indicator.weight,
         value=value,
         resolved=True,
@@ -322,14 +369,14 @@ def _resolve_path_presence(indicator: Indicator, target: Target, signal: dict) -
     if not paths:
         # No files to look at. "absent" among real files is a signal; "absent" from an
         # empty target is not, so it stays unresolved rather than reading as the absent pole.
-        return _unresolved_measured(indicator, "target has no files")
+        return _unresolved_detected(indicator, "target has no files")
     matched = [p for p in paths if any(_matches(p, g) for g in signal["globs"])]
     present = bool(matched)
     value = float(signal["present"]) if present else float(signal["absent"])
     evidence = f"matched {matched[:5]}" if present else f"no path matched {signal['globs']}"
     return IndicatorResult(
         indicator_id=indicator.id,
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=indicator.weight,
         value=value,
         resolved=True,
@@ -345,12 +392,12 @@ def _resolve_path_count(indicator: Indicator, target: Target, signal: dict) -> I
         # No files to count. A zero here would read as "counted the files and none
         # matched", but there are no files at all, so it stays unresolved rather than
         # banding an empty target to the low pole. Same guard as path_presence.
-        return _unresolved_measured(indicator, "target has no files")
+        return _unresolved_detected(indicator, "target has no files")
     count = sum(1 for p in paths if any(_matches(p, g) for g in signal["globs"]))
     value = _band_value(count, signal["bands"])
     return IndicatorResult(
         indicator_id=indicator.id,
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=indicator.weight,
         value=value,
         resolved=True,
@@ -362,7 +409,12 @@ def _resolve_path_count(indicator: Indicator, target: Target, signal: dict) -> I
 
 def _resolve_git_stats(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
     metric = signal["metric"]
-    raw = target.git_metric(metric)
+    exclude = tuple(signal.get("exclude_authors", ()))
+    if exclude and metric != "contributor_count":
+        raise ValueError(
+            f"indicator {indicator.id}: exclude_authors applies only to contributor_count"
+        )
+    raw = target.git_metric(metric, exclude)
     if raw is None:
         # Name the shallow clone explicitly: on a truncated history the metric is not
         # "no git history", it is untrustworthy, and the evidence must say so honestly.
@@ -371,12 +423,12 @@ def _resolve_git_stats(indicator: Indicator, target: Target, signal: dict) -> In
             if target.is_shallow()
             else "target has no git history"
         )
-        return _unresolved_measured(indicator, f"git metric {metric!r} unavailable ({detail})")
+        return _unresolved_detected(indicator, f"git metric {metric!r} unavailable ({detail})")
     value = _band_value(raw, signal["bands"])
     answer = f"{raw:.1f}" if isinstance(raw, float) else str(raw)
     return IndicatorResult(
         indicator_id=indicator.id,
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=indicator.weight,
         value=value,
         resolved=True,
@@ -448,21 +500,21 @@ def _github_api_json(url: str) -> dict | None:
 def _resolve_github_api(indicator: Indicator, target: Target, signal: dict) -> IndicatorResult:
     slug = target.github_slug()
     if slug is None:
-        return _unresolved_measured(indicator, "no GitHub origin remote on target")
+        return _unresolved_detected(indicator, "no GitHub origin remote on target")
     data = _fetch_github_repo(*slug)
     if data is None:
-        return _unresolved_measured(
+        return _unresolved_detected(
             indicator, "GitHub API unavailable (no network or rate limited)"
         )
     key = _GITHUB_METRIC_KEYS[signal["metric"]]
     raw = data.get(key)
     if not isinstance(raw, (int, float)):
-        return _unresolved_measured(indicator, f"GitHub API response missing {key!r}")
+        return _unresolved_detected(indicator, f"GitHub API response missing {key!r}")
     value = _band_value(raw, signal["bands"])
     owner, repo = slug
     return IndicatorResult(
         indicator_id=indicator.id,
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=indicator.weight,
         value=value,
         resolved=True,

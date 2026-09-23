@@ -11,8 +11,12 @@ from enum import Enum
 
 
 class IndicatorKind(str, Enum):
-    MEASURED = "measured"
-    CLASSIFIED = "classified"
+    """How an indicator gets its value. ``detected``: the engine computes it from the
+    repository with no model. ``judged``: an agent reads the repository and picks one
+    allowed answer, backed by a verbatim quote the engine verifies."""
+
+    DETECTED = "detected"
+    JUDGED = "judged"
 
 
 @dataclass(frozen=True)
@@ -38,9 +42,9 @@ class Indicator:
     question: str
     kind: IndicatorKind
     weight: float
-    # For classified indicators: answer key -> value in [-1, 1].
+    # For judged indicators: answer key -> value in [-1, 1].
     answers: dict[str, float] = field(default_factory=dict)
-    # For measured indicators: raw signal spec, interpreted by agentic_atlas.evidence.
+    # For detected indicators: raw signal spec, interpreted by agentic_atlas.evidence.
     signal: dict | None = None
 
 
@@ -74,7 +78,7 @@ class IndicatorResult:
     """The resolved value of one indicator, with its provenance.
 
     ``value`` is in [-1, 1]. ``resolved`` is False when the indicator could not be
-    evaluated (for example a classified indicator with no answer supplied), in which case it
+    evaluated (for example a judged indicator with no answer supplied), in which case it
     is excluded from scoring and counted against coverage.
     """
 
@@ -85,7 +89,7 @@ class IndicatorResult:
     resolved: bool
     answer: str | None = None
     evidence: str | None = None
-    source: str | None = None  # "engine" for measured, answer-file provenance for classified
+    source: str | None = None  # "engine" for detected, answer-file provenance for judged
 
     @classmethod
     def unresolved(
@@ -96,7 +100,7 @@ class IndicatorResult:
         source: str | None = None,
     ) -> IndicatorResult:
         """An indicator that could not be resolved: excluded from scoring, counted
-        against coverage. Shared by the measured and classified resolvers so the
+        against coverage. Shared by the detected and judged resolvers so the
         unresolved shape is defined once."""
         return cls(
             indicator_id=indicator.id,

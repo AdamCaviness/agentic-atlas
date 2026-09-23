@@ -22,11 +22,11 @@ judge fit for their own project and working style, never which tool "wins".
 - **Rubric is data, engine is code.** All scoring policy (poles, indicators, weights,
   formulas) lives in versioned YAML under `rubric/`. The Python engine interprets a rubric,
   it embeds none.
-- **No API key.** The engine computes *measured* indicators directly from the repository and
-  only *validates* *classified* answers supplied from outside. The intended answerer is the
+- **No API key.** The engine computes *detected* indicators directly from the repository and
+  only *validates* *judged* answers supplied from outside. The intended answerer is the
   host coding agent driving the `run` skill, so the full profile is produced with no key.
 - **Every profile is reproducible and arguable.** Each stamps the rubric version, engine
-  version, target commit SHA, and (for classified indicators) the answer source.
+  version, target commit SHA, and (for judged indicators) the answer source.
 
 ## Repository shape
 
@@ -69,14 +69,14 @@ The engine is a straight pipeline with no framework:
 ```
 target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
              │              │        │
-        measured        measured   classified
+        detected        detected   judged
       (engine only)     (engine)   (validated from supplied answers)
 ```
 
-- **measured** indicators: computed from the repo with no model, fully deterministic.
-  Rubric 3.0.0 uses git stats and path counts; the engine also supports vocabulary, path
-  presence, and GitHub API signals that 3.0.0 does not use.
-- **classified** indicators: a bounded answer plus a verbatim quote, produced by an external
+- **detected** indicators: computed from the repo with no model, fully deterministic.
+  The rubric uses only git stats; the engine also supports vocabulary, path presence, path
+  count, and GitHub API signals that the rubric does not use.
+- **judged** indicators: a bounded answer plus a verbatim quote, produced by an external
   agent and *validated* (never generated) by the engine.
 
 See [architecture-engine.md](./architecture-engine.md) for the module-level design,
@@ -88,7 +88,7 @@ See [architecture-engine.md](./architecture-engine.md) for the module-level desi
 Early scaffold, actively developed (43 commits, 4 tags, ~8 days of history at scan time).
 Engine version `0.4.0`; rubric version `2.0.0` (see [versioning.md](./versioning.md)). Working
 today: schema-validated per-axis rubric, the
-deterministic scoring core, all five measured evidence collectors, the classified-answer
+deterministic scoring core, all five detected evidence collectors, the judged-answer
 validation seam, text/markdown/JSON/HTML reports (including an interactive 3D profile
 crystal), the `agentic-atlas docs` generator kept in sync by `make docs-check`, and the
 `/agentic-atlas:run` skill. Planned: a `compare` overlay command, committed answer sets for

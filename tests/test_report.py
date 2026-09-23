@@ -59,7 +59,7 @@ def test_below_floor_axis_shows_needs_interpretation_and_no_bar():
         "Thin",
         score=10.0,
         coverage=0.29,
-        indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, False)],
+        indicators=[_ind(IndicatorKind.DETECTED, True), _ind(IndicatorKind.JUDGED, False)],
     )
     out = render_text(_profile([ax]))
     assert "needs interpretation" in out
@@ -72,7 +72,7 @@ def test_above_floor_axis_plots_a_position():
         "Solid",
         score=-5.5,
         coverage=0.8,
-        indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.MEASURED, True)],
+        indicators=[_ind(IndicatorKind.DETECTED, True), _ind(IndicatorKind.DETECTED, True)],
     )
     out = render_text(_profile([ax]))
     assert "-5.5" in out
@@ -86,21 +86,21 @@ def test_coverage_reported_by_kind():
         score=-5.5,
         coverage=0.8,
         indicators=[
-            _ind(IndicatorKind.MEASURED, True),
-            _ind(IndicatorKind.MEASURED, True),
-            _ind(IndicatorKind.CLASSIFIED, False),
+            _ind(IndicatorKind.DETECTED, True),
+            _ind(IndicatorKind.DETECTED, True),
+            _ind(IndicatorKind.JUDGED, False),
         ],
     )
     out = render_text(_profile([ax]))
-    assert "measured 2/2 · classified 0/1" in out
+    assert "detected 2/2 · judged 0/1" in out
 
 
-def test_skill_hint_shows_when_classified_unanswered():
+def test_skill_hint_shows_when_judged_unanswered():
     ax = _axis(
         "Thin",
         score=10.0,
         coverage=0.29,
-        indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, False)],
+        indicators=[_ind(IndicatorKind.DETECTED, True), _ind(IndicatorKind.JUDGED, False)],
     )
     out = render_text(_profile([ax]))
     assert "/agentic-atlas:run" in out
@@ -112,7 +112,7 @@ def test_no_skill_hint_when_everything_resolved():
         "Full",
         score=-5.5,
         coverage=1.0,
-        indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, True)],
+        indicators=[_ind(IndicatorKind.DETECTED, True), _ind(IndicatorKind.JUDGED, True)],
     )
     out = render_text(_profile([ax]))
     assert "/agentic-atlas:run" not in out
@@ -123,13 +123,13 @@ def test_no_skill_hint_when_everything_resolved():
 
 def test_html_is_byte_identical_for_same_profile():
     # Determinism: a pure function of the Profile, no timestamps or random ids.
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     profile = _profile([ax])
     assert render_html(profile) == render_html(profile)
 
 
 def test_html_draws_a_solid_bar_above_floor():
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_html(_profile([ax]))
     assert 'class="fill neg"' in out  # a real bar, drawn solid
     assert 'class="fill neg prov"' not in out  # not faded
@@ -146,7 +146,7 @@ def test_html_hides_position_below_floor():
         "Thin",
         score=10.0,
         coverage=0.29,
-        indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, False)],
+        indicators=[_ind(IndicatorKind.DETECTED, True), _ind(IndicatorKind.JUDGED, False)],
     )
     out = render_html(_profile([ax]))
     assert "needs interpretation" in out
@@ -163,7 +163,7 @@ def test_html_null_state_when_nothing_resolved():
         "Empty",
         score=None,
         coverage=0.0,
-        indicators=[_ind(IndicatorKind.MEASURED, False), _ind(IndicatorKind.CLASSIFIED, False)],
+        indicators=[_ind(IndicatorKind.DETECTED, False), _ind(IndicatorKind.JUDGED, False)],
     )
     out = render_html(_profile([ax]))
     assert "nothing could be read" in out
@@ -175,21 +175,21 @@ def test_html_uses_plain_labels_not_engine_jargon():
         "Split",
         score=-5.5,
         coverage=0.8,
-        indicators=[_ind(IndicatorKind.MEASURED, True), _ind(IndicatorKind.CLASSIFIED, True)],
+        indicators=[_ind(IndicatorKind.DETECTED, True), _ind(IndicatorKind.JUDGED, True)],
     )
     out = render_html(_profile([ax]))
-    assert ">detected</span>" in out  # measured, in plain words
-    assert ">judged</span>" in out  # classified, in plain words
+    assert ">detected</span>" in out  # detected, in plain words
+    assert ">judged</span>" in out  # judged, in plain words
     assert "% evidence" in out  # coverage, in plain words
-    # the engine's kind vocabulary never surfaces as a visible label
-    assert ">measured<" not in out
-    assert ">classified<" not in out
+    # the retired kind vocabulary never surfaces
+    assert "measured" not in out
+    assert "classified" not in out
 
 
 def test_html_escapes_untrusted_evidence():
     evil = IndicatorResult(
         indicator_id="x",
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=1.0,
         value=1.0,
         resolved=True,
@@ -204,7 +204,7 @@ def test_html_escapes_untrusted_evidence():
 
 
 def test_html_states_there_is_no_aggregate_score():
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_html(_profile([ax]))
     assert (
         "not a grade, a rank, or a winner" in out
@@ -212,7 +212,7 @@ def test_html_states_there_is_no_aggregate_score():
 
 
 def test_html_neutral_score_reads_as_neutral_not_positive():
-    ax = _axis("Mid", score=0.0, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Mid", score=0.0, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_html(_profile([ax]))
     assert '<span class="score zero">0.0</span>' in out  # neutral, no forced sign
 
@@ -222,7 +222,7 @@ def test_html_shows_pole_meanings_in_a_modal_when_present():
         "GB",
         score=-5.5,
         coverage=0.8,
-        indicators=[_ind(IndicatorKind.MEASURED, True)],
+        indicators=[_ind(IndicatorKind.DETECTED, True)],
         explain=Explain(negative="excels from an idea", positive="excels in existing code"),
     )
     out = render_html(_profile([ax]))
@@ -235,7 +235,7 @@ def test_html_shows_pole_meanings_in_a_modal_when_present():
 
 
 def test_html_omits_pole_modal_when_no_meanings_authored():
-    ax = _axis("Bare", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Bare", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_html(_profile([ax]))
     assert 'data-dialog="poles-0"' not in out
     assert "<details>" not in out  # no inline expanders anywhere; details live in dialogs
@@ -244,7 +244,7 @@ def test_html_omits_pole_modal_when_no_meanings_authored():
 def test_html_signals_open_in_a_modal_and_cards_stay_fixed_height():
     # The signals detail is a dialog (opened by a button), so opening it never reflows the
     # card. That fixed height is what lets the tower align with the cards.
-    ax = _axis("A vs B", score=1.0, coverage=1.0, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("A vs B", score=1.0, coverage=1.0, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_html(_profile([ax]))
     assert 'data-dialog="signals-0"' in out
     assert '<dialog id="signals-0" class="modal modal-wide">' in out
@@ -261,7 +261,7 @@ def test_display_name_takes_last_segment_of_path_or_git_url():
 
 
 def test_html_header_shows_name_not_full_path():
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_html(_profile([ax], target="/Users/adam/_opensource/superpowers"))
     # with no upstream remote, the single project visual shows the short name, not the full path
     assert '<span class="pname">superpowers</span>' in out
@@ -330,7 +330,7 @@ def test_project_stamp_falls_back_to_commit_when_unversioned():
 
 
 def test_html_stamps_prefer_project_version_over_commit():
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     profile = Profile(
         target="/t",
         rubric_version="1.2.0",
@@ -347,7 +347,7 @@ def test_html_stamps_prefer_project_version_over_commit():
 
 
 def test_html_stamps_show_describe_distance_explicitly():
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     profile = Profile(
         target="/t",
         rubric_version="1.2.0",
@@ -365,7 +365,7 @@ def test_html_stamps_show_describe_distance_explicitly():
 def test_text_and_markdown_include_project_stamp_with_atlas_versions():
     # HTML hides Atlas versions; text/markdown keep them for reproducibility and also
     # surface the same reader-facing project stamp.
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     profile = Profile(
         target="/t",
         rubric_version="1.2.0",
@@ -392,7 +392,7 @@ def test_html_hero_tower_present_with_axis_data():
         "Greenfield vs Brownfield",
         score=2.7,
         coverage=1.0,
-        indicators=[_ind(IndicatorKind.MEASURED, True)],
+        indicators=[_ind(IndicatorKind.DETECTED, True)],
     )
     out = render_html(_profile([ax]))
     assert 'id="atlas-hero"' in out  # the 3D tower container
@@ -414,7 +414,7 @@ def test_html_hero_data_cannot_break_out_of_script():
         "Evil </script> axis",
         score=1.0,
         coverage=1.0,
-        indicators=[_ind(IndicatorKind.MEASURED, True)],
+        indicators=[_ind(IndicatorKind.DETECTED, True)],
     )
     out = render_html(_profile([ax]))
     # two legitimate scripts (the tower and the modal handler); the title must add no more
@@ -431,7 +431,7 @@ def test_html_and_text_humanize_underscored_pole_ids():
         scale=10.0,
         score=-5.5,
         coverage=0.8,
-        indicators=(_ind(IndicatorKind.MEASURED, True),),
+        indicators=(_ind(IndicatorKind.DETECTED, True),),
     )
     html = render_html(_profile([ax]))
     text = render_text(_profile([ax]))
@@ -445,7 +445,7 @@ def test_html_and_text_humanize_underscored_pole_ids():
 
 
 def test_text_neutral_score_has_no_forced_sign():
-    ax = _axis("Mid", score=0.0, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Mid", score=0.0, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_text(_profile([ax]))
     assert "0.0" in out
     assert "+0.0" not in out
@@ -454,7 +454,7 @@ def test_text_neutral_score_has_no_forced_sign():
 def test_html_brand_links_home_as_a_button_not_a_plain_link():
     # The mark + wordmark are a home link back to the Explorer, styled as a button
     # (no underline), with a tooltip. No "Profile" label beside the brand.
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     out = render_html(_profile([ax]))
     assert 'class="home" href="../index.html"' in out
     assert 'title="Back to the Explorer"' in out
@@ -468,9 +468,9 @@ def test_html_brand_links_home_as_a_button_not_a_plain_link():
 def test_profile_round_trips_through_dict():
     # from_dict is the exact inverse of to_dict, so a saved profile JSON re-renders without
     # re-running the engine or having the target repo on hand.
-    classified = IndicatorResult(
+    judged = IndicatorResult(
         indicator_id="c1",
-        kind=IndicatorKind.CLASSIFIED,
+        kind=IndicatorKind.JUDGED,
         weight=2.0,
         value=-0.5,
         resolved=True,
@@ -482,7 +482,7 @@ def test_profile_round_trips_through_dict():
         "Round vs Trip",
         score=-3.0,
         coverage=0.75,
-        indicators=[_ind(IndicatorKind.MEASURED, True), classified],
+        indicators=[_ind(IndicatorKind.DETECTED, True), judged],
         explain=Explain(negative="one end", positive="other end"),
     )
     profile = Profile(
@@ -501,7 +501,7 @@ def test_profile_round_trips_through_dict():
 
 
 def test_profile_from_dict_tolerates_missing_target_version():
-    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.MEASURED, True)])
+    ax = _axis("Solid", score=-5.5, coverage=0.8, indicators=[_ind(IndicatorKind.DETECTED, True)])
     data = _profile([ax]).to_dict()
     del data["target_version"]
     rebuilt = Profile.from_dict(data)

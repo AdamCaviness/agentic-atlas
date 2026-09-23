@@ -7,7 +7,7 @@
 ## Executive summary
 
 The rubric is **data, not code**. It carries all scoring policy (poles, indicators, weights,
-answer-to-value mappings, measured signal specs) so the engine can interpret it without
+answer-to-value mappings, detected signal specs) so the engine can interpret it without
 embedding any of it. It is a directory per MAJOR version (`rubric/v1`), schema-validated, and
 its human documentation's scoring block is machine-generated from the same source of truth the
 engine reads. This is the "spec" half of the spec-plus-interpreter design.
@@ -61,7 +61,7 @@ dilute a profile rather than sharpen it, so the rest are backlog (see [axes.md](
 
 ## The axis data model (`axis.yaml`)
 
-Worked example, the shipped `greenfield-vs-brownfield` (a classified-only axis):
+Worked example, the shipped `greenfield-vs-brownfield` (a judged-only axis):
 
 ```yaml
 id: greenfield-vs-brownfield
@@ -73,41 +73,43 @@ explain:                        # plain-language meaning shown in the report
   negative: excels starting from an idea, with no code yet
   positive: excels working inside an existing, established codebase
 indicators:
-  - id: gb1
+  - id: starting-point
     question: "Does the workflow assume a blank slate (an idea, no code) or an existing codebase?"
-    kind: classified
+    kind: judged
     weight: 3
     answers: { blank_slate: -1.0, either: 0.0, existing_codebase: 1.0 }   # answer → value in [-1, 1]
-  - id: gb2
+  - id: maps-existing-code
     question: "Does it ship explicit steps for ingesting an existing codebase?"
-    kind: classified
+    kind: judged
     weight: 3
     answers: { "yes": 1.0, partial: 0.4, "no": -1.0 }
 ```
 
-A `measured` indicator carries a `signal` instead of `answers`. Here is the shipped `ma3`
-from single-agent-vs-multi-agent, a `path_count` over agent-definition files:
+A `detected` indicator carries a `signal` instead of `answers`. Here is the shipped
+`contributor-count` from fresh-vs-mature, a `git_stats` count of distinct people:
 
 ```yaml
-  - id: ma3
-    question: "How many agent-definition files does the tool ship?"
-    kind: measured
+  - id: contributor-count
+    question: "How many distinct people have committed?"
+    kind: detected
     weight: 1
     signal:
-      type: path_count
-      globs: [".claude/agents/*.md", "agents/*.md", "plugins/*/agents/*.md", "packages/*/agents/*.md"]
+      type: git_stats
+      metric: contributor_count
+      exclude_authors: ['\bbot\b', '@(noreply\.)?anthropic\.(com|local)>']  # abridged
       bands:
-        - { max_count: 1, value: -1.0 }    # 0-1 agent files: single-agent
-        - { max_count: null, value: 1.0 }  # 2+ files: multi-agent (null = catch-all top band)
+        - { max_count: 2, value: -1.0 }     # 1-2 people: fresh
+        - { max_count: 10, value: 0.0 }     # 3-10 people: evolving
+        - { max_count: null, value: 1.0 }   # 11+: mature (null = catch-all top band)
 ```
 
 Field rules the engine relies on:
 
-- **`kind: classified`** carries an `answers` map from each allowed value to a float in
+- **`kind: judged`** carries an `answers` map from each allowed value to a float in
   `[-1, 1]` signed toward a pole. The keys are the *only* accepted answers; boolean-looking
   keys (`yes`/`no`) must be quoted (YAML 1.1 would coerce them, and `spec.py` rejects the
   coerced form).
-- **`kind: measured`** carries a `signal` dict interpreted by `evidence.resolve_measured`. The
+- **`kind: detected`** carries a `signal` dict interpreted by `evidence.resolve_detected`. The
   supported types are `vocabulary`, `path_presence`, `path_count`, `git_stats`, `github_api`.
   `vocabulary`/`path_count`/`git_stats`/`github_api` map a raw count to a value via ordered
   `bands` (first band whose `max_count` is `>=` the count wins; a `null` `max_count` is the
@@ -121,11 +123,11 @@ lives entirely in the data, not the engine.
 
 - `rubric.schema.json` validates the manifest (required version/title/axes, scale).
 - `axis.schema.json` validates a single axis: required `id`, `title`, `poles`, `indicators`;
-  per-indicator `kind`, `weight`, and the shape of `answers` (classified) or `signal`
-  (measured).
+  per-indicator `kind`, `weight`, and the shape of `answers` (judged) or `signal`
+  (detected).
 
-`agentic-atlas validate rubric/v1` (or `make validate`) runs both. Adding a new measured
-signal type means extending both `evidence.resolve_measured` and this schema.
+`agentic-atlas validate rubric/v1` (or `make validate`) runs both. Adding a new detected
+signal type means extending both `evidence.resolve_detected` and this schema.
 
 ## Generated README scoring blocks
 

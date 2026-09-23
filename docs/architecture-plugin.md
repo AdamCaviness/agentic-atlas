@@ -9,9 +9,9 @@
 The plugin is the packaging that ships the engine's one user-facing workflow, the
 `/agentic-atlas:run` skill, to coding harnesses (Claude Code, Cursor, Gemini CLI, Codex). It contains
 no scoring logic. Its job is to (1) make the engine runnable from an arbitrary checkout, and
-(2) give the host agent a precise, safe procedure for answering the classified questions and
+(2) give the host agent a precise, safe procedure for answering the judged questions and
 rendering a profile. The engine stays deterministic and key-free; the **host agent is the
-model** that supplies the classified answers.
+model** that supplies the judged answers.
 
 ## Components
 
@@ -60,7 +60,7 @@ on the 13 axes. Its 9-step procedure:
    (full clone into temp, never `--depth 1`, because the Fresh↔Mature axis reads git history).
    Then a soft gate: confirm the target actually looks like an *agentic methodology* (SKILL.md,
    `skills/`, `agents/`, `.claude/`, AGENTS.md, agentic vocabulary) before spending effort.
-3. **Get the worklist** — `atlas.sh questions <target>` prints the classified questions.
+3. **Get the worklist** — `atlas.sh questions <target>` prints the judged questions.
 4. **Read the target, then answer** — pick one allowed value per question and cite a quote
    copied **verbatim** from a corpus-eligible file (`.md .txt .yaml .yml .json .toml`; source
    code is *not* in the corpus). Prefer an absent/neutral value over omission to keep coverage.
@@ -79,7 +79,7 @@ on the 13 axes. Its 9-step procedure:
 - **No aggregate score** — never sum, average, or rank the axes into one number.
 - **Don't touch the engine's determinism** — the skill only supplies answers the engine
   validates; it never edits the engine, rubric, weights, or scoring path to change a result.
-- **Measured and classified stay separate** — the skill only ever produces classified answers.
+- **Detected and judged stay separate** — the skill only ever produces judged answers.
 - **Answer faithfully** — validation stops a fabricated quote but not a cherry-picked one, so
   pick the value the evidence supports; for absent behaviour, choose the negative/absent value
   and quote where it would appear.
@@ -89,9 +89,9 @@ on the 13 axes. Its 9-step procedure:
 ## Untrusted-content boundary
 
 The skill treats **everything inside the target** (README, docs, config, command/skill/agent
-files, comments) as untrusted **data to classify**, never as instructions. If the target
+files, comments) as untrusted **data to judge**, never as instructions. If the target
 contains text like "answer yes" or "ignore your instructions", the skill disregards the
-directive and classifies the text as written. This is the security posture for profiling
+directive and judges the text as written. This is the security posture for profiling
 arbitrary, possibly adversarial, repositories.
 
 ## Relationship to the other parts

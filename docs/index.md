@@ -22,7 +22,7 @@ score** — a profile is a vector of independent signed positions.
 - **Type:** Python CLI + importable library
 - **Entry point:** `agentic_atlas/cli.py:main` (console script `agentic-atlas`)
 - **Deps:** `pyyaml`, `jsonschema` (runtime); `pytest`, `ruff` (dev)
-- Reads a rubric, gathers evidence, resolves measured + classified indicators, scores axes,
+- Reads a rubric, gathers evidence, resolves detected + judged indicators, scores axes,
   renders text/md/json/html.
 
 ### Rubric (`rubric/v1/`)
@@ -33,7 +33,7 @@ score** — a profile is a vector of independent signed positions.
 ### Plugin & skill (`.claude-plugin/`, `.cursor-plugin/`, `skills/run/`, `gemini-extension.json`, `.codex/`)
 - **Type:** Claude Code / Cursor / Gemini / Codex plugin
 - **Entry point:** `/agentic-atlas:run` (`skills/run/SKILL.md`); launcher `skills/run/atlas.sh`
-- Drives the engine via its CLI; the host agent answers the classified questions. No scoring
+- Drives the engine via its CLI; the host agent answers the judged questions. No scoring
   logic of its own.
 
 ## Generated Documentation
@@ -65,7 +65,7 @@ score** — a profile is a vector of independent signed positions.
 make setup     # create .venv, editable-install with dev deps
 make check     # the CI gate: lint → docs-check → test
 make validate  # validate the rubric against its schemas
-make profile TARGET=/path/to/methodology FORMAT=md   # profile a target (measured only)
+make profile TARGET=/path/to/methodology FORMAT=md   # profile a target (detected only)
 ```
 
 Then read [development-guide.md](./development-guide.md) for the full workflow and
@@ -77,4 +77,4 @@ Then read [development-guide.md](./development-guide.md) for the full workflow a
 2. **Rubric is data, engine is code** — scoring policy lives in `rubric/*.yaml`.
 3. **The axis score is a deterministic function of indicators** — `scoring.py` is pure arithmetic.
 4. **Every profile is reproducible** — stamps rubric version, engine version, target SHA, answer source.
-5. **`measured` vs `classified` stay separate** — the engine computes measured, validates classified.
+5. **`detected` vs `judged` stay separate** — the engine computes detected, validates judged.

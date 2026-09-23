@@ -8,10 +8,11 @@ import pytest
 from agentic_atlas import evidence
 from agentic_atlas.evidence import (
     Target,
+    _contributor_count,
     _count_terms,
     _matches,
     _parse_github_slug,
-    resolve_measured,
+    resolve_detected,
 )
 from agentic_atlas.models import Indicator, IndicatorKind
 
@@ -131,11 +132,64 @@ def test_git_metrics(git_repo):
     assert git_repo.git_metric("age_days") == 400.0
 
 
+def test_contributor_count_merges_one_persons_identities():
+    # One person under a work email, a personal email, and a GitHub noreply login is one
+    # contributor: identities sharing a name, an email, or a noreply login merge.
+    authors = [
+        ("Ada Lovelace", "ada@work.example"),
+        ("ada lovelace", "ada@home.example"),
+        ("Ada Lovelace", "123+adal@users.noreply.github.com"),
+        ("adal", "ada@home.example"),
+        ("Grace Hopper", "grace@example.org"),
+    ]
+    assert _contributor_count(authors, ()) == 2
+
+
+def test_contributor_count_drops_excluded_automation_authors():
+    authors = [
+        ("Ada", "ada@example.org"),
+        ("dependabot[bot]", "49699333+dependabot[bot]@users.noreply.github.com"),
+        ("Claude", "noreply@anthropic.com"),
+    ]
+    assert _contributor_count(authors, (r"\[bot\]", r"@anthropic\.com>")) == 1
+    assert _contributor_count(authors, ()) == 3
+
+
+def test_tag_count_ignores_tags_not_reachable_from_head(git_repo):
+    # A tag created on another branch (or fetched after the profiled commit) must not change
+    # the value for the same HEAD, or a later rescore would drift.
+    root = git_repo.root
+    _git(root, "checkout", "-qb", "side")
+    (root / "c.txt").write_text("three")
+    _git(root, "add", "-A")
+    _git(root, "commit", "-qm", "side")
+    _git(root, "tag", "v9.9.9")
+    _git(root, "checkout", "-q", "-")
+    assert git_repo.git_metric("tag_count") == 1
+
+
+def test_exclude_authors_is_rejected_on_other_metrics(git_repo):
+    ind = Indicator(
+        id="x",
+        question="q",
+        kind=IndicatorKind.DETECTED,
+        weight=1.0,
+        signal={
+            "type": "git_stats",
+            "metric": "commit_count",
+            "exclude_authors": ["bot"],
+            "bands": [{"max_count": None, "value": 1.0}],
+        },
+    )
+    with pytest.raises(ValueError, match="only to contributor_count"):
+        resolve_detected(ind, git_repo)
+
+
 def _git_stats_indicator(metric, bands):
     return Indicator(
         id="fm",
         question="q",
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=1.0,
         signal={"type": "git_stats", "metric": metric, "bands": bands},
     )
@@ -147,7 +201,7 @@ def test_git_stats_bands_a_metric(git_repo):
         {"max_count": 730, "value": 0.3},
         {"max_count": None, "value": 1.0},
     ]
-    result = resolve_measured(_git_stats_indicator("age_days", bands), git_repo)
+    result = resolve_detected(_git_stats_indicator("age_days", bands), git_repo)
     assert result.resolved is True
     assert result.value == 0.3  # 400 days lands in the middle band
     assert result.answer == "400.0"
@@ -157,10 +211,10 @@ def test_git_stats_bands_a_metric(git_repo):
 def test_git_stats_unresolved_without_git(tmp_path):
     target = Target.from_path(tmp_path)  # a plain dir, no git history
     bands = [{"max_count": None, "value": 1.0}]
-    result = resolve_measured(_git_stats_indicator("commit_count", bands), target)
+    result = resolve_detected(_git_stats_indicator("commit_count", bands), target)
     assert result.resolved is False
     assert result.value is None
-    assert result.kind is IndicatorKind.MEASURED
+    assert result.kind is IndicatorKind.DETECTED
 
 
 @pytest.fixture
@@ -201,10 +255,10 @@ def test_git_metrics_unresolved_on_shallow_clone(shallow_repo):
 
 def test_git_stats_unresolved_on_shallow_clone(shallow_repo):
     bands = [{"max_count": None, "value": 1.0}]
-    result = resolve_measured(_git_stats_indicator("commit_count", bands), shallow_repo)
+    result = resolve_detected(_git_stats_indicator("commit_count", bands), shallow_repo)
     assert result.resolved is False
     assert result.value is None
-    assert result.kind is IndicatorKind.MEASURED
+    assert result.kind is IndicatorKind.DETECTED
     # The reason must name the shallow clone, not falsely claim "no git history".
     assert "shallow" in (result.evidence or "").lower()
 
@@ -237,7 +291,7 @@ def test_git_metrics_resolve_on_full_clone(tmp_path):
 def test_git_version_describe_when_past_tag(tmp_path):
     # When HEAD is past the nearest ancestor tag, capture the describe-style stamp
     # (e.g. v1.0.0-1-gabcdef0) so readers see both the last release and that the
-    # measured commit is past it.
+    # profiled commit is past it.
     source = tmp_path / "source"
     source.mkdir()
     _git(source, "init", "-q")
@@ -295,7 +349,7 @@ def _github_indicator(metric, bands):
     return Indicator(
         id="fm5",
         question="q",
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=1.0,
         signal={"type": "github_api", "metric": metric, "bands": bands},
     )
@@ -312,7 +366,7 @@ def test_github_api_bands_a_metric(tmp_path, monkeypatch):
     target = Target.from_path(tmp_path)
     monkeypatch.setattr(Target, "github_slug", lambda self: ("owner", "repo"))
     monkeypatch.setattr(evidence, "_fetch_github_repo", lambda o, r: {"stargazers_count": 5000})
-    result = resolve_measured(_github_indicator("stars", _STAR_BANDS), target)
+    result = resolve_detected(_github_indicator("stars", _STAR_BANDS), target)
     assert result.resolved is True
     assert result.value == 1.0  # 5000 stars is above the top band threshold
     assert result.answer == "5000"
@@ -322,7 +376,7 @@ def test_github_api_unresolved_without_network(tmp_path, monkeypatch):
     target = Target.from_path(tmp_path)
     monkeypatch.setattr(Target, "github_slug", lambda self: ("owner", "repo"))
     monkeypatch.setattr(evidence, "_fetch_github_repo", lambda o, r: None)
-    result = resolve_measured(_github_indicator("stars", _STAR_BANDS), target)
+    result = resolve_detected(_github_indicator("stars", _STAR_BANDS), target)
     assert result.resolved is False
     assert result.value is None
 
@@ -338,7 +392,7 @@ def test_github_api_unresolved_without_remote(tmp_path, monkeypatch):
         return {}
 
     monkeypatch.setattr(evidence, "_fetch_github_repo", _boom)
-    result = resolve_measured(_github_indicator("stars", _STAR_BANDS), target)
+    result = resolve_detected(_github_indicator("stars", _STAR_BANDS), target)
     assert result.resolved is False
     assert called is False  # no slug means we never hit the network
 
@@ -356,7 +410,7 @@ def _vocab_indicator(terms, bands):
     return Indicator(
         id="v",
         question="q",
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=1.0,
         signal={"type": "vocabulary", "terms": terms, "bands": bands},
     )
@@ -366,7 +420,7 @@ def _path_indicator(globs):
     return Indicator(
         id="p",
         question="q",
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=1.0,
         signal={"type": "path_presence", "globs": globs, "present": 1.0, "absent": -1.0},
     )
@@ -385,7 +439,7 @@ def _path_count_indicator(globs, bands):
     return Indicator(
         id="pc",
         question="q",
-        kind=IndicatorKind.MEASURED,
+        kind=IndicatorKind.DETECTED,
         weight=1.0,
         signal={"type": "path_count", "globs": globs, "bands": bands},
     )
@@ -393,7 +447,7 @@ def _path_count_indicator(globs, bands):
 
 def test_vocabulary_unresolved_on_empty_corpus(tmp_path):
     target = Target.from_path(tmp_path)  # a dir with no readable text at all
-    result = resolve_measured(_vocab_indicator(["legacy", "migration"], _ZERO_BANDS), target)
+    result = resolve_detected(_vocab_indicator(["legacy", "migration"], _ZERO_BANDS), target)
     assert result.resolved is False
     assert result.value is None
 
@@ -403,7 +457,7 @@ def test_vocabulary_resolves_on_real_corpus_with_zero_hits(tmp_path):
     # guard only fires when there is nothing to read, not merely nothing matched.
     (tmp_path / "README.md").write_text("project prose without any of the target words")
     target = Target.from_path(tmp_path)
-    result = resolve_measured(_vocab_indicator(["legacy", "migration"], _ZERO_BANDS), target)
+    result = resolve_detected(_vocab_indicator(["legacy", "migration"], _ZERO_BANDS), target)
     assert result.resolved is True
     assert result.value == -1.0
     assert result.answer == "0"
@@ -411,7 +465,7 @@ def test_vocabulary_resolves_on_real_corpus_with_zero_hits(tmp_path):
 
 def test_path_presence_unresolved_when_no_files(tmp_path):
     target = Target.from_path(tmp_path)
-    result = resolve_measured(_path_indicator(["**/skills/**"]), target)
+    result = resolve_detected(_path_indicator(["**/skills/**"]), target)
     assert result.resolved is False
     assert result.value is None
 
@@ -419,7 +473,7 @@ def test_path_presence_unresolved_when_no_files(tmp_path):
 def test_path_presence_absent_is_a_signal_when_files_exist(tmp_path):
     (tmp_path / "README.md").write_text("x")
     target = Target.from_path(tmp_path)
-    result = resolve_measured(_path_indicator(["**/skills/**"]), target)
+    result = resolve_detected(_path_indicator(["**/skills/**"]), target)
     assert result.resolved is True
     assert result.value == -1.0
     assert result.answer == "absent"
@@ -438,7 +492,7 @@ def test_path_count_bands_to_the_right_value(tmp_path):
     for i in range(5):
         (tmp_path / "skills" / f"s{i}.md").write_text("x")
     target = Target.from_path(tmp_path)
-    result = resolve_measured(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
+    result = resolve_detected(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
     assert result.resolved is True
     assert result.value == 0.3
     assert result.answer == "5"
@@ -451,7 +505,7 @@ def test_path_count_bands_many_files_to_top(tmp_path):
     for i in range(90):
         (tmp_path / "skills" / f"s{i}.md").write_text("x")
     target = Target.from_path(tmp_path)
-    result = resolve_measured(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
+    result = resolve_detected(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
     assert result.resolved is True
     assert result.value == 0.8
     assert result.answer == "90"
@@ -459,10 +513,10 @@ def test_path_count_bands_many_files_to_top(tmp_path):
 
 def test_path_count_unresolved_when_no_files(tmp_path):
     target = Target.from_path(tmp_path)
-    result = resolve_measured(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
+    result = resolve_detected(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
     assert result.resolved is False
     assert result.value is None
-    assert result.kind is IndicatorKind.MEASURED
+    assert result.kind is IndicatorKind.DETECTED
 
 
 def test_path_count_counts_across_nested_dirs(tmp_path):
@@ -474,7 +528,7 @@ def test_path_count_counts_across_nested_dirs(tmp_path):
         p.write_text("x")
     (tmp_path / "README.md").write_text("not a skill")
     target = Target.from_path(tmp_path)
-    result = resolve_measured(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
+    result = resolve_detected(_path_count_indicator(["**/skills/**"], _COUNT_BANDS), target)
     assert result.resolved is True
     assert result.answer == "3"
     assert result.value == -0.2  # 3 files lands in the second band

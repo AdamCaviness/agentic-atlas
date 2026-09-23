@@ -4,25 +4,24 @@ poles:
   negative: test_optional
   positive: test_first
 description: >
-  How central testing is to the approach. Negative means testing is incidental or
-  left to the user. Positive means test-first discipline (TDD) is enforced. tf1
-  weighs whether tests are required before implementation, tf2 whether testing is a
-  first-class phase or incidental.
+  How central testing is to the approach. Negative means testing is incidental or left
+  to the user. Positive means test-first discipline (TDD) is enforced.
 explain:
   negative: testing is incidental, left to your judgment
   positive: test-first discipline (TDD) is built in and enforced
 indicators:
-  - id: tf1
+  - id: tests-first
     question: "Does it enforce writing tests before implementation (TDD)?"
-    kind: classified
+    kind: judged
     weight: 3
     # True zero (AD-6): "encouraged" means tests are recommended but not enforced before code,
     # genuinely balanced between test-optional and test-first. Extremes are +-1.0 (AD-3).
     answers: { "no": -1.0, encouraged: 0.0, enforced: 1.0 }
-  - id: tf2
+  - id: testing-phase
     question: "Is testing a first-class phase, or incidental?"
-    kind: classified
+    kind: judged
     weight: 2
-    # "present" (a testing phase exists but is not test-first) is an argued lean toward
-    # test-first; the axis's true zero is tf1's "encouraged".
-    answers: { incidental: -1.0, present: 0.3, first_class: 1.0 }
+    # "present" means a testing phase exists but is not test-first.
+    # True zero (AD-6): the middle answer sits halfway between the two poles, so it maps to
+    # 0.0. A tilt away from zero needs a written argument, and none exists for this one.
+    answers: { incidental: -1.0, present: 0.0, first_class: 1.0 }

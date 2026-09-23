@@ -23,7 +23,7 @@
         "pytest>=8.0",
         "ruff>=0.6"
       ],
-      "summary": "Reads a rubric, gathers evidence, resolves measured + classified indicators, scores axes with a fixed formula, renders text/md/json/html reports. Deterministic, no API key."
+      "summary": "Reads a rubric, gathers evidence, resolves detected + judged indicators, scores axes with a fixed formula, renders text/md/json/html reports. Deterministic, no API key."
     },
     {
       "part_id": "rubric",
@@ -49,7 +49,7 @@
       ],
       "entry_point": "skills/run/SKILL.md (/agentic-atlas:run); launcher skills/run/atlas.sh",
       "version": "0.4.0",
-      "summary": "Distribution surface. The run skill drives the engine via the atlas.sh launcher (cached venv bootstrap, arg forwarding) and its CLI contract. Contains no scoring logic; the host agent answers the classified questions."
+      "summary": "Distribution surface. The run skill drives the engine via the atlas.sh launcher (cached venv bootstrap, arg forwarding) and its CLI contract. Contains no scoring logic; the host agent answers the judged questions."
     }
   ],
   "integration_points": [
@@ -63,7 +63,7 @@
       "from": "host-agent",
       "to": "engine",
       "type": "answers JSON",
-      "details": "supplied classified answers validated by the engine (value in allowed set, quote verbatim in corpus)"
+      "details": "supplied judged answers validated by the engine (value in allowed set, quote verbatim in corpus)"
     },
     {
       "from": "engine",

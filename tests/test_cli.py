@@ -3,9 +3,9 @@ the `render` command: re-emitting a saved profile JSON without re-running the en
 
 import json
 
-from agentic_atlas.classify import ANSWER_INSTRUCTIONS, MIN_QUOTE_CHARS
 from agentic_atlas.cli import _DEFAULT_RUBRIC, main
 from agentic_atlas.evidence import TEXT_SUFFIXES
+from agentic_atlas.judged import ANSWER_INSTRUCTIONS, MIN_QUOTE_CHARS
 from agentic_atlas.models import (
     AxisResult,
     Explain,
@@ -29,7 +29,7 @@ def _profile() -> Profile:
         indicators=(
             IndicatorResult(
                 indicator_id="x",
-                kind=IndicatorKind.MEASURED,
+                kind=IndicatorKind.DETECTED,
                 weight=1.0,
                 value=1.0,
                 resolved=True,
@@ -83,3 +83,20 @@ def test_render_bad_path_exits_nonzero(capsys):
         assert exc.code != 0
     else:  # pragma: no cover - the command must not succeed on a missing file
         raise AssertionError("render should fail on a missing profile file")
+
+
+def test_render_old_rubric_profile_names_the_rubric_version(tmp_path):
+    # A profile saved under rubric 3.x uses the retired kind "measured". It must fail with a
+    # message naming its rubric version and how to regenerate it, not a traceback.
+    data = _profile().to_dict()
+    data["rubric_version"] = "3.0.0"
+    data["axes"][0]["indicators"][0]["kind"] = "measured"
+    path = tmp_path / "old.json"
+    path.write_text(json.dumps(data))
+    try:
+        main(["render", str(path)])
+    except SystemExit as exc:
+        assert "rubric '3.0.0'" in str(exc.code)
+        assert "Re-run `agentic-atlas profile`" in str(exc.code)
+    else:  # pragma: no cover - the command must not succeed on an old profile
+        raise AssertionError("render should fail on a pre-4.0 profile")

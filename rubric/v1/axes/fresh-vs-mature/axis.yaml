@@ -6,20 +6,19 @@ poles:
 description: >
   How settled the approach is as a project. Negative means new, fast-moving, and
   cutting-edge, with the churn and thin track record that implies. Positive means
-  established, stable, and battle-tested, with the inertia that implies. Neither
-  pole is better: fresh often means the newest ideas, mature often means fewer
-  surprises. This axis leans on deterministic repository facts (age, commits,
-  contributors, release tags) read from a full clone, so it scores meaningfully
-  even with no classified indicators answered. Star count is deliberately absent:
-  popularity is adoption, not maturity, and a widely-starred week-old project is
-  still fresh.
+  established, stable, and battle-tested, with the inertia that implies. Neither pole is
+  better: fresh often means the newest ideas, mature often means fewer surprises. This
+  axis leans on deterministic repository facts (age, commits, contributors, release
+  tags) read from a full clone, so it scores meaningfully even with no judged indicators
+  answered. Star count is deliberately absent: popularity is adoption, not maturity, and
+  a widely-starred week-old project is still fresh.
 explain:
   negative: new and moving fast, the newest ideas on a thin track record
   positive: established and battle tested, stable but slower to change
 indicators:
-  - id: fm1
+  - id: repo-age
     question: "How old is the repository, from its first commit to HEAD?"
-    kind: measured
+    kind: detected
     weight: 2
     # Construct-natural edges (AD-1, frozen from meaning not corpus-fit): under ~6 months
     # is fresh, 6 months to 2 years is evolving, past 2 years is mature. Extremes are +-1.0
@@ -31,9 +30,9 @@ indicators:
         - { max_count: 180, value: -1.0 }
         - { max_count: 730, value: 0.0 }
         - { max_count: null, value: 1.0 }
-  - id: fm2
+  - id: commit-count
     question: "How many commits has the repository accumulated?"
-    kind: measured
+    kind: detected
     weight: 2
     signal:
       type: git_stats
@@ -42,20 +41,39 @@ indicators:
         - { max_count: 100, value: -1.0 }
         - { max_count: 1000, value: 0.0 }
         - { max_count: null, value: 1.0 }
-  - id: fm3
-    question: "How many distinct contributors have committed?"
-    kind: measured
+  - id: contributor-count
+    question: "How many distinct people have committed?"
+    kind: detected
     weight: 1
+    # Counts people, not email addresses: the engine merges identities that share a name,
+    # an email, or a GitHub noreply login, and drops the automation and AI authors matched
+    # below (each regex is tested against "name <email>", ignoring case). Without this,
+    # a one-person repo driven by bots and AI agents read as a large team (autonomous-dev
+    # counted 43 addresses for about one human). The list is a heuristic: it names generic
+    # automation markers, never a specific repository's bots. AI authors are matched by a
+    # display name that starts with "Claude" or the shared noreply address, never by email
+    # domain, so people who commit from an @anthropic.com address still count. A human whose
+    # display name starts with "Claude" would be dropped.
     signal:
       type: git_stats
       metric: contributor_count
+      exclude_authors:
+        - '\bbot\b'
+        - '\[bot\]'
+        - 'noreply@anthropic\.com>'
+        - '^claude\b'
+        - '\bcopilot\b'
+        - 'github-actions|actions?@github\.com>'
+        - '^[^<]*\bagent\b'
+        - '^ci\b'
+        - '@example\.com>'
       bands:
         - { max_count: 2, value: -1.0 }
         - { max_count: 10, value: 0.0 }
         - { max_count: null, value: 1.0 }
-  - id: fm4
-    question: "How many release tags exist, as a proxy for an established release cadence?"
-    kind: measured
+  - id: release-tags
+    question: "How many release tags are in the history up to the profiled commit, as a proxy for an established release cadence?"
+    kind: detected
     weight: 1
     signal:
       type: git_stats
@@ -64,9 +82,9 @@ indicators:
         - { max_count: 0, value: -1.0 }
         - { max_count: 5, value: 0.0 }
         - { max_count: null, value: 1.0 }
-  - id: fm6
+  - id: stated-stability
     question: "How does the project describe its own stability in its docs?"
-    kind: classified
+    kind: judged
     weight: 2
     # True zero (AD-6): "evolving" is the genuine middle between an experimental project and
     # a stable one, and extremes are +-1.0 (AD-3).

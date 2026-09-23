@@ -14,7 +14,7 @@ _SPEC.loader.exec_module(corpus)
 
 def test_refresh_ref_always_uses_default_branch(tmp_path, monkeypatch):
     # Even when a GitHub Release exists, checkout HEAD so pins never move backwards onto
-    # an older tag (which drops classified quotes). Reason still names the latest release.
+    # an older tag (which drops judged quotes). Reason still names the latest release.
     dest = tmp_path / "repo"
     dest.mkdir()
     monkeypatch.setattr(corpus, "_parse_github_slug", lambda url: ("owner", "repo"))
