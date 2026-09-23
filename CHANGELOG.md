@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/AdamCaviness/agentic-atlas/compare/v4.0.0...v4.0.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **ci:** approve the held CI run on the release PR instead of dispatching ([#62](https://github.com/AdamCaviness/agentic-atlas/issues/62)) ([dae04ed](https://github.com/AdamCaviness/agentic-atlas/commit/dae04ed64f8484c6df2f56b69c1b319c793e8be6))
+
 ## [4.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v3.0.0...v4.0.0) (2026-09-23)
 
 
