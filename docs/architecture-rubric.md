@@ -12,13 +12,13 @@ embedding any of it. It is a directory per MAJOR version (`rubric/v1`), schema-v
 its human documentation's scoring block is machine-generated from the same source of truth the
 engine reads. This is the "spec" half of the spec-plus-interpreter design.
 
-Current version: **`rubric_version: 2.0.0`**, scale `10`, **13 active axes**.
+Current version: **`rubric_version: 5.0.0`**, scale `10`, **13 active axes**.
 
 ## Layout
 
 ```
 rubric/v1/
-├── rubric.yaml          Manifest: rubric_version, title, description, scale, ordered axis ids
+├── rubric.yaml          Manifest: rubric_version, title, description, scale, evidence_exclude, axis ids
 ├── rubric.schema.json   JSON Schema validating the manifest
 ├── axis.schema.json     JSON Schema validating one axis file
 ├── CHANGELOG.md         Every score-moving change, per rubric semver
@@ -33,7 +33,8 @@ and its generated README block cannot drift from the weights the engine uses.
 ## The manifest (`rubric.yaml`)
 
 Holds `rubric_version`, `title`, `description`, a rubric-wide `scale` (default 10 — a single
-shared range is what makes axes comparable, so it is a constant, never a per-axis knob), and
+shared range is what makes axes comparable, so it is a constant, never a per-axis knob),
+`evidence_exclude` (the globs naming files a judged answer may not cite as evidence), and
 `axes`, the ordered list of axis ids in display order. Axes are grouped for display as
 context / style / process / architecture / footprint. Every id maps to `axes/<id>/axis.yaml`;
 the engine errors if the file is missing or its internal `id` disagrees with the directory.
@@ -121,7 +122,8 @@ lives entirely in the data, not the engine.
 
 ## Schemas
 
-- `rubric.schema.json` validates the manifest (required version/title/axes, scale).
+- `rubric.schema.json` validates the manifest (required version/title/axes, scale,
+  evidence_exclude).
 - `axis.schema.json` validates a single axis: required `id`, `title`, `poles`, `indicators`;
   per-indicator `kind`, `weight`, and the shape of `answers` (judged) or `signal`
   (detected).

@@ -13,7 +13,7 @@ agentic-atlas/
 │   ├── spec.py               #   load + jsonschema-validate a rubric dir into typed models
 │   ├── scoring.py            #   ★ pure-arithmetic scoring core (no I/O, no model)
 │   ├── evidence.py           #   Target + resolve_detected: the 5 detected signal types
-│   ├── judged.py           #   resolve_judged: validate supplied answers + verbatim quote
+│   ├── judged.py           #   resolve_judged: validate supplied answers, evidence path, verbatim quote
 │   ├── profiler.py           #   profile_target: the single orchestration path
 │   ├── report.py             #   render_text / render_markdown / render_html (3D crystal)
 │   ├── docs.py               #   generate axis README scoring blocks (make docs / --check)

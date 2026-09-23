@@ -1,20 +1,20 @@
 {
   "source": "anchor:spec-light-minimal",
   "answers": {
-    "starting-point": {"answer": "blank_slate", "evidence": "You start from a blank idea, with no existing code"},
-    "maps-existing-code": {"answer": "no", "evidence": "it never ingests or maps an existing codebase"},
-    "lifecycle-coverage": {"answer": "one", "evidence": "It covers a single step, not the whole lifecycle."},
-    "pipeline-stages": {"answer": "single", "evidence": "It covers a single step, not the whole lifecycle."},
-    "production-hardening": {"answer": "none", "evidence": "with no production hardening"},
-    "throwaway-tolerance": {"answer": "throwaway_ok", "evidence": "The output is throwaway, meant to prove an idea fast"},
-    "team-coordination": {"answer": "none", "evidence": "There is no collaboration, review, or handoff between people."},
-    "human-handoffs": {"answer": "none", "evidence": "There is no collaboration, review, or handoff between people."},
-    "spec-required": {"answer": "none", "evidence": "You begin implementation immediately, with nothing written up front."},
-    "spec-documents": {"answer": "no", "evidence": "Nothing is saved or handed off between steps."},
-    "learning-curve": {"answer": "minimal", "evidence": "The tool does one small job and gets out of the way."},
-    "install-footprint": {"answer": "tiny", "evidence": "The tool does one small job and gets out of the way."},
-    "tests-first": {"answer": "no", "evidence": "Tests are optional here, and are added only after the fact if at all."},
-    "testing-phase": {"answer": "incidental", "evidence": "Tests are optional here, and are added only after the fact if at all."},
-    "specialist-agents": {"answer": "single", "evidence": "One person drives the whole change from start to finish."}
+    "starting-point": {"answer": "blank_slate", "evidence": "You start from a blank idea, with no existing code", "path": "README.md"},
+    "maps-existing-code": {"answer": "no", "evidence": "it never ingests or maps an existing codebase", "path": "README.md"},
+    "lifecycle-coverage": {"answer": "one", "evidence": "It covers a single step, not the whole lifecycle.", "path": "README.md"},
+    "pipeline-stages": {"answer": "single", "evidence": "It covers a single step, not the whole lifecycle.", "path": "README.md"},
+    "production-hardening": {"answer": "none", "evidence": "with no production hardening", "path": "README.md"},
+    "throwaway-tolerance": {"answer": "throwaway_ok", "evidence": "The output is throwaway, meant to prove an idea fast", "path": "README.md"},
+    "team-coordination": {"answer": "none", "evidence": "There is no collaboration, review, or handoff between people.", "path": "README.md"},
+    "human-handoffs": {"answer": "none", "evidence": "There is no collaboration, review, or handoff between people.", "path": "README.md"},
+    "spec-required": {"answer": "none", "evidence": "You begin implementation immediately, with nothing written up front.", "path": "README.md"},
+    "spec-documents": {"answer": "no", "evidence": "Nothing is saved or handed off between steps.", "path": "README.md"},
+    "learning-curve": {"answer": "minimal", "evidence": "The tool does one small job and gets out of the way.", "path": "README.md"},
+    "install-footprint": {"answer": "tiny", "evidence": "The tool does one small job and gets out of the way.", "path": "README.md"},
+    "tests-first": {"answer": "no", "evidence": "Tests are optional here, and are added only after the fact if at all.", "path": "README.md"},
+    "testing-phase": {"answer": "incidental", "evidence": "Tests are optional here, and are added only after the fact if at all.", "path": "README.md"},
+    "specialist-agents": {"answer": "single", "evidence": "One person drives the whole change from start to finish.", "path": "README.md"}
   }
 }

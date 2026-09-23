@@ -51,6 +51,31 @@ def test_profile_is_deterministic(tmp_path):
     assert first == second
 
 
+def test_profile_applies_the_rubric_evidence_exclusions(tmp_path):
+    # End to end through the shipped rubric: a quote cited from an admissible file resolves
+    # and records its path; the same quote cited from a changelog is rejected, because the
+    # rubric's evidence_exclude reaches the judged resolver.
+    rubric = load_rubric(_RUBRIC)
+    quote = "Write the failing test first, then the code."
+    (tmp_path / "README.md").write_text(quote)
+    (tmp_path / "CHANGELOG.md").write_text(f"2.0.0: {quote}")
+    target = Target.from_path(tmp_path)
+
+    def tests_first(path: str):
+        answers = {"tests-first": {"answer": "enforced", "evidence": quote, "path": path}}
+        profile = profile_target(rubric, target, answers=answers)
+        return next(
+            ir for ax in profile.axes for ir in ax.indicators if ir.indicator_id == "tests-first"
+        )
+
+    admitted = tests_first("README.md")
+    assert admitted.resolved and admitted.path == "README.md"
+    rejected = tests_first("CHANGELOG.md")
+    assert not rejected.resolved and rejected.path is None
+    assert rejected.evidence.startswith("evidence path 'CHANGELOG.md' is excluded as evidence")
+    assert rejected.evidence.endswith("; the quote appears in 'README.md'")
+
+
 def test_to_dict_carries_pole_meanings(tmp_path):
     # The emitted artifact exposes each pole's plain-language meaning, so a consumer of the
     # JSON (not just the HTML) can render it.

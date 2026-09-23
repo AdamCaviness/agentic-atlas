@@ -28,9 +28,10 @@ This file is the contract the skill targets. It is stable engine surface.
 
    ```json
    {
-     "rubric_version": "4.0.0",
+     "rubric_version": "5.0.0",
      "target": "/abs/path",
      "instructions": "...",
+     "evidence_exclude": ["**/CHANGELOG.*", "**/tests/**", "examples/**", ".taskmaster/**", "..."],
      "questions": [
        {"id": "spec-required", "axis": "spec-light-vs-spec-driven",
         "question": "Is a written design specification (a PRD, design doc, or written plan, not merely a ticket or work item) required before implementation begins?",
@@ -44,7 +45,9 @@ This file is the contract the skill targets. It is stable engine surface.
    uses, and it restates the rules under "What the engine guarantees" below.
 
 3. **The host agent answers each question** from the target repository only, choosing one
-   value from `answers` and citing a quote copied verbatim from the target.
+   value from `answers`, citing a quote copied verbatim from the target, and naming the
+   file the quote is in (`path`, relative to the target root). The file must match none of
+   the `evidence_exclude` globs the `questions` payload lists.
 
 4. **Feed the answers back to score them.** The file (or stdin, via `-`) is:
 
@@ -52,7 +55,7 @@ This file is the contract the skill targets. It is stable engine surface.
    {
      "source": "agentic-atlas:claude-opus-4-8",
      "answers": {
-       "spec-required": {"answer": "none", "evidence": "a verbatim quote from the target"}
+       "spec-required": {"answer": "none", "evidence": "a verbatim quote from the target", "path": "docs/workflow.md"}
      }
    }
    ```
@@ -66,10 +69,13 @@ This file is the contract the skill targets. It is stable engine surface.
 ## What the engine guarantees
 
 - **Validation, not trust.** Every supplied answer must name one of the indicator's
-  declared values and cite a quote found verbatim in the target. A missing or failing
-  answer leaves the indicator unresolved and out of the score. The quote must appear in
-  a `.md`, `.markdown`, `.txt`, `.yaml`, `.yml`, `.json`, or `.toml` file, must be at
-  least 12 characters, and is matched after collapsing whitespace and ignoring case.
+  declared values, cite a quote, and give the path of the file the quote is in. The engine
+  checks the quote inside that one file. A missing or failing answer leaves the indicator
+  unresolved and out of the score. The file must be a `.md`, `.markdown`, `.txt`, `.yaml`,
+  `.yml`, `.json`, or `.toml` file and must match none of the rubric's `evidence_exclude`
+  globs (release history, tests and fixtures, example projects, the tool's own working
+  folders and design records, and its contributor guides and CI). The quote must be at
+  least 12 characters and is matched after collapsing whitespace and ignoring case.
   Validation stops a fabricated citation; it cannot catch a real-but-unrepresentative
   quote, so the answers file is a reviewable artifact and its provenance (`source`) is
   stamped on the profile.

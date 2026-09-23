@@ -477,6 +477,7 @@ def test_profile_round_trips_through_dict():
         answer="somewhat",
         evidence="a verbatim quote",
         source="supplied",
+        path="docs/method.md",
     )
     ax = _axis(
         "Round vs Trip",
@@ -498,6 +499,63 @@ def test_profile_round_trips_through_dict():
     # and the reconstruction renders byte-identically to the original
     assert render_html(Profile.from_dict(profile.to_dict())) == render_html(profile)
     assert '<div class="stamps">version v1.0.0</div>' in render_html(profile)
+
+
+def _judged_with_path(path: str | None) -> IndicatorResult:
+    return IndicatorResult(
+        indicator_id="spec-required",
+        kind=IndicatorKind.JUDGED,
+        weight=1.0,
+        value=1.0,
+        resolved=True,
+        answer="required",
+        evidence="Write the spec first.",
+        source="supplied",
+        path=path,
+    )
+
+
+def test_html_links_the_evidence_file_at_the_profiled_commit():
+    # The quote's file shows under the quote and opens that exact file at the pinned SHA, so a
+    # reader can verify the evidence in one click.
+    ax = _axis("Spec", score=5.0, coverage=0.8, indicators=[_judged_with_path("docs/my spec.md")])
+    profile = Profile(
+        target="/t",
+        rubric_version="5.0.0",
+        engine_version="0.2.0",
+        target_sha="abc123",
+        target_url="https://github.com/o/r.git",
+        axes=(ax,),
+    )
+    out = render_html(profile)
+    assert (
+        '<span class="ev-path"><a href="https://github.com/o/r/blob/abc123/docs/my%20spec.md" '
+        'target="_blank" rel="noopener">docs/my spec.md</a></span>'
+    ) in out
+
+
+def test_html_shows_the_evidence_file_unlinked_off_github():
+    ax = _axis("Spec", score=5.0, coverage=0.8, indicators=[_judged_with_path("SPEC.md")])
+    out = render_html(_profile([ax]))  # no target_url
+    assert '<span class="ev-path">SPEC.md</span>' in out
+
+
+def test_markdown_lists_the_evidence_file():
+    ax = _axis("Spec", score=5.0, coverage=0.8, indicators=[_judged_with_path("SPEC.md")])
+    out = render_markdown(_profile([ax]))
+    assert "| evidence | file | source |" in out
+    assert "| Write the spec first. | `SPEC.md` | supplied |" in out
+
+
+def test_profile_from_dict_reads_a_profile_saved_before_evidence_paths():
+    # Profiles answered under rubric 4.x carry no "path" key. They still load and render,
+    # with no file shown, until they are re-answered.
+    ax = _axis("Spec", score=5.0, coverage=0.8, indicators=[_judged_with_path(None)])
+    data = _profile([ax]).to_dict()
+    del data["axes"][0]["indicators"][0]["path"]
+    rebuilt = Profile.from_dict(data)
+    assert rebuilt.axes[0].indicators[0].path is None
+    assert "ev-path" not in render_html(rebuilt).split("</style>", 1)[1]
 
 
 def test_profile_from_dict_tolerates_missing_target_version():

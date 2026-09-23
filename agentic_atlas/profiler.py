@@ -32,7 +32,11 @@ def profile_target(
             if ind.kind is IndicatorKind.DETECTED:
                 results.append(resolve_detected(ind, target))
             else:
-                results.append(resolve_judged(ind, target, answers, answers_source))
+                results.append(
+                    resolve_judged(
+                        ind, target, answers, answers_source, exclude=rubric.evidence_exclude
+                    )
+                )
         axis_results.append(score_axis(axis, results))
 
     return score_profile(

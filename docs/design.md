@@ -38,7 +38,7 @@ target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
 The hard part is getting a deterministic result out of a subjective axis. It resolves by decomposing each axis into indicators of two kinds.
 
 - **`detected`** indicators are computed by the engine directly from the repository, with no model. The engine can resolve `vocabulary`, `path_presence`, `path_count`, `git_stats`, and `github_api`. The rubric uses only `git_stats` (age, commits, people, release tags). The other signal types are unused by the rubric. These are deterministic given their input.
-- **`judged`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model picks the answer and must cite a quote copied **verbatim from the target**; the engine discards any answer whose quote it cannot find, and the bounded, anchored answer set keeps independent runs consistent.
+- **`judged`** indicators require reading and selecting from a small, defined answer set (for example `yes` / `partial` / `no`). A model picks the answer and must cite a quote copied **verbatim from a named file in the target**; the engine discards any answer whose quote it cannot find in that file, and the bounded, anchored answer set keeps independent runs consistent.
 
 The scoring step treats both kinds identically: each resolved indicator yields a value in `[-1, 1]` and a weight. The axis score is:
 
@@ -54,7 +54,8 @@ The judgment call is narrower than "score this axis from -10 to 10." It becomes 
 
 - Bounded answer sets with anchored definitions in the rubric.
 - The engine rejects any answer outside an indicator's declared value set.
-- A required quote, verified by the engine to appear verbatim in the target. An answer whose quote cannot be found is discarded and the indicator left unresolved rather than guessed.
+- A required quote and the path of the file it comes from, verified by the engine to appear verbatim in that file. An answer whose quote cannot be found there is discarded and the indicator left unresolved rather than guessed. The profile records the path, so every judged position links to its source.
+- Admissible evidence is rubric data. The manifest's `evidence_exclude` globs name files that describe something other than the method the tool ships (release history, tests and fixtures, example projects, the tool's own task boards, change proposals, plans, and design records, and its contributor guides and CI), and the engine rejects a quote cited from any of them.
 - The answerer treats the target's own text as untrusted data, so it cannot instruct the agent into a verdict.
 - The source of each supplied answer is stamped on the profile, so a resolution is attributable.
 

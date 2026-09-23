@@ -3,7 +3,8 @@
 
 Every ``profiles/<slug>.json`` is self-describing: it stamps the target's ``target_url``
 and ``target_sha``, and it embeds the full judged answer set (each judged indicator
-carries its ``answer``, ``evidence`` quote, and a single uniform ``source``). That makes the
+carries its ``answer``, ``evidence`` quote, the ``path`` of the file that quote is in, and a
+single uniform ``source``). That makes the
 corpus reproducible without a model: the answers a fresh engine run needs are reconstructed
 straight from the committed JSON, and the engine validates and rescores them, exactly as it
 does for the ``/agentic-atlas:run`` skill. No API key, no model call.
@@ -41,6 +42,11 @@ follow-up ``/agentic-atlas:run <url> --save`` rather than guessing.
 ``status`` compares each committed pin to origin default-branch HEAD (after a fetch). Exit 1
 when any profile is behind, so automation can open a refresh PR before the Explorer shows a
 stale project version.
+
+A profile answered before rubric 5.0.0 has judged answers with no ``path``. The engine now
+requires one, so replaying such a profile would leave every judged indicator unresolved and a
+``--write`` would erase its judged positions. ``rescore`` and ``refresh`` therefore skip it with a
+reason instead; the fix is to re-answer it with ``/agentic-atlas:run <url> --save``.
 
 Neither ``rescore`` nor ``refresh`` writes anything without ``--write``; a bare run prints
 the report only. Because ``github_api`` (when a rubric uses it) and moving refs (for ``refresh``) make the output
@@ -161,16 +167,32 @@ def _checkout(dest: Path, ref: str) -> None:
 def _reconstruct_answers(profile: dict) -> tuple[dict[str, dict], str]:
     """Rebuild the ``--answers`` payload from a committed profile's resolved judged
     indicators. Returns ``(answers, source)`` in the shape the engine validates: a map from
-    indicator id to ``{"answer", "evidence"}``, plus the single source stamped on them."""
+    indicator id to ``{"answer", "evidence", "path"}``, plus the single source stamped on them.
+
+    Raises SystemExit (the per-slug skip in ``_run_rescore``) when a resolved judged answer has
+    no ``path``: the profile predates rubric 5.0.0 and cannot replay, only be re-answered."""
     answers: dict[str, dict] = {}
     sources: set[str] = set()
+    pathless: list[str] = []
     for axis in profile["axes"]:
         for ind in axis["indicators"]:
             if ind["kind"] != "judged" or not ind.get("resolved"):
                 continue
-            answers[ind["indicator_id"]] = {"answer": ind["answer"], "evidence": ind["evidence"]}
+            if not ind.get("path"):
+                pathless.append(ind["indicator_id"])
+            answers[ind["indicator_id"]] = {
+                "answer": ind["answer"],
+                "evidence": ind["evidence"],
+                "path": ind.get("path"),
+            }
             if ind.get("source"):
                 sources.add(ind["source"])
+    if pathless:
+        raise SystemExit(
+            f"{len(pathless)} judged answer(s) have no evidence path (answered under rubric "
+            f"{profile.get('rubric_version')}); replay would drop them. Re-answer with "
+            "/agentic-atlas:run <url> --save"
+        )
     if len(sources) > 1:
         # The answers file carries one source stamp; a profile whose judged indicators
         # disagree on provenance cannot round-trip through it without losing that distinction.
@@ -199,6 +221,8 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
     url = old.get("target_url")
     if not url:
         return {"slug": slug, "skipped": "no target_url in profile"}
+    # Before any git work, so a profile that cannot replay is skipped without a fetch.
+    answers, source = _reconstruct_answers(old)
 
     dest = CORPUS / slug
     _ensure_clone(url, dest)
@@ -211,7 +235,6 @@ def _rescore_one(path: Path, mode: str, rubric, write: bool) -> dict:
         ref, ref_reason = _refresh_ref(dest, url)
     _checkout(dest, ref)
 
-    answers, source = _reconstruct_answers(old)
     # Answers for indicators the current rubric removed cannot be replayed (the engine rejects
     # unknown ids). Drop them and report them, the same way new indicators are reported.
     removed_indicators = sorted(set(answers) - judged_ids(rubric))

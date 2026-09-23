@@ -76,7 +76,8 @@ target ─▶ evidence ─▶ indicator resolution ─▶ scoring ─▶ report
 - **detected** indicators: computed from the repo with no model, fully deterministic.
   The rubric uses only git stats; the engine also supports vocabulary, path presence, path
   count, and GitHub API signals that the rubric does not use.
-- **judged** indicators: a bounded answer plus a verbatim quote, produced by an external
+- **judged** indicators: a bounded answer plus a verbatim quote from a named, admissible
+  file, produced by an external
   agent and *validated* (never generated) by the engine.
 
 See [architecture-engine.md](./architecture-engine.md) for the module-level design,

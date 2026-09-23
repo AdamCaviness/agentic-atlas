@@ -19,6 +19,13 @@
       "default": 10,
       "description": "Half-range for every axis: positions run -scale..+scale. Shared by all axes so they stay comparable. A display multiplier on the normalized weighted mean, it does not change any relative position."
     },
+    "evidence_exclude": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "default": [],
+      "description": "Globs naming files a judged answer may not cite as evidence, matched case-sensitively against the answer's path relative to the target root. Same glob syntax as path signals: '**' spans directories, '*' and '?' stay within one path segment. A judged answer whose path matches any glob stays unresolved."
+    },
     "axes": {
       "type": "array",
       "minItems": 1,

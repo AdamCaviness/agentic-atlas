@@ -58,6 +58,7 @@ def _cmd_questions(args: argparse.Namespace) -> int:
                 "rubric_version": rubric.rubric_version,
                 "target": str(target.root),
                 "instructions": ANSWER_INSTRUCTIONS,
+                "evidence_exclude": list(rubric.evidence_exclude),
                 "questions": judged_questions(rubric),
             },
             indent=2,
