@@ -30,6 +30,14 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           pr_number=$(jq -r '.number' <<< "$RELEASE_PR_JSON")
+          pr_branch=$(jq -r '.headBranchName' <<< "$RELEASE_PR_JSON")
+
+          # The release PR is opened with GITHUB_TOKEN, so GitHub holds its `pull_request`
+          # CI run for approval and the `ci` check never reports on its own. Dispatch CI on
+          # the release branch instead: workflow_dispatch is the documented exception for
+          # GITHUB_TOKEN, and its `ci` check run lands on the PR's head commit, which is
+          # what the ruleset and `gh pr checks` read.
+          gh workflow run ci.yml --repo "$REPO" --ref "$pr_branch"
 
           # The branch ruleset requires the `ci` check before main can be updated, and
           # CI has only just started on the freshly-created release PR, so a bare merge
