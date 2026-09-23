@@ -1,5 +1,27 @@
 # Changelog
 
+## [3.0.0](https://github.com/AdamCaviness/agentic-atlas/compare/v2.2.0...v3.0.0) (2026-09-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **rubric:** rubric 4.0.0 profiles are not comparable to 3.x. Answers files keyed by 3.x ids are rejected, and profile JSON with the old kind names no longer loads.
+
+### Features
+
+* add a native Codex plugin install path ([#53](https://github.com/AdamCaviness/agentic-atlas/issues/53)) ([529da07](https://github.com/AdamCaviness/agentic-atlas/commit/529da07dabde2687d955c48fa177a1deee8628f2))
+* backfill project version stamps across the corpus ([4769bfa](https://github.com/AdamCaviness/agentic-atlas/commit/4769bfa5664978a9e7e41ce54d478bcbba9551a6))
+* backfill project version stamps across the corpus ([179c514](https://github.com/AdamCaviness/agentic-atlas/commit/179c514f0ec03991253b1e6f5fd42fa4349fbfae)), closes [#46](https://github.com/AdamCaviness/agentic-atlas/issues/46)
+* **rubric:** rubric 4.0.0 accuracy pass with plain-language names ([a4b4248](https://github.com/AdamCaviness/agentic-atlas/commit/a4b4248931f9cfb9c7d0e15f048cdb3e3416dd49))
+
+
+### Bug Fixes
+
+* clarify version stamp docs and disambiguate describe parse ([cdbb228](https://github.com/AdamCaviness/agentic-atlas/commit/cdbb228f13f1a26d3999372738e70d0c7de40e67))
+* make project version stamps readable across every tag scheme ([20b6790](https://github.com/AdamCaviness/agentic-atlas/commit/20b6790b2c92d6ca2d7ca7da23f46cdbc298504b))
+* show nearest release tag only on profile stamps ([dbc8970](https://github.com/AdamCaviness/agentic-atlas/commit/dbc89706468ca285edba9fa19c137e15df147a0c))
+* show nearest release tag only on profile stamps ([0245072](https://github.com/AdamCaviness/agentic-atlas/commit/024507251b2d273e1be0c7d59f7fed8d395a12fe))
+
 ## [2.2.0](https://github.com/AdamCaviness/agentic-atlas/compare/v2.1.0...v2.2.0) (2026-08-08)
 
 
