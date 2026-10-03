@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/AdamCaviness/agentic-atlas/compare/v4.0.1...v4.1.0) (2026-10-03)
+
+
+### Features
+
+* **rubric:** add judged questions to coarse axes ([#64](https://github.com/AdamCaviness/agentic-atlas/issues/64)) ([541e613](https://github.com/AdamCaviness/agentic-atlas/commit/541e61340b6e24149231b80dcecc7dfe317a591c)), closes [#55](https://github.com/AdamCaviness/agentic-atlas/issues/55)
+
 ## [4.0.1](https://github.com/AdamCaviness/agentic-atlas/compare/v4.0.0...v4.0.1) (2026-09-23)
 
 
