@@ -24,7 +24,7 @@ _SLUGARG  = $(if $(SLUG),--slug $(SLUG),)
 # is well within rate limits for a corpus this size.
 CORPUS_PY = env -u GH_TOKEN -u GITHUB_TOKEN $(PY) scripts/corpus.py
 
-.PHONY: help setup install test check lint fmt fmt-check format validate docs docs-check profiles profiles-check site-check profile corpus-fetch corpus-rescore corpus-refresh corpus-status clean
+.PHONY: help setup install test check lint fmt fmt-check format validate docs docs-check profiles profiles-check site-check profile corpus-fetch corpus-rescore corpus-refresh corpus-answer corpus-status clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -91,6 +91,10 @@ corpus-rescore: setup ## Replay answers at each pinned SHA (engine/rubric bump; 
 
 corpus-refresh: setup ## Move pins to origin default-branch HEAD, rewrite JSON+HTML
 	$(CORPUS_PY) refresh --write $(_SLUGARG)
+	$(MAKE) profiles
+
+corpus-answer: setup ## Pin to origin HEAD and profile with ANSWERS_DIR/<slug>.json answers, rewrite JSON+HTML
+	$(CORPUS_PY) answer --answers-dir $(ANSWERS_DIR) --write $(_SLUGARG)
 	$(MAKE) profiles
 
 corpus-status: setup ## Exit 1 if any profile pin is behind origin default-branch HEAD

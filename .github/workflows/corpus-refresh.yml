@@ -1,8 +1,10 @@
-# Keep the committed profile corpus on each source repo's current default-branch tip.
+# Report when the committed profile corpus falls behind each source repo's default-branch tip.
 #
-# Weekly (and on demand): if any pin is behind origin HEAD, open a PR that runs
-# `make corpus-refresh`. Reviewers re-answer any judged quotes the report marks stale
-# before merge.
+# Weekly (and on demand): run `scripts/corpus.py status` and, when any pin is behind origin
+# HEAD, open or update one tracking issue with the drift report. It never moves pins: a pin
+# move breaks every judged quote the tool's authors have reworded, and only a model can
+# restore those, so an automated pin-move PR could never merge. Re-answering is manual: answer
+# each drifted tool at HEAD, then apply the answers with `scripts/corpus.py answer --write`.
 #
 # Does not block the CI gate on main: freshness is a maintenance loop, not a merge check.
 name: Corpus refresh
@@ -14,15 +16,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  issues: write
 
 concurrency:
   group: corpus-refresh
   cancel-in-progress: false
 
 jobs:
-  refresh:
+  report:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -44,58 +46,46 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          if python scripts/corpus.py status; then
+          rc=0
+          python scripts/corpus.py status > drift.txt || rc=$?
+          cat drift.txt
+          # status exits 1 for drift and prints a DRIFT line per behind pin. Any other failure
+          # (a crash, a traceback) must fail the job, not overwrite the issue with a partial report.
+          if [ "$rc" -eq 0 ]; then
             echo "drift=false" >> "$GITHUB_OUTPUT"
-          else
+          elif [ "$rc" -eq 1 ] && grep -q " DRIFT " drift.txt; then
             echo "drift=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "corpus.py status failed (exit $rc) without a drift report" >&2
+            exit 1
           fi
 
-      - name: Refresh corpus pins
-        if: steps.status.outputs.drift == 'true'
+      - name: Open, update, or close the drift issue
         env:
           GH_TOKEN: ${{ github.token }}
-          GITHUB_TOKEN: ${{ github.token }}
-        run: make corpus-refresh
-
-      - name: Open or update pull request
-        if: steps.status.outputs.drift == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
+          DRIFT: ${{ steps.status.outputs.drift }}
         run: |
-          if git diff --quiet; then
-            echo "status reported drift but refresh produced no diff; nothing to PR"
+          title="Corpus drift: profile pins behind source HEAD"
+          existing=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
+          if [ "$DRIFT" != "true" ]; then
+            if [ -n "$existing" ]; then
+              gh issue close "$existing" --comment "Every profile pin now matches its source's default-branch HEAD."
+              echo "closed issue #$existing"
+            fi
             exit 0
           fi
-          branch="chore/corpus-refresh-auto"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -B "$branch"
-          git add profiles
-          git commit -m "$(cat <<'EOF'
-          chore: refresh corpus pins to origin default-branch HEAD
-
-          Automated weekly corpus refresh. Re-answer any judged quotes listed as
-          stale in the workflow log before merging.
-          EOF
-          )"
-          git push -u origin "$branch" --force
-          existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
-          body="$(cat <<'EOF'
-          ## Summary
-          Automated corpus refresh: move each profile pin to origin default-branch HEAD,
-          rescore, and re-render HTML. Version stamps come from `git describe` at that tip.
-
-          ## Before merge
-          - [ ] Read the workflow log for **stale quotes** and re-answer via
-                `/agentic-atlas:run <url> --save` where needed
-          - [ ] Spot-check a few profile stamps against the project's current tip/release
-          - [ ] `make check` is green on this branch
-
-          EOF
-          )"
+          {
+            echo "The weekly corpus check found profiles pinned behind their source's default-branch HEAD."
+            echo "Pins are not moved automatically. To refresh, re-answer each drifted tool at HEAD and"
+            echo "apply the answers with \`scripts/corpus.py answer --answers-dir DIR --write\`."
+            echo
+            echo '```'
+            cat drift.txt
+            echo '```'
+          } > body.md
           if [ -n "$existing" ]; then
-            gh pr edit "$existing" --body "$body"
-            echo "updated PR #$existing"
+            gh issue edit "$existing" --body-file body.md
+            echo "updated issue #$existing"
           else
-            gh pr create --title "chore: refresh corpus pins to current HEAD" --body "$body"
+            gh issue create --title "$title" --body-file body.md
           fi

@@ -1,10 +1,10 @@
 {
   "target": "aidlc-workflows",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "114ef4d0ae6082e63ff0c7d14a910e3195163235",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "06037af5c2fda72dfcff85eac645cff6ba51c870",
   "target_url": "https://github.com/awslabs/aidlc-workflows",
-  "target_version": "v1.0.1-5-g114ef4d0ae60",
+  "target_version": "v2.10.1-preview.20261003.1-58-g06037af5c2fd",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Greenfield vs brownfield, existing documentation",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "It classifies greenfield vs brownfield based on source files, framework configs, and package manifests.",
+          "path": "docs/guide/02-your-first-workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Analyze existing codebase and generate comprehensive design artifacts",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "the conductor delegates to the aidlc-developer-agent for a code scan, then the aidlc-architect-agent for synthesis and the artifact writes",
+          "path": "docs/guide/02-your-first-workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Complex changes get comprehensive treatment, simple changes stay efficient",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "AI-DLC does not force every task through the same lifecycle.",
+          "path": "docs/guide/workflow-profiles.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "AI-DLC follows a structured three-phase approach that adapts to your project's complexity",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "It keeps all Inception stages and the Construction stages through Build and Test.",
+          "path": "core/scopes/aidlc-classic.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "The CONSTRUCTION phase contains 7 stages",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "33 stage definitions across 5 phases, each specifying inputs, steps, outputs, and the lead agent",
+          "path": "docs/guide/00-introduction.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,28 +107,52 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "production-hardening",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Baseline security rules",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "strong",
+          "evidence": "Deploy and operate \u2014 set up deployment pipelines, provision environments, configure observability, and establish feedback loops.",
+          "path": "docs/guide/04-phases-and-stages.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Testing feasibility with the smallest useful implementation path",
+          "path": "docs/guide/workflow-profiles.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "maintains quality standards",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "required",
+          "evidence": "Performance, security, scalability, reliability, and observability targets. Give every requirement a stable `NFR{n}` ID",
+          "path": "core/aidlc-common/stages/inception/requirements-analysis.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "one pass per stage whose findings reach the human at the approval gate",
+          "path": "core/scopes/aidlc-classic.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,18 +168,19 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 7.1,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "team-coordination",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "partial",
-          "evidence": "creating units of work for parallel development",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "strong",
+          "evidence": "Claims one dependency-ready Unit, runs its scoped 3.1-3.5 chain, commits the artifacts/receipts/source, and publishes the candidate",
+          "path": "docs/guide/workshop-mode.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "involve relevant stakeholders for each phase",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "monitors claims, pins completed candidates, presents merge gates, and lands approved Units",
+          "path": "docs/guide/workshop-mode.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "EVERYTHING AI-DLC \u2014 neutral, browsable, committed to git",
+          "path": "docs/guide/03-spaces-and-intents.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "AI-DLC is an intelligent software development workflow",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "a methodology for structuring AI-assisted software development into repeatable, traceable phases",
+          "path": "docs/guide/00-introduction.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "When user requests software development",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "a methodology for structuring AI-assisted software development into repeatable, traceable phases",
+          "path": "docs/guide/00-introduction.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "250.5",
-          "evidence": "git age_days = 250.5",
+          "answer": "323.9",
+          "evidence": "git age_days = 323.9",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "205",
-          "evidence": "git commit_count = 205",
+          "answer": "790",
+          "evidence": "git commit_count = 790",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "26",
-          "evidence": "git contributor_count = 26",
+          "answer": "63",
+          "evidence": "git contributor_count = 63",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "11",
-          "evidence": "git tag_count = 11",
+          "answer": "33",
+          "evidence": "git tag_count = 33",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "stable",
-          "evidence": "general availability of AI-DLC Workflows",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "The Quick Start below installs the latest stable AI-DLC release.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,18 +339,42 @@
           "value": -1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Structured multiple-choice questions in files",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "AI-DLC selects a workflow from the request, asks for missing decisions, and stops at approval gates before moving forward.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
           "kind": "judged",
           "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "strict",
+          "evidence": "Stages run one at a time, in order.",
+          "path": "docs/guide/04-phases-and-stages.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "guided",
-          "evidence": "The workflow adapts to the work, not the other way around.",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "mixed",
+          "evidence": "The team chooses at the gate (ownership stays with the team)",
+          "path": "core/aidlc-common/stages/inception/domain-design.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "overridable_defaults",
+          "evidence": "No project-wide rename rules unless team affirms one.",
+          "path": "core/memory/org.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -3.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "makes autonomous software development practical",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "waives the ordinary completion checkpoints",
+          "path": "docs/guide/04-phases-and-stages.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "every_phase",
-          "evidence": "Review execution plans and approve each phase",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Every stage your scope runs, outside Initialization, ends with an approval gate.",
+          "path": "docs/guide/04-phases-and-stages.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "retries_then_stops",
+          "evidence": "In-stage fix (max 2 attempts)",
+          "path": "core/aidlc-common/stages/construction/build-and-test.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "Requirements Analysis (ALWAYS EXECUTE - Adaptive Depth)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Only eight stages are unconditional: the three Initialization stages, Requirements Analysis",
+          "path": "core/scopes/aidlc-classic.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "All the artifacts will be generated in the",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Do NOT create `requirements.md` until the confirmation entry contains the user's explicit",
+          "path": "core/aidlc-common/stages/inception/requirements-analysis.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "Stages that transform requirements, stories, designs, or code produce a declared `traceability.json` artifact.",
+          "path": "core/knowledge/aidlc-shared/verification.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "is one piece of work \u2014 the per-run record that",
+          "path": "docs/guide/03-spaces-and-intents.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -401,8 +511,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Already generated per unit during code generation",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "implement each applicable testable layer, then write and run that layer's tests.",
+          "path": "core/memory/org.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "Build and Test (ALWAYS EXECUTE)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "We treat tests as a first-class deliverable in every Bolt.",
+          "path": "core/memory/org.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,18 +540,41 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": 7.1,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "specialist-agents",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "single",
-          "evidence": "The AI model intelligently assesses what stages are needed",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "many",
+          "evidence": "14 agents: 11 domain experts, 2 reviewers, and an adaptive composer",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "the conductor adopts the agent's perspective and works directly with you in conversation",
+          "path": "docs/guide/00-introduction.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "default",
+          "evidence": "User Stories (2.4) is a mob: the design, developer, and quality agents contribute at the same time.",
+          "path": "docs/guide/04-phases-and-stages.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -455,7 +590,7 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -4.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -465,18 +600,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Stages execute in the order that makes sense for your specific task",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "It writes that stage's artifact and stops with no workflow gate; your workflow stays where it was.",
+          "path": "docs/guide/04-phases-and-stages.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "All other stages are conditional",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "mandatory_ordered",
+          "evidence": "Phases execute sequentially.",
+          "path": "docs/guide/04-phases-and-stages.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -492,28 +629,30 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": -4.0,
+      "score": 6.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "learning-curve",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "moderate",
-          "evidence": "Answer structured questions that AI-DLC asks you",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "heavy",
+          "evidence": "5 phases and 33 stages from initialization through operation",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "tiny",
-          "evidence": "shouldn't need to install anything to get started",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "moderate",
+          "evidence": "The installer adds the native `aidlc` command and every harness runtime.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

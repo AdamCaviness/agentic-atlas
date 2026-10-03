@@ -1,10 +1,10 @@
 {
   "target": "OpenSpec",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "e50bd0983dc8dc48250e3181f36e28450542f2ab",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "2500d6da971336167548b53731a35b2127df35ac",
   "target_url": "https://github.com/Fission-AI/OpenSpec",
-  "target_version": "v1.8.0-1-ge50bd0983dc8",
+  "target_version": "@fission-ai/openspec@1.14.0-6-g2500d6da9713",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,28 +18,30 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 2.5,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "starting-point",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "existing_codebase",
-          "evidence": "adopt OpenSpec on a brownfield codebase",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "either",
+          "evidence": "built for brownfield not just greenfield",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "let it map how things work before proposing anything",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "partial",
+          "evidence": "Point it at the part you're about to touch and let it map how things work before proposing anything.",
+          "path": "docs/existing-projects.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "small_diff",
-          "evidence": "You describe the diff, not the destination.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "You're adding a field, fixing a redirect, tightening a timeout.",
+          "path": "docs/existing-projects.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "proposal \u2192 specs \u2192 design \u2192 tasks \u2192 implement",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "The default workflow stays fluid: exploration and verification are optional",
+          "path": "docs/workflows.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "propose \u2192 apply \u2192 sync \u2192 archive",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "/opsx:explore \u2500\u2500\u25ba /opsx:propose \u2500\u2500\u25ba /opsx:apply \u2500\u2500\u25ba /opsx:sync \u2500\u2500\u25ba /opsx:archive",
+          "path": "docs/workflows.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -113,17 +118,41 @@
           "resolved": true,
           "answer": "some",
           "evidence": "External constraints (security, privacy, reliability, compatibility)",
-          "source": "agent-team draft 2026-07-22"
+          "path": "schemas/spec-driven/schema.yaml",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "why the system works the way it does",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "mixed",
+          "evidence": "OpenSpec adds a lightweight spec layer so you agree on what to build before any code is written.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Security, performance, or migration complexity",
+          "path": "schemas/spec-driven/schema.yaml",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Verification is advisory.",
+          "path": "skills/openspec-verify-change/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -149,8 +178,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "One change, one owner.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Keep a change to a single author, or split it into two changes",
+          "path": "docs/team-workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "teammate reviews, merges",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "so your teammates review both together",
+          "path": "docs/team-workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "Your specs, active changes, and archive are part of your project's history. Commit them like any other source.",
+          "path": "docs/faq.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -176,18 +218,19 @@
         "positive": "built specifically for software delivery"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "domain-focus",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.5,
           "resolved": true,
-          "answer": "software_only",
-          "evidence": "AI coding assistants are powerful but unpredictable when requirements live only in chat history.",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "mostly_software",
+          "evidence": "For greenfield or non-code changes, inspect the available structure and relevant documents.",
+          "path": "skills/openspec-propose/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "before any code is written",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "A lightweight layer that gets you and your AI coding assistant to agree on what to build",
+          "path": "docs/faq.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "367.3",
-          "evidence": "git age_days = 367.3",
+          "answer": "423.5",
+          "evidence": "git age_days = 423.5",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "753",
-          "evidence": "git commit_count = 753",
+          "answer": "961",
+          "evidence": "git commit_count = 961",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "87",
-          "evidence": "git contributor_count = 87",
+          "answer": "133",
+          "evidence": "git contributor_count = 133",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "43",
-          "evidence": "git tag_count = 43",
+          "answer": "56",
+          "evidence": "git tag_count = 56",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "We're all still learning what works best.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "We've rebuilt OpenSpec with a new artifact-guided workflow.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,18 +329,19 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "asks-before-coding",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Think through ideas, investigate problems, and clarify requirements before committing to a change.",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "partial",
+          "evidence": "If the request contains ambiguity that would materially affect scope, externally observable behavior, compatibility, or acceptance criteria, ask the user before creating the change.",
+          "path": "skills/openspec-propose/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "no rigid phase gates",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "They show what's possible, not what's required next",
+          "path": "docs/workflows.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "If a question would change the specs, the chosen approach, or the task breakdown, resolve it now - ask the user instead of guessing.",
+          "path": "schemas/spec-driven/schema.yaml",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "so the AI always knows your stack and conventions",
+          "path": "docs/faq.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "you review the plan before any code is written",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Do not start implementation in the same response, even if the initial request asks for it.",
+          "path": "skills/openspec-propose/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "you review the plan before any code is written",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "When the user is ready to implement, they must start the apply workflow explicitly.",
+          "path": "skills/openspec-propose/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "stops_for_user",
+          "evidence": "Pause on errors, blockers, or unclear requirements - don't guess",
+          "path": "skills/openspec-apply-change/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "only then does code get written",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Do not assume another artifact is ready or start implementation while blocked.",
+          "path": "skills/openspec-apply-change/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -375,7 +462,30 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "each change gets its own folder with proposal, specs, design, and tasks",
-          "source": "agent-team draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "The default workflow stays fluid: exploration and verification are optional",
+          "path": "docs/workflows.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "living",
+          "evidence": "The source of truth. These specs describe how your system currently behaves.",
+          "path": "docs/getting-started.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,7 +501,7 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -6.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -401,18 +511,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "runs tests as needed",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Land the tests and documentation each group's work calls for inside that group",
+          "path": "docs/concepts.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "incidental",
-          "evidence": "runs tests as needed",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "present",
+          "evidence": "Specs should be testable - each scenario is a potential test case.",
+          "path": "schemas/spec-driven/schema.yaml",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "single",
-          "evidence": "Your AI writes these",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "The AI assistant drives the workflow, while the CLI provides deterministic",
+          "path": "docs/workflows.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "one_conversation",
+          "evidence": "Clear your context before starting implementation and maintain good context hygiene throughout your session.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "You can work on multiple changes in parallel without conflicts.",
+          "path": "docs/concepts.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Schema-driven (define your own artifacts)",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Commands are things you can do, not stages you're stuck in",
+          "path": "docs/workflows.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "You can revisit any of them at any time.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Dependencies are enablers, not gates",
+          "path": "skills/openspec-propose/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -492,7 +629,7 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -6.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -502,18 +639,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "minimal",
-          "evidence": "lightweight setup, minimal ceremony",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "OpenSpec brings predictability without the ceremony.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "tiny",
-          "evidence": "Initialize in seconds, start working immediately",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "moderate",
+          "evidence": "adds openspec/ and your AI tool's commands",
+          "path": "docs/existing-projects.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

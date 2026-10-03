@@ -1,10 +1,10 @@
 {
   "target": "superpowers",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "44c9b2d6e889982ac18c27d05a19fefe335194e1",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
   "target_url": "https://github.com/obra/superpowers.git",
-  "target_version": "v6.2.0-1-g44c9b2d6e889",
+  "target_version": "v6.4.2",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "brainstorming, implementation planning, test-driven development, systematic debugging, parallel execution, code review, and finish-the-branch workflows",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Bounded** \u2014 a well-scoped change to code that already exists in",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Explore the current structure before proposing changes. Follow existing patterns",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Explore the current structure before proposing changes. Follow existing patterns.",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "small_diff",
-          "evidence": "Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Breaks work into bite-sized tasks (2-5 minutes each)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -65,18 +68,19 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "lifecycle-coverage",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.5,
           "resolved": true,
-          "answer": "full_lifecycle",
+          "answer": "most",
           "evidence": "Superpowers is a complete software development methodology for your coding agents",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "it launches a *subagent-driven-development* process, having agents work through each engineering task, inspecting and reviewing their work, and continuing forward",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Follow the full process: questions, approaches, sectioned",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,28 +107,52 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": -3.3,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "production-hardening",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
+          "answer": "none",
           "evidence": "Evidence over claims** - Verify before declaring success",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "anything you\n  built stays labeled throwaway",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Focus on understanding: purpose, constraints, success criteria",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "well-built (clean, tested, maintainable)",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "required",
+          "evidence": "After each task in subagent-driven development",
+          "path": "skills/requesting-code-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,18 +168,19 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -4.3,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "team-coordination",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "partial",
-          "evidence": "Push and create a Pull Request",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "none",
+          "evidence": "Verify tests \u2192 Detect environment \u2192 Present options",
+          "path": "skills/finishing-a-development-branch/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -160,7 +190,19 @@
           "resolved": true,
           "answer": "some",
           "evidence": "User reviews written spec** \u2014 ask user to review the spec file before proceeding",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "Commit the design document to git",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -187,7 +229,8 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "a complete software development methodology for your coding agents",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Superpowers is a complete software development methodology for your coding agents",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "a complete software development methodology for your coding agents",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "292.0",
-          "evidence": "git age_days = 292.0",
+          "answer": "350.9",
+          "evidence": "git age_days = 350.9",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "680",
-          "evidence": "git commit_count = 680",
+          "answer": "683",
+          "evidence": "git commit_count = 683",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "42",
           "evidence": "git contributor_count = 42",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "33",
-          "evidence": "git tag_count = 33",
+          "answer": "36",
+          "evidence": "git tag_count = 36",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "Skills evolve. Read current version",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Skills evolve. Read current version.",
+          "path": "skills/using-superpowers/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,8 +339,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Start by understanding the current project context, then ask questions one at a time to refine the idea",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "ask questions one at a time to refine the idea",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "strict",
-          "evidence": "Mandatory workflows, not suggestions",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Before taking any implementation action, including invoking an\nimplementation skill",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Present options conversationally with your recommendation and reasoning",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "In existing codebases, follow established patterns.",
+          "path": "skills/writing-plans/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -327,8 +400,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "It's not uncommon for your agent to work autonomously for a couple hours at a time without deviating from the plan you put together",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "It's not uncommon for your agent to work autonomously for a couple hours at a time",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "until you have presented a design and the user has approved it",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Do not pause to check in with your human partner between tasks.",
+          "path": "skills/subagent-driven-development/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "retries_then_stops",
+          "evidence": "When round 5's re-review still leaves findings open, stop\ndispatching.",
+          "path": "skills/subagent-driven-development/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Architectural: the human partner reviews and approves the written spec",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Write design doc** \u2014 save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "Verify one task's implementation matches its requirements",
+          "path": "skills/subagent-driven-development/task-reviewer-prompt.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Each sub-project gets its own spec \u2192 plan \u2192 implementation cycle.",
+          "path": "skills/brainstorming/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -402,7 +512,8 @@
           "resolved": true,
           "answer": "enforced",
           "evidence": "NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "skills/test-driven-development/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "Test-Driven Development** - Write tests first, always",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Enforces RED-GREEN-REFACTOR: write failing test, watch it fail",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,18 +540,41 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 2.9,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "specialist-agents",
           "kind": "judged",
           "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "some",
+          "evidence": "Execute plan by dispatching a fresh implementer subagent per task, a task review (spec compliance + code quality) after each",
+          "path": "skills/subagent-driven-development/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "many",
-          "evidence": "Execute plan by dispatching a fresh implementer subagent per task, a task review (spec compliance + code quality) after each, and a broad whole-branch review at the end",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "separate_subagents",
+          "evidence": "They should never inherit your session's context or history",
+          "path": "skills/subagent-driven-development/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Never dispatch multiple implementation subagents in parallel (conflicts).",
+          "path": "skills/subagent-driven-development/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -466,7 +601,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "built on top of a set of composable skills and some initial instructions that make sure your agent uses them",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "mandatory_ordered",
-          "evidence": "The ONLY skill you invoke after brainstorming is writing-plans",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Mandatory workflows, not suggestions.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -503,7 +640,8 @@
           "resolved": true,
           "answer": "minimal",
           "evidence": "you don't need to do anything special. Your coding agent just has Superpowers",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "tiny",
-          "evidence": "Superpowers is a zero-dependency plugin by design",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Install the plugin from Anthropic's official marketplace",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

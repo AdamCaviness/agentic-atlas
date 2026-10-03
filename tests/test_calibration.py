@@ -236,7 +236,7 @@ def test_judged_question_is_not_degenerate(axis_id, indicator_id):
     if not _corpus_results(axis_id, indicator_id):
         pytest.skip(
             f"{axis_id}/{indicator_id} is newer than every committed profile; re-answer the "
-            f"corpus with /agentic-atlas:run <url> --save to measure it"
+            f"corpus (`make corpus-answer`) to measure it"
         )
     values = _indicator_values(axis_id, indicator_id)
     assert len(set(values)) >= 2, (

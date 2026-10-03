@@ -1,10 +1,10 @@
 {
   "target": "vibe-coding-prompt-template",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "06d0796222097ea43b9d1ca3efed8f71f295e055",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "db481763c24e2b66b919f9d40aa42b16409a62d7",
   "target_url": "https://github.com/KhazP/vibe-coding-prompt-template",
-  "target_version": "v3.0.0",
+  "target_version": "cli-v0.3.0-4-gdb481763c24e",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,38 +18,41 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "starting-point",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "blank_slate",
-          "evidence": "Turn an idea into an MVP",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "either",
+          "evidence": "Start in a clean project folder or your existing app.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "You do not need a repo yet.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "partial",
+          "evidence": "The workflow inspects what exists, then routes to",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "whole_project",
-          "evidence": "from idea validation to working code",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "mixed",
+          "evidence": "Ship in small, verified passes",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "The process moves through five stages, from idea validation to working code",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Vibe Workflow \u2014 plan, build, check, and recover",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Paste the prompts from this repo into any chat tool, in order",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -113,7 +118,8 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Once the MVP works, do a final pass on secrets, auth, and basic abuse protections before you deploy",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Prioritize MVP scope. Offer the simplest working implementation.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Next.js/Vercel, Cloudflare Workers, or another boring stack the team can maintain",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Any constraints or non-functional requirements? Budget limits, must launch by date, performance expectations, security/privacy",
+          "path": "part2-prd-mvp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Delegate focused research, review, or debugging to subagents.",
+          "path": "templates/CLAUDE.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -7.1,
       "coverage": 1.0,
       "indicators": [
         {
@@ -149,8 +178,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "none",
-          "evidence": "do the thinking upfront, hand clean context to your tools, and keep the build phase moving",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "One builder is sufficient unless independent work and available tools justify delegation.",
+          "path": ".claude/skills/vibe-workflow/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "none",
-          "evidence": "Review the diff and run tests before merging",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Prepare compact factual project context for another session or coding tool",
+          "path": ".claude/skills/vibe-handoff/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "tool-side memories are personal and should not replace versionable project docs",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "AI-assisted coding workflows",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Your AI can write code. This workflow helps you decide what to build",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "A practical AI workflow for shipping MVPs",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "I would not use this workflow as-is for native hardware work",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,7 +257,7 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -2.5,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -222,18 +266,20 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "460.2",
-          "evidence": "git age_days = 460.2",
+          "answer": "513.8",
+          "evidence": "git age_days = 513.8",
+          "path": null,
           "source": "engine"
         },
         {
           "indicator_id": "commit-count",
           "kind": "detected",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "92",
-          "evidence": "git commit_count = 92",
+          "answer": "122",
+          "evidence": "git commit_count = 122",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "2",
           "evidence": "git contributor_count = 2",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "7",
-          "evidence": "git tag_count = 7",
+          "answer": "11",
+          "evidence": "git tag_count = 11",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "For community Q&A and roadmap ideas, use",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "This template is maintained monthly.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -291,7 +340,8 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "The AI will ask you a few questions about your idea.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "then build in small passes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "The five stages are a useful route, not five approval gates or a mandatory document set for every edit.",
+          "path": ".claude/skills/vibe-workflow/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Explain why one option is best for their situation",
+          "path": "part3-tech-design-mvp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "when the codebase has real conventions to preserve.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,18 +390,19 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": 2.5,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "autopilot-mode",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "Letting agents ship code alone",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "partial",
+          "evidence": "If the user requested the whole workflow, continue into the technical design within that scope.",
+          "path": ".claude/skills/vibe-prd/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "Review the diff and run tests before merging",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "propose a Phase 1 plan, wait for my approval, and then build it step by step.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "self_recovers",
+          "evidence": "Fix failures caused by the change, distinguish pre-existing failures",
+          "path": ".claude/skills/vibe-build/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,18 +440,19 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 4.4,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "spec-required",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "required",
-          "evidence": "run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "encouraged",
+          "evidence": "use research, PRD, and technical design skills selectively.",
+          "path": ".claude/skills/vibe-workflow/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "turn it into a PRD",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Write a PRD proportional to the product.",
+          "path": ".claude/skills/vibe-prd/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "Exercise a running product against acceptance criteria and report evidence.",
+          "path": ".claude/skills/vibe-verify/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "living",
+          "evidence": "Update product decisions only where requirements changed, and progress in MEMORY.md.",
+          "path": ".claude/skills/vibe-change/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,7 +501,7 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -6.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -401,18 +511,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Related Unit/Integration tests pass.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Run tests/linters or manual checks after each change",
+          "path": "part4-notes-for-agent.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "present",
-          "evidence": "Related Unit/Integration tests pass.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "first_class",
+          "evidence": "Build success alone does not verify behavior.",
+          "path": ".claude/skills/vibe-verify/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,7 +540,7 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -4.3,
       "coverage": 1.0,
       "indicators": [
         {
@@ -438,8 +550,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "single",
-          "evidence": "generate your agent files, then build in small passes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "One builder is sufficient unless independent work and available tools justify delegation.",
+          "path": ".claude/skills/vibe-workflow/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Use focused subagents for research, code review, debugging, and test verification.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "If the tool supports subagents or parallel search, delegate bounded exploration, review, or verification tasks.",
+          "path": "part4-notes-for-agent.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -455,18 +590,19 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": -6.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "pipeline-or-parts",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "fixed_pipeline",
-          "evidence": "The process moves through five stages, from idea validation to working code",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "mixed",
+          "evidence": "Use `vibe-agents` when creating project instructions, `vibe-build` for a new",
+          "path": ".claude/skills/vibe-workflow/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "then build in small passes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Only invoke skills actually present in the target environment. The five stages are a useful route",
+          "path": ".claude/skills/vibe-workflow/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "You need a modern browser, a few hours, and enough comfort with files and copy-paste to move between tools.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "tiny",
-          "evidence": "You do not need a repo yet.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Run `npx vibeworkflow` and follow its instructions.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

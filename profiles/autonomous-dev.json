@@ -1,10 +1,10 @@
 {
   "target": "autonomous-dev",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "02ae2a6f1970ff086940cd1a0fdb70407e642f59",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "34311ec486ff6b585ef6f5bd5d03996da985ff13",
   "target_url": "https://github.com/akaszubski/autonomous-dev",
-  "target_version": "autonomous-dev-v3.40.0+838124b-36-g02ae2a6f1970",
+  "target_version": "autonomous-dev-v3.40.0+fbaa032-174-g34311ec486ff",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "in a file called PROJECT.md - your goals, what's in/out of scope, constraints, architecture",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Analyzes your codebase and generates comprehensive PROJECT.md (brownfield) or guides you through creation (greenfield).",
+          "path": "plugins/autonomous-dev/commands/setup.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "find patterns, best practices, existing solutions",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Search the codebase for existing patterns, similar implementations, and architectural context that can guide implementation.",
+          "path": "plugins/autonomous-dev/agents/researcher-local.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "small_diff",
-          "evidence": "each feature or bug is an issue",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "You track work in GitHub Issues** - each feature or bug is an issue",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -65,28 +68,30 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 3.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "lifecycle-coverage",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.5,
           "resolved": true,
-          "answer": "full_lifecycle",
-          "evidence": "enforces the full software development lifecycle",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "most",
+          "evidence": "Claude executes a full development pipeline** - research, planning, acceptance tests, implementation, code review, security scan, documentation",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "multi_stage",
-          "evidence": "coordinates specialist agents through a 15-step pipeline",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "mixed",
+          "evidence": "When you type `/implement \"#72\"`, Claude coordinates specialist agents through a 15-step pipeline",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,8 +117,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "strong",
-          "evidence": "production-grade software engineering outcomes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "security scan is mandatory, documentation must stay in sync",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "no stubs or placeholders allowed",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "No stubs/placeholders",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Are security implications, performance at scale, and backwards-compatibility addressed? If not, flag each gap.",
+          "path": "plugins/autonomous-dev/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "The implementer never reviews its own work \u2014 a separate reviewer agent with a skeptical mandate evaluates it",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 2.9,
       "coverage": 1.0,
       "indicators": [
         {
@@ -149,8 +178,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Cross-machine issue claiming",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Cross-machine issue claiming (a GitHub `in-progress` label + marker-comment mutex) stops a local run and the cloud drainer from racing the same cluster.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Plan mode (STEP 5) requires user approval before implementation",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "You review a complete, tested, documented, security-scanned result",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "team_tool",
+          "evidence": "You track work in GitHub Issues** - each feature or bug is an issue",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "production-grade software engineering outcomes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "A harness that wraps Claude Code with enforcement, specialist agents, and alignment gates to deliver consistent, production-grade software engineering outcomes.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "deliver consistent, production-grade software engineering outcomes",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "A harness that wraps Claude Code with enforcement, specialist agents, and alignment gates to deliver consistent, production-grade software engineering outcomes.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "293.7",
-          "evidence": "git age_days = 293.7",
+          "answer": "329.7",
+          "evidence": "git age_days = 329.7",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "2051",
-          "evidence": "git commit_count = 2051",
+          "answer": "2851",
+          "evidence": "git commit_count = 2851",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "7",
-          "evidence": "git contributor_count = 7",
+          "answer": "8",
+          "evidence": "git contributor_count = 8",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "43",
-          "evidence": "git tag_count = 43",
+          "answer": "118",
+          "evidence": "git tag_count = 118",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "the harness itself gets better every week from its own runtime data",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Substantial enforcement hardening shipped recently. Current focus areas:",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,18 +329,19 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "asks-before-coding",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "Claude executes a full development pipeline",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "partial",
+          "evidence": "Interactive setup wizard - analyzes tech stack, generates PROJECT.md, configures hooks",
+          "path": "plugins/autonomous-dev/commands/setup.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -301,7 +351,30 @@
           "resolved": true,
           "answer": "strict",
           "evidence": "if the model tries to skip a step, it's physically blocked",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "Designs the architecture and a file-by-file implementation plan",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "mandated",
+          "evidence": "no stubs or placeholders allowed",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 7.5,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,18 +400,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "runs the same loop unattended",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Autonomous queue drainer wrapping /implement --issues with 6 safety guardrails",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
           "kind": "judged",
           "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Autonomous mode blocks; it never approves.",
+          "path": "plugins/autonomous-dev/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "some_phases",
-          "evidence": "Plan mode (STEP 5) requires user approval before implementation",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "retries_then_stops",
+          "evidence": "Blocking findings loop back to the implementer, max 2 cycles, then block-and-file",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 7.2,
+      "score": 5.6,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,18 +450,42 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "blocks complex Write/Edit without validated plan",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Designs the architecture and a file-by-file implementation plan",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.3,
+          "value": 1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Designs the architecture and a file-by-file implementation plan",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "yes",
+          "evidence": "Plans are written to `.claude/plans/<slug>.md` and validated by the plan_gate hook before implementation.",
+          "path": "plugins/autonomous-dev/commands/plan.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "Spec-blind behavioral validation \u2014 writes tests from acceptance criteria *without seeing* the implementation, then validates against it",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Plans are written to `.claude/plans/<slug>.md` and validated by the plan_gate hook before implementation.",
+          "path": "plugins/autonomous-dev/commands/plan.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -401,8 +511,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "enforced",
-          "evidence": "tests must pass with 0 failures before code review starts",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Writes acceptance tests that define what \"done\" means (acceptance-first default)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "acceptance-first default",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "tests must pass with 0 failures before code review starts",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "coordinates specialist agents through a 15-step pipeline",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Each pipeline step is handled by a specialist agent with a specific job and constrained tools.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "separate_subagents",
+          "evidence": "Specialist agents, each spawned with fresh context and constrained tools.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "default",
+          "evidence": "Invoke reviewer, security-auditor, and doc-master in a SINGLE message (all three parallel).",
+          "path": "plugins/autonomous-dev/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "fixed_pipeline",
-          "evidence": "15-step pipeline (the default full mode)",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Every feature goes through every step \u2014 not because Claude remembers to, but because the harness won't let it skip",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "mandatory_ordered",
-          "evidence": "enforces pipeline sequence",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "`agent_ordering_gate.py` enforces pipeline sequence.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "heavy",
-          "evidence": "autonomous-dev implements all 12 elements of this framework",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "15 Agents | 17 Skills | 22 Hooks | 196 Libraries | 22 Commands",
+          "path": "plugins/autonomous-dev/README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "large",
-          "evidence": "26 hooks with JSON",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "15 Agents | 17 Skills | 22 Hooks | 196 Libraries | 22 Commands",
+          "path": "plugins/autonomous-dev/README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

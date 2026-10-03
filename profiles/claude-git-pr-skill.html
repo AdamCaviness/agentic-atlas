@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 2.5, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": -10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 0.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -6.2, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -10.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": -10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 2.5, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": -10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": -7.8, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": -1.4, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -6.2, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 6.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -6.2, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": -10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>existing_codebase</td><td class="val">+1.00</td><td class="evidence">Review PR #123 and suggest improvements</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Code suggestions replace the entire line or line range</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>existing_codebase</td><td class="val">+1.00</td><td class="evidence">Claude will automatically use this skill when you ask it to review pull requests<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Workflow for reviewing GitHub pull requests using<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>one</td><td class="val">-1.00</td><td class="evidence">Use when reviewing GitHub pull requests with gh CLI</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>single</td><td class="val">-1.00</td><td class="evidence">Once installed, Claude will automatically use this skill when you ask it to review pull requests.</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>one</td><td class="val">-1.00</td><td class="evidence">Workflow for reviewing GitHub pull requests using<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>single</td><td class="val">-1.00</td><td class="evidence">Claude will automatically use this skill when you ask it to review pull requests<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-7.8</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:39%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,21 +463,23 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">Security vulnerabilities, bugs, failing tests</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">consistent, professional GitHub pull request reviews</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Professional GitHub PR review skills for Claude Code<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/.claude-plugin/marketplace.json" target="_blank" rel="noopener">.claude-plugin/marketplace.json</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Code suggestions might be incorrect<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">Workflow for reviewing GitHub pull requests using<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.4</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:7%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">PR author gets one notification with full context</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">You review and approve (or request changes).</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Batches all comments into one notification for the PR author<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Always get explicit user approval before posting any review comments.<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>team_tool</td><td class="val">+1.00</td><td class="evidence">Review comments are public and permanent<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,8 +527,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">GitHub PR Review Skill for Claude Code</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">Professional GitHub PR reviews with pending reviews, code suggestions</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">Workflow for reviewing GitHub pull requests using<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">Professional GitHub PR review skills for Claude Code<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/.claude-plugin/marketplace.json" target="_blank" rel="noopener">.claude-plugin/marketplace.json</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -558,19 +561,19 @@
 <tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>11</td><td class="val">-1.00</td><td class="evidence">git commit_count = 11</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>1</td><td class="val">-1.00</td><td class="evidence">git contributor_count = 1</td><td>engine</td></tr>
 <tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>3</td><td class="val">+0.00</td><td class="evidence">git tag_count = 3</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">All notable changes to the github-pr-review skill will be documented in this file.</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">This skill follows [Semantic Versioning]<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill pos" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Always get explicit user approval before posting any review comments</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">The skill enforces this workflow</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">+1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">REQUIRED STEPS (do not skip):<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>tool_chooses</td><td class="val">+1.00</td><td class="evidence">Choose the appropriate event type when submitting:<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>project_defined</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.2</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,9 +621,10 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Get explicit user approval before posting any review comments</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>every_phase</td><td class="val">-1.00</td><td class="evidence">get explicit approval, then use pending review</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Always get explicit user approval before posting any review comments.<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Show user exactly what will be posted<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>stops_for_user</td><td class="val">-1.00</td><td class="evidence">Do not attempt to run gh api commands<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -628,9 +634,9 @@
       <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,9 +652,11 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">create pending reviews with code suggestions</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -677,8 +685,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Security vulnerabilities, bugs, failing tests</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>incidental</td><td class="val">-1.00</td><td class="evidence">Security vulnerabilities, bugs, failing tests</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Analyze PR and prepare all comments<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>incidental</td><td class="val">-1.00</td><td class="evidence">Security vulnerabilities, bugs, failing tests<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -688,9 +696,9 @@
       <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +714,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">Once installed, Claude will automatically use this skill</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">Workflow for reviewing GitHub pull requests using<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>one_conversation</td><td class="val">-1.00</td><td class="evidence">Workflow for reviewing GitHub pull requests using<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">Workflow for reviewing GitHub pull requests using<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">REQUIRED STEPS (do not skip)</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">ALWAYS use the pending review pattern, even for single comments</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">REQUIRED STEPS (do not skip):<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">Check gh first, get explicit approval, then use pending review.<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/github-pr-review/skills/github-pr-review/SKILL.md" target="_blank" rel="noopener">github-pr-review/skills/github-pr-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">Claude will automatically use this skill when you ask it to review pull requests</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Copy the skill directly to your skills directory</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">Claude will automatically use this skill when you ask it to review pull requests<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Copy the skill directly to your skills directory<span class="ev-path"><a href="https://github.com/aidankinzett/claude-git-pr-skill/blob/3660dca92424b91f1eb716b5815b476c3913450e/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

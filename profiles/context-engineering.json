@@ -1,7 +1,7 @@
 {
   "target": "context-engineering-intro",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
   "target_sha": "a2d84b021cee1e2f4e77ba854bba0be8cb319035",
   "target_url": "https://github.com/coleam00/context-engineering-intro",
   "target_version": null,
@@ -18,7 +18,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 3.8,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -28,18 +28,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Integration with existing codebases",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Search for similar features/patterns in the codebase",
+          "path": ".claude/commands/generate-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Search for similar features/patterns in the codebase",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "partial",
+          "evidence": "Analyzes your codebase for patterns",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "AI can handle multi-step implementations with proper context",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Edit `INITIAL.md` to describe what you want to build",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "so they have the information necessary to get the job done end to end",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Creates step-by-step implementation plan",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "The slash commands are custom commands defined in",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Once generated, execute the PRP to implement your feature",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -113,7 +118,8 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Logs are informative but not verbose",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "PRPs/templates/prp_base.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "Never create a file longer than 500 lines of code.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Context Engineering is 10x better than prompt engineering and 100x better than vibe coding.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Any other considerations or specific requirements",
+          "path": "INITIAL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Run final validation suite",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,28 +168,41 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
-      "coverage": 0.6,
+      "score": -7.1,
+      "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "team-coordination",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "partial",
-          "evidence": "assign ownership to one agent",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "none",
+          "evidence": "Mark completed tasks in `TASK.md`",
+          "path": "CLAUDE.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
           "kind": "judged",
           "weight": 2.0,
-          "value": null,
-          "resolved": false,
-          "answer": null,
-          "evidence": "no answer supplied",
-          "source": null
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Execute the PRP to implement your feature",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "Save as: `PRPs/{feature-name}.md`",
+          "path": ".claude/commands/generate-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "engineering context for AI coding assistants",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "the discipline of engineering context for AI coding assistants",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "AI coding assistants perform much better when they can see patterns to follow",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "the discipline of engineering context for AI coding assistants",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -224,6 +268,7 @@
           "resolved": true,
           "answer": "257.4",
           "evidence": "git age_days = 257.4",
+          "path": null,
           "source": "engine"
         },
         {
@@ -234,6 +279,7 @@
           "resolved": true,
           "answer": "25",
           "evidence": "git commit_count = 25",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "1",
           "evidence": "git contributor_count = 1",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,6 +301,7 @@
           "resolved": true,
           "answer": "0",
           "evidence": "git tag_count = 0",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "This template doesn't focus on RAG and tools with context engineering because I have a LOT more in store for that soon.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "I have a LOT more in store for that soon",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 2.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,8 +339,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Never assume missing context. Ask questions if uncertain.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "**User Clarification** (if needed)",
+          "path": ".claude/commands/generate-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "The command follows this process:",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Set up your project rules (optional - template provided)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "Create a comprehensive plan addressing all requirements.",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "overridable_defaults",
+          "evidence": "You can use the provided template as-is or customize it for your project.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,28 +390,41 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 2.5,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "autopilot-mode",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "partial",
-          "evidence": "Validation loops allow AI to fix its own mistakes",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "no",
+          "evidence": "The goal is one-pass implementation success through comprehensive context.",
+          "path": ".claude/commands/generate-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "some_phases",
-          "evidence": "Once generated, execute the PRP to implement your feature",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "none",
+          "evidence": "Execute the PRP to implement your feature",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "self_recovers",
+          "evidence": "Re-run until all pass",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "PRPs (Product Requirements Prompts) are comprehensive implementation blueprints that include:",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Read the specified PRP file",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Save as: `PRPs/{feature-name}.md`",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Create a comprehensive PRP in `PRPs/your-feature-name.md`",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "Read the PRP again to ensure you have implemented everything",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Implement a feature using using the PRP file.",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -401,8 +511,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Provide executable tests/lints the AI can run and fix",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Always create Pytest unit tests for new features",
+          "path": "CLAUDE.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "Always create Pytest unit tests for new features",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Provide executable tests/lints the AI can run and fix",
+          "path": "PRPs/templates/prp_base.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,18 +540,41 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "specialist-agents",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "coordinated workflow of specialized subagents",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "single",
+          "evidence": "The AI coding assistant will:",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "one_conversation",
+          "evidence": "Use the TodoWrite tool to create and track your implementation plan.",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Use the TodoWrite tool to create and track your implementation plan.",
+          "path": ".claude/commands/execute-prp.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -455,28 +590,30 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": -4.0,
+      "score": -6.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "pipeline-or-parts",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "You can use the provided template as-is or customize it for your project.",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "fixed_pipeline",
+          "evidence": "Generate a comprehensive PRP (Product Requirements Prompt)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "mandatory_ordered",
-          "evidence": "in the order they should be completed",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "mixed",
+          "evidence": "Add examples (highly recommended)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -492,18 +629,19 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": -4.0,
+      "score": -10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "learning-curve",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "moderate",
-          "evidence": "Context Engineering represents a paradigm shift from traditional prompt engineering",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "minimal",
+          "evidence": "Create your initial feature request",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -513,7 +651,8 @@
           "resolved": true,
           "answer": "tiny",
           "evidence": "git clone https://github.com/coleam00/Context-Engineering-Intro.git",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

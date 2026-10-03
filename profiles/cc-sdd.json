@@ -1,10 +1,10 @@
 {
   "target": "cc-sdd",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "29aee950f4addc36f9aeecb9881c46540e71ecc9",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "e2a0c671aef37a482404905b409ab5c27092b25b",
   "target_url": "https://github.com/gotalab/cc-sdd",
-  "target_version": "v3.0.2-10-g29aee950f4ad",
+  "target_version": "v3.1.0-2-ge2a0c671aef3",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Discovery routes new work into one of: extend an existing spec, implement directly with no spec, create one new spec, decompose into multiple specs, or mixed decomposition.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "If `specs/` is empty and no steering exists, note \"greenfield project\" and move to Step 2.",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-discovery/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Analyze the gap between requirements and existing codebase to inform implementation strategy",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Bootstrap: Generate core steering from codebase (first-time)",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-steering/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Not one monolith, not individual line changes.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "A spec should be small enough to ship as a unit in hours or days.",
+          "path": "docs/guides/why-cc-sdd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "One command installs an agentic SDLC workflow as Agent Skills: discovery, requirements, design, tasks, and autonomous implementation with per-task independent review.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "discovery, requirements, design, tasks, and autonomous implementation with per-task independent review",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "3-phase approval workflow: Requirements \u2192 Design \u2192 Tasks \u2192 Implementation",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "It routes your request and tells you what command to run next.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 4.4,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,8 +117,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Production changes must be observable and reversible",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Threat modeling, security controls, compliance requirements",
+          "path": "tools/cc-sdd/templates/shared/settings/templates/specs/design.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "Confirm the implementation is real production code, not a placeholder, stub, fake path, or deferred-work shell.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Prototype or throwaway code where writing down boundaries is overkill.",
+          "path": "docs/guides/why-cc-sdd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Use this section when performance targets, high load, or scaling concerns exist.",
+          "path": "tools/cc-sdd/templates/shared/settings/templates/specs/design.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "Default review mode is `required`",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,28 +168,41 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "team-coordination",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "strong",
+          "answer": "partial",
           "evidence": "Each spec has its own scope and owners.",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "docs/guides/why-cc-sdd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "many",
-          "evidence": "humans approve the contract at phase gates",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "some",
+          "evidence": "Agents write the spec, humans approve the contract at phase gates",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "Stage only the files actually changed for this task, plus tasks.md",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "spec-driven implementation for AI coding agents",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "One command installs an agentic SDLC workflow as Agent Skills",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Code remains the source of truth.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "One command installs an agentic SDLC workflow as Agent Skills",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "283.7",
-          "evidence": "git age_days = 283.7",
+          "answer": "433.1",
+          "evidence": "git age_days = 433.1",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "429",
-          "evidence": "git commit_count = 429",
+          "answer": "455",
+          "evidence": "git commit_count = 455",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "13",
-          "evidence": "git contributor_count = 13",
+          "answer": "14",
+          "evidence": "git contributor_count = 14",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "18",
-          "evidence": "git tag_count = 18",
+          "answer": "19",
+          "evidence": "git tag_count = 19",
+          "path": null,
           "source": "engine"
         },
         {
@@ -264,7 +312,8 @@
           "resolved": true,
           "answer": "stable",
           "evidence": "Claude Code and Codex are stable",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,18 +339,42 @@
           "value": -1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "refines ideas through structured dialogue",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "User's intent clarified through questions, not assumptions",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-discovery/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
           "kind": "judged",
           "weight": 3.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "strict",
+          "evidence": "Requirements not yet approved. Approval required before design generation.",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-spec-design/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "guided",
-          "evidence": "It routes your request and tells you what command to run next",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "mixed",
+          "evidence": "Recommend one approach and explain why.",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-discovery/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Steering captures patterns and principles, not exhaustive lists",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-steering/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,18 +390,19 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -3.8,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "autopilot-mode",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "long-running autonomous implementation",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "partial",
+          "evidence": "Turn approved specs into long-running autonomous implementation",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "every_phase",
-          "evidence": "Human review required each phase; use `-y` only for intentional fast-track",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Requirements not yet approved. Approval required before design generation.",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-spec-design/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "retries_then_stops",
+          "evidence": "Max 2 debug rounds per task",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -365,7 +451,8 @@
           "resolved": true,
           "answer": "required",
           "evidence": "All spec files must exist and tasks must be approved",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Files on disk are the source of continuity",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "`requirements.md`: EARS-format requirements with acceptance criteria.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "The reviewer subagent will run `git diff` itself to read the actual code changes and verify against the spec",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Code remains the source of truth.",
+          "path": "docs/guides/why-cc-sdd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -402,7 +512,8 @@
           "resolved": true,
           "answer": "enforced",
           "evidence": "All tests written before implementation code",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "implements with TDD (RED \u2192 GREEN under the Feature Flag Protocol)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Execute TDD cycle** (Kent Beck's RED \u2192 GREEN \u2192 REFACTOR)",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,18 +540,41 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "specialist-agents",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "many",
-          "evidence": "fresh implementer, independent reviewer, and auto-debug per task",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "some",
+          "evidence": "Dispatch a fresh subagent per task, with independent review after each",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Delegate to subagent via Agent tool** (keeps exploration out of main context)",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-discovery/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Turn a roadmap into multiple specs by dependency wave, in parallel when native subagents are available",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -455,7 +590,7 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -4.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -465,18 +600,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Single spec: `/kiro-spec-quick {feature} [--auto]` or step by step",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Not sure where to start? Start with `kiro-discovery`.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "`/kiro-validate-gap {feature}` (optional: for existing codebase)",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "mandatory_ordered",
+          "evidence": "Complete previous phases: `/kiro-spec-requirements`, `/kiro-spec-design`, `/kiro-spec-tasks`",
+          "path": "tools/cc-sdd/templates/agents/claude-code-skills/skills/kiro-impl/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "loaded on demand (progressive disclosure)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "17 skills per install, loaded on demand (progressive disclosure)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "No external dependencies; subagents are spawned through each platform's native primitive.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "One command installs an agentic SDLC workflow as Agent Skills",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }
