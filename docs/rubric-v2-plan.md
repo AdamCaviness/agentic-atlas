@@ -224,12 +224,17 @@ answers so the anchor is reproducible without a live agent. Planned anchors:
   pipeline, multi-agent roles, CI and coverage gates. Expected positive on the same axes.
 - **`generalist/`**: a domain-agnostic assistant config with no software-only vocabulary.
   Expected negative on generalist-vs-specialist.
+- **`ask-then-autopilot/`**: a toolkit of independent skills that runs a questioning phase,
+  lets the user pick among technical options, then runs unattended and retries its own
+  failures. Expected negative on interrogative-vs-opinionated, positive on
+  autonomous-vs-human-in-loop and prescriptive-vs-composable, the three poles the other
+  anchors do not place.
 
 Two anchors per axis (one per pole) is the target where a pole is reachable at all. If an
 axis cannot place its known-extreme anchor near the expected pole, the axis is broken, not
 the corpus. These anchors are built and, as of rubric 3.0.0, extended so every axis except
 fresh-vs-mature (a git-history axis an in-tree fixture cannot anchor) has at least one
-pole-anchor; all 21 pole assertions pass against the shipped rubric, so the validity backstop
+pole-anchor; all 24 pole assertions pass against the shipped rubric, so the validity backstop
 is live, not implied.
 
 ## Sequencing

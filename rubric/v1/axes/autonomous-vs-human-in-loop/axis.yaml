@@ -23,3 +23,19 @@ indicators:
     kind: judged
     weight: 3
     answers: { every_phase: -1.0, some_phases: 0.0, none: 1.0 }
+  - id: failure-recovery
+    question: >-
+      In its main implementation flow, when a step fails (a test fails, a build breaks, a check
+      rejects the work), does the agent diagnose and retry until it passes, retry a bounded
+      number of times and then stop, or stop and hand the failure to the user? A tool that
+      ships no failure handling, or where a person does the implementing, answers
+      "stops_for_user".
+    kind: judged
+    weight: 2
+    # What happens on failure, separate from whether a run is advertised as autonomous
+    # (autopilot-mode) and from planned approval points (approval-gates), AD-5. A tool can
+    # pause at every phase boundary and still fix its own failing tests inside a phase.
+    # Absence maps to "stops_for_user" because with no recovery instruction the host agent
+    # reports the failure. True zero (AD-6): "retries_then_stops" (a bounded retry, then the
+    # user) is the middle.
+    answers: { stops_for_user: -1.0, retries_then_stops: 0.0, self_recovers: 1.0 }

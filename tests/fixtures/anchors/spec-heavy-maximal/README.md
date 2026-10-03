@@ -28,3 +28,15 @@ Work is split across many specialist subagents that orchestrate and delegate:
 a planner persona, a reviewer persona, and an implementer persona. Work is
 assigned and claimed across a team, with mandatory human review and handoffs
 between contributors.
+
+It picks the libraries, the architecture, and the data model itself, rather
+than asking you to choose. Its coding standards and file layout are mandatory
+for every project. Each persona runs as a separate subagent with its own
+context window, and the implementer subagents run in parallel on separate tasks
+by default. When a test or a build fails, it stops and hands the failure to you.
+
+The PRD must state the performance, security, and reliability requirements. No
+change is done until the reviewer persona reviews it for correctness, security,
+and maintainability. After implementation, a verification step checks the code
+against every requirement in the spec. Tasks and progress live in the team's
+shared issue tracker.

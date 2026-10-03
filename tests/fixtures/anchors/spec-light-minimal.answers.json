@@ -15,6 +15,13 @@
     "install-footprint": {"answer": "tiny", "evidence": "The tool does one small job and gets out of the way.", "path": "README.md"},
     "tests-first": {"answer": "no", "evidence": "Tests are optional here, and are added only after the fact if at all.", "path": "README.md"},
     "testing-phase": {"answer": "incidental", "evidence": "Tests are optional here, and are added only after the fact if at all.", "path": "README.md"},
-    "specialist-agents": {"answer": "single", "evidence": "One person drives the whole change from start to finish.", "path": "README.md"}
+    "specialist-agents": {"answer": "single", "evidence": "One person drives the whole change from start to finish.", "path": "README.md"},
+    "separate-contexts": {"answer": "one_conversation", "evidence": "Everything happens in one conversation, with no subagents", "path": "README.md"},
+    "parallel-agents": {"answer": "no", "evidence": "nothing runs in parallel.", "path": "README.md"},
+    "non-functional-requirements": {"answer": "no", "evidence": "No performance, security, or reliability requirements are stated.", "path": "README.md"},
+    "review-before-done": {"answer": "none", "evidence": "No review of the change happens before it is done.", "path": "README.md"},
+    "spec-verification": {"answer": "no", "evidence": "Nothing is checked against a spec afterwards, because there is no spec.", "path": "README.md"},
+    "spec-lifecycle": {"answer": "none", "evidence": "because there is no spec.", "path": "README.md"},
+    "shared-work-state": {"answer": "local", "evidence": "The state of the work lives only in your current session.", "path": "README.md"}
   }
 }

@@ -111,25 +111,32 @@ CORPUS = _load_corpus()
 RUBRIC = load_rubric(_RUBRIC_DIR)
 
 
-def _indicator_values(axis_id: str, indicator_id: str) -> list[float]:
-    """Every resolved value for one indicator across the corpus."""
-    out: list[float] = []
+def _corpus_results(axis_id: str, indicator_id: str) -> list[IndicatorResult]:
+    """The result for one indicator from every corpus profile that carries it. A profile
+    answered under an earlier rubric lacks indicators added since, so it contributes nothing
+    here rather than failing the lookup."""
+    out: list[IndicatorResult] = []
     for prof in CORPUS:
         ax = next(a for a in prof.axes if a.axis_id == axis_id)
-        ir = next(r for r in ax.indicators if r.indicator_id == indicator_id)
-        if ir.resolved and ir.value is not None:
-            out.append(ir.value)
+        out.extend(r for r in ax.indicators if r.indicator_id == indicator_id)
     return out
+
+
+def _indicator_values(axis_id: str, indicator_id: str) -> list[float]:
+    """Every resolved value for one indicator across the corpus."""
+    return [
+        r.value
+        for r in _corpus_results(axis_id, indicator_id)
+        if r.resolved and r.value is not None
+    ]
 
 
 def _indicator_answers(axis_id: str, indicator_id: str) -> list[str]:
-    out: list[str] = []
-    for prof in CORPUS:
-        ax = next(a for a in prof.axes if a.axis_id == axis_id)
-        ir = next(r for r in ax.indicators if r.indicator_id == indicator_id)
-        if ir.resolved and ir.answer is not None:
-            out.append(ir.answer)
-    return out
+    return [
+        r.answer
+        for r in _corpus_results(axis_id, indicator_id)
+        if r.resolved and r.answer is not None
+    ]
 
 
 def _extreme_values(indicator) -> list[float]:
@@ -226,6 +233,11 @@ def test_judged_question_is_not_degenerate(axis_id, indicator_id):
     # Variance here is not proof the question is sound (answerers may just differ), but a
     # judged indicator constant across 18 varied targets signals a degenerate question or
     # answer set, e.g. spec-documents where every tool resolves to "yes".
+    if not _corpus_results(axis_id, indicator_id):
+        pytest.skip(
+            f"{axis_id}/{indicator_id} is newer than every committed profile; re-answer the "
+            f"corpus with /agentic-atlas:run <url> --save to measure it"
+        )
     values = _indicator_values(axis_id, indicator_id)
     assert len(set(values)) >= 2, (
         f"{axis_id}/{indicator_id} drew the same answer for all {len(values)} targets; the "
@@ -332,8 +344,8 @@ def test_maturity_is_not_a_shallow_clone_artifact():
 # --- Anchors: the validity backstop (AD-7) --------------------------------------------------
 # Spread is not validity: an indicator can discriminate these 18 tools and still measure the
 # wrong construct. Anchors are purpose-built fixture repos with known poles
-# (docs/rubric-v2-plan.md#anchors), profiled here and asserted onto the expected pole. The
-# three below run today; the skip guard only fires if a future anchor is listed without its
+# (docs/rubric-v2-plan.md#anchors), profiled here and asserted onto the expected pole. Every
+# anchor below runs today; the skip guard only fires if a future anchor is listed without its
 # fixture, so adding a row to ANCHORS never silently no-ops.
 
 _ANCHOR_DIR = _ROOT / "tests" / "fixtures" / "anchors"
@@ -371,6 +383,11 @@ ANCHORS = {
         "lightweight-vs-heavyweight": +1,
     },
     "generalist": {"generalist-vs-specialist": -1},
+    "ask-then-autopilot": {
+        "interrogative-vs-opinionated": -1,
+        "autonomous-vs-human-in-loop": +1,
+        "prescriptive-vs-composable": +1,
+    },
 }
 
 
@@ -403,6 +420,30 @@ def test_anchor_placement(anchor, axis_id, expected_sign):
         f"{anchor}: {axis_id} scored {ax.score:+.1f}, expected the "
         f"{'positive' if expected_sign > 0 else 'negative'} pole."
     )
+
+
+@pytest.mark.parametrize("anchor", sorted(ANCHORS))
+def test_anchor_answers_all_resolve(anchor):
+    # A pinned answer whose quote or path drifts from the fixture silently becomes unresolved,
+    # and the axis can still land on the expected pole from its other indicators, so the
+    # placement test alone would not catch it.
+    from agentic_atlas.evidence import Target
+    from agentic_atlas.profiler import profile_target
+
+    answers_path = _ANCHOR_DIR / f"{anchor}.answers.json"
+    if not answers_path.is_file():
+        pytest.skip(f"anchor {anchor!r} has no pinned answers file under {_ANCHOR_DIR}")
+    answers = json.loads(answers_path.read_text())["answers"]
+    prof = profile_target(
+        RUBRIC, Target.from_path(_ANCHOR_DIR / anchor), answers=answers, answers_source="anchor"
+    )
+    unresolved = [
+        f"{ir.indicator_id}: {ir.evidence}"
+        for ax in prof.axes
+        for ir in ax.indicators
+        if ir.indicator_id in answers and not ir.resolved
+    ]
+    assert not unresolved, f"{anchor}: pinned answers did not resolve: {unresolved}"
 
 
 # --- A guard on the harness itself: the registries must not drift from the rubric -----------

@@ -23,3 +23,36 @@ indicators:
     weight: 3
     # True zero (AD-6): a "guided" but not strictly enforced path is the balanced middle.
     answers: { strict: 1.0, guided: 0.0, loose: -1.0 }
+  - id: decision-ownership
+    question: >-
+      When a technical choice has several valid options (a library, an architecture, a data
+      model), does it present the options for the user to pick, or pick one itself? A
+      recommendation the user then confirms or overrides is "mixed". Approving a finished plan
+      is not picking an option, so a tool that writes the plan with its own choices and asks
+      only for plan approval answers "tool_chooses".
+    kind: judged
+    weight: 2
+    # Who makes the technical decisions, a facet separate from whether a questioning phase
+    # exists (asks-before-coding) and from pipeline order (path-strictness), AD-5. A tool can
+    # interview the user about goals and still pick every technical option itself. Plan
+    # approval is measured on autonomous-vs-human-in-loop (approval-gates), so it does not
+    # count as the user choosing. True zero (AD-6): "mixed" (the tool recommends, the user
+    # decides) is the balanced middle.
+    answers: { user_chooses: -1.0, mixed: 0.0, tool_chooses: 1.0 }
+  - id: mandated-conventions
+    question: >-
+      Does it require the user's code to follow conventions it ships (coding standards,
+      naming rules, a project structure, a forbidden pattern), or leave those to each
+      project? Answer "mandated" if at least one such convention is required by default,
+      even when an escape hatch exists, and "overridable_defaults" if it ships conventions
+      but tells the user to replace or choose them. Testing practice does not count (it is
+      measured on test-optional-vs-test-first), and neither does the layout of the tool's
+      own files (its spec folder or state files).
+    kind: judged
+    weight: 2
+    # Opinions about the content of the user's code, separate from opinions about the order of
+    # steps (path-strictness), AD-5. Testing practice and the tool's own artifact layout are
+    # excluded so this does not re-measure test-first or the tool's process. True zero (AD-6):
+    # "overridable_defaults" ships conventions but tells the user to replace them, balanced
+    # between the poles.
+    answers: { project_defined: -1.0, overridable_defaults: 0.0, mandated: 1.0 }
