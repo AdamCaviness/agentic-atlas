@@ -226,6 +226,15 @@ tool's development, so do not cite them. Cite the README, docs, and the skill, c
 template, and configuration files the tool installs or tells users to use. If the only passage supporting an answer sits in an
 excluded file, the answer is unevidenced: choose the value its absence supports.
 
+**Which part of the tool to grade.** Grade the default workflow the README directs users
+to. An add-on package, a bundled tutorial, or an integration installed separately counts only
+when the README presents it as the main way to use the tool. Behavior the tool delegates to
+another tool or an external product (an orchestrator the docs recommend) is not the tool's
+own. When the tool ships several flows that disagree, grade its main implementation flow.
+When the docs and the mechanism disagree, grade the mechanism that runs: agent files the tool
+installs as host subagents run as subagents, whatever the docs call them. A question's own
+text overrides these rules where it says more.
+
 **How the verbatim check works.** The engine normalizes whitespace (any run of spaces,
 tabs, or newlines collapses to one space) and casefolds before matching, so case and line
 wrapping do not matter and you may quote a span that crosses a line break. Everything else
@@ -233,8 +242,11 @@ must match exactly, including punctuation and the words present. Prefer a contig
 plain prose; if you include markdown syntax (list markers, table pipes, backticks) it must
 match the file exactly.
 
-**Quote the required rule, not an optional extra.** For `tests-first`, `spec-required`, `path-strictness`, and `approval-gates`,
-the question asks whether a rule is enforced, required, or the default. The quote must be
+**Quote the required rule, not an optional extra.** For `tests-first`, `spec-required`,
+`path-strictness`, `approval-gates`, `mandated-conventions`, `non-functional-requirements`,
+`review-before-done`, and `parallel-agents`, the question asks whether a rule is enforced,
+required, or the default. An extra the user may skip never answers the required or enforced pole; it answers the
+middle value at most. The quote must be
 about that required or default rule. Do not cite a quote about an extra command the user
 may skip. If two quotes in the allowed file types disagree, use the quote from a skill,
 command, constitution, or workflow file, not from the product README. This does not change

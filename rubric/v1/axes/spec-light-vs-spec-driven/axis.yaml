@@ -34,3 +34,32 @@ indicators:
     # (AD-5), so it is the negative pole. "some" is an argued lean, not a defaulted middle:
     # producing any specification document is real evidence of spec-driven practice.
     answers: { "no": -1.0, some: 0.3, "yes": 1.0 }
+  - id: spec-verification
+    question: >-
+      After implementation, is the result checked against the written specification (tasks
+      traced to requirements, or a review or verification step that compares the code to the
+      spec)? Answer "partial" when the check covers only the task list or some requirements,
+      or runs only when a spec file exists. A tool with no specification answers "no".
+    kind: judged
+    weight: 2
+    # Whether the spec constrains the finished work, separate from whether a spec is required
+    # (spec-required) or persisted (spec-documents), AD-5: a tool can write a PRD and never
+    # look at it again. True zero (AD-6): "partial" (checked against the task list or only
+    # some requirements) is the middle.
+    answers: { "no": -1.0, partial: 0.0, "yes": 1.0 }
+  - id: spec-lifecycle
+    question: >-
+      When a later change alters behavior a specification describes, does the workflow require
+      updating that specification so it stays the source of truth ("living"), or is each
+      specification written for one piece of work and then left, closed, or archived
+      ("written_once")? A specification that may be edited but is not required to be is
+      "written_once". When the docs offer several models with no default, grade the one the
+      main workflow follows. A tool with no specification answers "none".
+    kind: judged
+    weight: 2
+    # How long the spec lives, separate from whether one is written (spec-documents), AD-5:
+    # two tools can both persist a PRD while only one updates it with each change. A ticket or
+    # per-change spec that is closed when the work ships is "written_once". "written_once"
+    # sits at the true zero (AD-6): a spec that exists but is not maintained is halfway
+    # between no spec and a living one.
+    answers: { none: -1.0, written_once: 0.0, living: 1.0 }

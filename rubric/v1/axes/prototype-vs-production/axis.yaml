@@ -24,3 +24,34 @@ indicators:
     kind: judged
     weight: 2
     answers: { throwaway_ok: -1.0, mixed: 0.0, maintainable_only: 1.0 }
+  - id: non-functional-requirements
+    question: >-
+      Does its default workflow require a written statement of non-functional requirements
+      (performance, security, reliability, or scalability; any one counts) for the work being
+      built, filled in by the user or the agent? Answer "prompted" when such a section or
+      question is optional, conditional on task size, or skippable, and "no" when the
+      workflow names none of them (a generic "any constraints?" question is "no").
+    kind: judged
+    weight: 2
+    # Whether production qualities are specified up front, separate from operational
+    # hardening (production-hardening) and code maintainability (throwaway-tolerance), AD-5.
+    # True zero (AD-6): "prompted" (a template section or a suggestion, not required) is the
+    # balanced middle.
+    answers: { "no": -1.0, prompted: 0.0, required: 1.0 }
+  - id: review-before-done
+    question: >-
+      Before a change counts as done, must it pass a review of its quality (correctness,
+      security, maintainability) by a reviewer other than the implementing agent: a separate
+      agent or a person? Answer "required" when the review runs and gates by default, even if
+      a flag can skip it. Answer "optional" when the review is offered, advisory (it runs but
+      cannot block), or is a checklist the implementing agent applies to its own work. A
+      test or lint run alone is not a review.
+    kind: judged
+    weight: 2
+    # A quality review of the finished change, separate from who the tool is built for:
+    # solo-vs-team measures handoffs between people, and this counts an agent reviewer the
+    # same as a human one (AD-5). Testing is measured on test-optional-vs-test-first, so a
+    # test run alone is not a review. A reviewer that also checks the change against the spec
+    # answers both this and spec-verification: code quality and spec conformance are separate
+    # facets that one step can cover. True zero (AD-6): "optional" is the balanced middle.
+    answers: { none: -1.0, optional: 0.0, required: 1.0 }

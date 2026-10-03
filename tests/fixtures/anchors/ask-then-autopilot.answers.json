@@ -1,0 +1,14 @@
+{
+  "source": "anchor:ask-then-autopilot",
+  "answers": {
+    "asks-before-coding": {"answer": "yes", "evidence": "it runs a brainstorming session that asks you questions about", "path": "README.md"},
+    "path-strictness": {"answer": "loose", "evidence": "There is no required pipeline, only a", "path": "README.md"},
+    "decision-ownership": {"answer": "user_chooses", "evidence": "options and you choose.", "path": "README.md"},
+    "mandated-conventions": {"answer": "project_defined", "evidence": "each project\ndefines its own standards and layout.", "path": "README.md"},
+    "autopilot-mode": {"answer": "yes", "evidence": "it runs end to end in autopilot mode.", "path": "README.md"},
+    "approval-gates": {"answer": "none", "evidence": "It never stops\nfor approval between phases.", "path": "README.md"},
+    "failure-recovery": {"answer": "self_recovers", "evidence": "it diagnoses the\nfailure and retries on its own until the check passes.", "path": "README.md"},
+    "pipeline-or-parts": {"answer": "composable", "evidence": "compose only the parts you need.", "path": "README.md"},
+    "step-order": {"answer": "optional_reorderable", "evidence": "in any order", "path": "README.md"}
+  }
+}

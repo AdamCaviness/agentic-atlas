@@ -11,3 +11,8 @@ You start from a blank idea, with no existing code, and it never ingests or maps
 It covers a single step, not the whole lifecycle.
 The output is throwaway, meant to prove an idea fast, with no production hardening.
 There is no collaboration, review, or handoff between people.
+Everything happens in one conversation, with no subagents, and nothing runs in parallel.
+No performance, security, or reliability requirements are stated.
+No review of the change happens before it is done.
+Nothing is checked against a spec afterwards, because there is no spec.
+The state of the work lives only in your current session.

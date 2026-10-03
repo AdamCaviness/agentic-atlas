@@ -17,3 +17,31 @@ indicators:
     # True zero (AD-6): "some" delegation (a helper subagent or two, but centered on one
     # agent) is the balanced middle. Extremes are +-1.0 (AD-3).
     answers: { single: -1.0, some: 0.0, many: 1.0 }
+  - id: separate-contexts
+    question: >-
+      Does its work run in separate subagents, each with its own context window, or in one
+      conversation (including personas that one conversation adopts in turn)? Answer "mixed"
+      when the main work runs in one conversation and subagents handle specific steps, such
+      as research or review. A tool with no roles that runs in one session answers
+      "one_conversation". Grade the mechanism that runs: agent files the tool installs as
+      host subagents run as subagents, whatever the docs call them.
+    kind: judged
+    weight: 2
+    # How the agents are isolated, separate from how many roles exist (specialist-agents),
+    # AD-5: a tool can define many personas that all run inside one conversation. True zero
+    # (AD-6): "mixed" (subagents for some steps, one conversation for the main work) is the
+    # balanced middle.
+    answers: { one_conversation: -1.0, mixed: 0.0, separate_subagents: 1.0 }
+  - id: parallel-agents
+    question: >-
+      Does it run several agents at the same time, in any step (research, implementation, or
+      review)? Answer "default" when the default workflow runs agents concurrently, and
+      "optional" when concurrency is offered but not on the default path. Several people or
+      sessions working in parallel, or an external tool the docs recommend, do not count.
+    kind: judged
+    weight: 2
+    # Concurrency, separate from role count and context isolation, AD-5: subagents can run
+    # one after another. Any step counts, because the construct is how the tool structures its
+    # own agents, not which phase they serve. True zero (AD-6): "optional" (parallel runs are
+    # offered but not the default path) is the balanced middle.
+    answers: { "no": -1.0, optional: 0.0, default: 1.0 }
