@@ -2,7 +2,7 @@
 
 All changes to the measurement standard are recorded here, newest first. The authoritative version is `rubric_version` in `rubric/v1/rubric.yaml`; bump rules are in `docs/versioning.md`. A change that moves a score for identical evidence is a MAJOR bump, and profiles are comparable only within the same MAJOR.
 
-## 5.0.0 (unreleased)
+## 5.0.0
 
 Shipped under #58 as one release, so the corpus was re-answered once: every committed profile was re-answered at its source's default-branch HEAD under the rules below, and is stamped 5.0.0.
 

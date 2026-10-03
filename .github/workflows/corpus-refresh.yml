@@ -46,19 +46,34 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          if python scripts/corpus.py status > drift.txt; then
-            echo "drift=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "drift=true" >> "$GITHUB_OUTPUT"
-          fi
+          rc=0
+          python scripts/corpus.py status > drift.txt || rc=$?
           cat drift.txt
+          # status exits 1 for drift and prints a DRIFT line per behind pin. Any other failure
+          # (a crash, a traceback) must fail the job, not overwrite the issue with a partial report.
+          if [ "$rc" -eq 0 ]; then
+            echo "drift=false" >> "$GITHUB_OUTPUT"
+          elif [ "$rc" -eq 1 ] && grep -q " DRIFT " drift.txt; then
+            echo "drift=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "corpus.py status failed (exit $rc) without a drift report" >&2
+            exit 1
+          fi
 
-      - name: Open or update the drift issue
-        if: steps.status.outputs.drift == 'true'
+      - name: Open, update, or close the drift issue
         env:
           GH_TOKEN: ${{ github.token }}
+          DRIFT: ${{ steps.status.outputs.drift }}
         run: |
           title="Corpus drift: profile pins behind source HEAD"
+          existing=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
+          if [ "$DRIFT" != "true" ]; then
+            if [ -n "$existing" ]; then
+              gh issue close "$existing" --comment "Every profile pin now matches its source's default-branch HEAD."
+              echo "closed issue #$existing"
+            fi
+            exit 0
+          fi
           {
             echo "The weekly corpus check found profiles pinned behind their source's default-branch HEAD."
             echo "Pins are not moved automatically. To refresh, re-answer each drifted tool at HEAD and"
@@ -68,7 +83,6 @@ jobs:
             cat drift.txt
             echo '```'
           } > body.md
-          existing=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
           if [ -n "$existing" ]; then
             gh issue edit "$existing" --body-file body.md
             echo "updated issue #$existing"

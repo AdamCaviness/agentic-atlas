@@ -67,7 +67,7 @@ def _cmd_questions(args: argparse.Namespace) -> int:
     return 0
 
 
-def _load_answers(path: str) -> tuple[dict, str]:
+def load_answers(path: str) -> tuple[dict, str]:
     """Read a supplied-answers file (or stdin, via '-'), returning (answers, source)."""
     try:
         # "-" reads stdin, so the skill can pipe answers straight in without a temp file.
@@ -100,7 +100,7 @@ def _emit(profile: Profile, fmt: str) -> None:
 def _cmd_profile(args: argparse.Namespace) -> int:
     rubric = load_rubric(args.rubric, validate=True)
     target = Target.from_path(args.target)
-    answers, source = _load_answers(args.answers) if args.answers else (None, "supplied")
+    answers, source = load_answers(args.answers) if args.answers else (None, "supplied")
     try:
         profile = profile_target(rubric, target, answers=answers, answers_source=source)
     except ValueError as exc:

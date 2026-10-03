@@ -37,8 +37,8 @@ quotes). Detected indicators move with the newer tree; ``git describe`` at HEAD 
 nearest release so project version stamps track what GitHub shows as current. Any judged
 quote the tool's authors have since reworded no longer validates, so that indicator goes
 unresolved. Restoring it faithfully means rereading the repo, which is a model's job, not
-this script's, so ``refresh`` reports the ``(slug, indicator)`` pairs that went stale for a
-follow-up ``/agentic-atlas:run <url> --save`` rather than guessing.
+this script's, so ``refresh`` reports the ``(slug, indicator)`` pairs that went stale, with the
+engine's reason, for a re-answer applied with ``answer`` rather than guessing.
 
 ``answer`` is how a fresh answer set enters the corpus. It moves each clone to origin
 default-branch HEAD, exactly as ``refresh`` does, but takes the judged answers from
@@ -54,10 +54,11 @@ stale project version.
 A profile answered before rubric 5.0.0 has judged answers with no ``path``. The engine now
 requires one, so replaying such a profile would leave every judged indicator unresolved and a
 ``--write`` would erase its judged positions. ``rescore`` and ``refresh`` therefore skip it with a
-reason instead; the fix is to re-answer it with ``/agentic-atlas:run <url> --save``.
+reason instead; the fix is to re-answer it and apply the answers with ``answer``.
 
-Neither ``rescore`` nor ``refresh`` writes anything without ``--write``; a bare run prints
-the report only. Because ``github_api`` (when a rubric uses it) and moving refs (for ``refresh``) make the output
+``rescore``, ``refresh``, and ``answer`` write nothing without ``--write``; a bare run prints
+the report only. ``answer --write`` also refuses to write a profile with any rejected answer and
+exits 1, so a re-answer pass never commits reduced coverage. Because ``github_api`` (when a rubric uses it) and moving refs (for ``refresh``) make the output
 time-dependent, these are maintenance commands, not a CI gate. The CI gate stays
 ``profiles-check`` (HTML matches JSON). After ``--write`` rewrites the JSON, run
 ``make profiles`` to re-render the HTML from it.
@@ -71,6 +72,7 @@ import os
 import subprocess
 from pathlib import Path
 
+from agentic_atlas.cli import load_answers
 from agentic_atlas.evidence import (
     Target,
     _fetch_github_latest_release_tag,
@@ -117,6 +119,11 @@ def _ensure_clone(url: str, dest: Path) -> None:
     """Clone ``url`` into ``dest`` if absent, else fetch the latest refs. Full clone always,
     so the git-history metrics the Fresh vs Mature axis reads stay honest."""
     if (dest / ".git").is_dir():
+        # The engine stamps target_url from the clone's origin, so a profile whose source moved
+        # (a repository renamed or continued elsewhere) must repoint the existing clone.
+        if _git("remote", "get-url", "origin", cwd=dest) != url:
+            _git("remote", "set-url", "origin", url, cwd=dest)
+            _git("remote", "set-head", "origin", "--auto", cwd=dest)
         _git("fetch", "--tags", "--prune", "origin", cwd=dest)
         return
     dest.parent.mkdir(parents=True, exist_ok=True)
@@ -199,7 +206,7 @@ def _reconstruct_answers(profile: dict) -> tuple[dict[str, dict], str]:
         raise SystemExit(
             f"{len(pathless)} judged answer(s) have no evidence path (answered under rubric "
             f"{profile.get('rubric_version')}); replay would drop them. Re-answer with "
-            "/agentic-atlas:run <url> --save"
+            "`scripts/corpus.py answer`"
         )
     if len(sources) > 1:
         # The answers file carries one source stamp; a profile whose judged indicators
@@ -221,15 +228,15 @@ def _axis_scores(profile: dict) -> dict[str, tuple[float | None, float]]:
 
 
 def _load_answers_file(path: Path) -> tuple[dict[str, dict], str]:
-    """Read an ``/agentic-atlas:run`` answers file, ``{"source", "answers"}``. Raises SystemExit
-    (the per-slug skip) when the file is missing or has no answers."""
+    """Read an ``/agentic-atlas:run`` answers file, ``{"source", "answers"}``, with the CLI's
+    loader. Raises SystemExit (the per-slug skip) when the file is missing, malformed, or has
+    no answers."""
     if not path.is_file():
         raise SystemExit(f"no answers file at {path}")
-    data = json.loads(path.read_text())
-    answers = data.get("answers")
+    answers, source = load_answers(str(path))
     if not answers:
         raise SystemExit(f"{path} has no answers")
-    return answers, data.get("source") or "corpus-answer"
+    return answers, source
 
 
 def _rescore_one(
@@ -260,11 +267,13 @@ def _rescore_one(
         ref, ref_reason = _refresh_ref(dest, url)
     _checkout(dest, ref)
 
-    # Answers for indicators the current rubric removed cannot be replayed (the engine rejects
-    # unknown ids). Drop them and report them, the same way new indicators are reported.
-    removed_indicators = sorted(set(answers) - judged_ids(rubric))
-    for iid in removed_indicators:
+    # The engine rejects unknown answer ids. A replayed id the rubric no longer defines was
+    # removed by a rubric change, so drop and report it. A fresh answers file has no such
+    # excuse: an unknown id there is a typo or an answer for another rubric, so it is rejected.
+    unknown = sorted(set(answers) - judged_ids(rubric))
+    for iid in unknown:
         del answers[iid]
+    removed_indicators = [] if mode == "answer" else unknown
     target = Target.from_path(dest)
     new_profile = profile_target(rubric, target, answers=answers, answers_source=source)
     new = new_profile.to_dict()
@@ -272,19 +281,22 @@ def _rescore_one(
     # rendered display name (report uses the last path segment) is byte-identical.
     new["target"] = os.path.basename(str(old.get("target", slug)).rstrip("/")) or slug
 
-    old_res, new_res = _resolved_by_id(old), _resolved_by_id(new)
+    old_res = _resolved_by_id(old)
     replayed = set(answers)
-    went_stale = sorted(i for i in replayed if old_res.get(i) and not new_res.get(i))
-    # Every supplied answer the engine did not accept, with the reason it gives.
+    # Every supplied answer the engine did not accept, with the reason it gives. In a replay
+    # these are the quotes that went stale at the new checkout.
     rejected = {
         ind["indicator_id"]: ind.get("evidence")
         for axis in new["axes"]
         for ind in axis["indicators"]
         if ind["indicator_id"] in replayed and not ind.get("resolved")
     }
-    # Judged indicators the current rubric defines that this run did not answer: the rubric
-    # grew since the profile was written (replay), or the answer set left them out (answer).
-    new_indicators = sorted(judged_ids(rubric) - replayed)
+    if mode == "answer":
+        rejected.update({iid: "not an indicator in this rubric" for iid in unknown})
+    # Judged indicators with no answer in this run: in a replay, the ones the rubric added since
+    # the profile was written; in answer mode, the ones the answers file left out.
+    unanswered = judged_ids(rubric) - (replayed if mode == "answer" else set(old_res))
+    new_indicators = sorted(unanswered)
 
     old_ax, new_ax = _axis_scores(old), _axis_scores(new)
     axis_deltas = [
@@ -299,13 +311,16 @@ def _rescore_one(
         if old_ax.get(aid, (None, 0.0)) != (s, c)
     ]
 
-    if write:
+    # A fresh answer set with a rejected answer would commit reduced coverage, so answer mode
+    # writes only a fully accepted set; fix the answers file and run again.
+    wrote = write and not (mode == "answer" and rejected)
+    if wrote:
         path.write_text(json.dumps(new, indent=2) + "\n")
 
     return {
         "slug": slug,
         "mode": mode,
-        "wrote": write,
+        "wrote": wrote,
         "ref": ref,
         "ref_reason": ref_reason,
         "old": {
@@ -321,7 +336,6 @@ def _rescore_one(
             "version": new.get("target_version"),
         },
         "replayed": len(replayed),
-        "went_stale": went_stale,
         "rejected": rejected,
         "new_indicators": new_indicators,
         "removed_indicators": removed_indicators,
@@ -352,17 +366,11 @@ def _print_report(reports: list[dict], write: bool) -> int:
         reason = r.get("ref_reason")
         if reason and r.get("mode") in ("refresh", "answer"):
             bump.append(f"via {reason}")
-        tag = "wrote" if r["wrote"] else "dry-run"
+        tag = "wrote" if r["wrote"] else ("refused" if write else "dry-run")
         print(f"  {r['slug']:28} {tag:8} {', '.join(bump) or 'no stamp change'}")
-        if r.get("mode") == "answer":
-            for iid, reason in r["rejected"].items():
-                stale_total += 1
-                print(f"      rejected {iid}: {reason}")
-        elif r["went_stale"]:
-            stale_total += len(r["went_stale"])
-            print(
-                f"      stale quotes (re-answer via /agentic-atlas:run): {', '.join(r['went_stale'])}"
-            )
+        for iid, why in r["rejected"].items():
+            stale_total += 1
+            print(f"      rejected {iid}: {why}")
         if r["new_indicators"]:
             print(f"      judged, not answered in this run: {', '.join(r['new_indicators'])}")
         if r["removed_indicators"]:
@@ -375,12 +383,17 @@ def _print_report(reports: list[dict], write: bool) -> int:
                 )
 
     print()
-    if stale_total and any(r.get("mode") == "answer" for r in reports):
-        print(f"{stale_total} supplied answer(s) were rejected; fix them and re-run `answer`.")
+    answer_mode = any(r.get("mode") == "answer" for r in reports)
+    if stale_total and answer_mode:
+        print(
+            f"{stale_total} supplied answer(s) were rejected, and their profiles were not written. "
+            "Fix the answers files and run `answer` again."
+        )
     elif stale_total:
         print(
             f"{stale_total} judged quote(s) went stale across the corpus. Their axes lost "
-            "coverage. Re-run /agentic-atlas:run <url> --save on each affected repo to re-answer."
+            "coverage. Re-answer each affected tool at HEAD and apply with "
+            "`make corpus-answer ANSWERS_DIR=<dir>`."
         )
     if not write:
         print(
@@ -388,7 +401,8 @@ def _print_report(reports: list[dict], write: bool) -> int:
         )
     else:
         print("wrote profile JSON. Now run `make profiles` to re-render the HTML corpus.")
-    return 0
+    # A rejected fresh answer is a failed run, so `make corpus-answer` stops before re-rendering.
+    return 1 if stale_total and answer_mode else 0
 
 
 def _cmd_fetch(args: argparse.Namespace) -> int:
