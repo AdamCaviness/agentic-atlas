@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": -2.4, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": -2.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": null, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -10.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 2.5, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": -2.4, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": -7.8, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": -7.1, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -8.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -6.2, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 0.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -378,10 +378,10 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.8</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.5</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill pos" style="width:19%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:12.5%"></div><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Lets the agent surface, suggest, and create standards from your codebase</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Analyze the codebase structure (folders, file types, patterns)</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Gather context and structure planning for significant work.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Works alongside Claude Code, Cursor, Antigravity, and other AI tools. Any language, any framework.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Extract tribal knowledge from your codebase into concise, documented standards.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/discover-standards.md" target="_blank" rel="noopener">commands/agent-os/discover-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Gather context and structure planning for significant work.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>few</td><td class="val">-0.40</td><td class="evidence">v3 focuses on Agent OS&#x27;s core strengths: establishing standards, injecting them smartly, and enhancing spec-driven development.</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">This command is called internally by `/shape-spec` to inject relevant standards during planning.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>few</td><td class="val">-0.40</td><td class="evidence">Create better plans that lead to better builds<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">You can also invoke it directly anytime you need standards in context.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/inject-standards.md" target="_blank" rel="noopener">commands/agent-os/inject-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-7.8</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill neg" style="width:10%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:39%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,21 +463,23 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">helps you shape better specs, keeps agents aligned</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Months later, someone can find this spec and understand what was built and why.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Keep it lightweight** — This is shaping, not exhaustive documentation<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Keep shaping fast** — Don&#x27;t over-document. Capture enough to start, refine as you build.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">&quot;Are there any constraints or requirements I should know about?&quot;<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">2. Then implementation tasks will proceed<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score none">nothing could be read</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-7.1</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track empty"><div class="center"></div><span class="ni">no evidence found</span></div>
+      <div class="track"><div class="fill neg" style="width:35.5%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
-      <div class="cov-meter"><div class="cov-fill cov-low" style="width:0%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 0/2 · 0% evidence</span>
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>-</td><td class="val"></td><td class="evidence">no answer supplied</td><td>-</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>-</td><td class="val"></td><td class="evidence">no answer supplied</td><td>-</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Months later, someone can find this spec and understand what was built and why.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">2. Then implementation tasks will proceed<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">Task 1 saves all our shaping work before implementation begins.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,8 +527,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">Any language, any framework.</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">professional software developers and teams build with AI</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">where Brian helps professional software developers and teams build with AI<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">Any language, any framework.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -554,23 +557,23 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>292.3</td><td class="val">+0.00</td><td class="evidence">git age_days = 292.3</td><td>engine</td></tr>
-<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>130</td><td class="val">+0.00</td><td class="evidence">git commit_count = 130</td><td>engine</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>408.7</td><td class="val">+0.00</td><td class="evidence">git age_days = 408.7</td><td>engine</td></tr>
+<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>131</td><td class="val">+0.00</td><td class="evidence">git commit_count = 131</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>18</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 18</td><td>engine</td></tr>
 <tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>12</td><td class="val">+1.00</td><td class="evidence">git tag_count = 12</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Agent OS v3 is a major release that refocuses the framework on what it does best</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Subscribe to be notified of major new releases of Agent OS<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-8.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:40%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Always use AskUserQuestion tool</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">Standards guide, not dictate</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">What are we building? Please describe the feature or change.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>loose</td><td class="val">-1.00</td><td class="evidence">You can also invoke it directly anytime you need standards in context.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/inject-standards.md" target="_blank" rel="noopener">commands/agent-os/inject-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Present options the user can confirm, choose between, or correct.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/discover-standards.md" target="_blank" rel="noopener">commands/agent-os/discover-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>project_defined</td><td class="val">-1.00</td><td class="evidence">Standards guide, not dictate** — They inform the plan but aren&#x27;t always mandatory.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.2</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Plan complete. When you approve and execute:</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>every_phase</td><td class="val">-1.00</td><td class="evidence">Wait for user response before proceeding</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Ready to start? (approve / adjust)<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Ready to start? (approve / adjust)<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>stops_for_user</td><td class="val">-1.00</td><td class="evidence">2. Then implementation tasks will proceed<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,9 +652,11 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Task 1 saves all our shaping work before implementation begins.</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Task 1 saves all our shaping work before implementation begins.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">Gather context and structure planning for significant work.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Task 1 saves all our shaping work before implementation begins.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">2. Then implementation tasks will proceed<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>written_once</td><td class="val">+0.00</td><td class="evidence">Months later, someone can find this spec and understand what was built and why.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -677,8 +685,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">validation, testing, naming conventions, file structure</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>incidental</td><td class="val">-1.00</td><td class="evidence">Error handling, validation, testing</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Each task should be specific and actionable.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>incidental</td><td class="val">-1.00</td><td class="evidence">Error handling, validation, testing, naming conventions, file structure<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/discover-standards.md" target="_blank" rel="noopener">commands/agent-os/discover-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -688,9 +696,9 @@
       <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +714,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">Implementation/orchestration phases retired</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">Always use AskUserQuestion tool** when asking the user anything<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/shape-spec.md" target="_blank" rel="noopener">commands/agent-os/shape-spec.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>one_conversation</td><td class="val">-1.00</td><td class="evidence">Read standards into our chat (for implementation work)<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/inject-standards.md" target="_blank" rel="noopener">commands/agent-os/inject-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">Process one standard at a time through the full loop.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/discover-standards.md" target="_blank" rel="noopener">commands/agent-os/discover-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -718,8 +728,8 @@
       <span class="pole right">composable</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-11" title="show the 2 signals behind this">
-      <div class="cov-meter"><div class="cov-fill cov-mid" style="width:60%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/2 · 60% evidence</span>
+      <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
+      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-11" class="modal">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>composable</td><td class="val">+1.00</td><td class="evidence">You can also invoke it directly anytime you need standards in context.</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>-</td><td class="val"></td><td class="evidence">no answer supplied</td><td>-</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>composable</td><td class="val">+1.00</td><td class="evidence">You can also invoke it directly anytime you need standards in context.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/inject-standards.md" target="_blank" rel="noopener">commands/agent-os/inject-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>optional_reorderable</td><td class="val">+1.00</td><td class="evidence">You can also invoke it directly anytime you need standards in context.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/commands/agent-os/inject-standards.md" target="_blank" rel="noopener">commands/agent-os/inject-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,11 +776,10 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">lightweight system that fits how you already build</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">The installation process is simpler, but commands are different.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">keeps agents aligned in a lightweight system that fits how you already build.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">keeps agents aligned in a lightweight system that fits how you already build.<span class="ev-path"><a href="https://github.com/buildermethods/agent-os/blob/475b0cac4c7c5cf2336ad5a663b691a6d3415e05/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
-  <p class="footer-hint">1 of 13 axes need interpretation for lack of judged answers. Run /agentic-atlas:run from the agentic-atlas plugin (Claude Code, Cursor, or another supported harness) to answer them with your coding agent, no API key, and get a complete profile.</p>
     </div>
   </div>
 </div>

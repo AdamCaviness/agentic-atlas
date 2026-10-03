@@ -1,7 +1,7 @@
 {
   "target": "claude-git-pr-skill",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
   "target_sha": "3660dca92424b91f1eb716b5815b476c3913450e",
   "target_url": "https://github.com/aidankinzett/claude-git-pr-skill",
   "target_version": "v1.1.1",
@@ -28,8 +28,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "existing_codebase",
-          "evidence": "Review PR #123 and suggest improvements",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Claude will automatically use this skill when you ask it to review pull requests",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -39,7 +40,8 @@
           "resolved": true,
           "answer": "no",
           "evidence": "Analyze PR and prepare all comments",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "small_diff",
-          "evidence": "Code suggestions replace the entire line or line range",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Workflow for reviewing GitHub pull requests using",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "one",
-          "evidence": "Use when reviewing GitHub pull requests with gh CLI",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Workflow for reviewing GitHub pull requests using",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "single",
-          "evidence": "Once installed, Claude will automatically use this skill when you ask it to review pull requests.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Claude will automatically use this skill when you ask it to review pull requests",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,18 +107,19 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -7.8,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "production-hardening",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Security vulnerabilities, bugs, failing tests",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "none",
+          "evidence": "Professional GitHub PR review skills for Claude Code",
+          "path": ".claude-plugin/marketplace.json",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "consistent, professional GitHub pull request reviews",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Code suggestions might be incorrect",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Analyze PR and prepare all comments",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Workflow for reviewing GitHub pull requests using",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,18 +168,19 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -1.4,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "team-coordination",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "partial",
-          "evidence": "PR author gets one notification with full context",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "none",
+          "evidence": "Batches all comments into one notification for the PR author",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "You review and approve (or request changes).",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Always get explicit user approval before posting any review comments.",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "team_tool",
+          "evidence": "Review comments are public and permanent",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "GitHub PR Review Skill for Claude Code",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Workflow for reviewing GitHub pull requests using",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Professional GitHub PR reviews with pending reviews, code suggestions",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Professional GitHub PR review skills for Claude Code",
+          "path": ".claude-plugin/marketplace.json",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -224,6 +268,7 @@
           "resolved": true,
           "answer": "0.0",
           "evidence": "git age_days = 0.0",
+          "path": null,
           "source": "engine"
         },
         {
@@ -234,6 +279,7 @@
           "resolved": true,
           "answer": "11",
           "evidence": "git commit_count = 11",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "1",
           "evidence": "git contributor_count = 1",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,6 +301,7 @@
           "resolved": true,
           "answer": "3",
           "evidence": "git tag_count = 3",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "All notable changes to the github-pr-review skill will be documented in this file.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "This skill follows [Semantic Versioning]",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,18 +329,19 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 6.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "asks-before-coding",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "partial",
-          "evidence": "Always get explicit user approval before posting any review comments",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "no",
+          "evidence": "Analyze PR and prepare all comments",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "strict",
-          "evidence": "The skill enforces this workflow",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "REQUIRED STEPS (do not skip):",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "Choose the appropriate event type when submitting:",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Analyze PR and prepare all comments",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,18 +400,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Get explicit user approval before posting any review comments",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Always get explicit user approval before posting any review comments.",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
           "kind": "judged",
           "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "some_phases",
+          "evidence": "Show user exactly what will be posted",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "every_phase",
-          "evidence": "get explicit approval, then use pending review",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "answer": "stops_for_user",
+          "evidence": "Do not attempt to run gh api commands",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -365,7 +451,8 @@
           "resolved": true,
           "answer": "none",
           "evidence": "Analyze PR and prepare all comments",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "create pending reviews with code suggestions",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Analyze PR and prepare all comments",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Analyze PR and prepare all comments",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Analyze PR and prepare all comments",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -401,8 +511,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Security vulnerabilities, bugs, failing tests",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Analyze PR and prepare all comments",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -412,7 +523,8 @@
           "resolved": true,
           "answer": "incidental",
           "evidence": "Security vulnerabilities, bugs, failing tests",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "single",
-          "evidence": "Once installed, Claude will automatically use this skill",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Workflow for reviewing GitHub pull requests using",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "one_conversation",
+          "evidence": "Workflow for reviewing GitHub pull requests using",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Workflow for reviewing GitHub pull requests using",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "fixed_pipeline",
-          "evidence": "REQUIRED STEPS (do not skip)",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "REQUIRED STEPS (do not skip):",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "mandatory_ordered",
-          "evidence": "ALWAYS use the pending review pattern, even for single comments",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Check gh first, get explicit approval, then use pending review.",
+          "path": "github-pr-review/skills/github-pr-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -503,7 +640,8 @@
           "resolved": true,
           "answer": "minimal",
           "evidence": "Claude will automatically use this skill when you ask it to review pull requests",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -513,7 +651,8 @@
           "resolved": true,
           "answer": "tiny",
           "evidence": "Copy the skill directly to your skills directory",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

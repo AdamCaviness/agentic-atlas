@@ -145,7 +145,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/Fission-AI/OpenSpec" target="_blank" rel="noopener" title="Open Fission-AI/OpenSpec on GitHub" aria-label="Open Fission-AI/OpenSpec on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>Fission-AI/OpenSpec</span></a></div>
-    <div class="stamps">version v1.8.0</div>
+    <div class="stamps">version @fission-ai/openspec@1.14.0</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 10.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -5.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 2.5, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 0.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 7.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -2.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -6.2, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 7.8, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -6.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -6.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -378,10 +378,10 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.5</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:12.5%"></div><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>existing_codebase</td><td class="val">+1.00</td><td class="evidence">adopt OpenSpec on a brownfield codebase</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">let it map how things work before proposing anything</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">You describe the diff, not the destination.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">built for brownfield not just greenfield<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Point it at the part you&#x27;re about to touch and let it map how things work before proposing anything.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/existing-projects.md" target="_blank" rel="noopener">docs/existing-projects.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">You&#x27;re adding a field, fixing a redirect, tightening a timeout.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/existing-projects.md" target="_blank" rel="noopener">docs/existing-projects.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">proposal → specs → design → tasks → implement</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">propose → apply → sync → archive</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">The default workflow stays fluid: exploration and verification are optional<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/workflows.md" target="_blank" rel="noopener">docs/workflows.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">/opsx:explore ──► /opsx:propose ──► /opsx:apply ──► /opsx:sync ──► /opsx:archive<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/workflows.md" target="_blank" rel="noopener">docs/workflows.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,9 +463,11 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">External constraints (security, privacy, reliability, compatibility)</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">why the system works the way it does</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">External constraints (security, privacy, reliability, compatibility)<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/schemas/spec-driven/schema.yaml" target="_blank" rel="noopener">schemas/spec-driven/schema.yaml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">OpenSpec adds a lightweight spec layer so you agree on what to build before any code is written.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">Security, performance, or migration complexity<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/schemas/spec-driven/schema.yaml" target="_blank" rel="noopener">schemas/spec-driven/schema.yaml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>optional</td><td class="val">+0.00</td><td class="evidence">Verification is advisory.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-verify-change/SKILL.md" target="_blank" rel="noopener">skills/openspec-verify-change/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -475,9 +477,9 @@
       <div class="track"><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,16 +495,17 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">One change, one owner.</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">teammate reviews, merges</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Keep a change to a single author, or split it into two changes<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/team-workflow.md" target="_blank" rel="noopener">docs/team-workflow.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">so your teammates review both together<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/team-workflow.md" target="_blank" rel="noopener">docs/team-workflow.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">Your specs, active changes, and archive are part of your project&#x27;s history. Commit them like any other source.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/faq.md" target="_blank" rel="noopener">docs/faq.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Generalist <em>vs</em> Specialist</span><button type="button" class="info" data-dialog="poles-4" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Generalist <em>vs</em> Specialist</span><button type="button" class="info" data-dialog="poles-4" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.0</span></div>
     <div class="bar-row">
       <span class="pole left">generalist</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:35%"></div><div class="center"></div></div>
       <span class="pole right">specialist</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-4" title="show the 2 signals behind this">
@@ -524,8 +527,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">AI coding assistants are powerful but unpredictable when requirements live only in chat history.</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">before any code is written</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">For greenfield or non-code changes, inspect the available structure and relevant documents.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-propose/SKILL.md" target="_blank" rel="noopener">skills/openspec-propose/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">A lightweight layer that gets you and your AI coding assistant to agree on what to build<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/faq.md" target="_blank" rel="noopener">docs/faq.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -554,23 +557,23 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>367.3</td><td class="val">+0.00</td><td class="evidence">git age_days = 367.3</td><td>engine</td></tr>
-<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>753</td><td class="val">+0.00</td><td class="evidence">git commit_count = 753</td><td>engine</td></tr>
-<tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>87</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 87</td><td>engine</td></tr>
-<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>43</td><td class="val">+1.00</td><td class="evidence">git tag_count = 43</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">We&#x27;re all still learning what works best.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>423.5</td><td class="val">+0.00</td><td class="evidence">git age_days = 423.5</td><td>engine</td></tr>
+<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>961</td><td class="val">+0.00</td><td class="evidence">git commit_count = 961</td><td>engine</td></tr>
+<tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>133</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 133</td><td>engine</td></tr>
+<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>56</td><td class="val">+1.00</td><td class="evidence">git tag_count = 56</td><td>engine</td></tr>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">We&#x27;ve rebuilt OpenSpec with a new artifact-guided workflow.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:10%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Think through ideas, investigate problems, and clarify requirements before committing to a change.</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">no rigid phase gates</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">If the request contains ambiguity that would materially affect scope, externally observable behavior, compatibility, or acceptance criteria, ask the user before creating the change.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-propose/SKILL.md" target="_blank" rel="noopener">skills/openspec-propose/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">They show what&#x27;s possible, not what&#x27;s required next<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/workflows.md" target="_blank" rel="noopener">docs/workflows.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">If a question would change the specs, the chosen approach, or the task breakdown, resolve it now - ask the user instead of guessing.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/schemas/spec-driven/schema.yaml" target="_blank" rel="noopener">schemas/spec-driven/schema.yaml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>project_defined</td><td class="val">-1.00</td><td class="evidence">so the AI always knows your stack and conventions<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/faq.md" target="_blank" rel="noopener">docs/faq.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.2</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">you review the plan before any code is written</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">you review the plan before any code is written</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Do not start implementation in the same response, even if the initial request asks for it.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-propose/SKILL.md" target="_blank" rel="noopener">skills/openspec-propose/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">When the user is ready to implement, they must start the apply workflow explicitly.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-propose/SKILL.md" target="_blank" rel="noopener">skills/openspec-propose/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>stops_for_user</td><td class="val">-1.00</td><td class="evidence">Pause on errors, blockers, or unclear requirements - don&#x27;t guess<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-apply-change/SKILL.md" target="_blank" rel="noopener">skills/openspec-apply-change/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.8</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:39%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,16 +652,18 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">only then does code get written</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">each change gets its own folder with proposal, specs, design, and tasks</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Do not assume another artifact is ready or start implementation while blocked.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-apply-change/SKILL.md" target="_blank" rel="noopener">skills/openspec-apply-change/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">each change gets its own folder with proposal, specs, design, and tasks<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>partial</td><td class="val">+0.00</td><td class="evidence">The default workflow stays fluid: exploration and verification are optional<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/workflows.md" target="_blank" rel="noopener">docs/workflows.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>living</td><td class="val">+1.00</td><td class="evidence">The source of truth. These specs describe how your system currently behaves.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/getting-started.md" target="_blank" rel="noopener">docs/getting-started.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.0</span></div>
     <div class="bar-row">
       <span class="pole left">test optional</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-9" title="show the 2 signals behind this">
@@ -677,8 +685,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">runs tests as needed</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>incidental</td><td class="val">-1.00</td><td class="evidence">runs tests as needed</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Land the tests and documentation each group&#x27;s work calls for inside that group<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/concepts.md" target="_blank" rel="noopener">docs/concepts.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">Specs should be testable - each scenario is a potential test case.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/schemas/spec-driven/schema.yaml" target="_blank" rel="noopener">schemas/spec-driven/schema.yaml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -688,9 +696,9 @@
       <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +714,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">Your AI writes these</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">The AI assistant drives the workflow, while the CLI provides deterministic<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/workflows.md" target="_blank" rel="noopener">docs/workflows.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>one_conversation</td><td class="val">-1.00</td><td class="evidence">Clear your context before starting implementation and maintain good context hygiene throughout your session.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">You can work on multiple changes in parallel without conflicts.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/concepts.md" target="_blank" rel="noopener">docs/concepts.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,15 +746,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Schema-driven (define your own artifacts)</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">You can revisit any of them at any time.</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Commands are things you can do, not stages you&#x27;re stuck in<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/workflows.md" target="_blank" rel="noopener">docs/workflows.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Dependencies are enablers, not gates<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/skills/openspec-propose/SKILL.md" target="_blank" rel="noopener">skills/openspec-propose/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.0</span></div>
     <div class="bar-row">
       <span class="pole left">lightweight</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:30%"></div><div class="center"></div></div>
       <span class="pole right">heavyweight</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-12" title="show the 2 signals behind this">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">lightweight setup, minimal ceremony</td><td>agent-team draft 2026-07-22</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Initialize in seconds, start working immediately</td><td>agent-team draft 2026-07-22</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">OpenSpec brings predictability without the ceremony.<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">adds openspec/ and your AI tool&#x27;s commands<span class="ev-path"><a href="https://github.com/Fission-AI/OpenSpec/blob/2500d6da971336167548b53731a35b2127df35ac/docs/existing-projects.md" target="_blank" rel="noopener">docs/existing-projects.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

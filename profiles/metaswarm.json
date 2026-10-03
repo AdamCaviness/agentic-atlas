@@ -1,7 +1,7 @@
 {
   "target": "metaswarm",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
   "target_sha": "33d39f776f7fe29098dcf048955756a237e8cb40",
   "target_url": "https://github.com/dsifry/metaswarm",
   "target_version": "v0.12.0-2-g33d39f776f7f",
@@ -29,7 +29,8 @@
           "resolved": true,
           "answer": "either",
           "evidence": "Your prompt (spec with DoD items) or GitHub Issue",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -39,7 +40,8 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "research the codebase, create an implementation plan",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "GETTING_STARTED.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -49,7 +51,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "decompose into work units",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -76,7 +79,8 @@
           "resolved": true,
           "answer": "full_lifecycle",
           "evidence": "through a complete software development lifecycle",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -86,7 +90,8 @@
           "resolved": true,
           "answer": "multi_stage",
           "evidence": "A structured 9-phase workflow",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -113,7 +118,8 @@
           "resolved": true,
           "answer": "strong",
           "evidence": "writing production-level code with 100% test coverage, mandatory TDD",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "Quick prototyping or exploratory work",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "writing production-level code with 100% test coverage, mandatory TDD",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Performance considerations addressed",
+          "path": "skills/design-review-gate/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "adversarial reviewers check DoD compliance with file:line evidence",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -150,7 +179,8 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "multiple Claude Code sessions are active on the same repository",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "skills/start/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -160,7 +190,19 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Reports when ready for human approval",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "USAGE.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "All task state lives in BEADS; agents coordinate via database, not messages",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -187,7 +229,8 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "through a complete software development lifecycle",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -197,7 +240,8 @@
           "resolved": true,
           "answer": "no",
           "evidence": "writing production-level code with 100% test coverage",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -224,6 +268,7 @@
           "resolved": true,
           "answer": "137.6",
           "evidence": "git age_days = 137.6",
+          "path": null,
           "source": "engine"
         },
         {
@@ -234,6 +279,7 @@
           "resolved": true,
           "answer": "117",
           "evidence": "git commit_count = 117",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "2",
           "evidence": "git contributor_count = 2",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,6 +301,7 @@
           "resolved": true,
           "answer": "12",
           "evidence": "git tag_count = 12",
+          "path": null,
           "source": "engine"
         },
         {
@@ -264,7 +312,8 @@
           "resolved": true,
           "answer": "stable",
           "evidence": "proven in the field writing production-level code with 100% test coverage",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -291,7 +340,8 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "ask the user to confirm your assessment",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "commands/start-task.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -301,7 +351,30 @@
           "resolved": true,
           "answer": "strict",
           "evidence": "Gates are blocking state transitions, not advisory.",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "USAGE.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Propose 2-3 approaches with trade-offs",
+          "path": "commands/brainstorm.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "mandated",
+          "evidence": "When reviewing or writing code in a metaswarm-managed project, enforce the following standards.",
+          "path": "guides/coding-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 3.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -328,7 +401,8 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "coordinates a swarm of specialized AI agents to autonomously handle GitHub Issues from creation to merged PR",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "skills/start/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -338,7 +412,19 @@
           "resolved": true,
           "answer": "some_phases",
           "evidence": "Proactive checkpoints at planned review points",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "retries_then_stops",
+          "evidence": "Max 3 retries per work unit, then escalate with failure history",
+          "path": "commands/start-task.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "Tasks without a written spec or DoD items",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "evidence": "Create detailed implementation plan",
+          "path": "commands/start-task.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -375,7 +462,30 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Issues, knowledge, specs all in version control",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "review adversarially against written spec contracts",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Write design doc to `docs/plans/YYYY-MM-DD-<topic>-design.md`",
+          "path": "commands/brainstorm.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -402,7 +512,8 @@
           "resolved": true,
           "answer": "enforced",
           "evidence": "TDD is mandatory, not optional",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -412,7 +523,8 @@
           "resolved": true,
           "answer": "first_class",
           "evidence": "Test-First Always",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -439,7 +551,30 @@
           "resolved": true,
           "answer": "many",
           "evidence": "18 specialized agent personas",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "separate_subagents",
+          "evidence": "Spawn 5 parallel `Task()` subagents for each review round. Fresh instances per round.",
+          "path": "skills/design-review-gate/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "default",
+          "evidence": "5 specialist agents (PM, Architect, Designer, Security, CTO) review in parallel",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -466,7 +601,8 @@
           "resolved": true,
           "answer": "fixed_pipeline",
           "evidence": "A structured 9-phase workflow",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -476,7 +612,8 @@
           "resolved": true,
           "answer": "mandatory_ordered",
           "evidence": "agents cannot skip design review, plan review, or knowledge capture",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -503,7 +640,8 @@
           "resolved": true,
           "answer": "heavy",
           "evidence": "Coordinate 18 specialized AI agents and 13 orchestration skills",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -513,7 +651,8 @@
           "resolved": true,
           "answer": "large",
           "evidence": "Node.js 18+ (for automation scripts)",
-          "source": "agentic-atlas:claude-opus-4-8"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

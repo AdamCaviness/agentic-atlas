@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": -3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 6.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -1.2, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 0.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -5.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -6.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -4.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": -3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.4, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 2.9, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -3.8, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 4.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -10.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 5.6, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -6.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 2.9, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -4.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -4.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -403,16 +403,16 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>blank_slate</td><td class="val">-1.00</td><td class="evidence">Every feature starts as a PRD, becomes a technical epic</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Look for ways to leverage existing functionality before creating new code</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">epics into GitHub issues, and issues into production code</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Look for ways to leverage existing functionality before creating new code.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/plan.md" target="_blank" rel="noopener">skill/ccpm/references/plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Look for ways to leverage existing functionality before creating new code.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/plan.md" target="_blank" rel="noopener">skill/ccpm/references/plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Every feature starts as a PRD, becomes a technical epic, decomposes into GitHub issues<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/SKILL.md" target="_blank" rel="noopener">skill/ccpm/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
     <div class="bar-row">
       <span class="pole left">small scope</span>
-      <div class="track"><div class="fill pos" style="width:35%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">large scope</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-1" title="show the 2 signals behind this">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">Use this skill for anything in the software delivery lifecycle</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">CCPM enforces a strict 5-phase discipline</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">Use this skill for anything in the software delivery lifecycle<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/SKILL.md" target="_blank" rel="noopener">skill/ccpm/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">A spec-driven development workflow: PRD → Epic → GitHub Issues → Parallel Agents → Shipped Code.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/SKILL.md" target="_blank" rel="noopener">skill/ccpm/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.4</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:22%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,21 +463,23 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">## Non-Functional Requirements</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Every line of code must trace back to a specification.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">From worktree: run project tests if detectable<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/sync.md" target="_blank" rel="noopener">skill/ccpm/references/sync.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Every line of code must trace back to a specification.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>required</td><td class="val">+1.00</td><td class="evidence">## Non-Functional Requirements<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/plan.md" target="_blank" rel="noopener">skill/ccpm/references/plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>optional</td><td class="val">+0.00</td><td class="evidence">- [ ] Code reviewed<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/structure.md" target="_blank" rel="noopener">skill/ccpm/references/structure.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.9</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:14.5%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>strong</td><td class="val">+1.00</td><td class="evidence">multiple agents (or humans) work on the same project simultaneously</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">an agent can start a task, a human can finish it, or vice versa</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">gh issue edit &lt;N&gt; --add-assignee @me --add-label &quot;in-progress&quot;<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/execute.md" target="_blank" rel="noopener">skill/ccpm/references/execute.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">an agent can start a task, a human can finish it, or vice versa<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>team_tool</td><td class="val">+1.00</td><td class="evidence">CCPM uses GitHub Issues as the source of truth<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,15 +527,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">ship better software</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">for developers who ship, by developers who ship</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">Use this skill for anything in the software delivery lifecycle<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/SKILL.md" target="_blank" rel="noopener">skill/ccpm/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">Use this skill for anything in the software delivery lifecycle<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/SKILL.md" target="_blank" rel="noopener">skill/ccpm/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.2</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-3.8</span></div>
     <div class="bar-row">
       <span class="pole left">fresh</span>
-      <div class="track"><div class="fill neg" style="width:6%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:19%"></div><div class="center"></div></div>
       <span class="pole right">mature</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-5" title="show the 5 signals behind this">
@@ -558,19 +561,19 @@
 <tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>87</td><td class="val">-1.00</td><td class="evidence">git commit_count = 87</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>9</td><td class="val">+0.00</td><td class="evidence">git contributor_count = 9</td><td>engine</td></tr>
 <tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>0</td><td class="val">-1.00</td><td class="evidence">git tag_count = 0</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>stable</td><td class="val">+1.00</td><td class="evidence">major stability and usability milestone for CCPM</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">CCPM is now an AGENT SKILL!<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Conduct a genuine brainstorming session before writing anything</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">No shortcuts. No assumptions. No regrets.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Conduct a genuine brainstorming session before writing anything.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/plan.md" target="_blank" rel="noopener">skill/ccpm/references/plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">CCPM enforces a strict 5-phase discipline<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>tool_chooses</td><td class="val">+1.00</td><td class="evidence">Read the PRD fully, then produce `.claude/epics/&lt;name&gt;/epic.md`<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/plan.md" target="_blank" rel="noopener">skill/ccpm/references/plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>mandated</td><td class="val">+1.00</td><td class="evidence">Never use `--force` in any git operation<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/conventions.md" target="_blank" rel="noopener">skill/ccpm/references/conventions.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">multiple agents running in parallel</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>every_phase</td><td class="val">-1.00</td><td class="evidence">Ready to create technical epic? Say:</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">CCPM activates automatically when your agent detects PM intent.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>every_phase</td><td class="val">-1.00</td><td class="evidence">Ready to decompose into tasks? Say: decompose the &lt;name&gt; epic<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/plan.md" target="_blank" rel="noopener">skill/ccpm/references/plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>stops_for_user</td><td class="val">-1.00</td><td class="evidence">Conflicts are never auto-resolved — agents report them and pause.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/execute.md" target="_blank" rel="noopener">skill/ccpm/references/execute.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.6</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:28%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,9 +652,11 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Spec-driven development for AI agents</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Requirements live in files, not heads.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Every line of code must trace back to a specification.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">This phase turns an idea into a structured PRD, then converts the PRD into a technical epic<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/plan.md" target="_blank" rel="noopener">skill/ccpm/references/plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Task completed — all acceptance criteria met.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/sync.md" target="_blank" rel="noopener">skill/ccpm/references/sync.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>written_once</td><td class="val">+0.00</td><td class="evidence">mv .claude/epics/&lt;name&gt; .claude/epics/archived/<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/sync.md" target="_blank" rel="noopener">skill/ccpm/references/sync.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -677,20 +685,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Tests written and passing</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">Tests: unit, integration, e2e</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">- [ ] Tests written and passing<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/structure.md" target="_blank" rel="noopener">skill/ccpm/references/structure.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">Tests: unit, integration, e2e<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/structure.md" target="_blank" rel="noopener">skill/ccpm/references/structure.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.9</span></div>
     <div class="bar-row">
       <span class="pole left">single agent</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:14.5%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,15 +714,17 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">launch parallel agents (max 5 concurrent)</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">Database Layer: schema, migrations, models<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/execute.md" target="_blank" rel="noopener">skill/ccpm/references/execute.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Each agent handles its own context in isolation. Your main conversation becomes the conductor<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>default</td><td class="val">+1.00</td><td class="evidence">Launch parallel agents** for each stream that can start immediately<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/execute.md" target="_blank" rel="noopener">skill/ccpm/references/execute.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prescriptive <em>vs</em> Composable</span><button type="button" class="info" data-dialog="poles-11" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prescriptive <em>vs</em> Composable</span><button type="button" class="info" data-dialog="poles-11" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-4.0</span></div>
     <div class="bar-row">
       <span class="pole left">prescriptive</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:20%"></div><div class="center"></div></div>
       <span class="pole right">composable</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-11" title="show the 2 signals behind this">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">A spec-driven development workflow: PRD → Epic → GitHub Issues → Parallel Agents → Shipped Code</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">No tasks to sync. Decompose the epic first.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">CCPM - spec-driven project management: PRD → Epic → GitHub Issues → parallel agents → shipped code.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/SKILL.md" target="_blank" rel="noopener">skill/ccpm/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">No local task for issue #&lt;N&gt;. Run a sync first.<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/skill/ccpm/references/execute.md" target="_blank" rel="noopener">skill/ccpm/references/execute.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">PRD → Epic → Task → Issue → Code → Commit</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Point your harness at `skill/ccpm/` — that&#x27;s it.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">CCPM activates automatically when your agent detects PM intent. Just talk naturally<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Point your harness at `skill/ccpm/`<span class="ev-path"><a href="https://github.com/automazeio/ccpm/blob/7d7e4623bc6d4c0c9ba66ca6bfecd7e5261dc697/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

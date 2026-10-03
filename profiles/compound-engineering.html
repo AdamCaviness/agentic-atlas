@@ -145,7 +145,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/EveryInc/compound-engineering-plugin" target="_blank" rel="noopener" title="Open EveryInc/compound-engineering-plugin on GitHub" aria-label="Open EveryInc/compound-engineering-plugin on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>EveryInc/compound-engineering-plugin</span></a></div>
-    <div class="stamps">version compound-engineering-v3.21.4</div>
+    <div class="stamps">version compound-engineering-v3.30.3</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 0.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 6.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 3.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 5.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 5.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 1.2, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -6.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 0.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 0.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 6.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.4, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 3.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 5.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -3.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 6.2, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 4.4, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 0.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 0.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">AI skills that make each unit of engineering work easier than the last.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">does the homework first (codebase, past learnings, prior art on the web</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">make each unit of engineering work easier than the last</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">AI skills that make each unit of engineering work easier than the last.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Look for similar patterns in codebase<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/implementation-loop.md" target="_blank" rel="noopener">skills/ce-work/references/implementation-loop.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">make each unit of engineering work easier than the last<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">plan, implement, review and fix, commit, push a branch, open a PR, and watch CI to green</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">When a git remote exists it pushes, opens a PR, and watches CI with a bounded repair loop<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">`/lfg` runs the loop hands-off<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.4</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:22%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,9 +463,11 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">watch CI to green</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Keep quality high so future changes are easy</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">CI failures (handed to `ce-debug`)<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-babysit-pr/SKILL.md" target="_blank" rel="noopener">skills/ce-babysit-pr/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Keep quality high so future changes are easy<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">include when the change affects cross-cutting concerns (data lifecycles, auth boundaries, performance characteristics<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/references/plan-sections.md" target="_blank" rel="noopener">skills/ce-plan/references/plan-sections.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>required</td><td class="val">+1.00</td><td class="evidence">Code review must actually happen before shipping.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/SKILL.md" target="_blank" rel="noopener">skills/ce-work/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -475,9 +477,9 @@
       <div class="track"><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Commit, push, and open a PR.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Review to catch issues and calibrate judgment with</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Committing, shipping, and shepherding PRs<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Sharing work and handing it off<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">progress lives in git commits and the task tracker<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/workspace-setup.md" target="_blank" rel="noopener">skills/ce-work/references/workspace-setup.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,8 +527,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">including software and non-software tasks</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">including software and non-software tasks</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">Create structured plans for multi-step work, including software and non-software tasks.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/SKILL.md" target="_blank" rel="noopener">skills/ce-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">including software and non-software tasks<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/SKILL.md" target="_blank" rel="noopener">skills/ce-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -554,23 +557,23 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>300.5</td><td class="val">+0.00</td><td class="evidence">git age_days = 300.5</td><td>engine</td></tr>
-<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>1131</td><td class="val">+1.00</td><td class="evidence">git commit_count = 1131</td><td>engine</td></tr>
-<tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>84</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 84</td><td>engine</td></tr>
-<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>199</td><td class="val">+1.00</td><td class="evidence">git tag_count = 199</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Compound Engineering moved to a root-native layout</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>357.3</td><td class="val">+0.00</td><td class="evidence">git age_days = 357.3</td><td>engine</td></tr>
+<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>1435</td><td class="val">+1.00</td><td class="evidence">git commit_count = 1435</td><td>engine</td></tr>
+<tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>102</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 102</td><td>engine</td></tr>
+<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>224</td><td class="val">+1.00</td><td class="evidence">git tag_count = 224</td><td>engine</td></tr>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Compound Engineering moved to a root-native, skills-only layout.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-3.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:15%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">collaborative product framing before planning</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">80% is in planning and review, 20% is in execution</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Interactive Q&amp;A to think through a feature or problem and write a requirements-only unified plan before planning<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">80% is in planning and review, 20% is in execution<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>tool_chooses</td><td class="val">+1.00</td><td class="evidence">Resolve technical choices from evidence; leave adequate instructions unchanged.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/SKILL.md" target="_blank" rel="noopener">skills/ce-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>project_defined</td><td class="val">-1.00</td><td class="evidence">match project commit conventions already in context<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/implementation-loop.md" target="_blank" rel="noopener">skills/ce-work/references/implementation-loop.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.2</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill pos" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Not for in-the-loop work where the user reviews each step</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">let the agent run the whole pipeline<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Plan ready at `&lt;absolute path to plan&gt;`. What would you like to do next?<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/SKILL.md" target="_blank" rel="noopener">skills/ce-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>self_recovers</td><td class="val">+1.00</td><td class="evidence">If two fixes for the same failing check have not worked, stop patching: name the assumption both fixes relied on and check it, so the next change targets the root cause.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/implementation-loop.md" target="_blank" rel="noopener">skills/ce-work/references/implementation-loop.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+1.2</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.4</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:6%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:22%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,16 +652,18 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">Plan thoroughly before writing code with</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.30</td><td class="evidence">right-sized requirements-only unified plan</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">A prior brainstorm is optional.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/SKILL.md" target="_blank" rel="noopener">skills/ce-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">a requirements-only unified plan under `&lt;root&gt;/plans/` when a file is earned<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-brainstorm/SKILL.md" target="_blank" rel="noopener">skills/ce-brainstorm/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">An unaddressed requirement or implementation unit is a finding on every depth path<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/references/intent-and-plan.md" target="_blank" rel="noopener">skills/ce-code-review/references/intent-and-plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>written_once</td><td class="val">+0.00</td><td class="evidence">**Do not edit the plan body during execution**<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/workspace-setup.md" target="_blank" rel="noopener">skills/ce-work/references/workspace-setup.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">test optional</span>
-      <div class="track"><div class="fill neg" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-9" title="show the 2 signals behind this">
@@ -677,8 +685,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">If the user explicitly asks for TDD, test-first</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">bugs, regressions, tests, and standards</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">For behavior-bearing changes, default to test-first or characterization-first when the current code and its tests make that practical<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/implementation-loop.md" target="_blank" rel="noopener">skills/ce-work/references/implementation-loop.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">Changes to implementation files should be accompanied by corresponding test updates<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/implementation-loop.md" target="_blank" rel="noopener">skills/ce-work/references/implementation-loop.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -688,9 +696,9 @@
       <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +714,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">Its core workflows spawn specialist subagents on demand for research, review, planning, and implementation.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">select the reviewers the change&#x27;s risks call for<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/SKILL.md" target="_blank" rel="noopener">skills/ce-code-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>separate_subagents</td><td class="val">+1.00</td><td class="evidence">prefer subagents for any structured multi-unit plan<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/execution-strategy.md" target="_blank" rel="noopener">skills/ce-work/references/execution-strategy.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>default</td><td class="val">+1.00</td><td class="evidence">Parallel dispatch of each independent dependency layer is the default, not an optimization to opt into<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/references/execution-strategy.md" target="_blank" rel="noopener">skills/ce-work/references/execution-strategy.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>composable</td><td class="val">+1.00</td><td class="evidence">AI skills that make each unit of engineering work easier than the last.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>optional_reorderable</td><td class="val">+1.00</td><td class="evidence">On demand, before you commit</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>composable</td><td class="val">+1.00</td><td class="evidence">36 skills, grouped by what they are for.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>optional_reorderable</td><td class="val">+1.00</td><td class="evidence">A prior brainstorm is optional.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/SKILL.md" target="_blank" rel="noopener">skills/ce-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">The point is not ceremony.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">The `compound-engineering` plugin currently ships 32 skills.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">The point is leverage, not ceremony.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">Compound Engineering is a plugin of 36 skills for AI coding agents.<span class="ev-path"><a href="https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

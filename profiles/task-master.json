@@ -1,7 +1,7 @@
 {
   "target": "claude-task-master",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
   "target_sha": "c0c98d367c55296bfe69e65680625b6db437af02",
   "target_url": "https://github.com/eyaltoledano/claude-task-master",
   "target_version": "task-master-ai@0.43.1-2-gc0c98d367c55",
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "For Existing Codebase Analysis",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "For **existing projects**: You can use `scripts/prd.txt` or migrate with `task-master migrate`",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -39,7 +40,8 @@
           "resolved": true,
           "answer": "no",
           "evidence": "For **existing projects**: You can use `scripts/prd.txt` or migrate with `task-master migrate`",
-          "source": "agent-team draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -49,7 +51,8 @@
           "resolved": true,
           "answer": "small_diff",
           "evidence": "Get next available task to work on",
-          "source": "agent-team draft 2026-07-22"
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "One command can autonomously complete a task's subtasks via TDD and open a PR when done.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Before marking a task as complete, verify it according to",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "verify tests \u2192 commit \u2192 repeat per subtask \u2192 final verify \u2192 push \u2192 open PR",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Analyze complexity and expand tasks",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,28 +107,52 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 0.0,
-      "coverage": 0.6,
+      "score": -5.6,
+      "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "production-hardening",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "with coverage thresholds",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "none",
+          "evidence": "Manual verification if required",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
-          "value": null,
-          "resolved": false,
-          "answer": null,
-          "evidence": "no answer supplied",
-          "source": null
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Follow the project's coding standards",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Identify potential risks and how they'll be addressed",
+          "path": "assets/example_prd.txt",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Before marking a task as complete, verify it according to",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -2.9,
       "coverage": 1.0,
       "indicators": [
         {
@@ -150,17 +179,30 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "Multiple team members can work on separate tags without conflicts",
-          "source": "agent-team draft 2026-07-22"
+          "path": "docs/task-structure.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
           "kind": "judged",
           "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Task Master works well with `gh` CLI",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "As a reviewer, I can inspect commits per subtask, and a PR summarizing the work when the task completes.",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "repository",
+          "evidence": "you might encounter merge conflicts in your tasks.json file if multiple team members create tasks on different branches",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -187,7 +229,8 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "A task management system for AI-driven development",
-          "source": "agent-team draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "task management system for AI-driven development with Claude, designed to work seamlessly with Cursor AI",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "A task management system for AI-driven development with Claude, designed to work seamlessly with Cursor AI",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -224,6 +268,7 @@
           "resolved": true,
           "answer": "414.7",
           "evidence": "git age_days = 414.7",
+          "path": null,
           "source": "engine"
         },
         {
@@ -234,6 +279,7 @@
           "resolved": true,
           "answer": "1216",
           "evidence": "git commit_count = 1216",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "55",
           "evidence": "git contributor_count = 55",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,6 +301,7 @@
           "resolved": true,
           "answer": "102",
           "evidence": "git tag_count = 102",
+          "path": null,
           "source": "engine"
         },
         {
@@ -264,7 +312,8 @@
           "resolved": true,
           "answer": "evolving",
           "evidence": "\"version\": \"0.43.1\"",
-          "source": "agent-team draft 2026-07-22"
+          "path": "package.json",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 3.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,8 +339,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Parse a PRD file and generate tasks",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Parse a PRD and generate tasks",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -301,7 +351,30 @@
           "resolved": true,
           "answer": "guided",
           "evidence": "Standard Development Workflow",
-          "source": "agent-team draft 2026-07-22"
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "Reference the task's details section for implementation specifics",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Follow the project's coding standards",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -327,18 +400,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "a repeatable, automated process that can run autonomously",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "dependencies, tags, research, autopilot, scoping, models, rules",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "some_phases",
-          "evidence": "PUSH: confirms with user",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "none",
+          "evidence": "Mark task complete",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "stops_for_user",
+          "evidence": "updating/researching them before/during implementation if getting stuck",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": -4.0,
+      "score": 0.7,
       "coverage": 1.0,
       "indicators": [
         {
@@ -365,17 +451,41 @@
           "resolved": true,
           "answer": "encouraged",
           "evidence": "Make sure you have a PRD (Recommended)",
-          "source": "agent-team draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.3,
           "resolved": true,
-          "answer": "no",
-          "evidence": "Generate tasks from PRD document",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "some",
+          "evidence": "Product Requirements Document for parsing",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "The task's specified testStrategy",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "another PRD can be parsed (with new information only!) using parse-prd with --append flag",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,28 +501,30 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": -6.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "tests-first",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "enforced",
-          "evidence": "Every subtask iteration: failing tests added first (red), then code added to pass them (green), commit only after green.",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "no",
+          "evidence": "Create appropriate tests based on the task's testStrategy",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "first_class",
-          "evidence": "generate tests for the first subtask (red) using the Surgical Test Generator",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "present",
+          "evidence": "Before marking a task as complete, verify it according to",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,18 +540,41 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "specialist-agents",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Spawn sub-agents for each parallel subtask",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "single",
+          "evidence": "Use your AI assistant to:",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "one_conversation",
+          "evidence": "Use `/clear` between different tasks to maintain focus",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "For complex projects, use multiple Claude Code sessions",
+          "path": "assets/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -466,7 +601,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "selective tool loading to reduce context window usage",
-          "source": "agent-team draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "the next task to work on based on dependencies and status",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Analyze dependencies to determine which tasks are ready to be worked on",
+          "path": "docs/tutorial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -503,7 +640,8 @@
           "resolved": true,
           "answer": "moderate",
           "evidence": "project setup, task management, analysis, dependencies, tags, research",
-          "source": "agent-team draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "36 tools are loaded (~21,000 tokens)",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "By default, all 36 tools are loaded (~21,000 tokens)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

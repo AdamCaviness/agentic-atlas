@@ -1,10 +1,10 @@
 {
   "target": "compound-engineering",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "0a2957852e2034d04eb01120fd7da6ed5307dc56",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
   "target_url": "https://github.com/EveryInc/compound-engineering-plugin",
-  "target_version": "compound-engineering-v3.21.4",
+  "target_version": "compound-engineering-v3.30.3-1-g9af474a70e7f",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -29,7 +29,8 @@
           "resolved": true,
           "answer": "either",
           "evidence": "AI skills that make each unit of engineering work easier than the last.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "does the homework first (codebase, past learnings, prior art on the web",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Look for similar patterns in codebase",
+          "path": "skills/ce-work/references/implementation-loop.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -49,7 +51,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "make each unit of engineering work easier than the last",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "full_lifecycle",
-          "evidence": "plan, implement, review and fix, commit, push a branch, open a PR, and watch CI to green",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "When a git remote exists it pushes, opens a PR, and watches CI with a bounded repair loop",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "`/lfg` runs the loop hands-off",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 4.4,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,8 +117,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "watch CI to green",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "CI failures (handed to `ce-debug`)",
+          "path": "skills/ce-babysit-pr/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -123,7 +129,30 @@
           "resolved": true,
           "answer": "maintainable_only",
           "evidence": "Keep quality high so future changes are easy",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "include when the change affects cross-cutting concerns (data lifecycles, auth boundaries, performance characteristics",
+          "path": "skills/ce-plan/references/plan-sections.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "Code review must actually happen before shipping.",
+          "path": "skills/ce-work/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -149,8 +178,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Commit, push, and open a PR.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Committing, shipping, and shepherding PRs",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Review to catch issues and calibrate judgment with",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Sharing work and handing it off",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "progress lives in git commits and the task tracker",
+          "path": "skills/ce-work/references/workspace-setup.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "mostly_software",
-          "evidence": "including software and non-software tasks",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Create structured plans for multi-step work, including software and non-software tasks.",
+          "path": "skills/ce-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -197,7 +240,8 @@
           "resolved": true,
           "answer": "some",
           "evidence": "including software and non-software tasks",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "skills/ce-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "300.5",
-          "evidence": "git age_days = 300.5",
+          "answer": "357.3",
+          "evidence": "git age_days = 357.3",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1131",
-          "evidence": "git commit_count = 1131",
+          "answer": "1435",
+          "evidence": "git commit_count = 1435",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "84",
-          "evidence": "git contributor_count = 84",
+          "answer": "102",
+          "evidence": "git contributor_count = 102",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "199",
-          "evidence": "git tag_count = 199",
+          "answer": "224",
+          "evidence": "git tag_count = 224",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "Compound Engineering moved to a root-native layout",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Compound Engineering moved to a root-native, skills-only layout.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -3.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,8 +339,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "collaborative product framing before planning",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Interactive Q&A to think through a feature or problem and write a requirements-only unified plan before planning",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -301,7 +351,30 @@
           "resolved": true,
           "answer": "guided",
           "evidence": "80% is in planning and review, 20% is in execution",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "Resolve technical choices from evidence; leave adequate instructions unchanged.",
+          "path": "skills/ce-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "match project commit conventions already in context",
+          "path": "skills/ce-work/references/implementation-loop.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Run the full autonomous shipping pipeline end-to-end, hands-off with no check-ins",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "let the agent run the whole pipeline",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "Not for in-the-loop work where the user reviews each step",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Plan ready at `<absolute path to plan>`. What would you like to do next?",
+          "path": "skills/ce-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "self_recovers",
+          "evidence": "If two fixes for the same failing check have not worked, stop patching: name the assumption both fixes relied on and check it, so the next change targets the root cause.",
+          "path": "skills/ce-work/references/implementation-loop.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 1.2,
+      "score": 4.4,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,18 +450,42 @@
           "value": 0.0,
           "resolved": true,
           "answer": "encouraged",
-          "evidence": "Plan thoroughly before writing code with",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "A prior brainstorm is optional.",
+          "path": "skills/ce-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.3,
+          "value": 1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "right-sized requirements-only unified plan",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "yes",
+          "evidence": "a requirements-only unified plan under `<root>/plans/` when a file is earned",
+          "path": "skills/ce-brainstorm/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "An unaddressed requirement or implementation unit is a finding on every depth path",
+          "path": "skills/ce-code-review/references/intent-and-plan.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "**Do not edit the plan body during execution**",
+          "path": "skills/ce-work/references/workspace-setup.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,18 +501,19 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -6.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "tests-first",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "If the user explicitly asks for TDD, test-first",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "encouraged",
+          "evidence": "For behavior-bearing changes, default to test-first or characterization-first when the current code and its tests make that practical",
+          "path": "skills/ce-work/references/implementation-loop.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "present",
-          "evidence": "bugs, regressions, tests, and standards",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Changes to implementation files should be accompanied by corresponding test updates",
+          "path": "skills/ce-work/references/implementation-loop.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "Its core workflows spawn specialist subagents on demand for research, review, planning, and implementation.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "select the reviewers the change's risks call for",
+          "path": "skills/ce-code-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "separate_subagents",
+          "evidence": "prefer subagents for any structured multi-unit plan",
+          "path": "skills/ce-work/references/execution-strategy.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "default",
+          "evidence": "Parallel dispatch of each independent dependency layer is the default, not an optimization to opt into",
+          "path": "skills/ce-work/references/execution-strategy.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "composable",
-          "evidence": "AI skills that make each unit of engineering work easier than the last.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "36 skills, grouped by what they are for.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "optional_reorderable",
-          "evidence": "On demand, before you commit",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "A prior brainstorm is optional.",
+          "path": "skills/ce-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "The point is not ceremony.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "The point is leverage, not ceremony.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "The `compound-engineering` plugin currently ships 32 skills.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Compound Engineering is a plugin of 36 skills for AI coding agents.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

@@ -4,7 +4,7 @@ All changes to the measurement standard are recorded here, newest first. The aut
 
 ## 5.0.0 (unreleased)
 
-In progress under #58. 5.0.0 ships as one release so the corpus is re-answered once: this version stays unreleased, and later #58 steps add to this entry, until every committed profile is re-answered at its source's HEAD. Until then the committed corpus remains stamped 4.0.0.
+Shipped under #58 as one release, so the corpus was re-answered once: every committed profile was re-answered at its source's default-branch HEAD under the rules below, and is stamped 5.0.0.
 
 Motivation: the engine accepted a judged quote found anywhere in the target's text files. It checked that the quote exists, not that it describes the method the tool ships. Under 4.0.0, 19 of 569 resolved judged answers were backed only by a changelog, an example project, or a tool's internal design notes (#56). task-master's +10 on test-optional-vs-test-first rested entirely on its own internal feature-design document.
 
@@ -24,7 +24,29 @@ Changes that move scores:
   - solo-vs-team: `shared-work-state` (one developer's machine, files committed to the repository, or a hosted tool the team shares).
   generalist-vs-specialist keeps two questions: its README argues that a third would re-read the same domain claim, and that its pile at the specialist pole reflects a corpus of software-delivery tools. Each anchor answers every new question on the axes it places, and a new `ask-then-autopilot` anchor places the interrogative, autonomous, and composable poles, which no anchor covered before. The corpus harness skips its degenerate-question check for an indicator no committed profile has answered yet, and counts the new questions once #58 step 3 re-answers the corpus.
 
-Existing profiles: the committed 4.0.0 profiles carry no `path`. They still load, render, and pass `make check`: the evidence-path gate (`tests/test_corpus.py`) checks only profiles stamped with the current rubric MAJOR and skips older ones with a visible reason. `scripts/corpus.py rescore` and `refresh` skip a profile whose judged answers lack paths rather than replay it, because every replayed answer would fail and a `--write` would erase its judged positions. Each is re-answered with `/agentic-atlas:run <url> --save` in #58 step 3, after which the gate checks the whole corpus.
+Re-answering the corpus (#58 step 3): all 23 tools were re-answered at their default-branch HEAD on 2026-10-03, one agent per tool, through the new `scripts/corpus.py answer` command, which profiles a clone at HEAD with a supplied answers file and reports every answer the engine rejects. All 805 judged answers (35 per tool) resolve, and every one cites an admissible file. gsd's source moved from the archived `gsd-build/get-shit-done` to its continuation, `open-gsd/gsd-core`, which carries the same history. A 4.0.0 profile is not comparable to a 5.0.0 one, and `rescore` and `refresh` skip a profile whose judged answers lack paths, because replaying it would leave every judged indicator unresolved.
+
+Score spread per axis, across the 23 tools (#58 step 4):
+
+| axis | distinct scores, 4.0.0 | most common, 4.0.0 | distinct scores, 5.0.0 | most common, 5.0.0 |
+|---|---|---|---|---|
+| greenfield-vs-brownfield | 10 | +3.8 for 9 of 23 | 7 | +0.0 for 6 of 23 |
+| small-scope-vs-large-scope | 7 | +7.0 for 11 of 23 | 6 | +7.0 for 12 of 23 |
+| prototype-vs-production | 5 | +4.0 for 14 of 23 | 8 | +4.4 for 5 of 23 |
+| solo-vs-team | 6 | +0.0 for 14 of 23 | 8 | +0.0 for 8 of 23 |
+| generalist-vs-specialist | 3 | +10.0 for 17 of 23 | 3 | +10.0 for 16 of 23 |
+| fresh-vs-mature | 11 | +5.0 for 7 of 23 | 10 | +5.0 for 8 of 23 |
+| interrogative-vs-opinionated | 4 | -5.0 for 13 of 23 | 12 | -2.0 for 6 of 23 |
+| autonomous-vs-human-in-loop | 4 | +0.0 for 7 of 23 | 11 | -6.2 for 5 of 23 |
+| spec-light-vs-spec-driven | 6 | +10.0 for 14 of 23 | 10 | +7.8 for 8 of 23 |
+| test-optional-vs-test-first | 6 | +10.0 for 8 of 23 | 6 | +10.0 for 5 of 23 |
+| single-agent-vs-multi-agent | 3 | +10.0 for 11 of 23 | 8 | -10.0 for 7 of 23 |
+| prescriptive-vs-composable | 6 | +0.0 for 10 of 23 | 6 | +0.0 for 9 of 23 |
+| lightweight-vs-heavyweight | 5 | +0.0 for 7 of 23 | 7 | -10.0 for 7 of 23 |
+
+On every axis #55 targeted, the most common score now holds fewer than half the tools. generalist-vs-specialist stays at 16 of 23 on the specialist pole, which its README explains as a fact about a corpus of software-delivery tools. small-scope-vs-large-scope, which #55 did not change, holds 12 of 23 at +7.0.
+
+The ten largest moves were checked against the source repositories. Nine are correct: four follow changes in the tools since their old pins (for example vibe-coding-prompt-template added routing for existing projects, and bmad-method dropped its write-failing-tests-first step), and five correct old answers that rested on evidence 5.0.0 excludes (task-master's TDD and subagent claims came from `.taskmaster/` and its maintainers' own configuration, context-engineering's subagents from `use-cases/`). One was wrong and was fixed before commit: cursor-memory-bank's `approval-gates` cited an installation note, while each of its phases waits for the user to run the next command.
 
 ## 4.0.0
 

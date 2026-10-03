@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 10.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 0.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 5.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 7.8, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 0.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": 5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 3.8, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 7.8, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Your prompt (spec with DoD items) or GitHub Issue</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">research the codebase, create an implementation plan</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">decompose into work units</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Your prompt (spec with DoD items) or GitHub Issue<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">research the codebase, create an implementation plan<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/GETTING_STARTED.md" target="_blank" rel="noopener">GETTING_STARTED.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">decompose into work units<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">through a complete software development lifecycle</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">A structured 9-phase workflow</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">through a complete software development lifecycle<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">A structured 9-phase workflow<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.8</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:39%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,9 +463,11 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>strong</td><td class="val">+1.00</td><td class="evidence">writing production-level code with 100% test coverage, mandatory TDD</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Quick prototyping or exploratory work</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>strong</td><td class="val">+1.00</td><td class="evidence">writing production-level code with 100% test coverage, mandatory TDD<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">writing production-level code with 100% test coverage, mandatory TDD<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">Performance considerations addressed<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/skills/design-review-gate/SKILL.md" target="_blank" rel="noopener">skills/design-review-gate/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>required</td><td class="val">+1.00</td><td class="evidence">adversarial reviewers check DoD compliance with file:line evidence<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -475,9 +477,9 @@
       <div class="track"><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">multiple Claude Code sessions are active on the same repository</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Reports when ready for human approval</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">multiple Claude Code sessions are active on the same repository<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/skills/start/SKILL.md" target="_blank" rel="noopener">skills/start/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Reports when ready for human approval<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/USAGE.md" target="_blank" rel="noopener">USAGE.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">All task state lives in BEADS; agents coordinate via database, not messages<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,8 +527,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">through a complete software development lifecycle</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">writing production-level code with 100% test coverage</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">through a complete software development lifecycle<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">writing production-level code with 100% test coverage<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -558,7 +561,7 @@
 <tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>117</td><td class="val">+0.00</td><td class="evidence">git commit_count = 117</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>2</td><td class="val">-1.00</td><td class="evidence">git contributor_count = 2</td><td>engine</td></tr>
 <tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>12</td><td class="val">+1.00</td><td class="evidence">git tag_count = 12</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>stable</td><td class="val">+1.00</td><td class="evidence">proven in the field writing production-level code with 100% test coverage</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>stable</td><td class="val">+1.00</td><td class="evidence">proven in the field writing production-level code with 100% test coverage<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -568,9 +571,9 @@
       <div class="track"><div class="fill pos" style="width:25%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">ask the user to confirm your assessment</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">Gates are blocking state transitions, not advisory.</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">ask the user to confirm your assessment<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/commands/start-task.md" target="_blank" rel="noopener">commands/start-task.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>strict</td><td class="val">+1.00</td><td class="evidence">Gates are blocking state transitions, not advisory.<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/USAGE.md" target="_blank" rel="noopener">USAGE.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Propose 2-3 approaches with trade-offs<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/commands/brainstorm.md" target="_blank" rel="noopener">commands/brainstorm.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>mandated</td><td class="val">+1.00</td><td class="evidence">When reviewing or writing code in a metaswarm-managed project, enforce the following standards.<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/guides/coding-standards.md" target="_blank" rel="noopener">guides/coding-standards.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.8</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill pos" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:19%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">coordinates a swarm of specialized AI agents to autonomously handle GitHub Issues from creation to merged PR</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Proactive checkpoints at planned review points</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">coordinates a swarm of specialized AI agents to autonomously handle GitHub Issues from creation to merged PR<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/skills/start/SKILL.md" target="_blank" rel="noopener">skills/start/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Proactive checkpoints at planned review points<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>retries_then_stops</td><td class="val">+0.00</td><td class="evidence">Max 3 retries per work unit, then escalate with failure history<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/commands/start-task.md" target="_blank" rel="noopener">commands/start-task.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.8</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:39%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,9 +652,11 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Tasks without a written spec or DoD items</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Issues, knowledge, specs all in version control</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Create detailed implementation plan<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/commands/start-task.md" target="_blank" rel="noopener">commands/start-task.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Issues, knowledge, specs all in version control<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">review adversarially against written spec contracts<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>written_once</td><td class="val">+0.00</td><td class="evidence">Write design doc to `docs/plans/YYYY-MM-DD-&lt;topic&gt;-design.md`<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/commands/brainstorm.md" target="_blank" rel="noopener">commands/brainstorm.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -677,8 +685,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>enforced</td><td class="val">+1.00</td><td class="evidence">TDD is mandatory, not optional</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">Test-First Always</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>enforced</td><td class="val">+1.00</td><td class="evidence">TDD is mandatory, not optional<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">Test-First Always<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -688,9 +696,9 @@
       <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +714,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">18 specialized agent personas</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">18 specialized agent personas<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>separate_subagents</td><td class="val">+1.00</td><td class="evidence">Spawn 5 parallel `Task()` subagents for each review round. Fresh instances per round.<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/skills/design-review-gate/SKILL.md" target="_blank" rel="noopener">skills/design-review-gate/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>default</td><td class="val">+1.00</td><td class="evidence">5 specialist agents (PM, Architect, Designer, Security, CTO) review in parallel<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">A structured 9-phase workflow</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">agents cannot skip design review, plan review, or knowledge capture</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">A structured 9-phase workflow<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">agents cannot skip design review, plan review, or knowledge capture<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>heavy</td><td class="val">+1.00</td><td class="evidence">Coordinate 18 specialized AI agents and 13 orchestration skills</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>large</td><td class="val">+1.00</td><td class="evidence">Node.js 18+ (for automation scripts)</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>heavy</td><td class="val">+1.00</td><td class="evidence">Coordinate 18 specialized AI agents and 13 orchestration skills<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>large</td><td class="val">+1.00</td><td class="evidence">Node.js 18+ (for automation scripts)<span class="ev-path"><a href="https://github.com/dsifry/metaswarm/blob/33d39f776f7fe29098dcf048955756a237e8cb40/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

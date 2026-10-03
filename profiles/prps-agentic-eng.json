@@ -1,8 +1,8 @@
 {
   "target": "PRPs-agentic-eng",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "08e879274cc8e38c67a6c151a171b51e59723f2f",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "435292597e7b04f64f8f275da9d2c985c4251281",
   "target_url": "https://github.com/Wirasm/PRPs-agentic-eng",
   "target_version": null,
   "axes": [
@@ -18,18 +18,19 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 6.2,
+      "score": 10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "starting-point",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "either",
-          "evidence": "solutions must fit existing codebase patterns first",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "existing_codebase",
+          "evidence": "Read repository guidance and discover the actual project structure. Do not assume `src/`, a framework, or a validation stack.",
+          "path": "plugins/prp-core/skills/prp-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "CODEBASE FIRST, RESEARCH SECOND. Solutions must fit existing patterns before introducing new ones.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "`prp-core:codebase-analyst` to trace the current control flow, data flow, state changes, contracts, and observable behavior.",
+          "path": "plugins/prp-core/skills/prp-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "small_diff",
-          "evidence": "Each plan should be completable by an AI in one loop",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Prefer the smallest valuable vertical slice: it must deliver or directly unlock the user outcome",
+          "path": "plugins/prp-core/skills/prp-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -65,28 +68,30 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 3.0,
+      "score": 10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "lifecycle-coverage",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.5,
+          "value": 1.0,
           "resolved": true,
-          "answer": "most",
-          "evidence": "Autonomous cyclic pipeline: plan \u2192 implement \u2192 pr \u2192 review",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "full_lifecycle",
+          "evidence": "Continue autonomously through plan, implementation, PR, review, correction, re-review, and CI.",
+          "path": "plugins/prp-core/skills/prp-issue/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "Every skill is then available across all your projects as `/prp-core:<name>`",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "multi_stage",
+          "evidence": "Compose `/prp-plan`, `/prp-implement`, and `/prp-review`; do not reproduce their craft.",
+          "path": "plugins/prp-core/skills/prp-issue/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 4.4,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,8 +117,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "SECURITY: Attack vectors? Data exposure risks? Auth/authz?",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Pass `--validate \"<cmd>\"` to give the loop an authoritative green check (exit 0 = pass)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "The minimum viable packet an AI needs to ship production-ready code on the first pass.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Treat generated code as cheap and maintenance as expensive.",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "When existing users, behavior, or stored data can be affected, include one compact Delivery Considerations section covering only what applies",
+          "path": "plugins/prp-core/skills/prp-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "Everything else is reviewed, and only through `/prp-review`, which picks reviewers by risk and gives them a detached checkout.",
+          "path": "plugins/prp-core/skills/prp-issue/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -2.9,
       "coverage": 1.0,
       "indicators": [
         {
@@ -149,8 +178,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Map dependencies and conflict risk: predict the files each workstream touches.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Keep a delivery owner addressable until merge so its context can handle corrections or conflicts.",
+          "path": "plugins/prp-core/skills/prp-orchestrate/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Do not launch until the user approves.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Do not merge. The caller or outer orchestrator owns that gate.",
+          "path": "plugins/prp-core/skills/prp-issue/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "local",
+          "evidence": "Artifacts and runtime state are stored outside the repository in a per-project directory",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -187,7 +229,8 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "A collection of prompts for AI-assisted development with Claude Code.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "an agentic-engineering workflow packaged as Claude Code",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "A collection of prompts for AI-assisted development with Claude Code.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,7 +257,7 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 1.2,
+      "score": -1.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "419.2",
-          "evidence": "git age_days = 419.2",
+          "answer": "478.0",
+          "evidence": "git age_days = 478.0",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "140",
-          "evidence": "git commit_count = 140",
+          "answer": "279",
+          "evidence": "git commit_count = 279",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "3",
           "evidence": "git contributor_count = 3",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,17 +301,19 @@
           "resolved": true,
           "answer": "0",
           "evidence": "git tag_count = 0",
+          "path": null,
           "source": "engine"
         },
         {
           "indicator_id": "stated-stability",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "stable",
-          "evidence": "I keep this surface small and stable on purpose.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "evolving",
+          "evidence": "The previous slash-command generation is preserved in `old-prp-commands/` for reference only.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -291,7 +340,8 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Asks clarifying questions before assuming",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "plugins/prp-core/skills/prp-prd/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "Medium Features: Direct to Plan",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "### Medium Features: Direct to Plan",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Before writing the plan, state the recommended approach and its evidence. Stop and ask the user when:",
+          "path": "plugins/prp-core/skills/prp-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Read `engineering.md` when the project has one, wherever it lives in the repository.",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Fully autonomous (`--dangerously-skip-permissions`).",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "`/prp-loop` | Autonomous pipeline: plan \u2192 implement with PR \u2192 review (review\u2192fix loops until clean)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "Wait for user response before proceeding.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "**GATE**: Wait for user responses before proceeding.",
+          "path": "plugins/prp-core/skills/prp-prd/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "self_recovers",
+          "evidence": "Fix the proven cause and rerun the affected proof.",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "Create a plan first: /prp-plan",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Execute the supplied implementation plan through a validated commit and pull request",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -375,7 +462,30 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "**Output path**: `$PRP_DIR/prds/{kebab-case-name}.prd.md`",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "plugins/prp-core/skills/prp-prd/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "run every applicable command or procedure in the plan's Validation section and prove every Acceptance criterion.",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Do not move or archive the plan.",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,28 +501,30 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -6.0,
+      "score": 4.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "tests-first",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "Validation loops catch mistakes early. Run checks after every change.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "encouraged",
+          "evidence": "For bug fixes, add a regression test that fails before the fix and passes after it when practical.",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "present",
-          "evidence": "You MUST write or update tests for new code.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "first_class",
+          "evidence": "After each coherent task, ask: \u201cHow do I prove this actually works?\u201d",
+          "path": "plugins/prp-core/skills/prp-implement/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,7 +540,7 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.1,
       "coverage": 1.0,
       "indicators": [
         {
@@ -438,8 +550,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "multi-agent specialist fan-out (comments, tests, errors, types, code, docs, simplify)",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Coordinate an evidence-based PR review. Reviewer agents are the only path for judging the code",
+          "path": "plugins/prp-core/skills/prp-review/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Preserve accumulated reasoning across that implementation lifecycle; use fresh contexts only where independence is the feature\u2014review.",
+          "path": "plugins/prp-core/skills/prp-issue/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "default",
+          "evidence": "launch these agents in parallel when capacity permits, or sequentially when it does not. Every listed role remains required",
+          "path": "plugins/prp-core/skills/prp-plan/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Compose skills by name only.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Most are both **user-invocable** (type `/prp-core:<name>`) and **agent-invocable**",
+          "path": "plugins/prp-core/README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "ONLY AFTER Phase 2 is complete",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "### Medium Features: Direct to Plan",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "PRD + curated codebase intelligence + agent/runbook",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "**Product Requirement Prompt (PRP)** = PRD + curated codebase intelligence + agent/runbook",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "tiny",
-          "evidence": "cp -r /path/to/PRPs-agentic-eng/.claude/skills/prp-plan .claude/skills/",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "/plugin install prp-core@prp-marketplace",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

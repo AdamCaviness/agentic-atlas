@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": -5.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": -10.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 0.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -10.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -6.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": -1.2, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": -3.3, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": -7.1, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -1.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -6.2, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 5.6, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -10.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -10.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -378,10 +378,10 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.2</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:6%"></div><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>blank_slate</td><td class="val">-1.00</td><td class="evidence">building features, from ideation to implementation</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">The user provides a brief description or request for a new feature or functionality.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">instruct the AI to work through the task list one sub-task at a time</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">The user provides a brief description or request for a new feature or functionality.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Reference these files to help you: [Optional: @file1.py @file2.ts]<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Guiding the AI to tackle one task at a time, allowing you to review and approve each change.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">from ideation to implementation, with built-in checkpoints for verification</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">Here&#x27;s the step-by-step process using the `.md` files in this repository</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">you can systematically approach building features, from ideation to implementation, with built-in checkpoints for verification.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">Here&#x27;s the step-by-step process using the `.md` files in this repository:<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-3.3</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:16.5%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,21 +463,23 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">Use `npx jest [optional/path/to/test/file]` to run tests.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">reducing the chance of it getting lost or generating overly complex, incorrect code</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Clearly outlining what needs to be built with a Product Requirement Document (PRD).<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Allows you to review and approve AI-generated code at each small step, ensuring quality and control.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">Mention any known technical constraints, dependencies, or suggestions<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>optional</td><td class="val">+0.00</td><td class="evidence">The AI will attempt the task and then prompt you to review.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-7.1</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:35.5%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">start guiding your AI collaborator step-by-step</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">allowing you to review and approve each change</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">Clone or Download:** Get these `.md` files into your project or a central location where your AI tool can access them.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">Assume the primary reader of the PRD is a **junior developer**.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">Save the generated document in the `/tasks/` directory with the filename `tasks-[feature-name].md`<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/generate-tasks.md" target="_blank" rel="noopener">generate-tasks.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,15 +527,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">feature development workflow with AI-powered IDEs and CLIs</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">suitable for a junior developer to understand and implement the feature</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">supercharge your feature development workflow with AI-powered IDEs and CLIs<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">supercharge your feature development workflow with AI-powered IDEs and CLIs<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.5</span></div>
     <div class="bar-row">
       <span class="pole left">fresh</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:12.5%"></div><div class="center"></div></div>
       <span class="pole right">mature</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-5" title="show the 5 signals behind this">
@@ -558,19 +561,19 @@
 <tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>65</td><td class="val">-1.00</td><td class="evidence">git commit_count = 65</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>13</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 13</td><td>engine</td></tr>
 <tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>0</td><td class="val">-1.00</td><td class="evidence">git tag_count = 0</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>stable</td><td class="val">+1.00</td><td class="evidence">this method has proven to be a very reliable way to build out larger features</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Feel free to modify the prompts within the `.md` files to better suit your specific needs or coding style.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:5%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Before writing the PRD, the AI *must* ask only the most essential clarifying questions</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">Systematically use the `.md` files in your AI assistant as described in the workflow above</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Before writing the PRD, the AI *must* ask only the most essential clarifying questions needed to write a clear PRD.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">Systematically use the `.md` files in your AI assistant as described in the workflow above.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>tool_chooses</td><td class="val">+1.00</td><td class="evidence">The goal is to understand the &quot;what&quot; and &quot;why&quot; of the feature, not necessarily the &quot;how&quot; (which the developer will figure out).<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>overridable_defaults</td><td class="val">+0.00</td><td class="evidence">Unit tests should typically be placed alongside the code files they are testing<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/generate-tasks.md" target="_blank" rel="noopener">generate-tasks.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.2</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">The process explicitly requires a pause after generating parent tasks to get user confirmation</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>every_phase</td><td class="val">-1.00</td><td class="evidence">review and approve AI-generated code at each small step</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">instruct the AI to work through the task list one sub-task at a time.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">The process explicitly requires a pause after generating parent tasks to get user confirmation (&quot;Go&quot;) before proceeding to generate the detailed sub-tasks.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/generate-tasks.md" target="_blank" rel="noopener">generate-tasks.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>stops_for_user</td><td class="val">-1.00</td><td class="evidence">If the AI struggles with a task, try rephrasing your initial feature description or breaking down tasks even further.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.6</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:28%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,16 +652,18 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Do NOT start implementing the PRD</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Save the generated document as `prd-[feature-name].md` inside the `/tasks` directory</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Take @MyFeature-PRD.md and create tasks using @generate-tasks.md<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Save the generated document as `prd-[feature-name].md` inside the `/tasks` directory.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>partial</td><td class="val">+0.00</td><td class="evidence">As you complete each task, you must check it off in this markdown file<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/generate-tasks.md" target="_blank" rel="noopener">generate-tasks.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>written_once</td><td class="val">+0.00</td><td class="evidence">Take the user&#x27;s answers to the clarifying questions and improve the PRD<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
     <div class="bar-row">
       <span class="pole left">test optional</span>
-      <div class="track"><div class="fill neg" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-9" title="show the 2 signals behind this">
@@ -677,8 +685,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">including corresponding test files if applicable</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">Unit tests should typically be placed alongside the code files they are testing</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">including corresponding test files if applicable.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/generate-tasks.md" target="_blank" rel="noopener">generate-tasks.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>incidental</td><td class="val">-1.00</td><td class="evidence">including corresponding test files if applicable.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/generate-tasks.md" target="_blank" rel="noopener">generate-tasks.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -688,9 +696,9 @@
       <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +714,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">guide an AI assistant in creating a detailed Product Requirements Document</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">To guide an AI assistant in creating a detailed Product Requirements Document (PRD)<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/create-prd.md" target="_blank" rel="noopener">create-prd.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>one_conversation</td><td class="val">-1.00</td><td class="evidence">In your AI tool, tell the AI to start with the first task<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">-1.00</td><td class="evidence">instruct the AI to work through the task list one sub-task at a time.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">the next step is to generate a detailed, step-by-step implementation plan</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">Always include task 0.0 &quot;Create feature branch&quot; as the first task</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">Workflow: From Idea to Implemented Feature<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mandatory_ordered</td><td class="val">-1.00</td><td class="evidence">Enforces a clear process from idea to code.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">You can create a lightweight PRD directly within your AI tool of choice</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Get these `.md` files into your project</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>minimal</td><td class="val">-1.00</td><td class="evidence">You can create a lightweight PRD directly within your AI tool of choice:<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Get these `.md` files into your project or a central location where your AI tool can access them.<span class="ev-path"><a href="https://github.com/snarktank/ai-dev-tasks/blob/efbffaac10e68c94e14aaa587c79b7d5015b5ebd/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

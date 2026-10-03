@@ -145,7 +145,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/garrytan/gstack" target="_blank" rel="noopener" title="Open garrytan/gstack on GitHub" aria-label="Open garrytan/gstack on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>garrytan/gstack</span></a></div>
-    <div class="stamps">commit 94993f740127</div>
+    <div class="stamps">commit ac20ef1e1380</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 10.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 3.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 0.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 4.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 4.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 0.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 0.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 7.8, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 3.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 0.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -1.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 0.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 2.2, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 4.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 7.1, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 4.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -378,10 +378,10 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.8</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill pos" style="width:19%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Build a complete design system from scratch.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">re-index this repo&#x27;s code into gbrain</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">another doing `/review` on a PR, a third implementing a feature</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Run `/review` on any branch with changes<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">re-index this repo&#x27;s code into gbrain<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Ship the narrowest wedge tomorrow, learn from<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">Think → Plan → Build → Review → Test → Ship → Reflect</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">The skills run in the order a sprint runs</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">Think → Plan → Build → Review → Test → Ship → Reflect<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">gstack is a process, not a collection of tools. The skills run in the order a sprint runs<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.8</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:39%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,9 +463,11 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>strong</td><td class="val">+1.00</td><td class="evidence">OWASP Top 10 + STRIDE threat model</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">The output is shippable, not a demo.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>strong</td><td class="val">+1.00</td><td class="evidence">Merge the PR, wait for CI and deploy, verify production health.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">tests make vibe coding safe instead of yolo coding<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">Evaluate Architecture → Code Quality → Tests → Performance. Never condense,<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/plan-eng-review/sections/review-sections.md" target="_blank" rel="noopener">plan-eng-review/sections/review-sections.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>required</td><td class="val">+1.00</td><td class="evidence">The Claude adversarial subagent always runs.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/ship/sections/adversarial.md" target="_blank" rel="noopener">ship/sections/adversarial.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -475,9 +477,9 @@
       <div class="track"><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,11 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Flag via AskUserQuestion, don&#x27;t fix (may be someone else&#x27;s)</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Approve plan. Exit plan mode.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">say that in a collaborative repo these may be someone else&#x27;s responsibility<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/ship/sections/tests.md" target="_blank" rel="noopener">ship/sections/tests.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">the repo copy is
+what teammates and plan reviews read<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/office-hours/sections/design-and-handoff.md" target="_blank" rel="noopener">office-hours/sections/design-and-handoff.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">visible, committable, team-shareable<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/office-hours/sections/design-and-handoff.md" target="_blank" rel="noopener">office-hours/sections/design-and-handoff.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,15 +528,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">The sidebar agent isn&#x27;t just for dev workflows.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">add all the other parents&#x27; names, phone numbers, and photos to my Google Contacts.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">It turns Claude Code into a virtual engineering team<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">The sidebar agent isn&#x27;t just for dev workflows.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.5</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">fresh</span>
-      <div class="track"><div class="fill neg" style="width:12.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">mature</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-5" title="show the 5 signals behind this">
@@ -554,23 +558,23 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>149.3</td><td class="val">-1.00</td><td class="evidence">git age_days = 149.3</td><td>engine</td></tr>
-<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>362</td><td class="val">+0.00</td><td class="evidence">git commit_count = 362</td><td>engine</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>205.3</td><td class="val">+0.00</td><td class="evidence">git age_days = 205.3</td><td>engine</td></tr>
+<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>417</td><td class="val">+0.00</td><td class="evidence">git commit_count = 417</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>15</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 15</td><td>engine</td></tr>
 <tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>0</td><td class="val">-1.00</td><td class="evidence">git tag_count = 0</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">This is my open source software factory. I use it every day.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Fork it. Improve it. Make it yours.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:5%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,9 +590,11 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Six forcing questions that reframe your product before you write code.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">gstack tracks what reviews are run, figures out what&#x27;s appropriate, and just does the smart thing.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Six forcing questions that reframe your product before you write code.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">Each skill feeds into the next.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">models recommend, the user decides.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/agents-digest/gstack-AGENTS.md" target="_blank" rel="noopener">agents-digest/gstack-AGENTS.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>mandated</td><td class="val">+1.00</td><td class="evidence">never add a new one for what a few lines cover<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/agents-digest/gstack-AGENTS.md" target="_blank" rel="noopener">agents-digest/gstack-AGENTS.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -598,9 +604,9 @@
       <div class="track"><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +622,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Autonomous iOS bug fixer with regression snapshot capture.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Surfaces only taste decisions for your approval.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">One command, fully reviewed plan. Runs CEO → design → DX → eng review automatically<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Surfaces only taste decisions for your approval.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>retries_then_stops</td><td class="val">+0.00</td><td class="evidence">Traces data flow, tests hypotheses, stops after 3 failed fixes.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.2</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:11%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,9 +653,11 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">A common first loop: `/office-hours` or `/spec` to shape it, `/plan-eng-review` to lock it, then `/ship`.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Saves a design doc.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">Design doc feeds into every downstream skill.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">`/office-hours` writes a design doc that `/plan-ceo-review` reads.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>partial</td><td class="val">+0.00</td><td class="evidence">No plan file found → skip with &quot;No plan file detected — skipping.&quot;<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/ship/sections/plan-completion.md" target="_blank" rel="noopener">ship/sections/plan-completion.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>written_once</td><td class="val">+0.00</td><td class="evidence">the new doc gets a `Supersedes:` field referencing it<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/office-hours/sections/design-and-handoff.md" target="_blank" rel="noopener">office-hours/sections/design-and-handoff.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -677,20 +686,21 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">test-first execution</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">Every `/qa` bug fix generates a regression test.</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">its new test
+must fail for the bug before the repair and pass afterward<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">Every `/ship` run produces a coverage audit.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.1</span></div>
     <div class="bar-row">
       <span class="pole left">single agent</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:35.5%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +716,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">It turns Claude Code into a virtual engineering team</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">Twenty-three specialists and eight power tools<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">For each selected specialist, launch an independent subagent via the Agent tool.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/ship/sections/review-army.md" target="_blank" rel="noopener">ship/sections/review-army.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>default</td><td class="val">+1.00</td><td class="evidence">so they run in parallel. Each subagent has fresh context — no prior review bias.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/ship/sections/review-army.md" target="_blank" rel="noopener">ship/sections/review-army.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,15 +748,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Each skill feeds into the next.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">auto-detects which apply</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Each skill feeds into the next.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">6. Stop there. You&#x27;ll know if this is for you.<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
     <div class="bar-row">
       <span class="pole left">lightweight</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
       <span class="pole right">heavyweight</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-12" title="show the 2 signals behind this">
@@ -766,8 +778,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">Twenty-three specialists and eight power tools, all slash commands, all Markdown, all free, MIT license.</td><td>agent-team wave2 2026-07-23</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">bun install &amp;&amp; bun run build</td><td>agent-team wave2 2026-07-23</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">structured roles instead of a blank prompt<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>large</td><td class="val">+1.00</td><td class="evidence">including the binary build and the Chromium download<span class="ev-path"><a href="https://github.com/garrytan/gstack/blob/ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

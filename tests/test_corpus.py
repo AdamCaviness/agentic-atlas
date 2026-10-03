@@ -170,3 +170,74 @@ def _evidence_path_problems(profile: dict) -> list[str]:
             elif glob := excluded_by(cited, _RUBRIC.evidence_exclude):
                 problems.append(f"{ind['indicator_id']}: {cited!r} matches {glob!r}")
     return problems
+
+
+def test_answer_mode_profiles_supplied_answers_and_reports_rejections(tmp_path, monkeypatch):
+    import subprocess
+
+    slug = "demo"
+    clone = tmp_path / "corpus" / slug
+    clone.mkdir(parents=True)
+    (clone / "README.md").write_text("Before any code, you must write a specification.\n")
+    for cmd in (
+        ["git", "init", "-q"],
+        ["git", "add", "."],
+        ["git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "init"],
+    ):
+        subprocess.run(cmd, cwd=clone, check=True)
+    profile = tmp_path / f"{slug}.json"
+    profile.write_text(
+        json.dumps(
+            {
+                "target_url": "https://example.com/demo.git",
+                "target": slug,
+                "rubric_version": "4.0.0",
+                "engine_version": "0",
+                "axes": [],
+            }
+        )
+    )
+    answers_dir = tmp_path / "answers"
+    answers_dir.mkdir()
+    (answers_dir / f"{slug}.json").write_text(
+        json.dumps(
+            {
+                "source": "agentic-atlas:test",
+                "answers": {
+                    "spec-required": {
+                        "answer": "required",
+                        "evidence": "you must write a specification",
+                        "path": "README.md",
+                    },
+                    "spec-documents": {
+                        "answer": "yes",
+                        "evidence": "a quote that is not in the file",
+                        "path": "README.md",
+                    },
+                },
+            }
+        )
+    )
+    monkeypatch.setattr(corpus, "CORPUS", tmp_path / "corpus")
+    monkeypatch.setattr(corpus, "_ensure_clone", lambda url, dest: None)
+    monkeypatch.setattr(corpus, "_refresh_ref", lambda dest, url: ("HEAD", "default-branch"))
+
+    rubric = _RUBRIC
+    report = corpus._rescore_one(
+        profile, "answer", rubric, write=True, answers_file=answers_dir / f"{slug}.json"
+    )
+
+    assert set(report["rejected"]) == {"spec-documents"}
+    assert "not found verbatim" in report["rejected"]["spec-documents"]
+    written = json.loads(profile.read_text())
+    assert written["rubric_version"] == rubric.rubric_version
+    spec = next(a for a in written["axes"] if a["axis_id"] == "spec-light-vs-spec-driven")
+    by_id = {i["indicator_id"]: i for i in spec["indicators"]}
+    assert by_id["spec-required"]["resolved"] and by_id["spec-required"]["path"] == "README.md"
+    assert by_id["spec-required"]["source"] == "agentic-atlas:test"
+    assert "spec-verification" in report["new_indicators"]
+
+
+def test_answer_mode_skips_a_slug_without_an_answers_file(tmp_path):
+    with pytest.raises(SystemExit, match="no answers file"):
+        corpus._load_answers_file(tmp_path / "missing.json")

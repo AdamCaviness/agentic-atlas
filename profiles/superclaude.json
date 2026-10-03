@@ -1,10 +1,10 @@
 {
   "target": "SuperClaude_Framework",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "10be75032e249d2dd5c5175e9853c2566874ddd3",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "fe68862c8ed9e2afb8120c2d9e27d0c3a7ce73a2",
   "target_url": "https://github.com/SuperClaude-Org/SuperClaude_Framework",
-  "target_version": "v4.3.0-2-g10be75032e24",
+  "target_version": "v4.3.0-5-gfe68862c8ed9",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,7 +18,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 3.8,
+      "score": 6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Import existing project structure",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Discovery First**: Complete project-wide analysis before systematic changes",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,18 +39,20 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Import existing project structure",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Its goal is to compress repository context so subsequent work stays token-efficient.",
+          "path": "src/superclaude/agents/repo-index.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "components, APIs, or complete functionality",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "small_diff",
+          "evidence": "Build ONLY What's Asked**: No adding features beyond explicit requirements",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "full_lifecycle",
-          "evidence": "covering the complete development lifecycle from brainstorming to deployment",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "30 slash commands covering the complete development lifecycle from brainstorming to deployment.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Replace domain-specific commands for simple operations",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Real-world usage patterns with examples",
+          "path": "docs/user-guide/commands.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 2.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,8 +117,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Automated testing, deployment strategies, rollback capabilities",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "No Enterprise Bloat**: No auth, deployment, monitoring unless explicitly requested",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "All generated code must be production-ready, not scaffolding",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Real Code Only**: All generated code must be production-ready, not scaffolding",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Non-functional requirements",
+          "path": "src/superclaude/commands/brainstorm.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Feature code is written and compiles",
+          "path": "src/superclaude/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,28 +168,41 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -10.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "team-coordination",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "partial",
-          "evidence": "Create feature branches for ALL work, never work on main/master",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "none",
+          "evidence": "Feature Branches Only**: Create feature branches for ALL work, never work on main/master",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Smoother handoff to formal development workflows",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "none",
+          "evidence": "Session Pattern**: /sc:load \u2192 Work \u2192 Checkpoint (30min) \u2192 /sc:save",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "local",
+          "evidence": "Save session context and learnings using Serena MCP memory management",
+          "path": "src/superclaude/commands/save.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "mostly_software",
-          "evidence": "transforms Claude Code into a structured development platform",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Transform Claude Code into a Structured Development Platform",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Multi-expert business analysis with adaptive interaction modes",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Need business analysis of strategy, plan, or idea.",
+          "path": "docs/user-guide/commands.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "372.7",
-          "evidence": "git age_days = 372.7",
+          "answer": "440.0",
+          "evidence": "git age_days = 440.0",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "346",
-          "evidence": "git commit_count = 346",
+          "answer": "349",
+          "evidence": "git commit_count = 349",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "43",
-          "evidence": "git contributor_count = 43",
+          "answer": "46",
+          "evidence": "git contributor_count = 46",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,6 +301,7 @@
           "resolved": true,
           "answer": "17",
           "evidence": "git tag_count = 17",
+          "path": null,
           "source": "engine"
         },
         {
@@ -264,7 +312,8 @@
           "resolved": true,
           "answer": "stable",
           "evidence": "Current Stable Version (v4.3.0)",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,18 +329,19 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": 4.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "asks-before-coding",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Interactive Requirements Discovery",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "partial",
+          "evidence": "Scope clear? \u2192 No \u2192 Brainstorm mode first",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "Understand \u2192 Plan (with parallelization analysis) \u2192 TodoWrite(3+ tasks) \u2192 Execute \u2192 Track \u2192 Validate",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "After implementation, use `/sc:test` to run tests, then `/sc:git` to commit.",
+          "path": "src/superclaude/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "Choose approach and activate relevant personas for domain expertise",
+          "path": "src/superclaude/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "mandated",
+          "evidence": "No TODO Comments**: Never leave TODO for core functionality or implementations",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 2.5,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "autonomous web research",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Users interact only with PM Agent, sub-agents work transparently",
+          "path": "src/superclaude/commands/pm.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "Present alternatives, ask questions",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "This command produces an IMPLEMENTATION PLAN ONLY - no code execution.",
+          "path": "src/superclaude/commands/workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "self_recovers",
+          "evidence": "Understand \u2192 Diagnose \u2192 Fix \u2192 Verify, don't rush to solutions",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 1.2,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,18 +450,42 @@
           "value": 0.0,
           "resolved": true,
           "answer": "encouraged",
-          "evidence": "Understand \u2192 Plan \u2192 Build, not Build \u2192 Build more",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Generate comprehensive implementation workflows from PRD and feature specifications",
+          "path": "src/superclaude/commands/workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.3,
+          "value": 1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Generate clear design documentation with diagrams and specifications",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "yes",
+          "evidence": "This command produces a REQUIREMENTS SPECIFICATION ONLY.",
+          "path": "src/superclaude/commands/brainstorm.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Basic functionality verified",
+          "path": "src/superclaude/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "After workflow completes, use `/sc:implement` to execute the plan step by step.",
+          "path": "src/superclaude/commands/workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,7 +501,7 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -6.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -401,18 +511,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "provide testing recommendations",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Files saved and ready for testing",
+          "path": "src/superclaude/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "present",
-          "evidence": "Testing and Quality Assurance",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "first_class",
+          "evidence": "Execute tests with coverage analysis and automated quality reporting",
+          "path": "src/superclaude/commands/test.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,7 +540,7 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 4.3,
       "coverage": 1.0,
       "indicators": [
         {
@@ -438,8 +550,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "Multi-persona orchestration across architecture, analysis, frontend, backend, security domains",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Security engineer catches real vulnerabilities",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Agent Delegation**: Use Task agents for complex multi-step operations (>3 steps)",
+          "path": "src/superclaude/core/RULES.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Enable sub-agent parallel processing with intelligent routing",
+          "path": "src/superclaude/core/FLAGS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -455,7 +590,7 @@
         "positive": "modular parts you pick and combine as you need them"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 10.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -465,18 +600,20 @@
           "value": 1.0,
           "resolved": true,
           "answer": "composable",
-          "evidence": "behavioral instruction injection and component orchestration",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Decision tree: which command to use",
+          "path": "docs/user-guide/commands.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "Always Check Status First",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "optional_reorderable",
+          "evidence": "# Stress-test idea (optional)",
+          "path": "docs/user-guide/commands.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "heavy",
-          "evidence": "Complete project structure with agents, modes, commands, skills, hooks, MCP directories",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Complete reference for all 30 `/sc:*` commands with syntax, examples, workflows, and decision guides",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "installs all 30 slash commands",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Install commands (installs all 30 slash commands)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

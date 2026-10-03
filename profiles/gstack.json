@@ -1,8 +1,8 @@
 {
   "target": "gstack",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "94993f74012782fd94416dd44b8314f6363a13a4",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "ac20ef1e1380248fcaeea337d39f5fd2b04b7a3b",
   "target_url": "https://github.com/garrytan/gstack",
   "target_version": null,
   "axes": [
@@ -18,7 +18,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 3.8,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -28,18 +28,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Build a complete design system from scratch.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Run `/review` on any branch with changes",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
+          "answer": "partial",
           "evidence": "re-index this repo's code into gbrain",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "another doing `/review` on a PR, a third implementing a feature",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Ship the narrowest wedge tomorrow, learn from",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -76,7 +79,8 @@
           "resolved": true,
           "answer": "full_lifecycle",
           "evidence": "Think \u2192 Plan \u2192 Build \u2192 Review \u2192 Test \u2192 Ship \u2192 Reflect",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "The skills run in the order a sprint runs",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "gstack is a process, not a collection of tools. The skills run in the order a sprint runs",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,8 +117,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "strong",
-          "evidence": "OWASP Top 10 + STRIDE threat model",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Merge the PR, wait for CI and deploy, verify production health.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "The output is shippable, not a demo.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "tests make vibe coding safe instead of yolo coding",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Evaluate Architecture \u2192 Code Quality \u2192 Tests \u2192 Performance. Never condense,",
+          "path": "plan-eng-review/sections/review-sections.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "The Claude adversarial subagent always runs.",
+          "path": "ship/sections/adversarial.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -149,8 +178,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Flag via AskUserQuestion, don't fix (may be someone else's)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "say that in a collaborative repo these may be someone else's responsibility",
+          "path": "ship/sections/tests.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Approve plan. Exit plan mode.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "the repo copy is\nwhat teammates and plan reviews read",
+          "path": "office-hours/sections/design-and-handoff.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "visible, committable, team-shareable",
+          "path": "office-hours/sections/design-and-handoff.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "mostly_software",
-          "evidence": "The sidebar agent isn't just for dev workflows.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "It turns Claude Code into a virtual engineering team",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "add all the other parents' names, phone numbers, and photos to my Google Contacts.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "The sidebar agent isn't just for dev workflows.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,17 +257,18 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -2.5,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "repo-age",
           "kind": "detected",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "149.3",
-          "evidence": "git age_days = 149.3",
+          "answer": "205.3",
+          "evidence": "git age_days = 205.3",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "362",
-          "evidence": "git commit_count = 362",
+          "answer": "417",
+          "evidence": "git commit_count = 417",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "15",
           "evidence": "git contributor_count = 15",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,6 +301,7 @@
           "resolved": true,
           "answer": "0",
           "evidence": "git tag_count = 0",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "This is my open source software factory. I use it every day.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Fork it. Improve it. Make it yours.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -1.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -291,7 +340,8 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Six forcing questions that reframe your product before you write code.",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "gstack tracks what reviews are run, figures out what's appropriate, and just does the smart thing.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Each skill feeds into the next.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "models recommend, the user decides.",
+          "path": "agents-digest/gstack-AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "mandated",
+          "evidence": "never add a new one for what a few lines cover",
+          "path": "agents-digest/gstack-AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -327,8 +400,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Autonomous iOS bug fixer with regression snapshot capture.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "One command, fully reviewed plan. Runs CEO \u2192 design \u2192 DX \u2192 eng review automatically",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -338,7 +412,19 @@
           "resolved": true,
           "answer": "some_phases",
           "evidence": "Surfaces only taste decisions for your approval.",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "retries_then_stops",
+          "evidence": "Traces data flow, tests hypotheses, stops after 3 failed fixes.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 2.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "encouraged",
-          "evidence": "A common first loop: `/office-hours` or `/spec` to shape it, `/plan-eng-review` to lock it, then `/ship`.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Design doc feeds into every downstream skill.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Saves a design doc.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "`/office-hours` writes a design doc that `/plan-ceo-review` reads.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "No plan file found \u2192 skip with \"No plan file detected \u2014 skipping.\"",
+          "path": "ship/sections/plan-completion.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "the new doc gets a `Supersedes:` field referencing it",
+          "path": "office-hours/sections/design-and-handoff.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -401,8 +511,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "encouraged",
-          "evidence": "test-first execution",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "its new test\nmust fail for the bug before the repair and pass afterward",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "Every `/qa` bug fix generates a regression test.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Every `/ship` run produces a coverage audit.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,7 +540,7 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.1,
       "coverage": 1.0,
       "indicators": [
         {
@@ -438,8 +550,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "It turns Claude Code into a virtual engineering team",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Twenty-three specialists and eight power tools",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "For each selected specialist, launch an independent subagent via the Agent tool.",
+          "path": "ship/sections/review-army.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "default",
+          "evidence": "so they run in parallel. Each subagent has fresh context \u2014 no prior review bias.",
+          "path": "ship/sections/review-army.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -466,7 +601,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Each skill feeds into the next.",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "auto-detects which apply",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "6. Stop there. You'll know if this is for you.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -492,7 +629,7 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 4.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -502,18 +639,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "Twenty-three specialists and eight power tools, all slash commands, all Markdown, all free, MIT license.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "structured roles instead of a blank prompt",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "moderate",
-          "evidence": "bun install && bun run build",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "large",
+          "evidence": "including the binary build and the Chromium download",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

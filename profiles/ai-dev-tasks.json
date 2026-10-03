@@ -1,7 +1,7 @@
 {
   "target": "ai-dev-tasks",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
   "target_sha": "efbffaac10e68c94e14aaa587c79b7d5015b5ebd",
   "target_url": "https://github.com/snarktank/ai-dev-tasks",
   "target_version": null,
@@ -18,18 +18,19 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -1.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "starting-point",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "blank_slate",
-          "evidence": "building features, from ideation to implementation",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "either",
+          "evidence": "The user provides a brief description or request for a new feature or functionality.",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "The user provides a brief description or request for a new feature or functionality.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Reference these files to help you: [Optional: @file1.py @file2.ts]",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "small_diff",
-          "evidence": "instruct the AI to work through the task list one sub-task at a time",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Guiding the AI to tackle one task at a time, allowing you to review and approve each change.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "from ideation to implementation, with built-in checkpoints for verification",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "you can systematically approach building features, from ideation to implementation, with built-in checkpoints for verification.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "Here's the step-by-step process using the `.md` files in this repository",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Here's the step-by-step process using the `.md` files in this repository:",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,28 +107,52 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": -3.3,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "production-hardening",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Use `npx jest [optional/path/to/test/file]` to run tests.",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "none",
+          "evidence": "Clearly outlining what needs to be built with a Product Requirement Document (PRD).",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "reducing the chance of it getting lost or generating overly complex, incorrect code",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "mixed",
+          "evidence": "Allows you to review and approve AI-generated code at each small step, ensuring quality and control.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Mention any known technical constraints, dependencies, or suggestions",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "The AI will attempt the task and then prompt you to review.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -7.1,
       "coverage": 1.0,
       "indicators": [
         {
@@ -149,8 +178,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "none",
-          "evidence": "start guiding your AI collaborator step-by-step",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Clone or Download:** Get these `.md` files into your project or a central location where your AI tool can access them.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "none",
-          "evidence": "allowing you to review and approve each change",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Assume the primary reader of the PRD is a **junior developer**.",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "Save the generated document in the `/tasks/` directory with the filename `tasks-[feature-name].md`",
+          "path": "generate-tasks.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "feature development workflow with AI-powered IDEs and CLIs",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "supercharge your feature development workflow with AI-powered IDEs and CLIs",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "suitable for a junior developer to understand and implement the feature",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "supercharge your feature development workflow with AI-powered IDEs and CLIs",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,7 +257,7 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -2.5,
       "coverage": 1.0,
       "indicators": [
         {
@@ -224,6 +268,7 @@
           "resolved": true,
           "answer": "200.2",
           "evidence": "git age_days = 200.2",
+          "path": null,
           "source": "engine"
         },
         {
@@ -234,6 +279,7 @@
           "resolved": true,
           "answer": "65",
           "evidence": "git commit_count = 65",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "13",
           "evidence": "git contributor_count = 13",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,17 +301,19 @@
           "resolved": true,
           "answer": "0",
           "evidence": "git tag_count = 0",
+          "path": null,
           "source": "engine"
         },
         {
           "indicator_id": "stated-stability",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "stable",
-          "evidence": "this method has proven to be a very reliable way to build out larger features",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "evolving",
+          "evidence": "Feel free to modify the prompts within the `.md` files to better suit your specific needs or coding style.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -1.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,8 +339,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Before writing the PRD, the AI *must* ask only the most essential clarifying questions",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Before writing the PRD, the AI *must* ask only the most essential clarifying questions needed to write a clear PRD.",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "Systematically use the `.md` files in your AI assistant as described in the workflow above",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Systematically use the `.md` files in your AI assistant as described in the workflow above.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "The goal is to understand the \"what\" and \"why\" of the feature, not necessarily the \"how\" (which the developer will figure out).",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "overridable_defaults",
+          "evidence": "Unit tests should typically be placed alongside the code files they are testing",
+          "path": "generate-tasks.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,18 +400,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "The process explicitly requires a pause after generating parent tasks to get user confirmation",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "instruct the AI to work through the task list one sub-task at a time.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
           "kind": "judged",
           "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "some_phases",
+          "evidence": "The process explicitly requires a pause after generating parent tasks to get user confirmation (\"Go\") before proceeding to generate the detailed sub-tasks.",
+          "path": "generate-tasks.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "every_phase",
-          "evidence": "review and approve AI-generated code at each small step",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "stops_for_user",
+          "evidence": "If the AI struggles with a task, try rephrasing your initial feature description or breaking down tasks even further.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 5.6,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "Do NOT start implementing the PRD",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Take @MyFeature-PRD.md and create tasks using @generate-tasks.md",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Save the generated document as `prd-[feature-name].md` inside the `/tasks` directory",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Save the generated document as `prd-[feature-name].md` inside the `/tasks` directory.",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "As you complete each task, you must check it off in this markdown file",
+          "path": "generate-tasks.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Take the user's answers to the clarifying questions and improve the PRD",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,7 +501,7 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": -6.0,
+      "score": -10.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -401,18 +511,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "including corresponding test files if applicable",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "including corresponding test files if applicable.",
+          "path": "generate-tasks.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "present",
-          "evidence": "Unit tests should typically be placed alongside the code files they are testing",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "incidental",
+          "evidence": "including corresponding test files if applicable.",
+          "path": "generate-tasks.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "single",
-          "evidence": "guide an AI assistant in creating a detailed Product Requirements Document",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "To guide an AI assistant in creating a detailed Product Requirements Document (PRD)",
+          "path": "create-prd.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "one_conversation",
+          "evidence": "In your AI tool, tell the AI to start with the first task",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "instruct the AI to work through the task list one sub-task at a time.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "fixed_pipeline",
-          "evidence": "the next step is to generate a detailed, step-by-step implementation plan",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Workflow: From Idea to Implemented Feature",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "mandatory_ordered",
-          "evidence": "Always include task 0.0 \"Create feature branch\" as the first task",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Enforces a clear process from idea to code.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "minimal",
-          "evidence": "You can create a lightweight PRD directly within your AI tool of choice",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "You can create a lightweight PRD directly within your AI tool of choice:",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "tiny",
-          "evidence": "Get these `.md` files into your project",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Get these `.md` files into your project or a central location where your AI tool can access them.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

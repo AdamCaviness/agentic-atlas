@@ -145,7 +145,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/KhazP/vibe-coding-prompt-template" target="_blank" rel="noopener" title="Open KhazP/vibe-coding-prompt-template on GitHub" aria-label="Open KhazP/vibe-coding-prompt-template on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>KhazP/vibe-coding-prompt-template</span></a></div>
-    <div class="stamps">version v3.0.0</div>
+    <div class="stamps">version cli-v0.3.0</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": -10.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 0.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": -10.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -2.5, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": -5.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -6.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": -6.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -4.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 0.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 0.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": -7.1, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 0.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 2.5, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 4.4, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -2.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": -4.3, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -4.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -378,10 +378,10 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
@@ -403,9 +403,9 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>blank_slate</td><td class="val">-1.00</td><td class="evidence">Turn an idea into an MVP</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">You do not need a repo yet.</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>whole_project</td><td class="val">-1.00</td><td class="evidence">from idea validation to working code</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Start in a clean project folder or your existing app.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">The workflow inspects what exists, then routes to<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Ship in small, verified passes<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -434,8 +434,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">The process moves through five stages, from idea validation to working code</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">Vibe Workflow — plan, build, check, and recover<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">Paste the prompts from this repo into any chat tool, in order<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -445,9 +445,9 @@
       <div class="track"><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,21 +463,23 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">Once the MVP works, do a final pass on secrets, auth, and basic abuse protections before you deploy</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Prioritize MVP scope. Offer the simplest working implementation.</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">Once the MVP works, do a final pass on secrets, auth, and basic abuse protections before you deploy<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Next.js/Vercel, Cloudflare Workers, or another boring stack the team can maintain<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">Any constraints or non-functional requirements? Budget limits, must launch by date, performance expectations, security/privacy<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/part2-prd-mvp.md" target="_blank" rel="noopener">part2-prd-mvp.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>optional</td><td class="val">+0.00</td><td class="evidence">Delegate focused research, review, or debugging to subagents.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/templates/CLAUDE.md" target="_blank" rel="noopener">templates/CLAUDE.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-7.1</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:35.5%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">do the thinking upfront, hand clean context to your tools, and keep the build phase moving</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">Review the diff and run tests before merging</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>none</td><td class="val">-1.00</td><td class="evidence">One builder is sufficient unless independent work and available tools justify delegation.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-workflow/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-workflow/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>none</td><td class="val">-1.00</td><td class="evidence">Prepare compact factual project context for another session or coding tool<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-handoff/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-handoff/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">tool-side memories are personal and should not replace versionable project docs<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,15 +527,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">AI-assisted coding workflows</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">A practical AI workflow for shipping MVPs</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">Your AI can write code. This workflow helps you decide what to build<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">I would not use this workflow as-is for native hardware work<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.5</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">fresh</span>
-      <div class="track"><div class="fill neg" style="width:12.5%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">mature</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-5" title="show the 5 signals behind this">
@@ -554,11 +557,11 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>460.2</td><td class="val">+0.00</td><td class="evidence">git age_days = 460.2</td><td>engine</td></tr>
-<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>92</td><td class="val">-1.00</td><td class="evidence">git commit_count = 92</td><td>engine</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>513.8</td><td class="val">+0.00</td><td class="evidence">git age_days = 513.8</td><td>engine</td></tr>
+<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>122</td><td class="val">+0.00</td><td class="evidence">git commit_count = 122</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>2</td><td class="val">-1.00</td><td class="evidence">git contributor_count = 2</td><td>engine</td></tr>
-<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>7</td><td class="val">+1.00</td><td class="evidence">git tag_count = 7</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">For community Q&amp;A and roadmap ideas, use</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>11</td><td class="val">+1.00</td><td class="evidence">git tag_count = 11</td><td>engine</td></tr>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">This template is maintained monthly.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -568,9 +571,9 @@
       <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">The AI will ask you a few questions about your idea.</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">then build in small passes</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">The AI will ask you a few questions about your idea.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">The five stages are a useful route, not five approval gates or a mandatory document set for every edit.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-workflow/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-workflow/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Explain why one option is best for their situation<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/part3-tech-design-mvp.md" target="_blank" rel="noopener">part3-tech-design-mvp.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>project_defined</td><td class="val">-1.00</td><td class="evidence">when the codebase has real conventions to preserve.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.5</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:12.5%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Letting agents ship code alone</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Review the diff and run tests before merging</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">If the user requested the whole workflow, continue into the technical design within that scope.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-prd/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-prd/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">propose a Phase 1 plan, wait for my approval, and then build it step by step.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>self_recovers</td><td class="val">+1.00</td><td class="evidence">Fix failures caused by the change, distinguish pre-existing failures<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-build/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-build/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.4</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:22%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,16 +652,18 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">turn it into a PRD</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">use research, PRD, and technical design skills selectively.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-workflow/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-workflow/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Write a PRD proportional to the product.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-prd/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-prd/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Exercise a running product against acceptance criteria and report evidence.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-verify/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-verify/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>living</td><td class="val">+1.00</td><td class="evidence">Update product decisions only where requirements changed, and progress in MEMORY.md.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-change/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-change/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.0</span></div>
     <div class="bar-row">
       <span class="pole left">test optional</span>
-      <div class="track"><div class="fill neg" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:10%"></div><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-9" title="show the 2 signals behind this">
@@ -677,20 +685,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Related Unit/Integration tests pass.</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">Related Unit/Integration tests pass.</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Run tests/linters or manual checks after each change<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/part4-notes-for-agent.md" target="_blank" rel="noopener">part4-notes-for-agent.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">Build success alone does not verify behavior.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-verify/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-verify/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-4.3</span></div>
     <div class="bar-row">
       <span class="pole left">single agent</span>
-      <div class="track"><div class="fill neg" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:21.5%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,15 +714,17 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">generate your agent files, then build in small passes</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>single</td><td class="val">-1.00</td><td class="evidence">One builder is sufficient unless independent work and available tools justify delegation.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-workflow/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-workflow/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Use focused subagents for research, code review, debugging, and test verification.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>optional</td><td class="val">+0.00</td><td class="evidence">If the tool supports subagents or parallel search, delegate bounded exploration, review, or verification tasks.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/part4-notes-for-agent.md" target="_blank" rel="noopener">part4-notes-for-agent.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prescriptive <em>vs</em> Composable</span><button type="button" class="info" data-dialog="poles-11" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prescriptive <em>vs</em> Composable</span><button type="button" class="info" data-dialog="poles-11" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">prescriptive</span>
-      <div class="track"><div class="fill neg" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">composable</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-11" title="show the 2 signals behind this">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>fixed_pipeline</td><td class="val">-1.00</td><td class="evidence">The process moves through five stages, from idea validation to working code</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">then build in small passes</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Use `vibe-agents` when creating project instructions, `vibe-build` for a new<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-workflow/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-workflow/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Only invoke skills actually present in the target environment. The five stages are a useful route<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/.claude/skills/vibe-workflow/SKILL.md" target="_blank" rel="noopener">.claude/skills/vibe-workflow/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">run research, turn it into a PRD, choose the stack, generate your agent files, then build in small passes</td><td>agentic-atlas:claude-opus-4-8</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">You do not need a repo yet.</td><td>agentic-atlas:claude-opus-4-8</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">You need a modern browser, a few hours, and enough comfort with files and copy-paste to move between tools.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">Run `npx vibeworkflow` and follow its instructions.<span class="ev-path"><a href="https://github.com/KhazP/vibe-coding-prompt-template/blob/db481763c24e2b66b919f9d40aa42b16409a62d7/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

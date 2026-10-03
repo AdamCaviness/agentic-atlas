@@ -1,10 +1,10 @@
 {
   "target": "agentic-toolkit",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "5a3abe45224897d88935ea5ac6298d62d17d6809",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "3a3106b5200778fbf1c207c3827908fe8942b9dd",
   "target_url": "https://github.com/adamcaviness/agentic-toolkit.git",
-  "target_version": "v1.1.0-1-g5a3abe452248",
+  "target_version": "v1.2.10-1-g3a3106b52007",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -29,7 +29,8 @@
           "resolved": true,
           "answer": "either",
           "evidence": "works equally well on greenfield projects with no code",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -39,7 +40,8 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Explore the codebase and write a **project map**",
-          "source": "agent draft 2026-07-22"
+          "path": "skills/triage-product/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -49,7 +51,8 @@
           "resolved": true,
           "answer": "small_diff",
           "evidence": "Only change what the ticket requires.",
-          "source": "agent draft 2026-07-22"
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -65,7 +68,7 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": -1.0,
+      "score": 3.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -75,18 +78,20 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "Format, lint, test, commit, push, and create a pull request.",
-          "source": "agent draft 2026-07-22"
+          "evidence": "Format, lint, test, commit, push, open PR",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "single",
-          "evidence": "The single \"I'm done\" command.",
-          "source": "agent draft 2026-07-22"
+          "answer": "mixed",
+          "evidence": "When you are ready to publish, run /pr (opens a PR and stops) or /ship (merges and cleans up).",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 2.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -113,7 +118,8 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Updates project dependencies with CVE-first prioritization.",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -122,8 +128,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "maintainable_only",
-          "evidence": "Cannot push broken code.",
-          "source": "agent draft 2026-07-22"
+          "evidence": "AFK implementation demands high confidence.",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Produces one ticket per run with type-appropriate body structure",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "Never push or create PRs.** The user reviews first.",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 7.1,
       "coverage": 1.0,
       "indicators": [
         {
@@ -150,7 +179,8 @@
           "resolved": true,
           "answer": "strong",
           "evidence": "Claims with a team-safe self-assignment protocol (re-reads assignee after a randomized pause to avoid collisions)",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -160,7 +190,19 @@
           "resolved": true,
           "answer": "some",
           "evidence": "implements it end-to-end with TDD, and waits for your review.",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "team_tool",
+          "evidence": "file or refine tickets directly in your issue tracker",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -187,7 +229,8 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "A collection of skills for agentic coding tools",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -197,7 +240,8 @@
           "resolved": true,
           "answer": "no",
           "evidence": "Skills for creating, implementing, and maintaining your project's issue backlog.",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,8 +257,8 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -3.3,
-      "coverage": 0.75,
+      "score": -2.5,
+      "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "repo-age",
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "119.0",
-          "evidence": "git age_days = 119.0",
+          "answer": "166.9",
+          "evidence": "git age_days = 166.9",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "102",
-          "evidence": "git commit_count = 102",
+          "answer": "125",
+          "evidence": "git commit_count = 125",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "2",
           "evidence": "git contributor_count = 2",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,19 +299,21 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "36",
-          "evidence": "git tag_count = 36",
+          "answer": "47",
+          "evidence": "git tag_count = 47",
+          "path": null,
           "source": "engine"
         },
         {
           "indicator_id": "stated-stability",
           "kind": "judged",
           "weight": 2.0,
-          "value": null,
-          "resolved": false,
-          "answer": null,
-          "evidence": "no answer supplied",
-          "source": null
+          "value": 0.0,
+          "resolved": true,
+          "answer": "evolving",
+          "evidence": "A collection of skills for agentic coding tools",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,8 +339,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "asks clarifying questions only when options are too nuanced to auto-resolve",
-          "source": "agent draft 2026-07-22"
+          "evidence": "Asks clarifying questions only when options are too nuanced to auto-resolve",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -301,7 +351,30 @@
           "resolved": true,
           "answer": "guided",
           "evidence": "Pair with `/apply-review` to pick up that feedback and implement what makes sense.",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "present them as options with trade-offs and your recommendation",
+          "path": "skills/create-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Follow existing code patterns and conventions. Respect CLAUDE.md rules.",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 2.5,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "then auto-implements improvements without committing",
-          "source": "agent draft 2026-07-22"
+          "evidence": "picked tickets can be fully implemented touch-free",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -338,7 +412,19 @@
           "resolved": true,
           "answer": "some_phases",
           "evidence": "Do not file until the user approves.",
-          "source": "agent draft 2026-07-22"
+          "path": "skills/create-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "self_recovers",
+          "evidence": "Run your new tests.** Iterate until they pass.",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -365,7 +451,8 @@
           "resolved": true,
           "answer": "none",
           "evidence": "The ticket body is your spec.",
-          "source": "agent draft 2026-07-22"
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "and files one world-class ticket.",
-          "source": "agent draft 2026-07-22"
+          "evidence": "Produces one ticket per run with type-appropriate body structure",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "The ticket body is your spec.",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "The ticket body is your spec.",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -402,7 +512,8 @@
           "resolved": true,
           "answer": "enforced",
           "evidence": "Do not write implementation code until you have failing tests that represent the ticket's contract.",
-          "source": "agent draft 2026-07-22"
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -412,7 +523,8 @@
           "resolved": true,
           "answer": "first_class",
           "evidence": "Never skip tests.",
-          "source": "agent draft 2026-07-22"
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "spawn 4 parallel sub-agents (one per cluster)",
-          "source": "agent draft 2026-07-22"
+          "evidence": "spawns 4 parallel sub-agents (one per concern cluster)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "dispatch the code-reviewer subagent against the work just committed",
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "spawns 4 parallel sub-agents (one per concern cluster)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "composable",
-          "evidence": "A collection of skills for agentic coding tools: next-ticket, get-it-right, code-review, apply-review, pr, ship, convert-worktree, triage-bugs, triage-product, triage-architecture, update-deps, compress-markdown",
-          "source": "agent draft 2026-07-22"
+          "evidence": "A collection of skills for agentic coding tools",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -476,7 +612,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "This is a hard gate.",
-          "source": "agent draft 2026-07-22"
+          "path": "skills/next-ticket/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "minimal",
-          "evidence": "Single command to go from \"I'm done\" to \"PR is open.\"",
-          "source": "agent draft 2026-07-22"
+          "evidence": "Recommended first command: `/next-ticket` to pick up a ticket",
+          "path": ".gemini/extension-context.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -513,7 +651,8 @@
           "resolved": true,
           "answer": "tiny",
           "evidence": "so one install gets you every skill.",
-          "source": "agent draft 2026-07-22"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

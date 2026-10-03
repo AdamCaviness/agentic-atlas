@@ -1,7 +1,7 @@
 {
   "target": "cursor-memory-bank",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
   "target_sha": "7d879d8f5079ad77d845fdc92ca03903dbbd3a85",
   "target_url": "https://github.com/vanzan01/cursor-memory-bank",
   "target_version": "0.8-beta-2-g7d879d8f5079",
@@ -18,18 +18,19 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": -3.8,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "starting-point",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "blank_slate",
-          "evidence": "works best when starting fresh projects rather than converting existing ones",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "either",
+          "evidence": "Initializes projects, detects platform, determines task complexity",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,8 +39,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Review codebase structure",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Analyzes your project structure",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -48,8 +50,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Memory Bank adapts its workflow based on task complexity",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Adapts documentation requirements to task complexity (Levels 1-4)",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "`/van` \u2192 `/plan` \u2192 `/creative` \u2192 `/build` \u2192 `/reflect` \u2192 `/archive`",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Commands transition from one to another in a logical sequence",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "six specialized commands",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Memory Bank operates through **six specialized commands** that work together as an integrated workflow",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,28 +107,52 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": -5.6,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "production-hardening",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Verify dependencies and build configuration",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "none",
+          "evidence": "Implements changes systematically",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "It enforces a test-driven approach where tests are written for all success criteria and must pass before completing each phase.",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "mixed",
+          "evidence": "This approach transforms development from ad-hoc coding into a coordinated system with specialized phases working together.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Define requirements and constraints",
+          "path": ".cursor/commands/creative.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Compare implementation against original plan",
+          "path": ".cursor/commands/reflect.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -7.1,
       "coverage": 1.0,
       "indicators": [
         {
@@ -149,8 +178,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "none",
-          "evidence": "Memory Bank is my personal hobby project that I develop for my own use in coding projects.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Memory Bank is my personal hobby project that I develop for my own use in coding projects",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": -1.0,
           "resolved": true,
           "answer": "none",
-          "evidence": "Memory Bank is my personal hobby project that I develop for my own use in coding projects.",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "each command will guide you to the next step",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "All Memory Bank files are stored in the `memory-bank/` directory",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "for my own use in coding projects",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Memory Bank is a structured development workflow system",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "for my own use in coding projects",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "guide you through different phases of the development process",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,7 +257,7 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": -2.5,
+      "score": -5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -224,6 +268,7 @@
           "resolved": true,
           "answer": "290.9",
           "evidence": "git age_days = 290.9",
+          "path": null,
           "source": "engine"
         },
         {
@@ -234,6 +279,7 @@
           "resolved": true,
           "answer": "83",
           "evidence": "git commit_count = 83",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "10",
           "evidence": "git contributor_count = 10",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,17 +301,19 @@
           "resolved": true,
           "answer": "4",
           "evidence": "git tag_count = 4",
+          "path": null,
           "source": "engine"
         },
         {
           "indicator_id": "stated-stability",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "evolving",
-          "evidence": "The Memory Bank system is actively being developed and improved.",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "experimental",
+          "evidence": "This is a beta version with ongoing development.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -290,8 +339,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Generate 2-4 design options",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Explores design options for components requiring design decisions",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -301,7 +351,30 @@
           "resolved": true,
           "answer": "guided",
           "evidence": "each command will guide you to the next step",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "tool_chooses",
+          "evidence": "Select and justify recommended approach",
+          "path": ".cursor/commands/creative.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Examine relevant code areas",
+          "path": ".cursor/commands/build.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "each command will guide you to the next step",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Follow the workflow",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -338,7 +412,19 @@
           "resolved": true,
           "answer": "every_phase",
           "evidence": "After implementation complete, proceed to `/reflect` command for task review.",
-          "source": "agent-team wave2 2026-07-23"
+          "path": ".cursor/commands/build.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "self_recovers",
+          "evidence": "If tests fail: fix implementation, re-run tests, repeat until all pass",
+          "path": ".cursor/commands/build.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,18 +440,19 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 1.2,
+      "score": 4.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "spec-required",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "encouraged",
-          "evidence": "This command creates detailed implementation plans based on complexity level determined in VAN mode.",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "required",
+          "evidence": "Check `memory-bank/tasks.md` for planning completion",
+          "path": ".cursor/commands/build.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 0.3,
           "resolved": true,
           "answer": "some",
-          "evidence": "Design decision documents (Level 3-4)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Creates `memory-bank/creative/creative-[feature_name].md` documents",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "partial",
+          "evidence": "Verify changes meet requirements",
+          "path": ".cursor/commands/build.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Clear completed task details from `memory-bank/tasks.md` (keep structure)",
+          "path": ".cursor/commands/archive.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,18 +501,19 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 4.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "tests-first",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "enforced",
+          "answer": "encouraged",
           "evidence": "It enforces a test-driven approach where tests are written for all success criteria and must pass before completing each phase.",
-          "source": "agent-team wave2 2026-07-23"
+          "path": ".cursor/commands/build.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "Test-Driven Phase Completion",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "All tests MUST pass before phase completion",
+          "path": ".cursor/commands/build.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,18 +540,41 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -5.7,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "specialist-agents",
           "kind": "judged",
           "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "some",
+          "evidence": "six specialized commands",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "single",
-          "evidence": "six specialized commands",
-          "source": "agent-team wave2 2026-07-23"
+          "answer": "one_conversation",
+          "evidence": "Each command reads from and updates a shared",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Commands transition from one to another in a logical sequence",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -466,7 +601,8 @@
           "resolved": true,
           "answer": "fixed_pipeline",
           "evidence": "Commands transition from one to another in a logical sequence",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "mandatory_ordered",
-          "evidence": "Do NOT proceed to next phase until all tests pass",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Ensure you're following the correct workflow sequence",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -492,7 +629,7 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -4.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -502,18 +639,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "Adapts documentation requirements to task complexity (Levels 1-4)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Memory Bank adapts its workflow based on task complexity",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "moderate",
+          "answer": "tiny",
           "evidence": "Copy the `.cursor` folder to your project directory",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

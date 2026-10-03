@@ -1,10 +1,10 @@
 {
   "target": "spec-kit",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "684b3d8e05263a7c1948d3d0699ab1cb4f77c3d5",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "ae5ade7234be5cb1d975f736c4e06dd46d1326d6",
   "target_url": "https://github.com/github/spec-kit",
-  "target_version": "v0.1.10-1171-g684b3d8e0526",
+  "target_version": "v0.1.10-1555-gae5ade7234be",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,18 +18,19 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": -6.2,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "starting-point",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "blank_slate",
-          "evidence": "The workflow begins with an idea",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "either",
+          "evidence": "Adding Spec Kit to a repository that already contains code? Follow",
+          "path": "docs/quickstart.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,18 +39,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Assess the current codebase against the feature's spec, plan, and tasks",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "The codebase remains implementation context. The new `spec.md` defines the change you intend to make, not a retroactive specification of every existing behavior.",
+          "path": "docs/guides/existing-projects.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "whole_project",
-          "evidence": "Build production-ready applications",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "mixed",
+          "evidence": "Build a feature or application",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "most",
-          "evidence": "Start with high-level requirements</li><li>Generate specifications</li><li>Plan implementation steps</li><li>Build production-ready applications",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Constitution once per project; specify \u2192 plan \u2192 tasks \u2192 implement \u2192 converge per feature.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "multi_stage",
-          "evidence": "the specification \u2192 planning \u2192 tasking workflow",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Invoke each `/speckit-*` skill separately in your agent's chat and review the result before moving to the next step.",
+          "path": "docs/quickstart.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 4.4,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,18 +117,42 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "Demonstrate mission-critical application development",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "- [ ] TXXX Security hardening",
+          "path": "templates/tasks-template.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "maintainable_only",
+          "evidence": "Test-first, library-first, and simplicity principles ensure maintainable code",
+          "path": "spec-driven.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "required",
+          "evidence": "**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]",
+          "path": "templates/plan-template.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "from vibe-coding to AI-native development",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "optional",
+          "evidence": "On `converged`: recommend proceeding to review / opening a PR.",
+          "path": "templates/commands/converge.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -149,8 +178,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Convert generated task lists into GitHub issues for tracking and execution",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Convert existing tasks into actionable, dependency-ordered GitHub issues for the feature based on available design artifacts.",
+          "path": "templates/commands/taskstoissues.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -159,8 +189,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "team-reviewed specifications are expressed and versioned, created in branches, and merged",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "These custom checklists are reviewer-owned requirements-quality review artifacts",
+          "path": "docs/quickstart.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "keeps repository-specific `specs/` artifacts aligned with the code and product behavior you intend to ship.",
+          "path": "docs/guides/evolving-specs.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -176,7 +218,7 @@
         "positive": "built specifically for software delivery"
       },
       "scale": 10.0,
-      "score": 7.0,
+      "score": 3.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -186,18 +228,20 @@
           "value": 0.5,
           "resolved": true,
           "answer": "mostly_software",
-          "evidence": "product manager, business analyst",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Gather evidence before committing to an idea, whether or not it becomes software.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "executable specifications that generate code rather than merely guiding it",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "some",
+          "evidence": "Gather evidence before committing to an idea, whether or not it becomes software.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,7 +257,7 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 2.5,
+      "score": 5.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "350.8",
-          "evidence": "git age_days = 350.8",
+          "answer": "407.7",
+          "evidence": "git age_days = 407.7",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "1735",
-          "evidence": "git commit_count = 1735",
+          "answer": "2119",
+          "evidence": "git commit_count = 2119",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "263",
-          "evidence": "git contributor_count = 263",
+          "answer": "303",
+          "evidence": "git contributor_count = 303",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,17 +301,19 @@
           "resolved": true,
           "answer": "111",
           "evidence": "git tag_count = 111",
+          "path": null,
           "source": "engine"
         },
         {
           "indicator_id": "stated-stability",
           "kind": "judged",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "experimental",
-          "evidence": "Our research and experimentation focus on",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "evolving",
+          "evidence": "is under active development and maintained by GitHub staff and the community",
+          "path": "SUPPORT.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,18 +329,19 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "asks-before-coding",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "asking up to 5 highly targeted clarification questions",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "partial",
+          "evidence": "**LIMIT: Maximum 3 [NEEDS CLARIFICATION] markers total**",
+          "path": "templates/commands/specify.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "a ready-to-use spec-driven process (or bring your own)",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "These are **independent entry points**, not three mandatory phases.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "This is where implementation detail belongs \u2014 provide your tech stack and architecture.",
+          "path": "docs/quickstart.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Do not invent standards merely to fill the constitution template.",
+          "path": "docs/guides/existing-projects.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,28 +390,41 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -6.2,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "autopilot-mode",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "no",
-          "evidence": "rather than one-shot code generation from prompts",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "partial",
+          "evidence": "enabling end-to-end Spec-Driven Development cycles without manual step-by-step invocation",
+          "path": "workflows/README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
           "kind": "judged",
           "weight": 3.0,
-          "value": 0.0,
+          "value": -1.0,
           "resolved": true,
-          "answer": "some_phases",
-          "evidence": "Do you want to proceed with implementation anyway",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "every_phase",
+          "evidence": "Invoke each `/speckit-*` skill separately in your agent's chat and review the result before moving to the next step.",
+          "path": "docs/quickstart.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "stops_for_user",
+          "evidence": "Halt execution if any non-parallel task fails",
+          "path": "templates/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,7 +440,7 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "Define what to build before building it",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Define **what and why** before deciding **how** to build it.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Writes `tasks.md` in the feature directory, ready for execution by a Task agent",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "SDD turns your requirements into a specification, a technical plan, and actionable tasks",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "Assess the current codebase against the feature's spec, plan, and tasks, then append any remaining unbuilt work as new tasks to tasks.md so implement can complete it.",
+          "path": "templates/commands/converge.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "None is the default, and none is required by Spec Kit.",
+          "path": "docs/concepts/spec-persistence.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,18 +501,19 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "tests-first",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "enforced",
-          "evidence": "The implementation template enforces test-first development:",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "encouraged",
+          "evidence": "**Tests are OPTIONAL**: Only generate test tasks if explicitly requested in the feature specification or if user requests TDD approach.",
+          "path": "templates/commands/tasks.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "present",
-          "evidence": "Tests (if requested)",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "**Polish and validation**: Unit tests, performance optimization, documentation",
+          "path": "templates/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,18 +540,41 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": -4.3,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "specialist-agents",
           "kind": "judged",
           "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "single",
+          "evidence": "Invoke each `/speckit-*` skill separately in your agent's chat",
+          "path": "docs/quickstart.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "Generate and dispatch research agents",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "mixed",
+          "evidence": "**Generate and dispatch research agents**:",
+          "path": "templates/commands/plan.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Respect dependencies**: Run sequential tasks in order, parallel tasks [P] can run together",
+          "path": "templates/commands/implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "endlessly extensible, community-driven",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Start with one of the three processes below, customize it, or bring your own.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Additional commands for enhanced quality and validation",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Add clarification, checklists, and consistency analysis when you need extra quality gates.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "Spec-Driven Development is a structured process that emphasizes",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Constitution once per project; specify \u2192 plan \u2192 tasks \u2192 implement \u2192 converge per feature.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "It sets up the necessary directory structures, templates, and AI agent integrations",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "You need **Python 3.11+**, **[uv](https://github.github.io/spec-kit/install/uv.html)**,",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

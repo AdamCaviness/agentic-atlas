@@ -1,10 +1,10 @@
 {
   "target": "agent-os",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "cae8e664fb59a01869718c3151e0f45b7a06a2fb",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "475b0cac4c7c5cf2336ad5a663b691a6d3415e05",
   "target_url": "https://github.com/buildermethods/agent-os",
-  "target_version": "v3.0.0-6-gcae8e664fb59",
+  "target_version": "v3.0.0-7-g475b0cac4c7c",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,7 +18,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 3.8,
+      "score": 2.5,
       "coverage": 1.0,
       "indicators": [
         {
@@ -28,28 +28,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Lets the agent surface, suggest, and create standards from your codebase",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Works alongside Claude Code, Cursor, Antigravity, and other AI tools. Any language, any framework.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Analyze the codebase structure (folders, file types, patterns)",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "partial",
+          "evidence": "Extract tribal knowledge from your codebase into concise, documented standards.",
+          "path": "commands/agent-os/discover-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "mixed",
+          "answer": "small_diff",
           "evidence": "Gather context and structure planning for significant work.",
-          "source": "agent-team draft 2026-07-22"
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -75,8 +78,9 @@
           "value": -0.4,
           "resolved": true,
           "answer": "few",
-          "evidence": "v3 focuses on Agent OS's core strengths: establishing standards, injecting them smartly, and enhancing spec-driven development.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Create better plans that lead to better builds",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -85,8 +89,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "This command is called internally by `/shape-spec` to inject relevant standards during planning.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "You can also invoke it directly anytime you need standards in context.",
+          "path": "commands/agent-os/inject-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": -2.0,
+      "score": -7.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,18 +117,42 @@
           "value": -1.0,
           "resolved": true,
           "answer": "none",
-          "evidence": "helps you shape better specs, keeps agents aligned",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Keep it lightweight** \u2014 This is shaping, not exhaustive documentation",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "Months later, someone can find this spec and understand what was built and why.",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "mixed",
+          "evidence": "Keep shaping fast** \u2014 Don't over-document. Capture enough to start, refine as you build.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "\"Are there any constraints or requirements I should know about?\"",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "2. Then implementation tasks will proceed",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,28 +168,41 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": null,
-      "coverage": 0.0,
+      "score": -7.1,
+      "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "team-coordination",
           "kind": "judged",
           "weight": 3.0,
-          "value": null,
-          "resolved": false,
-          "answer": null,
-          "evidence": "no answer supplied",
-          "source": null
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "Months later, someone can find this spec and understand what was built and why.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
           "kind": "judged",
           "weight": 2.0,
-          "value": null,
-          "resolved": false,
-          "answer": null,
-          "evidence": "no answer supplied",
-          "source": null
+          "value": -1.0,
+          "resolved": true,
+          "answer": "none",
+          "evidence": "2. Then implementation tasks will proceed",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "Task 1 saves all our shaping work before implementation begins.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "software_only",
-          "evidence": "Any language, any framework.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "where Brian helps professional software developers and teams build with AI",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -196,8 +239,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "professional software developers and teams build with AI",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Any language, any framework.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "292.3",
-          "evidence": "git age_days = 292.3",
+          "answer": "408.7",
+          "evidence": "git age_days = 408.7",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "130",
-          "evidence": "git commit_count = 130",
+          "answer": "131",
+          "evidence": "git commit_count = 131",
+          "path": null,
           "source": "engine"
         },
         {
@@ -244,6 +290,7 @@
           "resolved": true,
           "answer": "18",
           "evidence": "git contributor_count = 18",
+          "path": null,
           "source": "engine"
         },
         {
@@ -254,6 +301,7 @@
           "resolved": true,
           "answer": "12",
           "evidence": "git tag_count = 12",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "Agent OS v3 is a major release that refocuses the framework on what it does best",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Subscribe to be notified of major new releases of Agent OS",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,7 +329,7 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -8.0,
       "coverage": 1.0,
       "indicators": [
         {
@@ -290,18 +339,42 @@
           "value": -1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Always use AskUserQuestion tool",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "What are we building? Please describe the feature or change.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
           "kind": "judged",
           "weight": 3.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "loose",
+          "evidence": "You can also invoke it directly anytime you need standards in context.",
+          "path": "commands/agent-os/inject-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "guided",
-          "evidence": "Standards guide, not dictate",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "mixed",
+          "evidence": "Present options the user can confirm, choose between, or correct.",
+          "path": "commands/agent-os/discover-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "Standards guide, not dictate** \u2014 They inform the plan but aren't always mandatory.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": -10.0,
+      "score": -6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,18 +400,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "Plan complete. When you approve and execute:",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Ready to start? (approve / adjust)",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
           "kind": "judged",
           "weight": 3.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "some_phases",
+          "evidence": "Ready to start? (approve / adjust)",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
           "value": -1.0,
           "resolved": true,
-          "answer": "every_phase",
-          "evidence": "Wait for user response before proceeding",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "stops_for_user",
+          "evidence": "2. Then implementation tasks will proceed",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -354,18 +440,19 @@
         "positive": "writes and follows a design specification before coding"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "spec-required",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "required",
-          "evidence": "Task 1 saves all our shaping work before implementation begins.",
-          "source": "agent-team draft 2026-07-22"
+          "answer": "encouraged",
+          "evidence": "Gather context and structure planning for significant work.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -375,7 +462,30 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Task 1 saves all our shaping work before implementation begins.",
-          "source": "agent-team draft 2026-07-22"
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "2. Then implementation tasks will proceed",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "written_once",
+          "evidence": "Months later, someone can find this spec and understand what was built and why.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -401,8 +511,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "no",
-          "evidence": "validation, testing, naming conventions, file structure",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Each task should be specific and actionable.",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "incidental",
-          "evidence": "Error handling, validation, testing",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Error handling, validation, testing, naming conventions, file structure",
+          "path": "commands/agent-os/discover-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": -1.0,
           "resolved": true,
           "answer": "single",
-          "evidence": "Implementation/orchestration phases retired",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "Always use AskUserQuestion tool** when asking the user anything",
+          "path": "commands/agent-os/shape-spec.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "one_conversation",
+          "evidence": "Read standards into our chat (for implementation work)",
+          "path": "commands/agent-os/inject-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "no",
+          "evidence": "Process one standard at a time through the full loop.",
+          "path": "commands/agent-os/discover-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -456,7 +591,7 @@
       },
       "scale": 10.0,
       "score": 10.0,
-      "coverage": 0.6,
+      "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "pipeline-or-parts",
@@ -466,17 +601,19 @@
           "resolved": true,
           "answer": "composable",
           "evidence": "You can also invoke it directly anytime you need standards in context.",
-          "source": "agent-team draft 2026-07-22"
+          "path": "commands/agent-os/inject-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
           "kind": "judged",
           "weight": 2.0,
-          "value": null,
-          "resolved": false,
-          "answer": null,
-          "evidence": "no answer supplied",
-          "source": null
+          "value": 1.0,
+          "resolved": true,
+          "answer": "optional_reorderable",
+          "evidence": "You can also invoke it directly anytime you need standards in context.",
+          "path": "commands/agent-os/inject-standards.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -502,8 +639,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "minimal",
-          "evidence": "lightweight system that fits how you already build",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "keeps agents aligned in a lightweight system that fits how you already build.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "tiny",
-          "evidence": "The installation process is simpler, but commands are different.",
-          "source": "agent-team draft 2026-07-22"
+          "evidence": "keeps agents aligned in a lightweight system that fits how you already build.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

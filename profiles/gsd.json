@@ -1,10 +1,10 @@
 {
-  "target": "get-shit-done",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "bdcaab2c752d9a33a1a1ca9acf3a3c81fb991815",
-  "target_url": "https://github.com/gsd-build/get-shit-done",
-  "target_version": "v1.43.0-rc2-59-gbdcaab2c752d",
+  "target": "gsd-core",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "c1df57120c36afba60710854c17ea271476a70b7",
+  "target_url": "https://github.com/open-gsd/gsd-core",
+  "target_version": "v1.15.0-118-gc1df57120c36",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Before /gsd:new-project (brownfield codebases) - creates codebase map first",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "start a new project or onboard an existing repo",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -39,7 +40,8 @@
           "resolved": true,
           "answer": "yes",
           "evidence": "Analyze existing codebase using parallel gsd-codebase-mapper agents",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/map-codebase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
@@ -49,7 +51,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Quick tasks live in `.planning/quick/` separate from planned phases",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/quick.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -76,7 +79,8 @@
           "resolved": true,
           "answer": "full_lifecycle",
           "evidence": "Closes the plan \u2192 execute \u2192 verify \u2192 ship loop.",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/ship.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
@@ -86,7 +90,8 @@
           "resolved": true,
           "answer": "multi_stage",
           "evidence": "Requirements \u2192 research \u2192 plans \u2192 execution \u2192 verification pipeline",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "docs/ARCHITECTURE.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 3.3,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,8 +117,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "strong",
-          "evidence": "Verify threat mitigations for a completed phase",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Retroactively verify threat mitigations for a completed phase.",
+          "path": "docs/COMMANDS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
@@ -123,7 +129,30 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "build focused experiments to feel the pieces",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/spike.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Performance, Security",
+          "path": "gsd-core/templates/project.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "Advisory only \u2014 never blocks execution flow.",
+          "path": "gsd-core/workflows/execute-phase/steps/verify-phase-goal.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -150,7 +179,8 @@
           "resolved": true,
           "answer": "partial",
           "evidence": "concurrent sessions do not overwrite each other",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/workstreams.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
@@ -160,7 +190,19 @@
           "resolved": true,
           "answer": "some",
           "evidence": "UAT provides human verification as final gate",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "docs/ARCHITECTURE.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "repository",
+          "evidence": "| `planning.commit_docs` | boolean | `true` | Whether `.planning/` files are committed to git |",
+          "path": "docs/CONFIGURATION.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -187,7 +229,8 @@
           "resolved": true,
           "answer": "software_only",
           "evidence": "meta-prompting, context engineering, and spec-driven development system for AI coding agents",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "package.json",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -197,7 +240,8 @@
           "resolved": true,
           "answer": "no",
           "evidence": "meta-prompting, context engineering, and spec-driven development system for AI coding agents",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "package.json",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -213,17 +257,18 @@
         "positive": "established and battle tested, stable but slower to change"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 7.5,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "repo-age",
           "kind": "detected",
           "weight": 2.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "167.0",
-          "evidence": "git age_days = 167.0",
+          "answer": "292.2",
+          "evidence": "git age_days = 292.2",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "2928",
-          "evidence": "git commit_count = 2928",
+          "answer": "6091",
+          "evidence": "git commit_count = 6091",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "140",
-          "evidence": "git contributor_count = 140",
+          "answer": "174",
+          "evidence": "git contributor_count = 174",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "204",
-          "evidence": "git tag_count = 204",
+          "answer": "25",
+          "evidence": "git tag_count = 25",
+          "path": null,
           "source": "engine"
         },
         {
@@ -264,7 +312,8 @@
           "resolved": true,
           "answer": "stable",
           "evidence": "stable API guarantees that apply to the rest of GSD",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "docs/BETA.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -290,8 +339,9 @@
           "value": -1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Gather phase context through adaptive questioning before planning",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Gather phase context through adaptive questioning before planning.",
+          "path": "docs/COMMANDS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -301,7 +351,30 @@
           "resolved": true,
           "answer": "guided",
           "evidence": "spec-phase \u2192 discuss-phase \u2192 plan-phase \u2192 execute-phase \u2192 verify",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/spec-phase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "options: 2-3 concrete choices (AskUserQuestion adds \"Other\" automatically), with the recommended choice highlighted and brief explanation why",
+          "path": "gsd-core/workflows/discuss-phase/modes/default.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "If `./CLAUDE.md` exists, treat its directives as hard constraints during execution.",
+          "path": "agents/gsd-executor.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -317,7 +390,7 @@
         "positive": "runs end to end on its own, with little intervention"
       },
       "scale": 10.0,
-      "score": 5.0,
+      "score": 3.8,
       "coverage": 1.0,
       "indicators": [
         {
@@ -327,8 +400,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "Execute all remaining milestone phases autonomously",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Execute all remaining milestone phases autonomously.",
+          "path": "commands/gsd/autonomous.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "Pauses only for user decisions (grey area acceptance, blockers, validation requests)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Claude identifies grey areas in the phase scope, lets you select which to discuss",
+          "path": "docs/how-to/discuss-a-phase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "retries_then_stops",
+          "evidence": "Track auto-fix attempts per task. After 3 auto-fix attempts on a single task:",
+          "path": "agents/gsd-executor.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "Plans are verified before execution (plan-checker agent)",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "**Prerequisites:** The phase has at least one `PLAN.md` file.",
+          "path": "docs/how-to/execute-a-phase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "All state lives in `.planning/` as human-readable Markdown and JSON",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "the living project context document",
+          "path": "gsd-core/templates/project.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "It checks requirement coverage (were all the REQ-IDs addressed?)",
+          "path": "docs/explanation/the-phase-loop.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "living",
+          "evidence": "Evolve PROJECT.md to reflect learnings from completed phase.",
+          "path": "gsd-core/workflows/transition.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -402,7 +512,8 @@
           "resolved": true,
           "answer": "encouraged",
           "evidence": "Opt-in TDD (red-green-refactor) as a first-class phase execution mode",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "docs/features/tdd-pipeline-mode.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
@@ -411,8 +522,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "first_class",
-          "evidence": "Generate tests for a completed phase based on UAT criteria and implementation",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "Walk executed work through user acceptance testing",
+          "path": "docs/how-to/verify-and-ship.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -438,8 +550,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "Thin orchestrators that spawn specialized agents with fresh context windows",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "spawn specialized agents with fresh context windows",
+          "path": "docs/AGENTS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "separate_subagents",
+          "evidence": "running all heavy research, planning, and execution work in fresh-context subagents while keeping your main session lean",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "default",
+          "evidence": "Wave 1 plans run in parallel (each in an isolated git worktree).",
+          "path": "docs/how-to/execute-a-phase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -466,7 +601,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Granular flags are composable",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "docs/COMMANDS.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -476,7 +612,8 @@
           "resolved": true,
           "answer": "mixed",
           "evidence": "Skip verification loop",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/plan-phase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -503,7 +640,8 @@
           "resolved": true,
           "answer": "moderate",
           "evidence": "Quick mode is the same system with a shorter path",
-          "source": "agent-team wave2 2026-07-23"
+          "path": "commands/gsd/quick.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "npx get-shit-done-cc@latest",
-          "source": "agent-team wave2 2026-07-23"
+          "evidence": "npx @opengsd/gsd-core@latest",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

@@ -1,10 +1,10 @@
 {
   "target": "bmad-method",
-  "rubric_version": "4.0.0",
-  "engine_version": "2.2.0",
-  "target_sha": "cbb69e64e744ef545f174386ca793144ecbd1cfc",
+  "rubric_version": "5.0.0",
+  "engine_version": "4.0.1",
+  "target_sha": "3cae711ea5274cf7c7cf6e173bb8d7f29cd71497",
   "target_url": "https://github.com/bmad-code-org/BMAD-METHOD.git",
-  "target_version": "v6.10.0-60-gcbb69e64e744",
+  "target_version": "v6.12.0-196-g3cae711ea527",
   "axes": [
     {
       "axis_id": "greenfield-vs-brownfield",
@@ -18,7 +18,7 @@
         "positive": "excels working inside an existing, established codebase"
       },
       "scale": 10.0,
-      "score": 3.8,
+      "score": 6.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -28,8 +28,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "either",
-          "evidence": "Quick test coverage for a new or existing feature",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Start from nothing, or establish verified context on a codebase you inherited and work from what is actually there.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "maps-existing-code",
@@ -38,18 +39,20 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "It scans your codebase and any docs first (mechanically, via its script and parallel subagents), then asks you in short rounds only about what's genuinely unknowable \u2014 landmines, frozen areas, org requirements.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "`bmad-project-context` writes a small verified block of agent instructions\ninto your repo's `AGENTS.md`.",
+          "path": "docs/existing-codebases/start-in-an-existing-codebase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "unit-of-work",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "Small, zero-blast-radius changes can go straight to implementation.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "small_diff",
+          "evidence": "A plan should target a **single user-facing goal**",
+          "path": "skills/bmad-build/workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -65,28 +68,30 @@
         "positive": "the whole delivery lifecycle, from idea to release"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 7.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "lifecycle-coverage",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.5,
           "resolved": true,
-          "answer": "full_lifecycle",
-          "evidence": "across 4 distinct phases - each phase, and multiple workflows optionally within each phase, produce documents that",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "most",
+          "evidence": "Move from early thinking through reviewed implementation, correction, and learning.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "pipeline-stages",
           "kind": "judged",
           "weight": 2.0,
-          "value": 0.0,
+          "value": 1.0,
           "resolved": true,
-          "answer": "mixed",
-          "evidence": "Clear work can enter `bmad-build` directly. Larger initiatives can first produce a PRD, UX design, architecture, epics, stories, readiness results, and sprint plan.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "multi_stage",
+          "evidence": "Complete steps in order, no skipping",
+          "path": "skills/bmad-build/workflow.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -102,7 +107,7 @@
         "positive": "hardened output with tests, CI, security, and maintainability in mind"
       },
       "scale": 10.0,
-      "score": 4.0,
+      "score": 2.2,
       "coverage": 1.0,
       "indicators": [
         {
@@ -112,18 +117,42 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some",
-          "evidence": "| NFR Assessment | Evaluate non-functional requirements (performance, security) |",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "the operational/environmental envelope: deployment & environments, infra/provider strategy, operations",
+          "path": "skills/bmad-architecture/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "throwaway-tolerance",
           "kind": "judged",
           "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "The same method covers a weekend prototype and a system with years of history behind it.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "non-functional-requirements",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "prompted",
+          "evidence": "system-wide non-functional requirements not tied to a single feature (performance, security, reliability, observability). Add when system-wide quality attributes are meaningful.",
+          "path": "skills/bmad-prd/assets/prd-template.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "review-before-done",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "maintainable_only",
-          "evidence": "producing clean working code artifacts that follow the project",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "required",
+          "evidence": "Launch a context-free subagent with this prompt:",
+          "path": "skills/bmad-build/customize.toml",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -139,7 +168,7 @@
         "positive": "built for many contributors, with team-safe collaboration and handoffs"
       },
       "scale": 10.0,
-      "score": 0.0,
+      "score": 2.9,
       "coverage": 1.0,
       "indicators": [
         {
@@ -149,18 +178,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "Architecture documentation prevents this by establishing shared standards.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Independent epic streams\ncan proceed in parallel when their boundaries are explicit. Each stream needs\nan owner",
+          "path": "docs/plan/choose-a-planning-path.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "human-handoffs",
           "kind": "judged",
           "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "many",
+          "evidence": "The skills give you five moments where a human decision is expected, and each\none blocks something specific.",
+          "path": "docs/plan/plan-inside-an-organization.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "shared-work-state",
+          "kind": "judged",
+          "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "some",
-          "evidence": "from autonomous implementation back to human judgment",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "repository",
+          "evidence": "Repo is the default and the choice that has been tested most.",
+          "path": "docs/plan/set-up-the-ticket-tree.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -186,8 +228,9 @@
           "value": 0.5,
           "resolved": true,
           "answer": "mostly_software",
-          "evidence": "**Agile Ai Driven Development \u2014 turn an idea or change request into working software without giving up the thinking.**",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Plan and deliver software, from new prototypes to established codebases",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "non-code-claims",
@@ -197,7 +240,8 @@
           "resolved": true,
           "answer": "some",
           "evidence": "Creative thinking partners for innovation, design thinking, and storytelling",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -222,8 +266,9 @@
           "weight": 2.0,
           "value": 0.0,
           "resolved": true,
-          "answer": "480.0",
-          "evidence": "git age_days = 480.0",
+          "answer": "537.7",
+          "evidence": "git age_days = 537.7",
+          "path": null,
           "source": "engine"
         },
         {
@@ -232,8 +277,9 @@
           "weight": 2.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "2021",
-          "evidence": "git commit_count = 2021",
+          "answer": "2297",
+          "evidence": "git commit_count = 2297",
+          "path": null,
           "source": "engine"
         },
         {
@@ -242,8 +288,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "151",
-          "evidence": "git contributor_count = 151",
+          "answer": "157",
+          "evidence": "git contributor_count = 157",
+          "path": null,
           "source": "engine"
         },
         {
@@ -252,8 +299,9 @@
           "weight": 1.0,
           "value": 1.0,
           "resolved": true,
-          "answer": "142",
-          "evidence": "git tag_count = 142",
+          "answer": "144",
+          "evidence": "git tag_count = 144",
+          "path": null,
           "source": "engine"
         },
         {
@@ -263,8 +311,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "evolving",
-          "evidence": "Bundles evolve. When you pull a newer version of a bundle, the typical update is to its knowledge files",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "The tracker options still need a lot of testing.",
+          "path": "docs/plan/set-up-the-ticket-tree.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -280,18 +329,19 @@
         "positive": "prescribes a strong default path and drives it"
       },
       "scale": 10.0,
-      "score": -5.0,
+      "score": -2.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "asks-before-coding",
           "kind": "judged",
           "weight": 3.0,
-          "value": -1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "yes",
-          "evidence": "Brainstorm Project Ideas with guided facilitation of a brainstorming coach",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "partial",
+          "evidence": "Do not ask the human during investigation.",
+          "path": "skills/bmad-build/step-02-plan.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "path-strictness",
@@ -300,8 +350,31 @@
           "value": 0.0,
           "resolved": true,
           "answer": "guided",
-          "evidence": "Every workflow below can be run directly with your tool of choice via skill or by loading an agent",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "These are independent tools, not stages. Pick the ones the gap calls for, in\nany order.",
+          "path": "docs/plan/choose-a-planning-path.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "decision-ownership",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Present every entry as a numbered question with its options and what each option means, and HALT for the human's answers.",
+          "path": "skills/bmad-build/step-02-plan.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "mandated-conventions",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": -1.0,
+          "resolved": true,
+          "answer": "project_defined",
+          "evidence": "You do not inventory conventions beforehand. `bmad-build` investigates the\nrepository, writes down what to reuse and what not to change, and follows\nthat.",
+          "path": "docs/existing-codebases/start-in-an-existing-codebase.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -327,8 +400,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "partial",
-          "evidence": "**Goal:** Turn intent into a hardened, reviewable artifact, without human interaction.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "`bmad-build-auto` runs one session without waiting for human input.",
+          "path": "docs/plan/choose-a-planning-path.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "approval-gates",
@@ -337,8 +411,20 @@
           "value": 0.0,
           "resolved": true,
           "answer": "some_phases",
-          "evidence": "Readiness gate before implementation, then story tracking and status view",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "approve the plan and proceed to implementation in this session",
+          "path": "skills/bmad-build/step-02-plan.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "failure-recovery",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "retries_then_stops",
+          "evidence": "If it exceeds 5, HALT and escalate to the human.",
+          "path": "skills/bmad-build/step-04-review.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -364,8 +450,9 @@
           "value": 1.0,
           "resolved": true,
           "answer": "required",
-          "evidence": "missing spec_file before implementation",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "resolves to a non-empty path and the file exists on disk",
+          "path": "skills/bmad-build/step-03-implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "spec-documents",
@@ -374,8 +461,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "yes",
-          "evidence": "That spec is the contract between planning, implementation, and review.",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Every skill in this chapter writes a document you can hand on.",
+          "path": "docs/plan/choose-a-planning-path.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-verification",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "yes",
+          "evidence": "Report unmet acceptance criteria, broken rules, and bugs.",
+          "path": "skills/bmad-build/customize.toml",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "spec-lifecycle",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 1.0,
+          "resolved": true,
+          "answer": "living",
+          "evidence": "Update the spec and re-slice the remaining stories when earlier work reveals a\nmissing constraint",
+          "path": "docs/plan/choose-a-planning-path.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -391,28 +501,30 @@
         "positive": "test-first discipline (TDD) is built in and enforced"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "tests-first",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "enforced",
-          "evidence": "Write FAILING tests first for the task/subtask functionality",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "encouraged",
+          "evidence": "You execute approved stories with test-first discipline",
+          "path": "skills/bmad-agent-dev/SKILL.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "testing-phase",
           "kind": "judged",
           "weight": 2.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "first_class",
-          "evidence": "a built-in QA workflow for fast test generation and an installable Test Architect module for enterprise-grade test strategy",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "present",
+          "evidence": "verify every matrix row is covered by at least one test that verifies its expected behavior",
+          "path": "skills/bmad-build/step-03-implement.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -428,7 +540,7 @@
         "positive": "many specialized subagents or personas work together"
       },
       "scale": 10.0,
-      "score": 10.0,
+      "score": 4.3,
       "coverage": 1.0,
       "indicators": [
         {
@@ -438,8 +550,31 @@
           "value": 1.0,
           "resolved": true,
           "answer": "many",
-          "evidence": "BMad ships five named agents, each anchored to a phase of the BMad Method:",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "The BMad Method module installs five named agents.",
+          "path": "docs/reference/skills-and-agents.md",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "separate-contexts",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "mixed",
+          "evidence": "Launch a subagent with no prior conversation context, with this prompt:",
+          "path": "skills/bmad-build/customize.toml",
+          "source": "agentic-atlas:claude-opus-5-5"
+        },
+        {
+          "indicator_id": "parallel-agents",
+          "kind": "judged",
+          "weight": 2.0,
+          "value": 0.0,
+          "resolved": true,
+          "answer": "optional",
+          "evidence": "review = \"quick\"",
+          "path": "skills/bmad-build/customize.toml",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -465,8 +600,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "Every workflow below can be run directly with your tool of choice via skill or by loading an agent",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Use BMad end to end, or carry its briefs, specifications, and architecture into your existing delivery workflow.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "step-order",
@@ -475,8 +611,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "mixed",
-          "evidence": "across 4 distinct phases - each phase, and multiple workflows optionally within each phase, produce documents that",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Small changes go straight to build. Complex work gets the depth it needs.",
+          "path": "README.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     },
@@ -492,18 +629,19 @@
         "positive": "many concepts, roles, and steps to take on"
       },
       "scale": 10.0,
-      "score": 6.0,
+      "score": 0.0,
       "coverage": 1.0,
       "indicators": [
         {
           "indicator_id": "learning-curve",
           "kind": "judged",
           "weight": 3.0,
-          "value": 1.0,
+          "value": 0.0,
           "resolved": true,
-          "answer": "heavy",
-          "evidence": "a full-lifecycle framework with agents and workflows for analysis, planning, architecture, and implementation",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "answer": "moderate",
+          "evidence": "Use this page to decide how much planning a change needs.",
+          "path": "docs/plan/choose-a-planning-path.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         },
         {
           "indicator_id": "install-footprint",
@@ -512,8 +650,9 @@
           "value": 0.0,
           "resolved": true,
           "answer": "moderate",
-          "evidence": "\u251c\u2500\u2500 _bmad/               # Single installation folder\n\u2502   \u251c\u2500\u2500 _config/         # Your customizations\n\u2502   \u2502   \u2514\u2500\u2500 agents/      # Agent customization files\n\u2502   \u251c\u2500\u2500 core/            # Universal core framework\n\u2502   \u251c\u2500\u2500 bmm/             # BMad Method module\n\u2502   \u251c\u2500\u2500 bmb/             # BMad Builder\n\u2502   \u2514\u2500\u2500 cis/             # Creative Intelligence Suite\n\u2514\u2500\u2500 _bmad-output/        # Output folder (was doc folder in v4)",
-          "source": "agentic-atlas:corpus-refresh-reanswer"
+          "evidence": "Setup installs the shared runtime and module scripts under `_bmad/`.",
+          "path": "docs/start/install-bmad.md",
+          "source": "agentic-atlas:claude-opus-5-5"
         }
       ]
     }

@@ -145,7 +145,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/bmad-code-org/BMAD-METHOD" target="_blank" rel="noopener" title="Open bmad-code-org/BMAD-METHOD on GitHub" aria-label="Open bmad-code-org/BMAD-METHOD on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>bmad-code-org/BMAD-METHOD</span></a></div>
-    <div class="stamps">version v6.10.0</div>
+    <div class="stamps">version v6.12.0</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 3.8, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 6.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 3.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 5.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 0.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 10.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 6.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 6.2, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 7.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 2.2, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 2.9, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 3.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 5.0, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -2.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 0.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 0.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 4.3, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": 0.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -378,10 +378,10 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.8</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.2</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill pos" style="width:19%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
@@ -403,16 +403,17 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Quick test coverage for a new or existing feature</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">It scans your codebase and any docs first (mechanically, via its script and parallel subagents), then asks you in short rounds only about what&#x27;s genuinely unknowable — landmines, frozen areas, org requirements.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Small, zero-blast-radius changes can go straight to implementation.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">Start from nothing, or establish verified context on a codebase you inherited and work from what is actually there.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">`bmad-project-context` writes a small verified block of agent instructions
+into your repo&#x27;s `AGENTS.md`.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/existing-codebases/start-in-an-existing-codebase.md" target="_blank" rel="noopener">docs/existing-codebases/start-in-an-existing-codebase.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">A plan should target a **single user-facing goal**<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/workflow.md" target="_blank" rel="noopener">skills/bmad-build/workflow.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.0</span></div>
     <div class="bar-row">
       <span class="pole left">small scope</span>
-      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:35%"></div><div class="center"></div></div>
       <span class="pole right">large scope</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-1" title="show the 2 signals behind this">
@@ -434,20 +435,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">across 4 distinct phases - each phase, and multiple workflows optionally within each phase, produce documents that</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Clear work can enter `bmad-build` directly. Larger initiatives can first produce a PRD, UX design, architecture, epics, stories, readiness results, and sprint plan.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">Move from early thinking through reviewed implementation, correction, and learning.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">Complete steps in order, no skipping<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/workflow.md" target="_blank" rel="noopener">skills/bmad-build/workflow.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.2</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:11%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,21 +464,23 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">| NFR Assessment | Evaluate non-functional requirements (performance, security) |</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">producing clean working code artifacts that follow the project</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">the operational/environmental envelope: deployment &amp; environments, infra/provider strategy, operations<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-architecture/SKILL.md" target="_blank" rel="noopener">skills/bmad-architecture/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">The same method covers a weekend prototype and a system with years of history behind it.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">system-wide non-functional requirements not tied to a single feature (performance, security, reliability, observability). Add when system-wide quality attributes are meaningful.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-prd/assets/prd-template.md" target="_blank" rel="noopener">skills/bmad-prd/assets/prd-template.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>required</td><td class="val">+1.00</td><td class="evidence">Launch a context-free subagent with this prompt:<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/customize.toml" target="_blank" rel="noopener">skills/bmad-build/customize.toml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+2.9</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:14.5%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +496,13 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Architecture documentation prevents this by establishing shared standards.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">from autonomous implementation back to human judgment</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Independent epic streams
+can proceed in parallel when their boundaries are explicit. Each stream needs
+an owner<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/choose-a-planning-path.md" target="_blank" rel="noopener">docs/plan/choose-a-planning-path.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>many</td><td class="val">+1.00</td><td class="evidence">The skills give you five moments where a human decision is expected, and each
+one blocks something specific.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/plan-inside-an-organization.md" target="_blank" rel="noopener">docs/plan/plan-inside-an-organization.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>repository</td><td class="val">+0.00</td><td class="evidence">Repo is the default and the choice that has been tested most.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/set-up-the-ticket-tree.md" target="_blank" rel="noopener">docs/plan/set-up-the-ticket-tree.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,8 +531,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">**Agile Ai Driven Development — turn an idea or change request into working software without giving up the thinking.**</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Creative thinking partners for innovation, design thinking, and storytelling</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>mostly_software</td><td class="val">+0.50</td><td class="evidence">Plan and deliver software, from new prototypes to established codebases<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Creative thinking partners for innovation, design thinking, and storytelling<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -554,23 +561,23 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>480.0</td><td class="val">+0.00</td><td class="evidence">git age_days = 480.0</td><td>engine</td></tr>
-<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>2021</td><td class="val">+1.00</td><td class="evidence">git commit_count = 2021</td><td>engine</td></tr>
-<tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>151</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 151</td><td>engine</td></tr>
-<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>142</td><td class="val">+1.00</td><td class="evidence">git tag_count = 142</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">Bundles evolve. When you pull a newer version of a bundle, the typical update is to its knowledge files</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>537.7</td><td class="val">+0.00</td><td class="evidence">git age_days = 537.7</td><td>engine</td></tr>
+<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>2297</td><td class="val">+1.00</td><td class="evidence">git commit_count = 2297</td><td>engine</td></tr>
+<tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>157</td><td class="val">+1.00</td><td class="evidence">git contributor_count = 157</td><td>engine</td></tr>
+<tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>144</td><td class="val">+1.00</td><td class="evidence">git tag_count = 144</td><td>engine</td></tr>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">The tracker options still need a lot of testing.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/set-up-the-ticket-tree.md" target="_blank" rel="noopener">docs/plan/set-up-the-ticket-tree.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Interrogative <em>vs</em> Opinionated</span><button type="button" class="info" data-dialog="poles-6" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.0</span></div>
     <div class="bar-row">
       <span class="pole left">interrogative</span>
-      <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:10%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,9 +593,14 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Brainstorm Project Ideas with guided facilitation of a brainstorming coach</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">Every workflow below can be run directly with your tool of choice via skill or by loading an agent</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Do not ask the human during investigation.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/step-02-plan.md" target="_blank" rel="noopener">skills/bmad-build/step-02-plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">These are independent tools, not stages. Pick the ones the gap calls for, in
+any order.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/choose-a-planning-path.md" target="_blank" rel="noopener">docs/plan/choose-a-planning-path.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Present every entry as a numbered question with its options and what each option means, and HALT for the human&#x27;s answers.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/step-02-plan.md" target="_blank" rel="noopener">skills/bmad-build/step-02-plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>project_defined</td><td class="val">-1.00</td><td class="evidence">You do not inventory conventions beforehand. `bmad-build` investigates the
+repository, writes down what to reuse and what not to change, and follows
+that.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/existing-codebases/start-in-an-existing-codebase.md" target="_blank" rel="noopener">docs/existing-codebases/start-in-an-existing-codebase.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -598,9 +610,9 @@
       <div class="track"><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,9 +628,10 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">**Goal:** Turn intent into a hardened, reviewable artifact, without human interaction.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Readiness gate before implementation, then story tracking and status view</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">`bmad-build-auto` runs one session without waiting for human input.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/choose-a-planning-path.md" target="_blank" rel="noopener">docs/plan/choose-a-planning-path.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">approve the plan and proceed to implementation in this session<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/step-02-plan.md" target="_blank" rel="noopener">skills/bmad-build/step-02-plan.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>retries_then_stops</td><td class="val">+0.00</td><td class="evidence">If it exceeds 5, HALT and escalate to the human.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/step-04-review.md" target="_blank" rel="noopener">skills/bmad-build/step-04-review.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -628,9 +641,9 @@
       <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,16 +659,19 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">missing spec_file before implementation</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">That spec is the contract between planning, implementation, and review.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">resolves to a non-empty path and the file exists on disk<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/step-03-implement.md" target="_blank" rel="noopener">skills/bmad-build/step-03-implement.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Every skill in this chapter writes a document you can hand on.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/choose-a-planning-path.md" target="_blank" rel="noopener">docs/plan/choose-a-planning-path.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Report unmet acceptance criteria, broken rules, and bugs.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/customize.toml" target="_blank" rel="noopener">skills/bmad-build/customize.toml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>living</td><td class="val">+1.00</td><td class="evidence">Update the spec and re-slice the remaining stories when earlier work reveals a
+missing constraint<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/choose-a-planning-path.md" target="_blank" rel="noopener">docs/plan/choose-a-planning-path.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">test optional</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-9" title="show the 2 signals behind this">
@@ -677,20 +693,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>enforced</td><td class="val">+1.00</td><td class="evidence">Write FAILING tests first for the task/subtask functionality</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">a built-in QA workflow for fast test generation and an installable Test Architect module for enterprise-grade test strategy</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">You execute approved stories with test-first discipline<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-agent-dev/SKILL.md" target="_blank" rel="noopener">skills/bmad-agent-dev/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">verify every matrix row is covered by at least one test that verifies its expected behavior<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/step-03-implement.md" target="_blank" rel="noopener">skills/bmad-build/step-03-implement.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.3</span></div>
     <div class="bar-row">
       <span class="pole left">single agent</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:21.5%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +722,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">BMad ships five named agents, each anchored to a phase of the BMad Method:</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">The BMad Method module installs five named agents.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/reference/skills-and-agents.md" target="_blank" rel="noopener">docs/reference/skills-and-agents.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Launch a subagent with no prior conversation context, with this prompt:<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/customize.toml" target="_blank" rel="noopener">skills/bmad-build/customize.toml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>optional</td><td class="val">+0.00</td><td class="evidence">review = &quot;quick&quot;<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/skills/bmad-build/customize.toml" target="_blank" rel="noopener">skills/bmad-build/customize.toml</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,15 +754,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Every workflow below can be run directly with your tool of choice via skill or by loading an agent</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">across 4 distinct phases - each phase, and multiple workflows optionally within each phase, produce documents that</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Use BMad end to end, or carry its briefs, specifications, and architecture into your existing delivery workflow.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Small changes go straight to build. Complex work gets the depth it needs.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Lightweight <em>vs</em> Heavyweight</span><button type="button" class="info" data-dialog="poles-12" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
     <div class="bar-row">
       <span class="pole left">lightweight</span>
-      <div class="track"><div class="fill pos" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="center"></div></div>
       <span class="pole right">heavyweight</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-12" title="show the 2 signals behind this">
@@ -766,15 +784,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>heavy</td><td class="val">+1.00</td><td class="evidence">a full-lifecycle framework with agents and workflows for analysis, planning, architecture, and implementation</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">├── _bmad/               # Single installation folder
-│   ├── _config/         # Your customizations
-│   │   └── agents/      # Agent customization files
-│   ├── core/            # Universal core framework
-│   ├── bmm/             # BMad Method module
-│   ├── bmb/             # BMad Builder
-│   └── cis/             # Creative Intelligence Suite
-└── _bmad-output/        # Output folder (was doc folder in v4)</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">Use this page to decide how much planning a change needs.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/plan/choose-a-planning-path.md" target="_blank" rel="noopener">docs/plan/choose-a-planning-path.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">Setup installs the shared runtime and module scripts under `_bmad/`.<span class="ev-path"><a href="https://github.com/bmad-code-org/BMAD-METHOD/blob/3cae711ea5274cf7c7cf6e173bb8d7f29cd71497/docs/start/install-bmad.md" target="_blank" rel="noopener">docs/start/install-bmad.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>

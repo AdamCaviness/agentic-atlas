@@ -145,7 +145,7 @@
   </header>
   <div class="head-meta">
     <div class="project"><a href="https://github.com/Wirasm/PRPs-agentic-eng" target="_blank" rel="noopener" title="Open Wirasm/PRPs-agentic-eng on GitHub" aria-label="Open Wirasm/PRPs-agentic-eng on GitHub, opens in a new tab"><svg class='gh' viewBox='0 0 16 16' width='15' height='15' fill='currentColor' aria-hidden='true'><path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'></path></svg><span>Wirasm/PRPs-agentic-eng</span></a></div>
-    <div class="stamps">commit 08e879274cc8</div>
+    <div class="stamps">commit 435292597e7b</div>
     <p class="note">These results are non-judgmental measurements against the <a href="https://github.com/AdamCaviness/agentic-atlas/tree/main/rubric" target="_blank" rel="noopener">rubric</a>, not a grade, a rank, or a winner, because there is no single best practice for how you or your projects work. Sometimes you just want to know what fits a large legacy or brownfield codebase versus what you would reach for on a fresh startup idea.</p>
     <p class="aside">Scale &plusmn;10 per axis. A score near 0 leans neither way, which can mean a tool serves both ends well or neither; open an axis to see what the poles mean. A bar's evidence meter shows how much of the intended evidence was found; an axis under half evidence reads "needs interpretation" with no bar rather than plot a thin position. Each position draws on signals the engine <strong>detected</strong> from the repo and ones a reviewer <strong>judged</strong> by reading it.</p>
     <div class="legend">
@@ -166,7 +166,7 @@
   if(!host) return;
   var canvas=host.querySelector('canvas');
   var tip=host.querySelector('.tip');
-  var AXES=[{"t": "Greenfield vs Brownfield", "s": 6.2, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 3.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.0, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": 0.0, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": 1.2, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 5.0, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 10.0, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": -6.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 10.0, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -4.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
+  var AXES=[{"t": "Greenfield vs Brownfield", "s": 10.0, "sc": 10.0, "n": "greenfield", "p": "brownfield"}, {"t": "Small-scope vs Large-scope", "s": 10.0, "sc": 10.0, "n": "small scope", "p": "large scope"}, {"t": "Prototype vs Production", "s": 4.4, "sc": 10.0, "n": "prototype", "p": "production"}, {"t": "Solo vs Team", "s": -2.9, "sc": 10.0, "n": "solo", "p": "team"}, {"t": "Generalist vs Specialist", "s": 10.0, "sc": 10.0, "n": "generalist", "p": "specialist"}, {"t": "Fresh vs Mature", "s": -1.2, "sc": 10.0, "n": "fresh", "p": "mature"}, {"t": "Interrogative vs Opinionated", "s": -5.0, "sc": 10.0, "n": "interrogative", "p": "opinionated"}, {"t": "Autonomous vs Human-in-loop", "s": 6.2, "sc": 10.0, "n": "human in loop", "p": "autonomous"}, {"t": "Spec-light vs Spec-driven", "s": 7.8, "sc": 10.0, "n": "spec light", "p": "spec driven"}, {"t": "Test-optional vs Test-first", "s": 4.0, "sc": 10.0, "n": "test optional", "p": "test first"}, {"t": "Single-agent vs Multi-agent", "s": 7.1, "sc": 10.0, "n": "single agent", "p": "multi agent"}, {"t": "Prescriptive vs Composable", "s": 0.0, "sc": 10.0, "n": "prescriptive", "p": "composable"}, {"t": "Lightweight vs Heavyweight", "s": -4.0, "sc": 10.0, "n": "lightweight", "p": "heavyweight"}];
   function fail(){ canvas.style.display='none';
     var f=host.querySelector('.fallback'); if(f) f.style.display='flex'; }
   if(!AXES.length){ host.style.display='none'; return; }
@@ -378,10 +378,10 @@
     </aside>
     <div class="col-main">
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.2</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Greenfield <em>vs</em> Brownfield</span><button type="button" class="info" data-dialog="poles-0" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
     <div class="bar-row">
       <span class="pole left">greenfield</span>
-      <div class="track"><div class="fill pos" style="width:31%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">brownfield</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-0" title="show the 3 signals behind this">
@@ -403,16 +403,16 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Greenfield vs Brownfield</h3>
       <p class="modal-sub">3 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>either</td><td class="val">+0.00</td><td class="evidence">solutions must fit existing codebase patterns first</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">CODEBASE FIRST, RESEARCH SECOND. Solutions must fit existing patterns before introducing new ones.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Each plan should be completable by an AI in one loop</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>starting-point</td><td><span class="kind">judged</span></td><td>3</td><td>existing_codebase</td><td class="val">+1.00</td><td class="evidence">Read repository guidance and discover the actual project structure. Do not assume `src/`, a framework, or a validation stack.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-plan/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>maps-existing-code</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">`prp-core:codebase-analyst` to trace the current control flow, data flow, state changes, contracts, and observable behavior.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-plan/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>unit-of-work</td><td><span class="kind">judged</span></td><td>2</td><td>small_diff</td><td class="val">+1.00</td><td class="evidence">Prefer the smallest valuable vertical slice: it must deliver or directly unlock the user outcome<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-plan/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+3.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Small-scope <em>vs</em> Large-scope</span><button type="button" class="info" data-dialog="poles-1" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
     <div class="bar-row">
       <span class="pole left">small scope</span>
-      <div class="track"><div class="fill pos" style="width:15%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
       <span class="pole right">large scope</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-1" title="show the 2 signals behind this">
@@ -434,20 +434,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Small-scope vs Large-scope</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>most</td><td class="val">+0.50</td><td class="evidence">Autonomous cyclic pipeline: plan → implement → pr → review</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Every skill is then available across all your projects as `/prp-core:&lt;name&gt;`</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>lifecycle-coverage</td><td><span class="kind">judged</span></td><td>3</td><td>full_lifecycle</td><td class="val">+1.00</td><td class="evidence">Continue autonomously through plan, implementation, PR, review, correction, re-review, and CI.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-issue/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-issue/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>pipeline-stages</td><td><span class="kind">judged</span></td><td>2</td><td>multi_stage</td><td class="val">+1.00</td><td class="evidence">Compose `/prp-plan`, `/prp-implement`, and `/prp-review`; do not reproduce their craft.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-issue/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-issue/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Prototype <em>vs</em> Production</span><button type="button" class="info" data-dialog="poles-2" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.4</span></div>
     <div class="bar-row">
       <span class="pole left">prototype</span>
-      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:22%"></div><div class="center"></div></div>
       <span class="pole right">production</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-2" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-2" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-2" class="modal">
@@ -463,21 +463,23 @@
     <dialog id="signals-2" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prototype vs Production</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">SECURITY: Attack vectors? Data exposure risks? Auth/authz?</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">The minimum viable packet an AI needs to ship production-ready code on the first pass.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>production-hardening</td><td><span class="kind">judged</span></td><td>3</td><td>some</td><td class="val">+0.00</td><td class="evidence">Pass `--validate &quot;&lt;cmd&gt;&quot;` to give the loop an authoritative green check (exit 0 = pass)<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>throwaway-tolerance</td><td><span class="kind">judged</span></td><td>2</td><td>maintainable_only</td><td class="val">+1.00</td><td class="evidence">Treat generated code as cheap and maintenance as expensive.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-functional-requirements</td><td><span class="kind">judged</span></td><td>2</td><td>prompted</td><td class="val">+0.00</td><td class="evidence">When existing users, behavior, or stored data can be affected, include one compact Delivery Considerations section covering only what applies<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-plan/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>review-before-done</td><td><span class="kind">judged</span></td><td>2</td><td>required</td><td class="val">+1.00</td><td class="evidence">Everything else is reviewed, and only through `/prp-review`, which picks reviewers by risk and gives them a detached checkout.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-issue/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-issue/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score zero">0.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Solo <em>vs</em> Team</span><button type="button" class="info" data-dialog="poles-3" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-2.9</span></div>
     <div class="bar-row">
       <span class="pole left">solo</span>
-      <div class="track"><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:14.5%"></div><div class="center"></div></div>
       <span class="pole right">team</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-3" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-3" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-3" class="modal">
@@ -493,9 +495,10 @@
     <dialog id="signals-3" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Solo vs Team</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Map dependencies and conflict risk: predict the files each workstream touches.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Do not launch until the user approves.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>team-coordination</td><td><span class="kind">judged</span></td><td>3</td><td>partial</td><td class="val">+0.00</td><td class="evidence">Keep a delivery owner addressable until merge so its context can handle corrections or conflicts.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-orchestrate/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-orchestrate/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>human-handoffs</td><td><span class="kind">judged</span></td><td>2</td><td>some</td><td class="val">+0.00</td><td class="evidence">Do not merge. The caller or outer orchestrator owns that gate.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-issue/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-issue/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>shared-work-state</td><td><span class="kind">judged</span></td><td>2</td><td>local</td><td class="val">-1.00</td><td class="evidence">Artifacts and runtime state are stored outside the repository in a per-project directory<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -524,15 +527,15 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Generalist vs Specialist</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">A collection of prompts for AI-assisted development with Claude Code.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">an agentic-engineering workflow packaged as Claude Code</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>domain-focus</td><td><span class="kind">judged</span></td><td>3</td><td>software_only</td><td class="val">+1.00</td><td class="evidence">A collection of prompts for AI-assisted development with Claude Code.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>non-code-claims</td><td><span class="kind">judged</span></td><td>2</td><td>no</td><td class="val">+1.00</td><td class="evidence">A collection of prompts for AI-assisted development with Claude Code.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+1.2</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Fresh <em>vs</em> Mature</span><button type="button" class="info" data-dialog="poles-5" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-1.2</span></div>
     <div class="bar-row">
       <span class="pole left">fresh</span>
-      <div class="track"><div class="fill pos" style="width:6%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill neg" style="width:6%"></div><div class="center"></div></div>
       <span class="pole right">mature</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-5" title="show the 5 signals behind this">
@@ -554,11 +557,11 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Fresh vs Mature</h3>
       <p class="modal-sub">5 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>419.2</td><td class="val">+0.00</td><td class="evidence">git age_days = 419.2</td><td>engine</td></tr>
-<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>140</td><td class="val">+0.00</td><td class="evidence">git commit_count = 140</td><td>engine</td></tr>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>repo-age</td><td><span class="kind">detected</span></td><td>2</td><td>478.0</td><td class="val">+0.00</td><td class="evidence">git age_days = 478.0</td><td>engine</td></tr>
+<tr><td>commit-count</td><td><span class="kind">detected</span></td><td>2</td><td>279</td><td class="val">+0.00</td><td class="evidence">git commit_count = 279</td><td>engine</td></tr>
 <tr><td>contributor-count</td><td><span class="kind">detected</span></td><td>1</td><td>3</td><td class="val">+0.00</td><td class="evidence">git contributor_count = 3</td><td>engine</td></tr>
 <tr><td>release-tags</td><td><span class="kind">detected</span></td><td>1</td><td>0</td><td class="val">-1.00</td><td class="evidence">git tag_count = 0</td><td>engine</td></tr>
-<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>stable</td><td class="val">+1.00</td><td class="evidence">I keep this surface small and stable on purpose.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+<tr><td>stated-stability</td><td><span class="kind">judged</span></td><td>2</td><td>evolving</td><td class="val">+0.00</td><td class="evidence">The previous slash-command generation is preserved in `old-prp-commands/` for reference only.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -568,9 +571,9 @@
       <div class="track"><div class="fill neg" style="width:25%"></div><div class="center"></div></div>
       <span class="pole right">opinionated</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-6" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-6" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-6" class="modal">
@@ -586,21 +589,23 @@
     <dialog id="signals-6" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Interrogative vs Opinionated</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Asks clarifying questions before assuming</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">Medium Features: Direct to Plan</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>asks-before-coding</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">-1.00</td><td class="evidence">Asks clarifying questions before assuming<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-prd/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-prd/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>path-strictness</td><td><span class="kind">judged</span></td><td>3</td><td>guided</td><td class="val">+0.00</td><td class="evidence">### Medium Features: Direct to Plan<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>decision-ownership</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Before writing the plan, state the recommended approach and its evidence. Stop and ask the user when:<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-plan/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>mandated-conventions</td><td><span class="kind">judged</span></td><td>2</td><td>project_defined</td><td class="val">-1.00</td><td class="evidence">Read `engineering.md` when the project has one, wherever it lives in the repository.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+5.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Autonomous <em>vs</em> Human-in-loop</span><button type="button" class="info" data-dialog="poles-7" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+6.2</span></div>
     <div class="bar-row">
       <span class="pole left">human in loop</span>
-      <div class="track"><div class="fill pos" style="width:25%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:31%"></div><div class="center"></div></div>
       <span class="pole right">autonomous</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-7" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-7" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-7" class="modal">
@@ -616,21 +621,22 @@
     <dialog id="signals-7" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Autonomous vs Human-in-loop</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">Fully autonomous (`--dangerously-skip-permissions`).</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">Wait for user response before proceeding.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>autopilot-mode</td><td><span class="kind">judged</span></td><td>3</td><td>yes</td><td class="val">+1.00</td><td class="evidence">`/prp-loop` | Autonomous pipeline: plan → implement with PR → review (review→fix loops until clean)<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>approval-gates</td><td><span class="kind">judged</span></td><td>3</td><td>some_phases</td><td class="val">+0.00</td><td class="evidence">**GATE**: Wait for user responses before proceeding.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-prd/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-prd/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>failure-recovery</td><td><span class="kind">judged</span></td><td>2</td><td>self_recovers</td><td class="val">+1.00</td><td class="evidence">Fix the proven cause and rerun the affected proof.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Spec-light <em>vs</em> Spec-driven</span><button type="button" class="info" data-dialog="poles-8" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.8</span></div>
     <div class="bar-row">
       <span class="pole left">spec light</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:39%"></div><div class="center"></div></div>
       <span class="pole right">spec driven</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-8" title="show the 2 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-8" title="show the 4 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 2/2 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 4/4 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-8" class="modal">
@@ -646,16 +652,18 @@
     <dialog id="signals-8" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Spec-light vs Spec-driven</h3>
-      <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Create a plan first: /prp-plan</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">**Output path**: `$PRP_DIR/prds/{kebab-case-name}.prd.md`</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">4 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>spec-required</td><td><span class="kind">judged</span></td><td>3</td><td>required</td><td class="val">+1.00</td><td class="evidence">Execute the supplied implementation plan through a validated commit and pull request<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-documents</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">**Output path**: `$PRP_DIR/prds/{kebab-case-name}.prd.md`<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-prd/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-prd/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-verification</td><td><span class="kind">judged</span></td><td>2</td><td>yes</td><td class="val">+1.00</td><td class="evidence">run every applicable command or procedure in the plan&#x27;s Validation section and prove every Acceptance criterion.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>spec-lifecycle</td><td><span class="kind">judged</span></td><td>2</td><td>written_once</td><td class="val">+0.00</td><td class="evidence">Do not move or archive the plan.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score neg">-6.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Test-optional <em>vs</em> Test-first</span><button type="button" class="info" data-dialog="poles-9" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+4.0</span></div>
     <div class="bar-row">
       <span class="pole left">test optional</span>
-      <div class="track"><div class="fill neg" style="width:30%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:20%"></div><div class="center"></div></div>
       <span class="pole right">test first</span>
     </div>
     <button type="button" class="cov" data-dialog="signals-9" title="show the 2 signals behind this">
@@ -677,20 +685,20 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Test-optional vs Test-first</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>no</td><td class="val">-1.00</td><td class="evidence">Validation loops catch mistakes early. Run checks after every change.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>present</td><td class="val">+0.00</td><td class="evidence">You MUST write or update tests for new code.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>tests-first</td><td><span class="kind">judged</span></td><td>3</td><td>encouraged</td><td class="val">+0.00</td><td class="evidence">For bug fixes, add a regression test that fails before the fix and passes after it when practical.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>testing-phase</td><td><span class="kind">judged</span></td><td>2</td><td>first_class</td><td class="val">+1.00</td><td class="evidence">After each coherent task, ask: “How do I prove this actually works?”<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-implement/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-implement/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
-    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+10.0</span></div>
+    <div class="axis-head"><span class="ahl"><span class="axis-title">Single-agent <em>vs</em> Multi-agent</span><button type="button" class="info" data-dialog="poles-10" aria-label="what the poles mean" title="what the poles mean">i</button></span><span class="score pos">+7.1</span></div>
     <div class="bar-row">
       <span class="pole left">single agent</span>
-      <div class="track"><div class="fill pos" style="width:50%"></div><div class="center"></div></div>
+      <div class="track"><div class="fill pos" style="width:35.5%"></div><div class="center"></div></div>
       <span class="pole right">multi agent</span>
     </div>
-    <button type="button" class="cov" data-dialog="signals-10" title="show the 1 signals behind this">
+    <button type="button" class="cov" data-dialog="signals-10" title="show the 3 signals behind this">
       <div class="cov-meter"><div class="cov-fill cov-good" style="width:100%"></div><div class="cov-floor"></div></div>
-      <span class="cov-text">detected 0/0 · judged 1/1 · 100% evidence</span>
+      <span class="cov-text">detected 0/0 · judged 3/3 · 100% evidence</span>
       <span class="cov-more">signals &rsaquo;</span>
     </button>
     <dialog id="poles-10" class="modal">
@@ -706,8 +714,10 @@
     <dialog id="signals-10" class="modal modal-wide">
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Single-agent vs Multi-agent</h3>
-      <p class="modal-sub">1 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">multi-agent specialist fan-out (comments, tests, errors, types, code, docs, simplify)</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <p class="modal-sub">3 signals behind this position</p>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>specialist-agents</td><td><span class="kind">judged</span></td><td>3</td><td>many</td><td class="val">+1.00</td><td class="evidence">Coordinate an evidence-based PR review. Reviewer agents are the only path for judging the code<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-review/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-review/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>separate-contexts</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Preserve accumulated reasoning across that implementation lifecycle; use fresh contexts only where independence is the feature—review.<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-issue/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-issue/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>parallel-agents</td><td><span class="kind">judged</span></td><td>2</td><td>default</td><td class="val">+1.00</td><td class="evidence">launch these agents in parallel when capacity permits, or sequentially when it does not. Every listed role remains required<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/skills/prp-plan/SKILL.md" target="_blank" rel="noopener">plugins/prp-core/skills/prp-plan/SKILL.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -736,8 +746,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Prescriptive vs Composable</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Compose skills by name only.</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">ONLY AFTER Phase 2 is complete</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>pipeline-or-parts</td><td><span class="kind">judged</span></td><td>3</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">Most are both **user-invocable** (type `/prp-core:&lt;name&gt;`) and **agent-invocable**<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/plugins/prp-core/README.md" target="_blank" rel="noopener">plugins/prp-core/README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>step-order</td><td><span class="kind">judged</span></td><td>2</td><td>mixed</td><td class="val">+0.00</td><td class="evidence">### Medium Features: Direct to Plan<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
   <section class="axis">
@@ -766,8 +776,8 @@
       <form method="dialog"><button class="modal-x" aria-label="Close">&times;</button></form>
       <h3 class="modal-title">Lightweight vs Heavyweight</h3>
       <p class="modal-sub">2 signals behind this position</p>
-      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">PRD + curated codebase intelligence + agent/runbook</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr>
-<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">cp -r /path/to/PRPs-agentic-eng/.claude/skills/prp-plan .claude/skills/</td><td>agentic-atlas:corpus-refresh-reanswer</td></tr></tbody></table></div>
+      <div class="table-scroll"><table><thead><tr><th>id</th><th>kind</th><th>wt</th><th>answer</th><th>value</th><th>evidence</th><th>source</th></tr></thead><tbody><tr><td>learning-curve</td><td><span class="kind">judged</span></td><td>3</td><td>moderate</td><td class="val">+0.00</td><td class="evidence">**Product Requirement Prompt (PRP)** = PRD + curated codebase intelligence + agent/runbook<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr>
+<tr><td>install-footprint</td><td><span class="kind">judged</span></td><td>2</td><td>tiny</td><td class="val">-1.00</td><td class="evidence">/plugin install prp-core@prp-marketplace<span class="ev-path"><a href="https://github.com/Wirasm/PRPs-agentic-eng/blob/435292597e7b04f64f8f275da9d2c985c4251281/README.md" target="_blank" rel="noopener">README.md</a></span></td><td>agentic-atlas:claude-opus-5-5</td></tr></tbody></table></div>
     </dialog>
   </section>
     </div>
