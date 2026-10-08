@@ -95,6 +95,8 @@ The plugin ships three skills. Install from [agentic-marketplace](https://github
 /plugin install agentic-atlas@agentic-marketplace
 ```
 
+Then turn on auto-update: `/plugin` → **Marketplaces** → **agentic-marketplace** → **Enable auto-update**. Claude Code leaves it off for marketplaces outside Anthropic's, so without it you keep the version you first installed.
+
 </details>
 
 <details>
