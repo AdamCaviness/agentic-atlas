@@ -267,7 +267,7 @@ Write a single JSON file (to a temp path) in exactly this shape:
 ```
 
 - `source` is provenance, not decoration: use `agentic-atlas:` followed by the identifier
-  of the model you are running as (for example `agentic-atlas:claude-opus-4-8`). The engine
+  of the model you are running as, as that model reports it (for example `agentic-atlas:<model-id>`). The engine
   stamps it on the profile so the answers are attributable and reviewable.
 - Include one entry per question you can answer. Omitting a question simply leaves that
   indicator unresolved and lowers its axis coverage; it is not an error.

@@ -53,7 +53,7 @@ This file is the contract the skill targets. It is stable engine surface.
 
    ```json
    {
-     "source": "agentic-atlas:claude-opus-4-8",
+     "source": "agentic-atlas:<model-id>",
      "answers": {
        "spec-required": {"answer": "none", "evidence": "a verbatim quote from the target", "path": "docs/workflow.md"}
      }
